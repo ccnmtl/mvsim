@@ -28,11 +28,10 @@ urlpatterns = patterns(
     url(r'^games/(?P<game_id>\d+)/graph/$', 'main.views.graph'),
     
     url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state'),
-    
-    
+        
     (r'^admin/', include(admin.site.urls)),
     (r'^munin/',include('munin.urls')),
-    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
     (r'^uploads/(?P<path>.*)$','django.views.static.serve',{'document_root' : settings.MEDIA_ROOT}),
     ) + staticmedia.serve()
 
