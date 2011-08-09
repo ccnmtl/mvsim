@@ -1,0 +1,220 @@
+{% load mvsim_tags %}
+<div id="top-status"><!-- Begin the status bar at the top of map -->
+  <ul>
+    <li id="family-finance">
+      Family fund:<br /><strong>CFA <span id="cash">{{state.cash|format_float}}</span>
+    </strong></li>
+    <li id="small-business">Small Business Capital:<br /><strong>CFA
+	<span id="existing_business_capital">{{state.small_business_capital|format_float}}
+    </span></strong></li>
+    <li id="village-finance">Village fund:<br />
+      <strong>
+	CFA <span id="village_fund_amount">{{state.fund|format_float}}</span>
+    </strong></li>
+  </ul>
+</div><!-- End the status bar at the top of map -->
+
+
+<div id="graphic" class="family-graphic"> 
+  <div id="mapdropdown" 
+       style="display:none; overflow:hidden; height: 200px; width: 603px;"><!-- Begin Panel View -->
+    <div id="dropdown-family">
+      <h3>Family</h3>
+      {% if state.subsistence_met %}
+      <p id="sbs_goodnews">Subsistence was met.</p>
+      {% else %}
+      <p id="sbs_alert">Subsistence wasn't met!</p>
+      {% endif %}
+      
+      {% if n_sick_people %}
+      <p class="malaria_f_alert">{{sick_people_string}}</p>
+      {% endif %}
+
+      {% for p in people %}
+      {% if p.pregnant %}
+      <p class="pregnant_f_alert">{{p.name}} is Pregnant</p>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <div id="dropdown-village">
+      <h3>Village</h3>
+      <div id="left_column">
+	<p>Population: {{state.village_population|format_int}}</p>
+
+	{% if state.epidemic %}
+	<hr class="dotted" />
+	<div class="state_block">
+	  <p id="malaria_alert">Malaria epidemic!</p>
+	  {% if state.malaria_deaths %}
+	  <p class="indent">{{state.malaria_deaths|format_int}} people have died.</p>
+	  {% endif %}
+	  {% if percent_infected %}
+	  <p class="indent">{{percent_infected|format_float}}% of population is infected.</p>
+	  {% endif %}
+	</div>
+	{% endif %}
+
+	<hr class="dotted" />
+	{% if state.drought %}
+	<p id="drought_alert">There is drought</p>
+	<p class="indent">Rainfall: {{state.precipitation|format_float}} mm</p>
+	{% else %}
+	<p>Rainfall: {{state.precipitation|format_float}} mm</p>
+	{% endif %}
+      </div>
+
+      <div id="right_column">
+      </div>
+	      
+    </div>
+	    
+  </div><!-- End Panel View -->
+  <div id="pv-toggle"><a href="javascript:;" 
+			 onclick="toggleSlide('mapdropdown');" id="slidearrow"> </a>
+  </div>
+
+  <div class="foreststock" 
+       id="{{foreststock|or:'completely_full'}}"></div>
+  <div class="fishstock"
+       id="{{fishstock|or:'completely_full'}}"></div>
+
+  <div class="sign-stats" id="map-sign-stats">
+    <span id="population">{{state.village_population|format_int}}</span>
+    <span id="rainfall">{{state.precipitation|format_float}} mm</span>
+    {% if state.epidemic %}
+    <span id="malaria-alert"
+	  class="state_block">Malaria Alert!</span>
+    {% endif %}
+  </div>
+ 	  
+  {% if state.clinic %}
+  <div class="map-signs" id="map-signs-clinic"></div>
+  <div id="map-clinic"></div>
+  {% else %}
+  <div class="map-signs" id="map-signs-no-clinic"></div>
+  {% endif %}
+
+  {% if state.road %}
+  <div id="improvement-road"></div>
+  {% endif %}
+  {% if state.electricity %}
+  <div id="improvement-generator"></div>
+  {% endif %}
+  {% if state.boat %}
+  <div id="improvement-boat"></div>
+  {% endif %}
+  {% if "dragnet" in state.owned_items %}
+  <div id="improvement-dragnet"></div>
+  {% endif %}
+  {% if state.irrigation %}
+  <div id="improvement-irrigation"></div>
+  {% endif %}
+  {% if state.meals %}
+  <div id="improvement-meals"></div>
+  {% endif %}
+  {% if state.sanitation %}
+  <div id="improvement-sanitation"></div>
+  {% endif %}
+  {% if state.water_pump %}
+  <div id="improvement-water-pump"></div>
+  {% endif %}
+
+  <div id="family-view">
+    {% if state.irrigation %}
+    <div id="improvement-irrigation-family"></div>
+    {% endif %}
+
+    {% for crop in state.crops %}
+    {% with forloop.counter0 as i %}
+    <div>
+      <div id="crop-{{i}}" class="crop-{{crop}}"></div>
+      <div id="fertilizer-{{i}}" class="fertilizer"></div>
+      <div id="seeds-{{i}}" class="seeds"></div>
+    </div>
+    {% endwith %}
+    {% endfor %}
+
+    <div class="effort" id="effort-farming-graphic">
+      <span id="effort-farming-inner">
+	{{state.effort_farming}}
+      </span>h
+    </div>
+    <div class="effort" id="effort-fishing-graphic">
+      <span id="effort-fishing-inner">
+	{{state.effort_fishing}}</span>h
+    </div>
+    <div class="effort" id="effort-fuel-wood-graphic">
+      <span id="effort-fuel-wood-inner">
+	{{state.effort_fuel_wood}}</span>h
+    </div>
+    <div class="effort" id="effort-water-graphic">
+      <span id="effort-water-inner">
+	{{state.effort_water}}</span>h
+    </div>
+    <div class="effort" id="effort-small-business-graphic">
+      <span id="effort-small-business-inner">{{state.effort_small_business}}</span>h
+    </div>
+    
+    {% if num_bednets|gt:0 %}
+    <div id="bednet-map">{{num_bednets}}</div>
+    {% endif %}
+
+    {% if state.stove %}
+    <div id="propane-map"><small>{{state.amount_propane|format_float}} kg</small></div>
+    {% endif %}
+	  
+    {% if state.improved_stove and not state.stove %}
+    <div id="improved-stove-map"></div>
+    {% endif %}
+
+    {% if state.stove %}
+    <div id="stove-map"></div>
+    {% endif %}
+ 
+    {% for person in people %}
+    {% with forloop.counter0 as i %}
+    <div>
+      <div id="person-{{i}}" class="person-map {{person.img}}">
+        <div class="info {{person.gender.lower}}-info">
+   	  <span class="name">{{person.name}}</span>
+	  <span class="health"><small><span id="health-{{person.name}}-graphic">
+		{{person.health|format_int}}</span></small>
+	  </span>
+	  <span class="effort"><span id="effort-{{person.name}}-graphic" 
+				     class="personal_effort">
+	      {{person.maximum_effort}}</span>h
+	  </span>
+	</div>
+      </div>
+    </div>
+    {% endwith %}
+    {% endfor %}
+    
+  </div>  <!-- end div family_view -->
+  
+  <!-- tax rate and fish/wood limits show only on village view -->
+  <div id="village-view" style="display:none;">
+    <div id="map-tax-rate">{{state.tax_rate|format_float}}%</div>
+    <div id="map-fishing-limit">
+      {% if state.fishing_limit|gt:0 %}
+      <span py:if="state.fishing_limit != 0">
+        {{state.fishing_limit}}<br /><small>fish/family</small>
+      </span>
+      {% else %}
+      <span>(none)</span>
+      {% endif %}
+    </div>
+
+    <div id="map-wood-limit">
+      {% if state.wood_limit|gt:0 %}
+      <span>
+        {{state.wood_limit}}<br /><small>tons/family</small>
+      </span>
+      {% else %}
+      <span>(none)</span>
+      {% endif %}
+    </div>
+  </div>
+  
+</div> <!-- end div graphic -->

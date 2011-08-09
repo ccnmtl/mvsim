@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="savedgames">
+  <h2 class="mygames">My saved games: {{section}}</h2>
+  
+  {% if games.count == 0 %}
+  <div style="margin: 0 0 20px 0">
+    You have no games saved.
+    To begin your game in the Millennium Village, click "Start new game."
+  </div>
+  {% endif %}
+  
+  <div id="newgameopt">
+    <form name="start-new-game" action="{% url new_game %}" method="post">
+      {% csrf_token %}
+      <div id="adminoptions">
+	<h3>Game options:</h3>
+	<div id="configselect">
+	  Starting State: <select name="configuration_id">
+	    {% for state in section.starting_states.all %}
+	    <option value="{{state.pk}}">{{state}}</option>
+	    {% endfor %}
+	  </select>
+	</div>
+		
+	{% comment %}
+	<div py:if="tg.user.is_admin()" id="seedselect">
+	  Seed: <input type="text" name="seed" />
+	</div>
+	{% endcomment %}
+
+      </div>
+	
+      <div style="float: left;">
+	<input type="submit" value="Start new game"
+	       class="regButton" style="font-weight: bold;" />
+      </div>
+      <div style="clear:both;"></div>
+    </form>
+  </div>
+  <div style="clear:both;"></div>
+  
+  <table border="0" cellspacing="0" cellpadding="0" 
+	 class="striped" onclick="sortColumn(event)">
+    <thead>
+      <tr>
+	<th class="navOut" id="name">Name</th>
+	<th class="navOut" id="date_s">Date started</th>
+	<th class="navOut" id="date_e">Date ended</th>
+	<th class="navOut" id="status">Status</th>
+	<th class="navOut Number" id="score">Score</th>
+	{% comment %}
+	{% if request.user.is_staff %}
+	<th class="navOut Number" id="seed">Seed</th>
+	<th class="navOut" id="config">Configuration</th>
+	{% endif %}
+
+	<th class="navOut" id="actions"></th>
+	<th class="navOut" id="delete"></th>
+	{% endcomment %}
+      </tr>
+    </thead>
+      
+    <tbody>
+      {% for game in games %}
+      <tr style="vertical-align: top;" {% if forloop.even %}class="even"{% else %}class="odd"{% endif %}>
+	<td>
+	  {{game}}
+	</td>
+	<td>{{game.created}}</td>
+	<td>
+	  {% if game.in_progress %}
+	  --
+	  {% else %}
+	  {{game.modified}}
+	  {% endif %}
+	</td>
+	<td>{{game.status}}</td>
+	<td>{{game.score}}</td>
+	{% comment %}
+	<td py:if="tg.user.is_admin()">${game.seed}</td>
+	<td py:if="tg.user.is_admin()">${game.configuration.name}</td>
+	<td py:if="tg.user.is_admin()"><span py:if="game.saved_state is not None">${game.saved_state.name}</span><span py:if="game.saved_state is None">(default)</span></td>
+	<td>
+	  <a py:if="game.status == 'inprogress'" href="/games/${game.id}/" class="regButtonblock">Resume</a>
+	  <a href="/games/${game.id}/clone" class="regButtonblock">Clone</a>
+	  <a href="/games/${game.id}/history" class="regButtonblock">History</a>
+	  <a href="/games/${game.id}/graph" class="regButtonblock">Graphs</a>
+	  <a py:if="tg.user.is_admin()" href="/games/${game.id}/csv" class="regButtonblock">CSV</a>
+	</td>
+	<td style="text-align: center;"><a href="/games/${game.id}/delete" onclick="return confirm('are you sure you want to delete this game?');" class="regButton">Delete</a></td>
+	{% endcomment %}
+	</tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <h1>High Scores -- coming soon!</h1>
+
+  </div>  
+{% endblock %}
