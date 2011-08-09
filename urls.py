@@ -14,24 +14,25 @@ if hasattr(settings,'WIND_BASE'):
     auth_urls = (r'^accounts/',include('djangowind.urls'))
     logout_page = (r'^accounts/logout/$','djangowind.views.logout', {'next_page': redirect_after_logout})
 
-urlpatterns = patterns('',
-                       auth_urls,
-                       logout_page,
+urlpatterns = patterns(
+    '',
+    auth_urls,
+    logout_page,
 
-                       url(r'^$', 'main.views.home', name='home'),
-                       url(r'^games/$', 'main.views.games_index', name='games_index'),
-                       url(r'^games/new/$', 'main.views.games_index', name='new_game'),
-                       
-                       url(r'^games/(?P<game_id>\d+)/$', 'main.views.play', name='game_show'),
-                       url(r'^games/(?P<game_id>\d+)/turn/$', 'main.views.submit_turn'),
-                       url(r'^games/(?P<game_id>\d+)/graph/$', 'main.views.graph'),
-                       
-                       url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state'),
-
-
-                       (r'^admin/', include(admin.site.urls)),
-                       (r'^munin/',include('munin.urls')),
-                       (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
-                       (r'^uploads/(?P<path>.*)$','django.views.static.serve',{'document_root' : settings.MEDIA_ROOT}),
-) + staticmedia.serve()
+    url(r'^$', 'main.views.home', name='home'),
+    url(r'^games/$', 'main.views.games_index', name='games_index'),
+    url(r'^games/new/$', 'main.views.games_index', name='new_game'),
+    
+    url(r'^games/(?P<game_id>\d+)/$', 'main.views.play', name='game_show'),
+    url(r'^games/(?P<game_id>\d+)/turn/$', 'main.views.submit_turn'),
+    url(r'^games/(?P<game_id>\d+)/graph/$', 'main.views.graph'),
+    
+    url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state'),
+    
+    
+    (r'^admin/', include(admin.site.urls)),
+    (r'^munin/',include('munin.urls')),
+    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
+    (r'^uploads/(?P<path>.*)$','django.views.static.serve',{'document_root' : settings.MEDIA_ROOT}),
+    ) + staticmedia.serve()
 
