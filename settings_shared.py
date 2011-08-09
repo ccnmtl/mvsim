@@ -40,6 +40,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'courseaffils.middleware.CourseManagerMiddleware',
+    'djangohelpers.middleware.AuthRequirementMiddleware',
 )
 
 ROOT_URLCONF = 'mvsim.urls'
@@ -69,6 +71,9 @@ INSTALLED_APPS = (
     'typogrify',
     'sentry.client',
     'munin',
+    'djangowind',
+    'courseaffils',
+    'main',
 )
 
 import logging
