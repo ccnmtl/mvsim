@@ -1,0 +1,9 @@
+<form id="mg_layers">
+  <ul class="layerstab">
+    <li jugl:repeat="layer layers">
+      <input type="checkbox" 
+	     jugl:attributes="name layer.id" />
+      <a jugl:attributes="href '#'+layer.id" jugl:content="layer.text()"></a>
+    </li>
+  </ul><!-- layerstab -->
+</form>

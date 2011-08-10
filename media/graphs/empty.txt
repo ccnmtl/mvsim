@@ -1,0 +1,3 @@
+Silly, but we need a file existing in order for git to care about the directory.
+
+And the directory must exist for deployments to work.

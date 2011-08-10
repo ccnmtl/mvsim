@@ -1,0 +1,7 @@
+<ul id="legend">
+  <li jugl:repeat="variable variables"
+      jugl:attributes="style 'color: ' + variable.color()">
+    <a jugl:attributes="href '#' + variable.id"
+       jugl:content="variable.text()"></a>
+  </li>
+</ul><!-- id="legend" -->

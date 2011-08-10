@@ -97,7 +97,7 @@ SERVER_EMAIL = "mvsim@ccnmtl.columbia.edu"
 
 # put any static media here to override app served static media
 STATICMEDIA_MOUNTS = (
-    ('/sitemedia', 'sitemedia'),
+    ('/static', 'sitemedia'),
 )
 
 # WIND settings

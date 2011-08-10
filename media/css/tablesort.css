@@ -1,0 +1,223 @@
+td /* general color of td, also the even stripes (background stripes) of the zebra table */
+{
+	padding: 6px 5px !important;
+	border-left: 1px solid #999 !important;
+	border-bottom: 0;
+	white-space: pre;
+	font: normal 12px arial, helvetica, verdana, sans-serif;
+	background-color: #fff;
+	text-align: left;
+}
+
+tbody th
+{
+	background-color: #fff;
+	text-align: left;
+}
+
+/* GENERAL RULES FOR SORTABLE TABLE */
+
+thead th, thead td
+{
+	border-left: 1px solid #999;
+	border-bottom: none !important;
+	font: bold 12px arial, helvetica, verdana, sans-serif;
+	background-color: #F1F1F1;
+	vertical-align: middle;
+	text-align: left;
+}
+
+thead th
+{
+	cursor: pointer;
+	border-bottom: 1px solid #666666;
+}
+
+thead td { cursor: auto; }
+
+th.navOut
+{
+	cursor: hand;
+	font-weight: bold;
+}
+
+th.navOut
+{
+	cursor: hand;
+	font-weight: bold;
+}
+
+.navOut
+{
+	border-left: 1px solid #999;
+	background: #F1F1F1 url(/static/images/midcorners.jpg) left bottom repeat-x;
+}
+
+th.navOut:hover
+{
+	background-color: #F0EEDC;
+	color: #000;
+	cursor: hand;
+}
+
+thead .arrow
+{
+	margin-left: 10px;
+	padding: 0;
+	overflow: hidden;
+}
+
+th.TableSortSelected { background: #F1F1F1 url(/static/images/midcorners_brown.jpg) left bottom repeat-x; color: #000 !important; }
+
+th.TableSortUnselected { background: #F1F1F1 url(/static/images/midcorners.jpg) left bottom repeat-x; }
+
+
+
+/* FOR STRIPED SORTABLE TABLE */
+
+.striped
+{
+	margin: 0px;
+	padding: 0px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid solid solid none;
+	border-color: #999;
+}
+
+tbody tr.odd th /* color of odd rows of TH, if used */
+{
+	background-color: #EEF4FE;
+}
+
+.odd td /* color of odd rows of TD, if used */
+{
+	background-color: #EEF4FE;
+}
+
+.striped th
+{
+	
+}
+
+/* FOR THE DEFAULT SORTABLE TABLE */
+
+.default
+{
+	margin: 10px 0px 10px 0px;
+	padding: 0px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid solid solid none;
+	border-color: #999;
+	border-bottom: 0;
+}
+
+.default td
+{
+	border-bottom: 1px solid #999;
+	background-color: #fff;
+}
+
+.default thead th, .default thead td
+{
+	font: bold 12px arial, helvetica, verdana, sans-serif;
+	color: #fff;
+	background-color: #339;
+}
+
+.default thead th
+{
+	cursor: pointer;
+	border-bottom: 1px solid #666666;
+}
+
+.default thead td { cursor: auto; }
+
+.default th.navOut
+{
+	cursor: hand;
+	font-weight: bold;
+}
+
+.default .navOut
+{
+	border-left: 1px solid #999;
+	background-color: #339;
+}
+
+.default th.navOut:hover
+{
+	background-color: #99C;
+	color: #000;
+	cursor: hand;
+}
+
+.default thead .arrow
+{
+	margin-left: 10px;
+	padding: 0;
+	overflow: hidden;
+}
+
+.default th.TableSortSelected
+{
+	background-color: #ccf;
+	color: #666;
+}
+.default th.TableSortUnselected { background-color: #339; }
+
+
+
+th#date_s
+{
+	width: 135px;
+	white-space: nowrap;
+}
+
+th#date_e
+{
+	width: 135px;
+	white-space: nowrap;
+}
+
+th#status
+{
+	width: 75px;
+	white-space: nowrap;
+}
+
+th#score
+{
+	width: 90px;
+	white-space: nowrap;
+}
+
+th#seed
+{
+	width: 110px;
+	white-space: nowrap;
+}
+
+th#config
+{
+	width: 110px;
+	white-space: nowrap;
+}
+
+th#state
+{
+   width: 110px;
+   white-space: nowrap;
+}
+
+th#delete
+{
+	width: 60px;
+	cursor: default !important;
+	text-align: center;
+}
+
+th#actions
+{
+	width: 130px;
+	cursor: default !important;
+}

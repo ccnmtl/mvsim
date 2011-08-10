@@ -1,0 +1,16 @@
+<form>
+  <ul class="layerstab">
+    <li jugl:repeat="layer layers">
+      <a jugl:content="layer.text()"
+	 jugl:attributes="href '#'+layer.id"
+         jugl:condition="layer.id != highlight"
+	 >
+      </a>
+      <a jugl:content="layer.text()"
+	 jugl:attributes="href '#'+layer.id; class 'active'"
+         jugl:condition="layer.id == highlight"
+	 >
+      </a>
+    </li>
+  </ul><!-- layerstab -->
+</form>
