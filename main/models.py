@@ -81,7 +81,6 @@ class Variable(models.Model):
     def schema(self, required=True):
         type = schema_node_factories[self.type]
         kw = dict()
-        print self.name
 
         info = (self.extra_type_information
                 and json.loads(self.extra_type_information)
