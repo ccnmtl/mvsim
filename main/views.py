@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect as redirect, HttpResponse
 from djangohelpers.lib import allow_http, rendered_with
 from main.models import Game, State, CourseSection, Configuration, UserInput
+from engine.logic import get_notifications
 from engine import logic
 from engine import display_logic
 import deform
@@ -56,7 +57,15 @@ def show_turn(request, game_id):
     display_vars = display_logic.add_extra_seasonreport_context(display_vars)
 
     display_vars['user'] = request.user
-    display_vars['turn'] = dict(number=game.state_set.count())
+
+    turn_number = game.state_set.count()
+    display_vars['turn'] = dict(number=turn_number)
+
+    if turn_number > 1:
+        previous_state = game.deserialize(game.previous_state())
+        display_vars['notifications'] = get_notifications(
+            previous_state['variables'], state['variables'], state['coefficients'])
+
     display_vars['FIXME'] = ''
     return display_vars
 

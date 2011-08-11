@@ -178,6 +178,9 @@ class Game(models.Model):
     def current_state(self):
         return self.state_set.latest("created")
 
+    def previous_state(self):
+        return self.state_set.order_by("-created")[1]
+
     def deserialize(self, state):
         schema = self.configuration.schema()
         return schema.deserialize(state.loads())

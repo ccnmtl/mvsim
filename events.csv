@@ -1,0 +1,38 @@
+Events,Message,Impact Color,Theme,Recurring/Onetime,Before Condition,After Condition,Scope,CSS Class,notes
+Road Built,<b>A road to the town has been paved.</b>  Transport costs have decreased.,Green,,,road == False,road == True,village,,use improvement icon
+Grid Built,<b>The electric grid has been extended to reach the village.</b><div>The clinic and small businesses will benefit greatly.</div>,Green,,,electricity == False,electricity == True,village,,use improvement icon
+Latrines Built,<b>Latrines have been built.</b><div>Water-borne diseases should reduce in frequency.</div>,Green,,,sanitation == False,sanitation == True,village,,use improvement icon
+Water Pump Built,<b>A water pump has been built in the middle of the village.</b><div>Drinking water no longer needs to be carried in from outside the village.</div>,Green,,,water_pump == False,water_pump == True,village,,use improvement icon
+Irrigation Built,<b>Irrigation channels have been built to bring surface water to villagers' farms.</b><div>Drip irrigation on farms will make more efficient use of water.</div>,Green,,,irrigation == False,irrigation == True,village,,use improvement icon
+Clinic Built,<b>A clinic has been built.</b>,Green,,,clinic == False,clinic == True,village,,use improvement icon
+School Meals instituted,"<b>School meals are now offered in school, reducing burdens on parents.</b>",Green,,,meals == False,meals == True,village,,use improvement icon
+Fishery in danger,<b>Warning: Fishermen are saying that it's getting harder to find fish.</b><div>The fish stock is likely getting small.</div>,Orange,,,,fish_stock < {{coeffs.fish_k*coeffs.fish_stock_warn_threshold}},village,fish_report,"what number is ""in danger""?"
+Fish stock is depleted,"<b>Sadly, the lake has been completely fished out.</b>",Red,,,fish_stock > 0,fish_stock <= 0,village,fish_report
+Fishing Quota changed,<b>The fishing quota has been changed to {{int(after.fishing_limit)}} fish per family.</b>,Yellow,,,,fishing_limit != before.fishing_limit,village,fish_report,template
+Forests in danger,<b>Warning: Fuelwood collection is taking longer and longer as wood becomes more scarce.</b>,Orange,,,,wood_stock < {{coeffs.wood_k*coeffs.wood_stock_warn_threshold}},village,wood_report,"what number is ""in danger""?"
+Forests are gone,"<b>Sadly, the nearby areas have all been completely deforested.</b>  There is no wood for the villagers to collect.",Red,,,wood_stock > 0,wood_stock <= 0,village,wood_report
+Fuelwood Quota changed,<b>The fuelwood quota has been changed to {{format_float(after.wood_limit)}} tons per family.</b>,Yellow,,,,wood_limit != before.wood_limit,village,wood_report,template
+Tax Rate Changed,<b>The tax rate has been changed to {{format_float(after.tax_rate)}} %.</b>,Yellow,,,,tax_rate != before.tax_rate,village,,template
+Loan taken out,<b>Your family has taken a loan for {{format_float(after.microfinance_borrow)}} at {{format_float(after.microfinance_interest_rate)}} % interest.</b>,Yellow,,,microfinance_borrow == 0,microfinance_borrow > 0,family,,template
+Loan payment,"<b>Interest on your loan was XXX.</b><div>You have paid XXX, leaving XXX is outstanding.</div>",Yellow,,,,,family,,template
+Loan payment taken out of sm. bus. capital,"<b>Interest on your loan was XXX.</b><div>You did not have enough to pay your installment, so the remainder has been taken from your small business capital.</div><div>XXX of the loan is outstanding.</div>",Orange,,,,,family,,template
+Loan payment defaulted,<b>You have defaulted on a loan payment</b>,Red,,,,,family,,what does it mean to default?
+Loan repaid,"<b>Congratulations, you have completely repaid your loan to the bank.</b>",Green,,,microfinance_balance > 0,microfinance_balance <= 0,family
+Small Bus. investment,<b>You have invested {{format_float(after.small_business_investment)}} in your small business.</b>,Green,,,,small_business_investment > 0,family,,template
+Bed Net Purchased,<b>You have purchased a 5-year insecticide-treated bed net to protect two family members.</b>,Green,,,,,family,,bednet_ages is annoying
+Improved stove purchased,"<b>You have purchased an improved wood stove, which uses less fuelwood and emits less particulate matter.</b>",Green,,,improved_stove == False,improved_stove == True,family
+Propane stove purchased,<b>You have purchased a propane stove.  </b>,Green,,,stove == False,stove == True,family
+Propane warning,<b>Warning: You are running low on propane.</b>,Orange,,,,,family,,"what is ""low""?"
+Fertilizer purchased,<b>You have purchased fertilizer to improve farming yields.</b>,Green,,,fertilizer == False,fertilizer == True,family
+Seeds purchased,<b>You have purchased high-yield seeds to improve maize yields.</b>,Green,,,high_yield_seeds == False,high_yield_seeds == True,family
+Boat purchased,<b>You have purchased a boat to increase fishing catch.</b>,Green,,,boat == False,boat == True,family
+Dragnet purchased,<b>You have purchased a dragnet to increase fishing catch.</b>,Green,,,dragnet == False,dragnet == True,family
+Person Sent to Doctor,<b>XXX was sent to the doctor.</b>,Orange,,,,,family,,doctor_visits is a list
+Cotton sent to market (success),<b>Your cotton was sent to the town market for a profit of {{format_float(after.cotton_income - after.expenditure)}}.</b>,Green,,,,"cotton_income > 0, cotton_income >= state.expenditure",family,cotton_report,expenditure vs cotton_income
+Cotton sent to market (failure),"<b>Your cotton was sent to the town market, but you made a loss of {{format_float(after.expenditure - after.cotton_income)}}.</b>",Orange,,,,"cotton_income > 0, cotton_income < state.expenditure",family,cotton_report,expenditure vs cotton_income
+Cotton rotted,"<b>Since you could not afford transport costs, your cotton was not sent to the town market and was left to rot.</b>",Red,,,,"amount_cotton > 0, tons_to_market == 0, cotton_income == 0",family,cotton_report
+Subsistence was met,"<b>You have enough food to meet subsistence requirements, and the extra food was sold.</b>",Green,,,,subsistence_met == True,family
+Subsistence not met (no effort towards subsistence),<b>You opted to not grow food or to fish.</b>  Do not forget to buy food!,Yellow,,,,"subsistence_met == False, effort_fishing == 0, crops hasnot 'Maize'",family
+Small Bus. capital low,<b>Warning: your small business requires capital in order to be productive.</b>,Yellow,,,,,family,,"what number is ""low""?"
+Child born,<b>Congratulations!  You have a beautiful baby XXX named XXX.</b>,Green,,,,,family,baby_birth
+pregnancy,<b>Congratulations! Fatou is pregnant.</b><div>Note that she will have to work fewer hours during pregnancy and after childbirth.</div>,Green,,,,fatou_pregnant == True,family,baby_birth
