@@ -73,8 +73,8 @@ class Event(object):
         return True
 
 import csv
-def get_events():
-    fp = open("events.csv")
+def get_events(events_csv=None):
+    fp = open(events_csv or "events.csv")
     events = []
     reader = csv.reader(fp)
     for line in reader:

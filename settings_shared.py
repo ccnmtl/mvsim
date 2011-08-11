@@ -119,3 +119,4 @@ COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
 from courseaffils.columbia import CourseStringMapper
 COURSEAFFILS_COURSESTRING_MAPPER = CourseStringMapper
 
+MVSIM_EVENTS_CSV = os.path.join(os.path.dirname(__file__), "events.csv"),

@@ -7,13 +7,13 @@ import fuel
 
 from event import get_events
 
-def get_notifications(before, after, coeffs):
+def get_notifications(before, after, coeffs, events_csv=None):
     """
     Takes two states, before and after, and static coeffs
 
     Returns events that should be reported
     """
-    all_events = get_events()
+    all_events = get_events(events_csv)
     true_events = []
     
     for event in all_events:

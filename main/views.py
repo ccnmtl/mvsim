@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponseRedirect as redirect, HttpResponse
 from djangohelpers.lib import allow_http, rendered_with
 from main.models import Game, State, CourseSection, Configuration, UserInput
@@ -64,7 +65,8 @@ def show_turn(request, game_id):
     if turn_number > 1:
         previous_state = game.deserialize(game.previous_state())
         display_vars['notifications'] = get_notifications(
-            previous_state['variables'], state['variables'], state['coefficients'])
+            previous_state['variables'], state['variables'], state['coefficients'],
+            events_csv=settings.MVSIM_EVENTS_CSV)
 
     display_vars['FIXME'] = ''
     return display_vars
