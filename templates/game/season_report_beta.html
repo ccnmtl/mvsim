@@ -1,0 +1,307 @@
+{% load mvsim_tags %}
+      <div id="beta">
+	
+	<h2><div><div id="inner_h2">Results From Last Season</div></div></h2>
+	
+	<div id="beta_one">
+	  
+	  <div class="sectionbox">
+	    <h2>Food</h2>
+	    
+	    <div class="neutral">
+	      <table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		  <th>&nbsp;</th>
+		  <th class="right_border">Harvest:</th>
+		  <th>Cal./day:</th>
+		</tr>
+		<tr>
+		  <th>Maize:</th>
+		  <td class="right_border">
+		    {{state.amount_maize|format_float}} tons
+		  </td>
+		  <td>{{state.maize_cals|div:180.0|format_float}}</td>
+		</tr>
+		<tr>
+		  <th>Fish:</th>
+		  <td class="right_border">
+		    {{state.amount_fish|format_float}} fish
+		  </td>
+		  <td>
+		    {{state.fish_cals|div:180.0|format_float}}
+		  </td>
+		</tr>
+		<tr>
+		  <th>Purchased food:</th>
+		  <td class="right_border">&nbsp;</td>
+		  <td>
+		    {{state.food_to_buy|times:10|format_float}}
+		  </td>
+		</tr>
+	      </table>
+	    </div>
+	  </div>
+	  
+	  <div class="sectionbox">
+	    <h2>Water</h2>
+	    <div class="neutral">
+	      <table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		  <th style="width:50%;">Collected (liters):</th>
+		  <th>Used (liters):</th>
+		</tr>
+		<tr>
+		  <td>
+		    {{state.amount_water|format_float}}
+		  </td>
+		  <td>
+		    {{water_used|format_float}}
+		    {% if state.water_pump %} (water pump in use) {% endif %}
+		  </td>
+		</tr>
+	      </table>
+	    </div>
+	  </div>
+	  
+	  <div class="sectionbox">
+	    <h2>Fuel</h2>
+	    <div class="neutral">
+	      <table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		  <th>&nbsp;</th>
+		  <th class="right_border">Used:</th>
+		  <th>Left:</th>
+		</tr>
+		<tr>
+		  <th>Propane (kg):</th>
+		  <td style="text-align:right;" class="right_border">
+		    {{state.report_propane_used|format_float}}
+		  </td>
+		  <td style="text-align:right;">
+		    {{state.amount_propane|format_float}}
+		  </td>
+		</tr>
+	      </table>
+	      <br />
+	      
+	      <table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		  <th>&nbsp;</th>
+		  <th class="right_border">Collected:</th>
+		  <th class="right_border">Used:</th>
+		  <th>Sold:</th>
+		</tr>
+		<tr>
+		  <th>Wood (tons*):</th>
+		  <td style="text-align:right;" class="right_border">
+		    {{state.amount_wood|format_float}}
+		  </td>
+		  <td style="text-align:right;" class="right_border">
+		    {{wood_used_tons|format_float}}
+		  </td>
+		  <td style="text-align:right;">
+		    {{wood_sold_tons|format_float}}
+		  </td>
+		</tr>
+	      </table>
+	      <span style="font-size: 0.85em;"> * 1 ton = 1000 kg</span>
+	    </div>
+	  </div>
+	  
+	  <div class="sectionbox">
+	    <h2>Cash Crops (Cotton)</h2>
+	    <div class="neutral">
+	      <div style="padding: 0.3em;margin: 0;">
+		Yield: 
+		{{state.amount_cotton|format_float}}
+		tons
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <div class="sectionbox">
+            <h2>Family Finances</h2>
+	    <div class="neutral">
+	      <table border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>CFA</th>
+                  </tr>
+                  <tr>
+                    <th>Extra Food Bought/Sold:</th>
+                    <td style='text-align:right;'>
+		      {{state.food_income|minus:state.food_to_buy|times:state.calculated_food_cost|money_report}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Wood Sold:</th>
+                    <td style='text-align:right;'>
+		      {{state.wood_income|money_report}}
+		    </td>
+                  </tr>
+                  <tr>
+                    <th>Cotton Sold:</th>
+                    <td style='text-align:right;'>
+		      {{state.cotton_income|money_report}}
+		    </td>
+                  </tr>
+                  <tr>
+                    <th>Transport Costs (Cotton):</th>
+                    <td style='text-align:right;'>
+		      {{state.expenditure|times:-1|money_report}}
+		    </td>
+                  </tr>
+                  <tr>
+                    <th>Items Purchased/Sold:</th>
+                    <td style='text-align:right;'>
+		      {{money_earned|minus:money_spent|money_report}}
+		    </td>
+                  </tr>
+                  <tr>
+                    <th>Doctor Visits:</th>
+                    <td style='text-align:right;'>
+		      {{state.doctor|sum|times:-1|times:doctor_visit_cost|money_report}}
+		    </td>
+                  </tr>
+                  <tr>
+                    <th>Small Business Earnings:</th>
+                    <td style='text-align:right;'>
+		      {{state.small_business_income|money_report}}
+		    </td>
+                  </tr>
+		  {% if state.microfinance_amount_paid %}
+                  <tr>
+                    <th>Rural Bank Loan Payment:</th>
+                    <td style='text-align:right;'>
+		      {{state.microfinance_amount_paid|times:-1|money_report}}
+		    </td>
+                  </tr>
+		  {% endif %}
+		  {% if state.tax_rate %}
+                  <tr>
+                    <th>Taxes:</th>
+                    <td style='text-align:right;'>
+		      {{state.income|times:-0.01|times:state.tax_rate|money_report}}
+		    </td>
+                  </tr>
+		  {% endif %}
+                </tbody>
+	      </table>
+	    </div>
+	  </div>
+	  
+	  {% if items_bought or items_sold %}
+          <div class="sectionbox">
+	    <h2>Family Improvements</h2>
+	    <div class="neutral">
+	      {% if items_bought %}
+              <span>Bought:
+       		<ul>
+		  {% for item in items_bought %}
+		  <li>
+		    {{item}}
+		  </li>
+		  {% endfor %}
+ 		</ul>
+	      </span>
+	      {% endif %}
+
+	      {% if items_sold %}
+	      <span>Sold:
+		<ul>
+		  {% for item in items_sold %}
+		  <li>
+		    {{item}}
+		  </li>
+		  {% endfor %}
+		</ul>
+	      </span>
+	      {% endif %}
+	    </div>
+	  </div>
+	  {% endif %}
+
+	</div>
+	
+   	<div id="beta_two">
+
+   	  {% if village_improvements|length %}
+	  <div class="sectionbox">
+	    <h2>New Village Improvements</h2>
+	    <div class="neutral">
+	      <ul>
+		{% for item in village_improvements %}
+		<li>{{item}}</li>
+		{% endfor %}
+	      </ul>
+	    </div>
+	  </div>
+	  {% endif %}
+	  
+          <div class="sectionbox">
+            <h2>Village Policies</h2>
+	    <div class="neutral">
+	      <ul>
+		{% if state.fishing_limit %}
+		<li>
+		  Fishing Limit:
+		  {{state.fishing_limit|format_float}}
+		  &nbsp;fish/family (per season)
+		</li>
+		{% endif %}
+		{% if state.wood_limit %}
+		<li>
+		  Wood Collection Limit: 
+		  {{state.wood_limit|format_float}}
+		  &nbsp;tons/family (per season)
+		</li>
+		{% endif %}
+		<li>Tax Rate: {{state.tax_rate|format_float}}</li>
+	      </ul>
+	    </div>
+	  </div>
+	  
+	  
+	  <h2 id="d_subheader"><div>Vital Statistics</div></h2>
+	  
+	  <div class="sectionbox">
+	    <h2>Population</h2>
+	    <div class="neutral">
+	      Family: {{state.population|format_int}}<br />
+	      Village: {{state.village_population|format_int}}
+	      <ul>
+		<li>Births last season: {{state.village_births|format_int}}</li>
+		<li>Deaths last season (natural causes): {{state.village_deaths|format_int}}</li>
+		<li>Malaria related deaths: {{state.malaria_deaths|format_int}}</li>
+		<li>% of population infected: {{percent_infected|format_float}}</li>
+	      </ul>
+	    </div>
+	  </div>
+	  
+          <div class="sectionbox">
+            <h2>Assets</h2>
+ 	    <div class="neutral">
+	      <ul>
+                <li>Family Fund: CFA {{state.cash|format_float}}</li>
+                <li>Village Fund: CFA {{state.fund|format_float}}</li>
+                <li>Small Business Capital: CFA {{state.small_business_capital|format_float}}</li>
+		{% if state.microfinance_balance %}
+                <li>
+                  Rural Bank Loan: CFA {{state.microfinance_balance|format_float}}
+                  (at {{state.microfinance_interest_rate|format_float}} %)
+		</li>
+		{% endif %}
+	      </ul>
+	    </div>
+	  </div>
+	  
+	  <div class="sectionbox">
+	    <h2>Rainfall</h2>
+	    <div class="neutral">
+	      Last season: {{state.precipitation|format_float}} mm
+	    </div>
+	  </div>
+	  
+	</div>
+      </div>

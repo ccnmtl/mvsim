@@ -38,9 +38,7 @@ def games_index(request):
                                 course=request.course)
     return {'games': games, 'section': section}
 
-@rendered_with("game/game.html")
-def show_turn(request, game_id):
-    game = Game.objects.get(pk=game_id)
+def build_template_context(request, game):
     state = game.deserialize(game.current_state())
     variables, coefficients = state['variables'], state['coefficients']
 
@@ -70,10 +68,25 @@ def show_turn(request, game_id):
 
     display_vars['FIXME'] = ''
     return display_vars
+    
+@allow_http("GET")
+@rendered_with("game/game_over.html")
+def game_over(request, game_id):
+    game = Game.objects.get(pk=game_id)
+    if game.in_progress():
+        print game.show_game_url()
+        return redirect(game.show_game_url())
+    display_vars = build_template_context(request, game)
+    return display_vars
 
-def play(request, game_id):
-    if request.method == "GET":
-        return show_turn(request, game_id)
+@allow_http("GET")
+@rendered_with("game/game.html")
+def show_turn(request, game_id):
+    game = Game.objects.get(pk=game_id)
+    if not game.in_progress():
+        return redirect(game.game_over_url())
+    display_vars = build_template_context(request, game)
+    return display_vars
 
 @allow_http("POST")
 def submit_turn(request, game_id):
