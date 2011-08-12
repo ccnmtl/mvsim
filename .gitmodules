@@ -1,0 +1,3 @@
+[submodule "media/graphtool"]
+	path = media/graphtool
+	url = git@github.com:ccnmtl/graphtool.git
