@@ -38,8 +38,12 @@ def games_index(request):
                                 course=request.course)
     return {'games': games, 'section': section}
 
-def build_template_context(request, game):
-    state = game.deserialize(game.current_state())
+def build_template_context(request, game, turn_number=None):
+    if turn_number is not None:
+        state = game.deserialize(game.get_state(turn_number))
+    else:
+        state = game.deserialize(game.current_state())
+    
     variables, coefficients = state['variables'], state['coefficients']
 
     if '' in variables.owned_items: 
@@ -57,11 +61,11 @@ def build_template_context(request, game):
 
     display_vars['user'] = request.user
 
-    turn_number = game.state_set.count()
+    turn_number = turn_number or game.state_set.count()
     display_vars['turn'] = dict(number=turn_number)
 
     if turn_number > 1:
-        previous_state = game.deserialize(game.previous_state())
+        previous_state = game.deserialize(game.get_state(turn_number-1))
         display_vars['notifications'] = get_notifications(
             previous_state['variables'], state['variables'], state['coefficients'],
             events_csv=settings.MVSIM_EVENTS_CSV)
@@ -86,6 +90,24 @@ def show_turn(request, game_id):
     if not game.in_progress():
         return redirect(game.game_over_url())
     display_vars = build_template_context(request, game)
+    return display_vars
+
+@allow_http("GET")
+@rendered_with("game/view_turn_first_turn.html")
+def view_turn_history_first_turn(request, game_id):
+    game = Game.objects.get(pk=game_id)
+    return {'game': game}
+
+@allow_http("GET")
+@rendered_with("game/view_turn.html")
+def view_turn_history(request, game_id, turn_number):
+    game = Game.objects.get(pk=game_id)
+    turn_number = int(turn_number)
+    if turn_number == 1:
+        return view_turn_history_first_turn(request, game_id)
+
+    turn = game.get_state(int(turn_number))
+    display_vars = build_template_context(request, game, turn_number)
     return display_vars
 
 @allow_http("POST")

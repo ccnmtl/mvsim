@@ -27,7 +27,11 @@ urlpatterns = patterns(
     url(r'^games/(?P<game_id>\d+)/turn/$', 'main.views.submit_turn'),
     url(r'^games/(?P<game_id>\d+)/game_over/$', 'main.views.game_over', name='game_over'),
 
-    url(r'^games/(?P<game_id>\d+)/graph/$', 'graph.views.graph'),
+    url(r'^games/(?P<game_id>\d+)/turn/(?P<turn_number>\d+)/$', 
+        'main.views.view_turn_history', name='game_turn_history'),
+
+    url(r'^games/(?P<game_id>\d+)/graph/$', 'graph.views.graph',
+        name='game_graph'),
     
     url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state'),
         

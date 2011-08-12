@@ -15,21 +15,22 @@
       </tr>
       
       {% for turn in game.turns %}
-      {% cycle "odd" "even" as rowcolors silent %}
-      <tr class="{{rowcolors}}">
+      {% with forloop.counter as turn_number %}
+      <tr class="{% cycle 'odd' 'even' %}">
 	<td>
-	  <a href="/games/{{game.id}}/view_turn?turn_id={{turn.id}}" 
-	     title="{{turn.timestamp}}">
-	    Year {{turn.number|reverse_engineer_year}},
-	    Season {{turn.number|reverse_engineer_season}}
+	  <a href="{% url game_turn_history game.id turn_number %}" 
+	     title="{{turn.created}}">
+	    Year {{turn_number|reverse_engineer_year}},
+	    Season {{turn_number|reverse_engineer_season}}
 	  </a>
 	</td>
       </tr>
+      {% endwith %}
       {% endfor %}
     </table>
     
     <h2>Graphing tool</h2>
-    <a href="/games/{{game.id}}/graph">
+    <a href="{% url game_graph game.id %}">
       Click here to explore the history of this game
       with the interactive graphing tool
     </a>

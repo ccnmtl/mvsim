@@ -173,6 +173,9 @@ class Game(models.Model):
         game.save()
         return game
 
+    def turns(self):
+        return self.state_set.order_by("created")
+
     @models.permalink
     def show_game_url(self):
         return ('game_show', [self.pk], {})
@@ -184,8 +187,8 @@ class Game(models.Model):
     def current_state(self):
         return self.state_set.latest("created")
 
-    def previous_state(self):
-        return self.state_set.order_by("-created")[1]
+    def get_state(self, turn_number):
+        return self.state_set.order_by("created")[turn_number-1]
 
     def deserialize(self, state):
         schema = self.configuration.schema()
