@@ -1,4 +1,4 @@
-{% extends "game/main_template.html" %}
+{% extends "base.html" %}
 {% load mvsim_tags %}
 {% block title %}Millennium Village{% endblock %}
 
@@ -288,12 +288,12 @@ startApp(initial_layer, url_builder, null, set_bookmark);
 	<th scope="col">{{variable.name}}</th>
       </tr>
       
-      {% for turn in game.turns %}
+      {% for turn in turns %}
       {% with forloop.counter as i %}
       <tr class="{% cycle 'odd' 'even' %}">
-	<th scope="row">{{turn.number}}</th>
+	<th scope="row">{{i}}</th>
 	
-	<td>{{variable.values|get_item:i}}</td>
+	<td>{{variable.values|get_item_or_0:i}}</td>
       </tr>
       {% endwith %}
       {% endfor %}

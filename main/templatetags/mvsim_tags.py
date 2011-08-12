@@ -59,6 +59,12 @@ def get_item(a, b):
     except (IndexError, KeyError):
         return ''
 
+def get_item_or_0(a, b,):
+    try:
+        return a[b]
+    except (IndexError, KeyError):
+        return 0
+
 # reverse engineering the year and season this way is ugly, but saves us
 # from having to instantiate the state and variable objects for every turn
 # of the game
@@ -85,5 +91,6 @@ register.filter("startswith", startswith)
 register.filter("or", _or)
 register.filter("get_attr", get_attr)
 register.filter("get_item", get_item)
+register.filter("get_item_or_0", get_item_or_0)
 register.filter("reverse_engineer_year", reverse_engineer_year)
 register.filter("reverse_engineer_season", reverse_engineer_season)

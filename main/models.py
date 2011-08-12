@@ -77,7 +77,9 @@ class Variable(models.Model):
 
     def __unicode__(self):
         return self.name
-
+    
+    def graphable(self):
+        return self.type in ("int", "float", "bool")
     def schema(self, required=True):
         type = schema_node_factories[self.type]
         kw = dict()
