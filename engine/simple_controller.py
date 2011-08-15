@@ -81,7 +81,7 @@ def adjust_submission(kwargs, names):
             (c,name) = k.split('-')
             if kwargs[k] == '' or name not in name_positions:
                 continue
-            calories[name_positions[name]] = int(kwargs[k])
+            calories[name_positions[name]] = int(float(kwargs[k]))
             del kwargs[k]
 
     if kwargs.get('try_for_child','') != '':
