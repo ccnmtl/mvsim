@@ -23,9 +23,14 @@ urlpatterns = patterns(
     url(r'^games/$', 'main.views.games_index', name='games_index'),
     url(r'^games/new/$', 'main.views.games_index', name='new_game'),
     
-    url(r'^games/(?P<game_id>\d+)/$', 'main.views.show_turn', name='game_show'),
+    url(r'^games/(?P<game_id>\d+)/$', 'main.views.show_turn', 
+        name='game_show'),
     url(r'^games/(?P<game_id>\d+)/turn/$', 'main.views.submit_turn'),
-    url(r'^games/(?P<game_id>\d+)/game_over/$', 'main.views.game_over', name='game_over'),
+    url(r'^games/(?P<game_id>\d+)/game_over/$', 'main.views.game_over', 
+        name='game_over'),
+
+    url(r'^games/(?P<game_id>\d+)/history/$', 'main.views.history',
+        name='game_history'),
 
     url(r'^games/(?P<game_id>\d+)/turn/(?P<turn_number>\d+)/$', 
         'main.views.view_turn_history', name='game_turn_history'),

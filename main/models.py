@@ -181,8 +181,16 @@ class Game(models.Model):
         return ('game_show', [self.pk], {})
 
     @models.permalink
+    def game_history_url(self):
+        return ('game_history', [self.pk], {})
+
+    @models.permalink
     def game_over_url(self):
         return ('game_over', [self.pk], {})
+
+    @models.permalink
+    def graph_url(self):
+        return ('game_graph', [self.pk], {})
 
     def current_state(self):
         return self.state_set.latest("created")

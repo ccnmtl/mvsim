@@ -84,6 +84,13 @@ def game_over(request, game_id):
     return display_vars
 
 @allow_http("GET")
+@rendered_with("game/game_history_view.html")
+def history(request, game_id):
+    game = Game.objects.get(pk=game_id)
+    display_vars = build_template_context(request, game)
+    return display_vars
+
+@allow_http("GET")
 @rendered_with("game/game.html")
 def show_turn(request, game_id):
     game = Game.objects.get(pk=game_id)

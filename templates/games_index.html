@@ -55,16 +55,16 @@
 	<th class="navOut Number" id="seed">Seed</th>
 	<th class="navOut" id="config">Configuration</th>
 	{% endif %}
+	{% endcomment %}
 
 	<th class="navOut" id="actions"></th>
 	<th class="navOut" id="delete"></th>
-	{% endcomment %}
       </tr>
     </thead>
       
     <tbody>
       {% for game in games %}
-      <tr style="vertical-align: top;" {% if forloop.even %}class="even"{% else %}class="odd"{% endif %}>
+      <tr style="vertical-align: top;" class="{% cycle 'odd' 'even' %}">
 	<td>
 	  {{game}}
 	</td>
@@ -82,15 +82,26 @@
 	<td py:if="tg.user.is_admin()">${game.seed}</td>
 	<td py:if="tg.user.is_admin()">${game.configuration.name}</td>
 	<td py:if="tg.user.is_admin()"><span py:if="game.saved_state is not None">${game.saved_state.name}</span><span py:if="game.saved_state is None">(default)</span></td>
-	<td>
-	  <a py:if="game.status == 'inprogress'" href="/games/${game.id}/" class="regButtonblock">Resume</a>
-	  <a href="/games/${game.id}/clone" class="regButtonblock">Clone</a>
-	  <a href="/games/${game.id}/history" class="regButtonblock">History</a>
-	  <a href="/games/${game.id}/graph" class="regButtonblock">Graphs</a>
-	  <a py:if="tg.user.is_admin()" href="/games/${game.id}/csv" class="regButtonblock">CSV</a>
-	</td>
-	<td style="text-align: center;"><a href="/games/${game.id}/delete" onclick="return confirm('are you sure you want to delete this game?');" class="regButton">Delete</a></td>
 	{% endcomment %}
+
+	<td>
+	  {% if game.in_progress %}
+	  <a href="{{game.show_game_url}}" class="regButtonblock">Resume</a>
+	  {% endif %}
+	  <a href="{{game.game_clone_url}}" class="regButtonblock">Clone</a>
+	  <a href="{{game.game_history_url}}" class="regButtonblock">History</a>
+	  <a href="{{game.graph_url}}" class="regButtonblock">Graphs</a>
+	  {% if request.user.is_staff %}
+	  <a href="{{game.game_csv_url}}" class="regButtonblock">CSV</a>
+	  {% endif %}
+	</td>
+	<td style="text-align: center;">
+	  <a href="{{game.delete_url}}"
+	     onclick="return confirm('are you sure you want to delete this game?');" 
+	     class="regButton">
+	    Delete
+	  </a>
+	</td>
 	</tr>
       {% endfor %}
       </tbody>
