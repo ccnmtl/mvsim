@@ -16,7 +16,19 @@ def view_state(request, state_id):
 
 @rendered_with("home.html")
 def home(request):
-    return {}
+    sections = CourseSection.objects.filter(users=request.user, 
+                                            course=request.course)
+    try:
+        section = sections[0]
+    except IndexError:
+        section = CourseSection.objects.filter(course=request.course)[0]
+        section.users.add(request.user)
+        section.save()
+    try:
+        starting_state_id  = section.starting_states.all()[0].id
+    except:
+        starting_state_id = None
+    return {'starting_state_id': starting_state_id}
 
 @rendered_with("games_index.html")
 def games_index(request):
@@ -30,7 +42,8 @@ def games_index(request):
         section.save()
 
     if request.method == "POST":
-        state = section.starting_states.get(id=request.POST['configuration_id'])
+        state = section.starting_states.get(
+            id=request.POST['starting_state_id'])
         game = Game.initialize_from_state(
             user=request.user,
             configuration=Configuration.objects.get(pk=1),

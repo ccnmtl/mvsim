@@ -17,7 +17,7 @@
       <div id="adminoptions">
 	<h3>Game options:</h3>
 	<div id="configselect">
-	  Starting State: <select name="configuration_id">
+	  Starting State: <select name="starting_state_id">
 	    {% for state in section.starting_states.all %}
 	    <option value="{{state.pk}}">{{state}}</option>
 	    {% endfor %}

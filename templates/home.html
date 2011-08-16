@@ -89,14 +89,19 @@ Take a look at Professor Sachs' book <a target="_blank"
     End of Poverty"</a> 
 </p>
 
-<form action="/games/new" method="post">
-<p>You may 
+{% if configuration_id %}
+<form name="start-new-game" action="{% url new_game %}" method="post">
+  {% csrf_token %}
+  <p>You may 
+    <input type="hidden" name="starting_state_id" 
+	   value="{{starting_state_id}}" />
     <input type="submit" value="begin a new game"
 	   class="regButton" style="font-weight: bold;" />
-  in the Millennium Village, or 
-  <a href="/games/">pick up where you left off</a>.
-</p> 
+    in the Millennium Village, or 
+    <a href="/games/">pick up where you left off</a>.
+  </p> 
 </form> 
+{% endif %}
 
   </div>
 
