@@ -22,7 +22,12 @@ def home(request):
 def games_index(request):
     sections = CourseSection.objects.filter(users=request.user, 
                                             course=request.course)
-    section = sections[0]
+    try:
+        section = sections[0]
+    except IndexError:
+        section = CourseSection.objects.filter(course=request.course)[0]
+        section.users.add(request.user)
+        section.save()
 
     if request.method == "POST":
         state = section.starting_states.get(id=request.POST['configuration_id'])
