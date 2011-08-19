@@ -6,13 +6,34 @@ from engine.logic import get_notifications
 from engine import logic
 from engine import display_logic
 import deform
+import json
+from urlparse import parse_qsl
+from pkg_resources import resource_filename
 
+@rendered_with("admin/view_state.html")
 def view_state(request, state_id):
     state = State.objects.get(id=state_id)
     config = Configuration.objects.get(pk=1)
     schema = config.schema()
-    form = deform.Form(schema, buttons=('submit',))
-    return HttpResponse(form.render(state.loads(), readonly=True))
+
+    deform_templates = resource_filename('deform', 'templates')
+    search_path = (settings.DEFORM_TEMPLATE_OVERRIDES, deform_templates)
+    renderer = deform.ZPTRendererFactory(search_path)
+    form = deform.Form(schema, buttons=('submit',), renderer=renderer)
+
+    if request.method == "GET":
+        return {'form': form.render(state.loads())}
+
+    # trick from Chris Pyper, http://groups.google.com/group/pylons-discuss/browse_thread/thread/83b4f2950cbc1892?hl=en
+    controls = parse_qsl(request.raw_post_data, keep_blank_values=True)
+    try:
+        appstruct = form.validate(controls)
+    except deform.ValidationFailure, e:
+        return {'form': e.render()}
+    new_state = json.dumps(appstruct)
+    state.state = new_state
+    state.save()
+    return redirect(".")
 
 @rendered_with("home.html")
 def home(request):

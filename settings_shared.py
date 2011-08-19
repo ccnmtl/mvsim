@@ -55,6 +55,8 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__),"templates"),
 )
 
+DEFORM_TEMPLATE_OVERRIDES = os.path.join(os.path.dirname(__file__), "deform_templates")
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

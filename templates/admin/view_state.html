@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+  <!-- CSS -->
+  <link rel="stylesheet" href="/static/css/form.css" type="text/css" />
+  <!-- JavaScript -->
+  <script type="text/javascript"
+          src="/static/scripts/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript"
+          src="/static/scripts/deform.js"></script>
+{% endblock %}
+
+{% block content %}
+{{form|safe}}
+{% endblock %}
