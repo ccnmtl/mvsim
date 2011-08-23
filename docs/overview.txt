@@ -1,0 +1,42 @@
+Aspects of MVSIM that should be considered in documentation:
+
+1. The Logic Engine, a pure Python module which receives a Python 
+   object representing a game state and returns a new game state.
+
+2. The Configuration system, which describes the interface to and
+   from the logic engine, by providing schema for serializing and 
+   deserializing coefficient and variable values.
+
+3. The User Input model, which, like the Configuration system,
+   defines which variables may be edited directly by the user during
+   gameplay.
+
+4. The State model, which stores a single state of a game in a JSON
+   formatted text blob, and which is deserialized according to a
+   Configuration.  The `created` timestamp of a state expresses the
+   time when a user  played a game turn that resulted in that state.
+
+5. The Game model, which contains a set of States (implicitly ordered
+   by their `created` timestamp) and a link to a single Configuration
+   and a single User Input, which determine how the Game will
+   interpret its States.
+
+6. The Events system, which determines which notifications to display
+   in the End Of Turn Report based on the game state before and after
+   a turn was executed. Events are expressed as rows in a CSV file,
+   and include information like:
+     * Under what conditions should this event occur?
+     * What text should be displayed to the user if this event occurs?
+     * What is the event's severity?
+   The Events are currently read directly from the "events.csv" file
+   during runtime. It would probably make sense to move them to the
+   database and associate them with new games in the same way that 
+   configurations are associated with games.
+
+7. Starting States, which are just States associated with a Course
+   Section. We need a UI for faculty to promote States to Starting
+   States.
+
+8. The Courseaffils integration and CourseSection model.
+
+9. The Graphing Tool.
