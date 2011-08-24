@@ -100,8 +100,10 @@ class Variable(models.Model):
         if self.type == "list":
             list_element_type = info['listof']
             if list_element_type in schema_node_factories:
+                list_element_name = list_element_type
                 list_element_type = schema_node_factories[list_element_type]
                 list_element_type = colander.SchemaNode(list_element_type(),
+                                                        name=list_element_name,
                                                         missing=missing)
             else:
                 list_element_type = Variable.objects.get(name=list_element_type)
