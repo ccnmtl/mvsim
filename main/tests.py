@@ -62,23 +62,27 @@ class TestPerson(unittest.TestCase):
                             fuelwood_health_loss = 10,
                             effort_too_high_health_loss = 1,
 
-                            disease_respiratory_health_factor=0.2,
+                            disease_respiratory_health_factor=0.8,
                             disease_respiratory_youth_factor=0.2,
-                            disease_waterborne_health_factor=0.2,
+                            disease_waterborne_health_factor=0.8,
                             disease_waterborne_latrine_factor=0.2,
                             disease_waterborne_waterpump_factor=0.2,
                             disease_malaria_health_factor=0.2,
                             disease_malaria_bednet_factor=0.2,
+                            disease_respiratory_propane_factor=1.5,
                             base_infection_rate=1,
                             precipitation_infection_modifier=0.2,
                             avg_precipitation=10,
                             bednet_infection_modifier=0.2,
                             disease_malaria_sir_factor=0.2,
+                            chance_of_getting_the_flu=0,
                             )
 
         self.kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
                             pregnant=False,sick="",schooling_state="adult",
                             coeffs=coeffs,tc=StubTC())
+        self.kodjo.tc.override = 1
+
     def tearDown(self):
         self.kodjo = None
 
@@ -190,7 +194,7 @@ class TestPerson(unittest.TestCase):
 
     def test_check_sick(self):
         state = StubState(epidemic=False,
-                          stove=False,
+                          stove=True,
                           improved_stove=False,
                           sanitation=True,
                           water_pump=True,
