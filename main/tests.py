@@ -449,7 +449,7 @@ class TestVillage:
         self.village.state.fish_stock = 5000.0
         self.village.coeffs.fish_growth_rate = 1.2
         self.village.coeffs.fish_k = 7500.0
-#        assert self.village.calc_fish_stock() == 4437.9
+        assert self.village.calc_fish_stock() == 4437.9
 
         self.village.state.fish_stock = 4000000
         self.village.coeffs.fish_k = 4000000
@@ -457,7 +457,7 @@ class TestVillage:
         self.village.state.village_population = 251 * 4
 
         stock = self.village.calc_fish_stock()
-#       assert stock > 3792849 and stock < 3792850
+        assert stock > 3792849 and stock < 3792850
         
     def test_update_fish_stock(self):
         self.village.state.amount_fish = 5.0
@@ -465,14 +465,14 @@ class TestVillage:
         self.village.coeffs.fish_growth_rate = 1.2
         self.village.coeffs.fish_k = 7500.0
         self.village.update_fish_stock()
-#        assert self.village.state.fish_stock == 4437.9
+        assert self.village.state.fish_stock == 4437.9
 
     def test_calc_wood_stock(self):
         self.village.state.amount_wood = 5.0
         self.village.state.wood_stock = 5000
         self.village.coeffs.forest_growth_rate = 1.2
         self.village.coeffs.wood_k = 7500.0
-#        assert self.village.calc_wood_stock() == 4406.65
+        assert self.village.calc_wood_stock() == 4406.65
 
     def test_update_wood_stock(self):
         self.village.state.amount_wood = 5.0
@@ -480,7 +480,7 @@ class TestVillage:
         self.village.coeffs.forest_growth_rate = 1.2
         self.village.coeffs.wood_k = 7500.0
         self.village.update_wood_stock()
-#        assert self.village.state.wood_stock == 4406.65
+        assert self.village.state.wood_stock == 4406.65
 
     def test_calculate_taxes(self):
         self.village.state.avg_family_size = 4
