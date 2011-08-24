@@ -61,11 +61,23 @@ class TestPerson(unittest.TestCase):
                             child_3_effort=CHILD_3_EFFORT,
                             fuelwood_health_loss = 10,
                             effort_too_high_health_loss = 1,
-                            disease_respiratory_health_factor=0.5,
+
+                            disease_respiratory_health_factor=0.2,
+                            disease_respiratory_youth_factor=0.2,
+                            disease_waterborne_health_factor=0.2,
+                            disease_waterborne_latrine_factor=0.2,
+                            disease_waterborne_waterpump_factor=0.2,
+                            disease_malaria_health_factor=0.2,
+                            disease_malaria_bednet_factor=0.2,
+                            base_infection_rate=1,
+                            precipitation_infection_modifier=0.2,
+                            avg_precipitation=10,
+                            bednet_infection_modifier=0.2,
+                            disease_malaria_sir_factor=0.2,
                             )
 
         self.kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                            pregnant=False,sick=False,schooling_state="adult",
+                            pregnant=False,sick="",schooling_state="adult",
                             coeffs=coeffs,tc=StubTC())
     def tearDown(self):
         self.kodjo = None
@@ -73,7 +85,7 @@ class TestPerson(unittest.TestCase):
     def test_init(self):
         assert self.kodjo.name == "Kodjo"
         assert self.kodjo.age == 15
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick
 
     def test_increment_decrement_health(self):
         self.kodjo.health = 100
@@ -92,15 +104,15 @@ class TestPerson(unittest.TestCase):
 
     def test_visit_doctor(self):
         self.kodjo.health = 50
-        self.kodjo.sick = True
+        self.kodjo.sick = "pneumonia+malaria"
 
         self.kodjo.visit_doctor()
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick
         assert self.kodjo.health == 75.0
 
         self.kodjo.health = 100
         self.kodjo.visit_doctor()
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick
         assert self.kodjo.health == 100.0
 
     def test_starve(self):
@@ -177,30 +189,41 @@ class TestPerson(unittest.TestCase):
         self.kodjo.age = 15
 
     def test_check_sick(self):
-        state = StubState(epidemic=False)
+        state = StubState(epidemic=False,
+                          stove=False,
+                          improved_stove=False,
+                          sanitation=True,
+                          water_pump=True,
+                          owned_items=[],
+                          population=1,
+                          village_infected_pop=0,
+                          village_population=1000,
+                          precipitation=10,
+                          )
         self.kodjo.coeffs.resting_health_gain = 2
+        self.kodjo.sick = ""
         self.kodjo.check_sick(state)
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick, self.kodjo.sick
         self.kodjo.age = 4
         self.kodjo.check_sick(state)
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick
         state.epidemic = True
         self.kodjo.coeffs.illness_chance_coeff = 0.0
         self.kodjo.check_sick(state)
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick
 
         self.kodjo.health = 80.0
         self.kodjo.effort = 0
-        self.kodjo.sick = False
+        self.kodjo.sick = ""
         self.kodjo.check_sick(state)
-        assert self.kodjo.sick is False
+        assert not self.kodjo.sick
 
 
         self.kodjo.coeffs.illness_chance_coeff = 10000.0
         self.kodjo.health = 1.0
         self.kodjo.tc.override = 10
         self.kodjo.check_sick(state)
-        assert self.kodjo.sick is True
+        assert self.kodjo.sick
         
 
     def test_update_schooling_state(self):
@@ -471,7 +494,7 @@ class TestSchoolingFSM:
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
                             secondary_school_effort=SECONDARY_SCHOOL_EFFORT)        
         self.kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                            pregnant=False,sick=False,schooling_state="adult",
+                            pregnant=False,sick="",schooling_state="adult",
                             coeffs=coeffs,tc=StubTC())                
 
     def tearDown(self):
@@ -541,13 +564,13 @@ class TestFunctions:
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
                             secondary_school_effort=SECONDARY_SCHOOL_EFFORT,starting_year=2007)        
         kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                       pregnant=False,sick=False,schooling_state="adult",
+                       pregnant=False,sick="",schooling_state="adult",
                        coeffs=coeffs,tc=StubTC())                
         state = StubState(people=[kodjo],health_t1=['Kodjo|100'],
                           health_t2=['Kodjo|100'],health_t3=['Kodjo|100'],
                           names=['Kodjo'],genders=['Male'],ages=[16],
                           health=[100],education=[12],pregnant=[False],
-                          sick=[False],schooling_state=['adult'],
+                          sick=[""],schooling_state=['adult'],
                           efforts=[12,12],year=2007)
         tc = StubTC()
         self.tc = tc
@@ -654,7 +677,7 @@ class TestTurn:
                             health_sickness_coeff = 1.0,
                             )
         kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                       pregnant=False,sick=False,schooling_state="adult",
+                       pregnant=False,sick="",schooling_state="adult",
                        coeffs=coeffs,tc=StubTC())        
         state = StubState(expenditure=0,income=0,tons_to_market=0,
                           initial_population=0,cash=500,
@@ -663,7 +686,7 @@ class TestTurn:
                           health_t2=['Kodjo|100'],health_t3=['Kodjo|100'],
                           names=['Kodjo'],genders=['Male'],ages=[16],
                           health=[100],education=[12],pregnant=[False],
-                          sick=[False],schooling_state=['adult'],
+                          sick=[""],schooling_state=['adult'],
                           efforts=[12,12],year=2007,
                           doctor=[],sell_items=['',"stove|1"],
                           purchase_items=['','bednet|1'],
@@ -810,7 +833,7 @@ class TestTurn:
     def test_children(self):
         self.turn.children()
         fatou = Person(name="Fatou",gender="Female",age=24,health=100,education=12,
-                       pregnant=True,sick=False,schooling_state="adult",
+                       pregnant=True,sick="",schooling_state="adult",
                        coeffs=self.turn.coeffs,tc=self.turn.tc)
         self.turn.coeffs.child_names = ['bart']
         self.turn.coeffs.child_genders = ['Male']
