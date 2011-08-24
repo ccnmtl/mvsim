@@ -1,0 +1,152 @@
+The Configuration System
+========================
+
+The Configuration system allows administrators to build a schema by
+defining a set of typed Variables, and then specifying which of those
+Variables should be considered as "variables" (which change on each
+turn) and as "coefficients" (which are stable throughout a game) in
+the game. A Configuration serves two purposes:
+
+ 1. It defines and documents the necessary interface with the logic
+    engine.  Executing a turn consists of submitting a set of
+    variables and coefficients, whose names and allowed types are
+    defined by a Configuration, to the logic engine; and receiving a
+    new set of variables and coefficients back from the logic engine,
+    representing the new state of the game.
+
+ 2. It defines the schema by which a game state (represented as a JSON
+    structure stored in a single text field) is validated and
+    deserialized to a Python object that can be sent to the logic
+    engine; and by which a Python object received from the logic
+    engine can be serialized back into a JSON structure to be stored
+    back in the database.
+
+
+The Configuration system is implemented with Colander[1], a small
+standalone library by Chris McDonough that is maintained as part of
+the Pylons Project.
+
+[1] https://docs.pylonsproject.org/projects/colander/dev/
+
+Variables
+---------
+
+The Configuration system has a notion of Variables (which are distinct
+from the logic engine's notion of "variables" vs "coefficients"; a
+Variable can be used by the logic engine as either a variable or a
+coefficient)
+
+Variables are stored in the database (`main_variable` table) with a
+name and a type (e.g. integer, boolean, or list) -- both as text
+columns. When constructing a Colander Schema out of a Configuration,
+the Variables' names and types are used to declare the elements of the
+schema.
+
+Variables can also store "extra type information" as a JSON blob,
+which can be used to add additional information to the Colander
+Schema. At the moment, the only "extra type information" implemented
+are:
+
+ * "choices" (optional; should not be used for composite Variable
+   types): provide a list of values to restrict the Variable's
+   possible values to 
+ * "listof" (required for List Variables; unused otherwise): provide a
+   single string value that defines what kind of list this Variable
+   is. Values can be either a Variable Type (int, list, string, etc)
+   or the name of another Variable.
+ * "attributes" (required for Dict Variables; unused otherwise):
+   provide a list of string values, each the name of another Variable,
+   which this Variable contains.
+
+Additional "extra type information" (e.g. ranges for numerical values)
+could be implemented by modifying the `mvsim.main.Variable.schema`
+method to interpret different parts of the field and modify the
+`colander` constructors accordingly.
+
+Design Contrast
+===============
+
+The system is an update of the TurboGears MVSim's system of Variables,
+Coefficients, Configurations, and SavedStates. The major
+differences are:
+
+ * A strict separation of schema and state.  The previous incarnation
+   had a much looser boundary between the two: Variables and
+   Coefficients "schema"  held default values which could be
+   overridden by particular (Coefficient) Configurations and
+   (Variable) SavedStates.  Likewise, the previous incarnation
+   merged its concepts of schema and "starting state" -- the place
+   where a set of variables and coefficients were given initial values
+   for new games(Configuration and SavedState) was the same place
+   where the set of required variables and coefficients for the logic
+   engine's interface was implicitly declared.
+
+ * Merging Configuration and SavedState into a single "State" object
+   that includes both variables and coefficients.
+
+ * Collapsing the distinction between SavedStates (which were used to
+   initialize new games with variable values) and Turns (which were
+   used to define the variable values for a given game turn) into the
+   same single "State" object.  The distinction between "starting
+   states" and "active game states" is only semi-formal; implicitly,
+   if a State is associated (by nullable foreign key) with a Game,
+   then it is considered the state for a turn of that Game; if its
+   `game` foreign key is null, it is a potential starting state. (For
+   more on starting states, see the "course sections" documentation.)
+
+ * Storing the entire State object in an unstructured fashion, in a
+   single text column, with its structure interpreted in Python code
+   based on an independent Configuration schema. The previous system,
+   by contrast, pushed data structure into the database, with separate
+   tables for Variables, Coefficients, sets of Variables in a Turn,
+   etc; and e.g. a separate row for each variable value in a given
+   turn. This structure didn't really provide any advantages (we never
+   had to run any complex relational queries or aggregations on
+   variables and turns, with the possible exception of the graphing
+   tool) and made it overly difficult to manage incremental changes to
+   the logic engine's interface.
+
+By pushing structure out of the database and into Python code, and by
+decoupling the definition of a structure from the data that fills it,
+incremental changes should be easier to make and keep track
+of. Similarly, by de-formalizing the distinction between variables and
+coefficients, the logic engine can be more flexible -- it can decide
+what sort of interface it wants to provide, and no structural changes
+to the database will be necessary. (For example, configurations of
+"events" could be added; for details, see the "events" documentation.)
+
+Future Directions
+=================
+
+The design considers Configurations to be tightly coupled to the logic
+engine, and loosely coupled to everything else.  Any change to the
+Configuration implies that the code of the logic engine has changed
+(specifically, that it will be looking for more or fewer variables or
+coefficients, or will be expecting a different type for the value of a
+given variable or coefficient) and, while not every code change in the
+logic engine requires a Configuration change, any code change that
+modifies the logic engine's interface expectations must be accompanied
+by a Configuration change.
+
+In light of this, it's not clear to me whether Configurations should
+actually be stored in the database: perhaps, instead, a Configuration
+should be specified declaratively in Python code that lives alongside
+the logic engine. (The decision to store Configurations in the
+database was inherited from the previous incarnation of MVSim.)
+
+The Configuration system, and the coupling of a Configuration to the
+logic engine, with Game and State objects therefore more-or-less
+agnostic to the data structure and logic engine that act upon them,
+opens up the possibility of multiple logic engines existing in a
+single MVSim installation.  As long as each Game mediates between
+Configuration and States, it could dispatch to one of several logic
+engines. This could be used to provide:
+
+ * A/B testing of logic implementations
+ * Versioned logic engines with the ability to "roll-back" the default
+   engine to a previous version
+ * Beta-testing new logic engine versions
+ * Providing different logic implementations to different courses,
+   course sections, or institutions
+
+For more discussion of this see the "logic engine" documentation.
