@@ -201,35 +201,6 @@ class TestPerson(unittest.TestCase):
         self.kodjo.tc.override = 10
         self.kodjo.check_sick(state)
         assert self.kodjo.sick is True
-
-        
-    
-    def test_check_stove(self):
-
-        # if they have a propane stove
-        # health doesn't decrease
-        self.kodjo.health = 100
-        state = StubState(stove=True,improved_stove=False)
-        self.kodjo.check_stove(state)
-        assert self.kodjo.health == 100
-
-        # otherwise, there's a decrease
-        state.stove = False
-        self.kodjo.check_stove(state)
-        assert self.kodjo.health == 95
-
-        # loss is greater for young children
-        self.kodjo.health = 100
-        self.kodjo.age = 4
-        self.kodjo.check_stove(state)
-        assert self.kodjo.health == 90
-
-        # the improved wood stove improves things somewhat
-        self.kodjo.health = 100
-        state.improved_stove = True
-        self.kodjo.check_stove(state)
-
-        assert self.kodjo.health == 97.5
         
 
     def test_update_schooling_state(self):
