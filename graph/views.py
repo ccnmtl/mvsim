@@ -13,6 +13,28 @@ import simplejson
 import subprocess
 import tempfile
 
+@allow_http("GET")
+def graph_download(request, game_id):
+    key = request.GET['filename']
+
+    # rudimentary sanitization - keys are timestamps, so they should be int'able
+    try:
+        int(key)
+    except:
+        raise TypeError("bad filename %s" % key)
+
+    graph_dir = settings.MVSIM_GRAPH_OUTPUT_DIRECTORY
+    path = os.path.join(graph_dir, "%s.png" % key)
+    
+    fp = open(path)
+    try:
+        data = fp.read()
+    finally:
+        fp.close()
+    response = HttpResponse(data)
+    response['Content-Disposition'] = 'attachment;filename="game_%s_graph.png"' % game_id
+    return response
+
 @csrf_exempt
 @allow_http("POST")
 def graph_svg(request, game_id):
