@@ -89,7 +89,7 @@ Take a look at Professor Sachs' book <a target="_blank"
     End of Poverty"</a> 
 </p>
 
-{% if configuration_id %}
+{% if starting_state_id %}
 <form name="start-new-game" action="{% url new_game %}" method="post">
   {% csrf_token %}
   <p>You may 
