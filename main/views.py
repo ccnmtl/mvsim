@@ -115,11 +115,25 @@ def build_template_context(request, game, turn_number=None):
 @allow_http("GET")
 @rendered_with("game/game_over.html")
 def game_over(request, game_id):
+    sections = CourseSection.objects.filter(users=request.user, 
+                                            course=request.course)
+    try:
+        section = sections[0]
+    except IndexError:
+        section = CourseSection.objects.filter(course=request.course)[0]
+        section.users.add(request.user)
+        section.save()
+    try:
+        starting_state_id  = section.starting_states.all()[0].id
+    except:
+        starting_state_id = None
+
     game = Game.objects.get(pk=game_id)
     if game.in_progress():
         print game.show_game_url()
         return redirect(game.show_game_url())
     display_vars = build_template_context(request, game)
+    display_vars['starting_state_id'] = starting_state_id
     return display_vars
 
 @allow_http("GET")

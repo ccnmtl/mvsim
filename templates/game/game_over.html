@@ -22,6 +22,9 @@
     </p>
     
     <form action="{% url new_game %}" method="post">
+    <input type="hidden" name="starting_state_id" 
+	   value="{{starting_state_id}}" />
+
       <p>
 	You can <input type="submit" value="begin another game"
 		       class="regButton" style="font-weight: bold;" />
