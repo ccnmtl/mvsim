@@ -289,7 +289,7 @@ startApp(initial_layer, url_builder, null, set_bookmark);
       </tr>
       
       {% for turn in turns %}
-      {% with forloop.counter as i %}
+      {% with forloop.counter0 as i %}
       <tr class="{% cycle 'odd' 'even' %}">
 	<th scope="row">{{i}}</th>
 	
