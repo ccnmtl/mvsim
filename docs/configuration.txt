@@ -132,7 +132,9 @@ In light of this, it's not clear to me whether Configurations should
 actually be stored in the database: perhaps, instead, a Configuration
 should be specified declaratively in Python code that lives alongside
 the logic engine. (The decision to store Configurations in the
-database was inherited from the previous incarnation of MVSim.)
+database was inherited from the previous incarnation of MVSim.) At the
+moment, notice that the choice of Configuration is hard-coded to the
+one whose ID=1.
 
 The Configuration system, and the coupling of a Configuration to the
 logic engine, with Game and State objects therefore more-or-less
@@ -148,5 +150,11 @@ engines. This could be used to provide:
  * Beta-testing new logic engine versions
  * Providing different logic implementations to different courses,
    course sections, or institutions
+
+Ultimately I'm imagining that the logic engine would be moved into a
+separate pure-Python package, which ships with a logic engine and its
+necessary Configuration schema; the MVSim Django application would
+then be a simulation platform, and one or more logic-engine packages
+could be installed and activated on top of it.
 
 For more discussion of this see the "logic engine" documentation.
