@@ -42,7 +42,7 @@ div.bluff-tooltip {
 <script type="text/javascript">
 var initial_layer = "{{layers.keys.0}}";
 var url_builder = function(variable) {
-  return "/games/{{game.id}}/variable_history_raw?variable=" + variable;
+  return "/games/{{game.id}}/variable_history_raw/?variable=" + variable;
 };
 var set_bookmark = function() {
   var bookmark = make_bookmark();

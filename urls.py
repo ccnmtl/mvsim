@@ -37,6 +37,8 @@ urlpatterns = patterns(
 
     url(r'^games/(?P<game_id>\d+)/graph/$', 'graph.views.graph',
         name='game_graph'),
+    url(r'^games/(?P<game_id>\d+)/graph_svg/$', 'graph.views.graph_svg',
+        name='game_graph_svg'),
     
     url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state'),
         

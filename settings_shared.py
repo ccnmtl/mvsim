@@ -122,3 +122,6 @@ from courseaffils.columbia import CourseStringMapper
 COURSEAFFILS_COURSESTRING_MAPPER = CourseStringMapper
 
 MVSIM_EVENTS_CSV = os.path.join(os.path.dirname(__file__), "events.csv")
+# For a production instance this should be changed to a /var/www-like directory served by Apache
+# but for development it's convenient to just stuff these under the static media directory.
+MVSIM_GRAPH_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), "media/graphs")

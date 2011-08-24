@@ -18,3 +18,5 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+MVSIM_GRAPH_OUTPUT_DIRECTORY = "/var/www/mvsim/graphs")

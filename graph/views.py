@@ -1,11 +1,103 @@
+import datetime
 from django.conf import settings
 from django.http import HttpResponseRedirect as redirect, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from djangohelpers.lib import allow_http, rendered_with
-from main.models import Game, State, CourseSection, Configuration, UserInput
 from engine.logic import get_notifications
 from engine import logic
 from engine import display_logic
+import httplib2
+from main.models import Game, State, CourseSection, Configuration, UserInput
+import os
+import simplejson
+import subprocess
+import tempfile
 
+@csrf_exempt
+@allow_http("POST")
+def graph_svg(request, game_id):
+    json = request.POST['json']
+    json = simplejson.loads(json)
+    
+    output = ["""<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="%s" height="%s" xml:space="preserve"><desc>Created with Raphael</desc><defs></defs>""" % ('640', '__GRAPH_HEIGHT__')]
+    output.append("""<text x="%s" y="3" text-anchor="middle"
+font-family="Arial" font-size="28" stroke="none" fill="#000"><tspan>
+%s
+</tspan></text>""" % ("320", request.POST['title'].strip()))
+
+
+    output.append("""<text x="110" y="315" text-anchor="left"
+font-family="Arial" font-size="18" stroke="none" fill="#000"><tspan>
+X-axis: %s
+</tspan></text>""" % request.POST['xAxis'].strip())
+
+    for item in json:
+        if item['type'] == "text":
+            output.append("""<text x="%(x)s" y="%(y)s" text-anchor="%(text_anchor)s"
+      font="%(font)s" stroke="%(stroke)s" fill="%(fill)s">
+    <tspan>%(text)s</tspan>
+</text>""" % {
+                    'x': item['x'],
+                    'y': int(item['y'] + 35),
+                    'text_anchor': item.get('text-anchor', "left"),
+                    'font': item['font'],
+                    'stroke': item['stroke'],
+                    'fill': item['fill'],
+                    'text': item['text'],
+                    })
+        if item['type'] == "path":
+            output.append("""<path fill="%(fill)s" stroke="%(stroke)s" d="%(path)s" opacity="%(opacity)s" stroke-width="%(swidth)s" transform="%(transform)s"></path>""" % {
+                    'fill': item['fill'],
+                    'stroke': item['stroke'],
+                    'path': item['path'],
+                    'opacity': item.get('opacity', 1),
+                    'transform': "translate(0,35)",
+                    'swidth': item.get('stroke-width', 1),
+                    })
+        if item['type'] == "circle":
+            if not item.get('fill', "").strip():
+                continue
+            output.append("""<circle cx="%(cx)s" cy="%(cy)s" stroke="%(stroke)s" fill="%(fill)s" r="%(radius)s" style="opacity: %(opacity)s; stroke-width: %(swidth)s;" opacity="%(opacity)s" stroke-width="%(swidth)s"></circle>""" % {
+                    'fill': item['fill'],
+                    'stroke': item['stroke'],
+                    'cx': item['cx'],
+                    'cy': int(item['cy']) + 35,
+                    'radius': item['r'],
+                    'opacity': item.get('opacity', 0),
+                    'swidth': item.get('stroke-width', 0),
+                    })
+
+    vars = request.POST['vars']
+    vars = simplejson.loads(vars)
+    y = 370
+    x = 320
+    for item in vars:
+        var = item['text']
+        color = item['color']
+        opacity = item['opacity']
+        output.append("""<text x="%s" y="%s" text-anchor="middle" font-size="14" font-family="Arial" font-weight="bold" stroke="none" opacity="%s" fill="%s"><tspan>%s</tspan></text>""" % (x, y, str(opacity), color, var))
+        y += 20
+
+    output.append("</svg>")
+    output = '\n'.join(output)
+    output = output.replace("__GRAPH_HEIGHT__", str(y)) # from the variable-legend loop above
+
+    # POST to a microapp, git.ccnmtl.columbia.edu:svg2png.git
+    # because only monty's imagemagick `convert` seems to produce decent output, for some reason.
+    http = httplib2.Http()
+    response = http.request("http://monty.ccnmtl.columbia.edu:5052/", method="POST", body=output)
+
+    name = datetime.datetime.now().strftime("%s")
+
+    graph_dir = settings.MVSIM_GRAPH_OUTPUT_DIRECTORY
+    path = os.path.join(graph_dir, "%s.png" % name)
+
+    fp = open(path, "w")
+    fp.write(response[1])
+    fp.close()
+
+    return HttpResponse(name, mimetype="text/plain")
+    
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = Game.objects.get(pk=game_id)
