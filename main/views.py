@@ -130,7 +130,6 @@ def game_over(request, game_id):
 
     game = Game.objects.get(pk=game_id)
     if game.in_progress():
-        print game.show_game_url()
         return redirect(game.show_game_url())
     display_vars = build_template_context(request, game)
     display_vars['starting_state_id'] = starting_state_id
