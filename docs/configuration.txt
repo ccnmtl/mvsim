@@ -158,3 +158,45 @@ then be a simulation platform, and one or more logic-engine packages
 could be installed and activated on top of it.
 
 For more discussion of this see the "logic engine" documentation.
+
+Object-Oriented Variables
+-------------------------
+
+The system of Configurations and Variables allows for composite
+variables that contain other variables, as sketched above. I've
+envisioned this being used to refactor and combine some of the
+existing variables, both to simplify some of the logic engine's code
+and to reduce the headaches on instructors and admins creating and
+editing starting states by providing logical groupings of conceptually
+related variables in the editing UI. (The UI benefits would occur
+automatically thanks to Deform's schema-to-form logic.)
+
+In particular, the assorted list-like variables related to family
+members could be refactored into a dict-like Person variable with
+logical attributes, and then aggregated in a list-like People variable
+whose list entries must be Person items.  These variables include:
+ 
+  variables.names
+  variables.genders
+  variables.ages
+  variables.health
+  variables.education
+  variables.sick
+  variables.efforts
+  variables.schooling_state
+
+If these are combined into a Person variable, a bit of logic engine
+code would need to change: specifically, the marshall_people and
+setup_people functions could be removed entirely.
+
+Other variables might also be good candidates for this sort of
+refactoring; symptoms to look for include code that transforms
+variables before passing them on to the meat of the logic engine (like
+the simple_controller.adjust_submission function in the `engine`
+module); variables with ad-hoc string formats that encode multiple
+pieces of information in a single field (like `sick`, `purchase_items`
+and `sell_items`) and variables which are rarely or never used in the
+logic engine on their own, but instead need other variables to be
+meaningful (like `bednet_ages` and `owned_items.bednet`, and maybe the
+various `microfinance_` variables)
+
