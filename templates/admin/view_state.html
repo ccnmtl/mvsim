@@ -6,10 +6,29 @@
   <!-- JavaScript -->
   <script type="text/javascript"
           src="/static/scripts/jquery-1.4.2.min.js"></script>
+{% if not readonly %}
   <script type="text/javascript"
           src="/static/scripts/deform.js"></script>
+{% endif %}
 {% endblock %}
 
 {% block content %}
+<h1>{{state}}</h1>
+
+<h2>Clone state</h2>
+<form method="POST" action="{% url clone_state state.id %}">
+  New state name: <input type="text" name="state_name" value="" />
+  <input type="submit" value="Clone state" />
+</form>
 {{form|safe}}
+{% endblock %}
+
+{% block endscripts %}
+{% if readonly %}
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+      jQuery("#deform input").attr("disabled", "disabled");
+    });
+  </script>
+{% endif %}
 {% endblock %}

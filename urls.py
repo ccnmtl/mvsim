@@ -42,7 +42,10 @@ urlpatterns = patterns(
     url(r'^games/(?P<game_id>\d+)/graph_download/$', 'graph.views.graph_download',
         name='game_graph_download'),
     
-    url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state'),
+    url(r'^state/(?P<state_id>\d+)/$', 'main.views.view_state',
+        name="view_state"),
+    url(r'^state/(?P<state_id>\d+)/clone/$', 'main.views.clone_state',
+        name="clone_state"),
         
     (r'^admin/', include(admin.site.urls)),
     (r'^munin/',include('munin.urls')),

@@ -267,6 +267,10 @@ class State(models.Model):
 
     state = models.TextField()
 
+    @models.permalink
+    def view_state_url(self):
+        return ('view_state', [self.pk], {})
+
     def loads(self):
         return json.loads(self.state)
 

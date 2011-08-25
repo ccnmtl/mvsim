@@ -12,6 +12,16 @@ import json
 from urlparse import parse_qsl
 from pkg_resources import resource_filename
 
+@allow_http("POST")
+def clone_state(request, state_id):
+    state = State.objects.get(id=state_id)
+    config = Configuration.objects.get(pk=1)
+
+    new_state = State(name=request.POST.get('state_name') or old_state.name)
+    new_state.state = state.state
+    new_state.save()
+    return redirect(new_state.view_state_url())
+
 @rendered_with("admin/view_state.html")
 def view_state(request, state_id):
     state = State.objects.get(id=state_id)
@@ -23,15 +33,26 @@ def view_state(request, state_id):
     renderer = deform.ZPTRendererFactory(search_path)
     form = deform.Form(schema, buttons=('submit',), renderer=renderer)
 
+    readonly = False
+    if state.game:
+        readonly = True
+
     if request.method == "GET":
-        return {'form': form.render(state.loads())}
+        return {'form': form.render(state.loads()),
+                'readonly': readonly,
+                'state': state}
+
+    if readonly:
+        return forbidden()
 
     # trick from Chris Pyper, http://groups.google.com/group/pylons-discuss/browse_thread/thread/83b4f2950cbc1892?hl=en
     controls = parse_qsl(request.raw_post_data, keep_blank_values=True)
     try:
         appstruct = form.validate(controls)
     except deform.ValidationFailure, e:
-        return {'form': e.render()}
+        return {'form': e.render(),
+                'readonly': readonly,
+                'state': state}
     new_state = json.dumps(appstruct)
     state.state = new_state
     state.save()
