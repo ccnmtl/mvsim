@@ -200,3 +200,15 @@ logic engine on their own, but instead need other variables to be
 meaningful (like `bednet_ages` and `owned_items.bednet`, and maybe the
 various `microfinance_` variables)
 
+Equations Map
+-------------
+
+Another future idea Rob and I have talked about is a way of browsing
+through the variables and coefficients in a configuration, and,
+ideally, seeing the equations that they're used in -- essentially,
+converting the formulas in the PDF equations document to a set of
+database entries with each component being a hyperlink to the variable
+that it represents; and then a databrowse-style interface for
+exploring the relationships.  Note that if the configurations and
+variables were converted to code this could be done just as easily in
+code.
