@@ -37,6 +37,13 @@ def view_state(request, state_id):
     if state.game:
         readonly = True
 
+    # Deform's form.render API allows you to pass a readonly=True flag
+    # to have deform render a readonly representation of the data;
+    # but, the default readonly templates aren't form-like, they're just
+    # unstyled lists which look really ugly in our layout.
+    # So, instead, the mvsim django template receives the readonly flag, 
+    # and, if it's set, removes Deform's javascript and injects some JS
+    # to disable all the form fields on page load.  The result is prettier.
     if request.method == "GET":
         return {'form': form.render(state.loads()),
                 'readonly': readonly,
