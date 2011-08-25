@@ -1,6 +1,8 @@
 import datetime
 from django.conf import settings
-from django.http import HttpResponseRedirect as redirect, HttpResponse
+from django.http import (HttpResponseRedirect as redirect, 
+                         HttpResponse,
+                         HttpResponseForbidden as forbidden)
 from django.views.decorators.csrf import csrf_exempt
 from djangohelpers.lib import allow_http, rendered_with
 from engine.logic import get_notifications
@@ -123,6 +125,10 @@ X-axis: %s
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = Game.objects.get(pk=game_id)
+
+    if not game.viewable(request):
+        return forbidden()
+
     turns = [game.deserialize(state) for state in game.state_set.order_by("created")]
 
     params = {}

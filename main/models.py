@@ -175,6 +175,12 @@ class Game(models.Model):
         game.save()
         return game
 
+    def viewable(self, request):
+        return (self.user == request.user or
+                request.user.is_staff or
+                self.course.is_faculty(request.user)
+                )
+
     def turns(self):
         return self.state_set.order_by("created")
 

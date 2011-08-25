@@ -1,5 +1,7 @@
 from django.conf import settings
-from django.http import HttpResponseRedirect as redirect, HttpResponse
+from django.http import (HttpResponseRedirect as redirect, 
+                         HttpResponse,
+                         HttpResponseForbidden as forbidden)
 from djangohelpers.lib import allow_http, rendered_with
 from main.models import Game, State, CourseSection, Configuration, UserInput
 from engine.logic import get_notifications
@@ -131,6 +133,10 @@ def game_over(request, game_id):
     game = Game.objects.get(pk=game_id)
     if game.in_progress():
         return redirect(game.show_game_url())
+
+    if not game.viewable(request):
+        return forbidden()
+
     display_vars = build_template_context(request, game)
     display_vars['starting_state_id'] = starting_state_id
     return display_vars
@@ -139,6 +145,10 @@ def game_over(request, game_id):
 @rendered_with("game/game_history_view.html")
 def history(request, game_id):
     game = Game.objects.get(pk=game_id)
+
+    if not game.viewable(request):
+        return forbidden()
+
     display_vars = build_template_context(request, game)
     return display_vars
 
@@ -146,6 +156,10 @@ def history(request, game_id):
 @rendered_with("game/game.html")
 def show_turn(request, game_id):
     game = Game.objects.get(pk=game_id)
+
+    if not game.viewable(request):
+        return forbidden()
+
     if not game.in_progress():
         return redirect(game.game_over_url())
     display_vars = build_template_context(request, game)
@@ -155,12 +169,18 @@ def show_turn(request, game_id):
 @rendered_with("game/view_turn_first_turn.html")
 def view_turn_history_first_turn(request, game_id):
     game = Game.objects.get(pk=game_id)
+
+    if not game.viewable(request):
+        return forbidden()
     return {'game': game}
 
 @allow_http("GET")
 @rendered_with("game/view_turn.html")
 def view_turn_history(request, game_id, turn_number):
     game = Game.objects.get(pk=game_id)
+
+    if not game.viewable(request):
+        return forbidden()
     turn_number = int(turn_number)
     if turn_number == 1:
         return view_turn_history_first_turn(request, game_id)
@@ -172,6 +192,9 @@ def view_turn_history(request, game_id, turn_number):
 @allow_http("POST")
 def submit_turn(request, game_id):
     game = Game.objects.get(pk=game_id)
+
+    if not game.viewable(request):
+        return forbidden()
     state = game.deserialize(game.current_state())
     variables, coefficients = state['variables'], state['coefficients']
 
