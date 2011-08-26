@@ -3,3 +3,4 @@
 *.pyc
 ve
 media/graphs/*.png
+docs/_build

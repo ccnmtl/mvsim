@@ -1,3 +1,5 @@
+.. contents::
+
 The Configuration System
 ========================
 
@@ -64,7 +66,7 @@ method to interpret different parts of the field and modify the
 `colander` constructors accordingly.
 
 Design Contrast
-===============
+---------------
 
 The system is an update of the TurboGears MVSim's system of Variables,
 Coefficients, Configurations, and SavedStates. The major
@@ -92,7 +94,7 @@ differences are:
    if a State is associated (by nullable foreign key) with a Game,
    then it is considered the state for a turn of that Game; if its
    `game` foreign key is null, it is a potential starting state. (For
-   more on starting states, see the "course sections" documentation.)
+   more on starting states, see :doc:`the "course sections" documentation <course-sections>`.)
 
  * Storing the entire State object in an unstructured fashion, in a
    single text column, with its structure interpreted in Python code
@@ -113,10 +115,10 @@ of. Similarly, by de-formalizing the distinction between variables and
 coefficients, the logic engine can be more flexible -- it can decide
 what sort of interface it wants to provide, and no structural changes
 to the database will be necessary. (For example, configurations of
-"events" could be added; for details, see the "events" documentation.)
+"events" could be added; for details, see :doc:`the "events" documentation <events>`.)
 
 Future Directions
-=================
+-----------------
 
 The design considers Configurations to be tightly coupled to the logic
 engine, and loosely coupled to everything else.  Any change to the
@@ -157,10 +159,10 @@ necessary Configuration schema; the MVSim Django application would
 then be a simulation platform, and one or more logic-engine packages
 could be installed and activated on top of it.
 
-For more discussion of this see the "logic engine" documentation.
+For more discussion of this see :doc:`the "logic engine" documentation <logic-engine>`.
 
 Object-Oriented Variables
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The system of Configurations and Variables allows for composite
 variables that contain other variables, as sketched above. I've
@@ -176,14 +178,14 @@ members could be refactored into a dict-like Person variable with
 logical attributes, and then aggregated in a list-like People variable
 whose list entries must be Person items.  These variables include:
  
-  variables.names
-  variables.genders
-  variables.ages
-  variables.health
-  variables.education
-  variables.sick
-  variables.efforts
-  variables.schooling_state
+ * variables.names
+ * variables.genders
+ * variables.ages
+ * variables.health
+ * variables.education
+ * variables.sick
+ * variables.efforts
+ * variables.schooling_state
 
 If these are combined into a Person variable, a bit of logic engine
 code would need to change: specifically, the marshall_people and
@@ -201,7 +203,7 @@ meaningful (like `bednet_ages` and `owned_items.bednet`, and maybe the
 various `microfinance_` variables)
 
 Equations Map
--------------
+~~~~~~~~~~~~~
 
 Another future idea Rob and I have talked about is a way of browsing
 through the variables and coefficients in a configuration, and,

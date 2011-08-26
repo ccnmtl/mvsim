@@ -6,6 +6,7 @@ admin.autodiscover()
 import staticmedia
 
 site_media_root = os.path.join(os.path.dirname(__file__),"media")
+doc_root = os.path.join(os.path.dirname(__file__),"docs","_build","html")
 
 redirect_after_logout = getattr(settings, 'LOGOUT_REDIRECT_URL', None)
 auth_urls = (r'^accounts/',include('django.contrib.auth.urls'))
@@ -51,5 +52,6 @@ urlpatterns = patterns(
     (r'^munin/',include('munin.urls')),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
     (r'^uploads/(?P<path>.*)$','django.views.static.serve',{'document_root' : settings.MEDIA_ROOT}),
+    (r'^docs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': doc_root}),
     ) + staticmedia.serve()
 

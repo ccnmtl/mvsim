@@ -1,11 +1,14 @@
+Overview
+========
+
 Aspects of MVSIM that should be considered in documentation:
 
 1. The Logic Engine, a pure Python module which receives a Python 
    object representing a game state and returns a new game state.
 
-2. The Configuration system, which describes the interface to and
-   from the logic engine, by providing schema for serializing and 
-   deserializing coefficient and variable values.
+2. :doc:`The Configuration system <configuration>`, which describes
+   the interface to and from the logic engine, by providing schema for
+   serializing and deserializing coefficient and variable values.
 
 3. The User Input model, which, like the Configuration system,
    defines which variables may be edited directly by the user during
