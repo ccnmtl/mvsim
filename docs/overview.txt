@@ -11,9 +11,9 @@ Aspects of MVSIM that should be considered in documentation:
    the interface to and from the logic engine, by providing schema for
    serializing and deserializing coefficient and variable values.
 
-3. The User Input model, which, like the Configuration system,
-   defines which variables may be edited directly by the user during
-   gameplay.
+3. :doc:`The User Input model <user-input>`, which, like the
+   Configuration system, defines which variables may be edited
+   directly by the user during gameplay.
 
 4. The State model, which stores a single state of a game in a JSON
    formatted text blob, and which is deserialized according to a

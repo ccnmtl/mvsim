@@ -1,0 +1,41 @@
+The User Input Model
+====================
+
+The User Input model is like a "mini-configuration" that defines which
+variables may be specified directly by the end user in a given turn.
+This should be a strict subset of the variables in the active
+Configuration; the Configuration's variables that are *not* present in
+the active User Input (as well as all coefficients) are not directly
+changeable by the end user and are instead calculated within the logic
+engine.
+
+Mostly you should read about :doc:`the configuration system
+<configuration>` which will tell about how configuration schemas are
+defined and used.
+
+The Colander deserialization of a user's submission should automatically
+invalidate user submissions that contain keys not present in the
+active User Input.
+
+Just as it does with Configurations, the view code is currently
+hard-coded to look for the User Input with ID=1 in the database.
+
+Note that the view code takes a game's current state, merges in the
+values provided from the form submission as deserialized through the
+active User Input schema, and then sends that merged state in to the
+logic engine for processing; the result of that processing is the only
+thing that is subsequently reserialized and stored in the database.
+(This is precisely the same approach that MVSim's TurboGears
+incarnation took.) In other words the user's submission (or the
+complete post-merge state) is never stored in the database as-is --
+and, since the logic engine is free to recalculate new values for
+variables that were directly entered by the user, the user's
+submission cannot reliably be reconstructed from the available data.
+
+I've considered the idea of storing that post-merged-pre-processed
+state as well, though there's been no particular reason to do so; for
+alternate implementations of the simulation platform, though, this could
+become important -- like gameplay with a staged set of decisions (e.g.
+"first submit the family-level decisions, then submit the
+village-level decisions") or a multi-player simulation.
+
