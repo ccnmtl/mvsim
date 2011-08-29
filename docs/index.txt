@@ -14,7 +14,9 @@ Contents:
    overview
    logic-engine
    configuration
+   user-input
    states
+   events
 
 Indices and tables
 ==================

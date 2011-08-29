@@ -26,10 +26,10 @@ Aspects of MVSIM that should be considered in documentation:
    and a single User Input, which determine how the Game will
    interpret its States.
 
-6. The Events system, which determines which notifications to display
-   in the End Of Turn Report based on the game state before and after
-   a turn was executed. Events are expressed as rows in a CSV file,
-   and include information like:
+6. :doc:`The Events system <events>`, which determines which
+   notifications to display in the End Of Turn Report based on the
+   game state before and after a turn was executed. Events are
+   expressed as rows in a CSV file, and include information like:
 
      * Under what conditions should this event occur?
      * What text should be displayed to the user if this event occurs?

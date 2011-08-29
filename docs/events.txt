@@ -1,1 +1,41 @@
-Nothing to see here yet, sorry.
+The Events System
+=================
+
+The Events system determines what notifications to display to the user
+in the End Of Season Report, based on conditions expressed against the
+game's State prior to the turn being played and/or after the turn has
+been played. For simple, hopefully self-documenting examples, see the
+test cases at the bottom of the `engine/event.py` file.
+
+Events include information like:
+
+     * Under what conditions should this event occur?
+     * What text should be displayed to the user if this event occurs?
+     * What is the event's severity? (Well, actually, "css class")
+
+The actual Events in use are in a CSV file, `events.csv`, in the root
+of the Django project; they are read from that file as needed at
+runtime.
+
+A Django setting, `MVSIM_EVENTS_CSV`, points to the location of this
+file by default.
+
+Future Directions
+-----------------
+
+Pretty straightforward.
+
+* The events should probably live in the database, not a CSV file
+  (which is an artifact of the Google Doc we were collaborating on to
+  specify the events to build ou)
+
+* The events should be associated with the Configuration somehow, I
+  think, so that they can vary per game, and because they are
+  technically a required component of the interface to the logic
+  engine.
+
+* The remaining notifications should be ported to the Events System:
+  some are still just hard-coded in the Season Report templates.
+
+* Exposing UIs for faculty to browse, modify and select the active
+  events could be interesting.
