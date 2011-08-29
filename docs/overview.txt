@@ -3,8 +3,9 @@ Overview
 
 Aspects of MVSIM that should be considered in documentation:
 
-1. The Logic Engine, a pure Python module which receives a Python 
-   object representing a game state and returns a new game state.
+1. :doc:`The Logic Engine <logic-engine>`, a pure Python module which 
+   receives a Python object representing a game state and returns a 
+   new game state.
 
 2. :doc:`The Configuration system <configuration>`, which describes
    the interface to and from the logic engine, by providing schema for
@@ -28,9 +29,11 @@ Aspects of MVSIM that should be considered in documentation:
    in the End Of Turn Report based on the game state before and after
    a turn was executed. Events are expressed as rows in a CSV file,
    and include information like:
+
      * Under what conditions should this event occur?
      * What text should be displayed to the user if this event occurs?
      * What is the event's severity?
+
    The Events are currently read directly from the "events.csv" file
    during runtime. It would probably make sense to move them to the
    database and associate them with new games in the same way that 

@@ -1,1 +1,105 @@
-Nothing to see here yet, sorry.
+.. contents::
+
+The Logic Engine
+================
+
+The logic engine is an effectively standalone, pure Python module that
+determines the new state of an MVSim game by receiving a set of Python
+objects that fully describe the game's current state, and returning
+back a new game state represented by a new set of Python variables and
+a boolean flag that signals whether the game is now finished.
+
+The set of Python objects that constitute the interface into the logic
+engine is described by :doc:`the configuration system
+<configuration>`. Currently, this consists of a list of variables
+and a list of coefficients; conventionally (and only loosely enforced
+in the code) the only difference is that variables will change value
+from turn to turn, and coefficients will not.
+
+The logic engine's code lives in the :mod:`engine` subdirectory of the
+Django project. The main entry point and only real API exposed by the
+logic engine is :meth:`engine.logic.Turn.go`; to see its usage look at
+the :func:`main.views.submit_turn` view which invokes it.
+
+Events
+------
+
+There is actually an additional requirement besides coefficients and
+variables that must be provided to the logic engine: event
+notifications. These are currently provided to the logic engine "out
+of band" by reading a CSV file, but it's worth being aware of.  For
+more see :doc:`the events documentation<events>`.
+
+Display Logic and Simple Controller
+-----------------------------------
+
+The functions in :mod:`engine.display_logic` are used by the views to
+build the necessary context dictionary to be passed to the game's
+various templates (game view, season report, game over report, etc)
+
+The code in this module was gradually extracted from TurboGears Kid
+template files and moved into Python code. Feel free to refactor it
+further to make it reasonably clean and/or simplify the templates to
+not need so much of this stuff.
+
+Similarly, the functions in :mod:`engine.simple_controller` were
+extracted from various places in the original TurboGears project.
+They are used in several places -- engine logic code, Django view code
+and template tags.
+
+Future Directions
+-----------------
+
+Cleanup
+~~~~~~~
+
+First of all, there are a couple of pretty straightforward
+refactorings that would be worthwhile: the TwisterClient requirement
+should probably be replaced with local use of Python's stdlib random
+module, and the events should probably live in the database and be
+passed to the logic engine rather than being read from a file in the
+source repository.
+
+Pluggable Implementations
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There may also be opportunities for broader refactoring of the code
+within the logic engine.  I've already built pretty well encapsulated
+and self-documenting modules to represent fuel types
+(:mod:`engine.fuel`) and disease types (:mod:`engine.disease`) and I
+think other aspects of the simulation could similarly be encapsulated
+in logical units.
+
+This sort of refactoring seems to make it possible to build pluggable 
+systems within the simulation engine -- writing a new fuel type or a
+new kind of disease is now pretty straightforward, although a few
+important details of UI presentation would need to be rearranged in
+order to make them completely pluggable. In conjunction with a system
+of multiple parallel :doc:`configuration schemas <configuration>`
+(since the absence or presence of each type of disease or fuel impacts
+the set of required variables, coefficients, and events) this could be
+used to let faculty turn on and off individual diseases or fuel
+sources; or even to let faculty or students define their own diseases
+or fuel sources and plug them into the system. I'm really interested
+in pursuing this direction, and also in further refactoring the logic
+engine to find other domains that could undergo this treatment
+(village improvements and crop types come to mind) 
+
+Packaging
+~~~~~~~~~
+
+Related to the above point, I think it would make sense to actually
+remove the logic engine module from the Django project; move its
+required configuration data to live in that module; and ship the pair
+as an independent Python package with, effectively, no dependencies
+and no user interface.  The Django project would then be
+(approximately) a simulation platform with pluggable logic
+implementations. Especially if users of the system were implementing
+custom instances of common types (fuel, food, disease etc) this
+decoupled packaging structure could make code-sharing easy and really
+interesting.
+
+It would also theoretically allow for other consumers of the logic
+engine besides the Django platform, and *entirely* different logic
+engines within the same Django platform, but those outcomes both seem
+pretty far off and of no clear value.
