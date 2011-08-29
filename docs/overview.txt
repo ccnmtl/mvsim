@@ -15,10 +15,11 @@ Aspects of MVSIM that should be considered in documentation:
    Configuration system, defines which variables may be edited
    directly by the user during gameplay.
 
-4. The State model, which stores a single state of a game in a JSON
-   formatted text blob, and which is deserialized according to a
-   Configuration.  The `created` timestamp of a state expresses the
-   time when a user  played a game turn that resulted in that state.
+4. :doc:`The State model <states>`, which stores a single state of a
+   game in a JSON formatted text blob, and which is deserialized
+   according to a Configuration.  The `created` timestamp of a state
+   expresses the time when a user played a game turn that resulted in
+   that state.
 
 5. The Game model, which contains a set of States (implicitly ordered
    by their `created` timestamp) and a link to a single Configuration

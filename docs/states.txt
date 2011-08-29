@@ -1,0 +1,84 @@
+The State Model
+===============
+
+The State model stores a single state of a game in a JSON formatted
+text blob, which is deserialized according to a Configuration.
+
+Most of the important things about the state model are straightforward
+and/or covered in other documents (particularly :doc:`the
+configuration system <configuration>` and :doc:`the logic engine
+<logic-engine>`)
+
+Note that the `created` timestamp of a state expresses the time when a
+user played a game turn that resulted in that state. This is actually
+the only data used to construct the sequence of turns that make up a
+Game's history, and to determine the current turn of an active Game.
+
+Browsing and Editing States
+---------------------------
+
+For faculty and staff, special Django views are available for viewing,
+editing and cloning any given State. These views are intended to be
+used for developing starting states for students to use when
+initiating new games. (These are the named views "view_state" and
+"clone_state" in the primary URLconf.)
+
+The "view_state" view is used for both viewing and editing a state.
+States associated with a game are not editable; but their data can be
+browsed, and they can be cloned into a new State that is not
+associated with any game and is therefore editable.
+
+In these views, the forms displayed to the faculty user are
+dynamically generated using Deform[1], a framework-agnostic library
+standalone by Chris McDonough that is maintained as part of the Pylons
+Project. Deform is also used to validate submitted data for edit
+forms, and to display any error messages for invalid
+submissions. Deform works by using Colander schemas, so it's a natural
+fit for States, which are associated with Colander schemas through the
+Configuration system. For the most part it's straightforward and the
+code should be straightforward, but there were a few "gotchas" that
+might not be obvious and are worth highlighting:
+
+1. Deform implicitly requires that every Colander SchemaNode in use
+   (recursively) must possess a `name` attribute -- this is used to
+   build the HTML form inputs' name attributes. The Colander and
+   Deform docs do mention this, but it's not enforced in the code (it
+   would be hard to enforce without breaking the libraries' proper
+   separation of concerns) and I missed it at first. If this
+   constraint isn't met, data submitted through Deform will behave
+   badly, and data might get lost on save; for (a bit) more see
+   https://github.com/ccnmtl/mvsim/commit/8e28a07c6718b2aa8fce00002e483420fde846a1
+
+2. Deform has a "read-only form" feature, which will use a separate
+   set of templates to render a non-editable view on the data.[2]
+   However, as illustrated by the sample read-only form[3] provided
+   alongside the docs, this isn't really usable out of the box; its
+   output isn't pretty at all. So, for the State objects' read-only
+   forms, I circumvented this feature altogether and instead used
+   standard read/write forms, but injected some Javascript into the
+   response to disable all the form fields. My relevant commits are
+   https://github.com/ccnmtl/mvsim/commit/b30807b3e488dd131b5367ca7e3f24748b96272c
+   and https://github.com/ccnmtl/mvsim/commit/60b9232d2bbdf6dd4ccfa90bdf36203ea1d84321
+
+3. Deform's default templates are built with Chameleon ZPT. Yes, that
+   ZPT. Sorry.
+
+4. Deform template overrides can be dropped into the
+   `deform_templates` directory in the Django project -- I customized
+   one template to make it a little prettier for our usage. To
+   override a form, just find the right one in the deform source
+   distribution, copy it to this directory, and edit.
+
+5. Deform treats HTML POST data as a stream, and thus requires that it
+   be available on the server in precisely the same order that it was
+   submitted from the client. This is a neat trick and actually a
+   valid assumption based on the relevant specifications. But Django
+   breaks this assumption -- its HttpRequest.POST QueryDict is *not*
+   properly ordered. It's necessary to work around this: see
+   https://github.com/ccnmtl/mvsim/commit/4f9c1bdb4fff30129b49b4834ba070074baaad03#L1R27
+
+[1] https://docs.pylonsproject.org/projects/deform/dev/
+
+[2] https://docs.pylonsproject.org/projects/deform/dev/basics.html
+
+[3] http://deformdemo.repoze.org/readonly_sequence_of_mappings/
