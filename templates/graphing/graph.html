@@ -3,13 +3,13 @@
 {% block title %}Millennium Village{% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="/static/javascript/MochiKit/MochiKit.js"></script>
+<script type="text/javascript" src="/site_media/javascript/MochiKit/MochiKit.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery.noConflict();
 </script>
-<script type="text/javascript" src="/static/graphtool/js/tabber.js"></script>
-<script type="text/javascript" src="/static/graphtool/js/getlink.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/tabber.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/getlink.js"></script>
 
 <script type="text/javascript" src="/site_media/js/raphael/raphael.js"></script>
 <script type="text/javascript" src="/site_media/js/raphael/g.raphael.js"></script>
@@ -32,12 +32,12 @@ div.bluff-tooltip {
 }
 </style>
 <style type="text/css">
-  @import "/static/graphtool/css/graphingtool.css";
+  @import "/site_media/graphtool/css/graphingtool.css";
 </style>
 
-<script type="text/javascript" src="/static/graphtool/js/graph.js"></script>
-<script type="text/javascript" src="/static/graphtool/js/graph_model.js"></script>
-<script type="text/javascript" src="/static/graphtool/js/graph_application.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/graph.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/graph_model.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/graph_application.js"></script>
 
 <script type="text/javascript">
 var initial_layer = "{{layers.keys.0}}";
@@ -121,7 +121,7 @@ startApp(initial_layer, url_builder, null, set_bookmark);
 	   width="600" height="300" border="0">
 	<img 
 	   alt="The graph will be drawn here"
-	   src="/static/images/placegraph.gif" />
+	   src="/site_media/images/placegraph.gif" />
       </div>
       <div class="x_axis">
 	<form> 

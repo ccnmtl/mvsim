@@ -3,26 +3,26 @@
 {% block title %}Millennium Village{% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="/static/javascript/MochiKit/MochiKit.js"></script>
+<script type="text/javascript" src="/site_media/javascript/MochiKit/MochiKit.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery.noConflict();
 </script>
 
-<script type="text/javascript" src="/static/javascript/hideshow/hs.js"></script>
-<script type="text/javascript" src="/static/javascript/crops.js"></script>
-<script type="text/javascript" src="/static/javascript/doctor.js"></script>
-<script type="text/javascript" src="/static/javascript/slider.js"></script>
-<script type="text/javascript" src="/static/javascript/effort.js"></script>
-<script type="text/javascript" src="/static/javascript/shopping_cart.js"></script>
+<script type="text/javascript" src="/site_media/javascript/hideshow/hs.js"></script>
+<script type="text/javascript" src="/site_media/javascript/crops.js"></script>
+<script type="text/javascript" src="/site_media/javascript/doctor.js"></script>
+<script type="text/javascript" src="/site_media/javascript/slider.js"></script>
+<script type="text/javascript" src="/site_media/javascript/effort.js"></script>
+<script type="text/javascript" src="/site_media/javascript/shopping_cart.js"></script>
 
-<script type="text/javascript" src="/static/javascript/village_fund.js"></script>
+<script type="text/javascript" src="/site_media/javascript/village_fund.js"></script>
 
-<script type="text/javascript" src="/static/javascript/plusminus.js"></script>
-<script type="text/javascript" src="/static/javascript/limits.js"></script>
-<script type="text/javascript" src="/static/javascript/validation.js"></script>
-<script type="text/javascript" src="/static/javascript/allocate_calories.js"></script>
-<script type="text/javascript" src="/static/javascript/slideupdown.js"></script>
+<script type="text/javascript" src="/site_media/javascript/plusminus.js"></script>
+<script type="text/javascript" src="/site_media/javascript/limits.js"></script>
+<script type="text/javascript" src="/site_media/javascript/validation.js"></script>
+<script type="text/javascript" src="/site_media/javascript/allocate_calories.js"></script>
+<script type="text/javascript" src="/site_media/javascript/slideupdown.js"></script>
 <script type="text/javascript">
 
 /*==================================================
@@ -69,9 +69,9 @@ var tabberOptions = {
 <![endif]-->
 
 
-<script type="text/javascript" src="/static/javascript/tabber.js"></script>
+<script type="text/javascript" src="/site_media/javascript/tabber.js"></script>
 <!-- must include village view AFTER tabber has been initialized -->
-<script type="text/javascript" src="/static/javascript/village_view.js"></script>
+<script type="text/javascript" src="/site_media/javascript/village_view.js"></script>
 
 <script type="text/javascript">
 function hideReport() {
@@ -198,7 +198,7 @@ addLoadEvent(alertme);
 		  {% if state.subsistence_met %}
 		  <table>
 		    <tr>
-		      <td><img src="/static/images/icon_report_greencheck.gif" /></td>
+		      <td><img src="/site_media/images/icon_report_greencheck.gif" /></td>
 		      <td><strong>Subsistence met with last harvest.</strong></td>
 		    </tr>
 		  </table>
@@ -207,7 +207,7 @@ addLoadEvent(alertme);
 		  <table>
 		    {% if not state.maize_cals|plus:state.fish_cals|gte:state.family_needs %}
 		    <tr>
-		      <td><img src="/static/images/icon_alert_red.gif" /></td>
+		      <td><img src="/site_media/images/icon_alert_red.gif" /></td>
 		      <td>
 			<strong>Your last harvest did not produce sufficient food.</strong>
 		      </td>
@@ -216,7 +216,7 @@ addLoadEvent(alertme);
 
 		    {% if "insufficient wood" in state.user_messages and not state.stove %}
 		    <tr>
-		      <td><img src="/static/images/icon_alert_red.gif" /></td>
+		      <td><img src="/site_media/images/icon_alert_red.gif" /></td>
 		      <td>
 			<strong>You did not collect enough wood to cook your food.</strong>
 		      </td>
@@ -225,7 +225,7 @@ addLoadEvent(alertme);
 
 		    {% if 'insufficient water' in state.user_messages %}
 		    <tr>
-		      <td><img src="/static/images/icon_alert_red.gif" /></td>
+		      <td><img src="/site_media/images/icon_alert_red.gif" /></td>
 		      <td>
 			<strong>You did not collect enough water to meet your needs.</strong>
 		      </td>
@@ -240,7 +240,7 @@ addLoadEvent(alertme);
 		  <h3>Buy Extra Food</h3>
 		  <table>
 		    <tr>
-     		      <td><img src="/static/images/icons/buy_food.png" width="40" height="40" alt=""/></td>
+     		      <td><img src="/site_media/images/icons/buy_food.png" width="40" height="40" alt=""/></td>
 		      <td><b>Extra Food (10 daily cal.)</b><br /> 
 			CFA <span id="cost-of-food">
 			  {{state.calculated_food_cost|format_float}}
@@ -334,7 +334,7 @@ addLoadEvent(alertme);
 		    
 		    {% for person in people %}
 		    <tr>
-		      <td><img src="/static/images/icons/{{person.img_under}}.png" /><br />
+		      <td><img src="/site_media/images/icons/{{person.img_under}}.png" /><br />
 			<b>{{person.name}}</b><br />
 			<small>{{person.gender}}, Age: {{person.age}}</small>
 		      </td>
@@ -456,7 +456,7 @@ addLoadEvent(alertme);
 		  
 		  <table border="1">
 		    <tr>
-		      <th><img src="/static/images/icons/farming.gif"/><br />
+		      <th><img src="/site_media/images/icons/farming.gif"/><br />
 			Farming</th>
 		      <th>
 			<input type="text" name="effort_farming"
@@ -471,7 +471,7 @@ addLoadEvent(alertme);
 		      </td>
 		    </tr>
 		    <tr>
-		      <th><img src="/static/images/icons/fishing.png"/><br />
+		      <th><img src="/site_media/images/icons/fishing.png"/><br />
 			Fishing</th>
 		      <th><input type="text" name="effort_fishing"
 				 id="effort-fishing" class="family_effort plusminus notnegative"
@@ -482,7 +482,7 @@ addLoadEvent(alertme);
 
 		    </tr>
 		    <tr>
-		      <th><img src="/static/images/icons/fuel_wood.png"/><br />
+		      <th><img src="/site_media/images/icons/fuel_wood.png"/><br />
 			Fuel Wood Collection</th>
 		      <th><input type="text" name="effort_fuel_wood"
 				 id="effort-fuel-wood" 
@@ -491,7 +491,7 @@ addLoadEvent(alertme);
 		    </tr>
 		    <tr>
 		      <th><img
-			     src="/static/images/icons/water_collection.png"/><br />
+			     src="/site_media/images/icons/water_collection.png"/><br />
 			Water Collection</th>
 		      <th><input type="text" name="effort_water"
 				 id="effort-water" class="family_effort plusminus notnegative"
@@ -500,7 +500,7 @@ addLoadEvent(alertme);
 		    </tr>
 		    <tr>
 		      <th><img
-			     src="/static/images/icons/small_business.png"/><br />
+			     src="/site_media/images/icons/small_business.png"/><br />
 			Small Business</th>
 		      <th><input type="text"
 				 value="{{state.effort_small_business}}"
@@ -514,13 +514,13 @@ addLoadEvent(alertme);
 		  
 		  <table>
 		    <tr>
-		      <td><img src="/static/images/icons/maize.png"/></td>
+		      <td><img src="/site_media/images/icons/maize.png"/></td>
 		      <td><b>Maize</b><br />
 			<input type="text" name="maize" value="{{maize_count}}"
 			       size="2" class="plusminus" id="crops-maize"
 			       />
 		      </td>
-		      <td><img src="/static/images/icons/cotton.png"/></td>
+		      <td><img src="/site_media/images/icons/cotton.png"/></td>
 		      <td><b>Cotton</b><br />
 			<input type="text" name="cotton" value="{{cotton_count}}"
 			       size="2" class="plusminus" id="crops-cotton"
@@ -550,7 +550,7 @@ addLoadEvent(alertme);
 		    {% with thing.2 as price %}
 		    {% with thing.3 as adjusted_price %}
 		    <tr>
-		      <td><img src="/static/images/icons/{{item}}.png" width="40"
+		      <td><img src="/site_media/images/icons/{{item}}.png" width="40"
 			       height="40" alt=""/></td>
 		      <td><b>{{label}}</b><br /> 
 			CFA <span id="{{item}}-purchase-price">{{adjusted_price}}</span></td>
@@ -577,7 +577,7 @@ addLoadEvent(alertme);
 		    {% with thing.3 as quantity %}		    
 		    <tr>
 		      <td>
-			<img src="/static/images/icons/{{item}}.png"
+			<img src="/site_media/images/icons/{{item}}.png"
 			     width="40" height="40" alt=""/>
 		      </td>
 		      <td><b>{{label}}</b> (<span id="num_owned-{{item}}">{{quantity}}</span> owned)<br /> CFA
