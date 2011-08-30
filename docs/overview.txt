@@ -44,6 +44,6 @@ Aspects of MVSIM that should be considered in documentation:
    Section. We need a UI for faculty to promote States to Starting
    States.
 
-8. The Courseaffils integration and CourseSection model.
+8. :doc`The Courseaffils integration and CourseSection model <course-sections>`.
 
 9. The Graphing Tool.

@@ -17,6 +17,7 @@ Contents:
    user-input
    states
    events
+   course-sections
 
 Indices and tables
 ==================
