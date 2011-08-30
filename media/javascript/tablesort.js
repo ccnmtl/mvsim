@@ -58,13 +58,13 @@ if (ie5 || dom)
 
 function initSortTable() {
 			imgup = this.document.createElement("img");
-			imgup.src = "/static/images/ascending.gif";
+			imgup.src = "/site_media/images/ascending.gif";
 	arrowUp = document.createElement("span");
 	arrowUp.appendChild(imgup);
 	arrowUp.className = "arrow";
 
 			imgdwn = this.document.createElement("img");
-			imgdwn.src = "/static/images/descending.gif";
+			imgdwn.src = "/site_media/images/descending.gif";
 	arrowDown = document.createElement("span");
 	arrowDown.appendChild(imgdwn);
 	arrowDown.className = "arrow";
@@ -91,7 +91,7 @@ function hilite(tableNode,nCol)
             classes = ths[i].className.split(" ");
             new_classes = "";
             for (var j = 0; j < classes.length; j++) {
-                if ((classes[j] == "TableSortSelected") || 
+                if ((classes[j] == "TableSortSelected") ||
                     (classes[j] == "TableSortUnselected")) {
                 } else {
                     new_classes += " " + classes[j];
@@ -103,7 +103,7 @@ function hilite(tableNode,nCol)
         classes = ths[nCol].className.split(" ");
         new_classes = "";
         for (var j = 0; j < classes.length; j++) {
-            if ((classes[j] == "TableSortSelected") || 
+            if ((classes[j] == "TableSortSelected") ||
                 (classes[j] == "TableSortUnselected")) {
             } else {
                 new_classes += " " + classes[j];
@@ -111,7 +111,7 @@ function hilite(tableNode,nCol)
         }
         new_classes += " TableSortSelected";
         ths[nCol].className = new_classes;
-        
+
 }
 
 
@@ -120,7 +120,7 @@ function hilitecolumn(tableNode,nCol)
 {
 	var tbodies = tableNode.getElementsByTagName('TBODY')[0];
 	var trows = tbodies.getElementsByTagName('TR');
-	
+
 	for (var i = 0; i < trows.length; i++)
 	{
 		var tds = trows[i].getElementsByTagName("TD");
@@ -140,22 +140,22 @@ function sortTable(tableNode, nCol, bDesc, sType) {
 	var trs = tBody.rows;
 	var trl= trs.length;
 	var a = new Array();
-	
+
 	for (var i = 0; i < trl; i++) {
 		a[i] = trs[i];
 	}
-	
+
 	var start = new Date;
 	window.status = "Sorting data...";
 	a.sort(compareByColumn(nCol,bDesc,sType));
 	window.status = "Sorting data done";
-	
+
 	for (var i = 0; i < trl; i++) {
 		tBody.appendChild(a[i]);
 //		window.status = "Updating row " + (i + 1) + " of " + trl +
 //						" (Time spent: " + (new Date - start) + "ms)";
 	}
-	
+
 	// check for onsort
 	if (typeof tableNode.onsort == "string")
 		tableNode.onsort = new Function("", tableNode.onsort);
@@ -187,9 +187,9 @@ function Numeric(s) {
 function compareByColumn(nCol, bDescending, sType) {
 	var c = nCol;
 	var d = bDescending;
-	
+
 	var fTypeCast = String;
-	
+
 	if (sType == "Number")
 		fTypeCast = Numeric;
 	else if (sType == "Date")
@@ -210,19 +210,19 @@ function sortColumnWithHold(e) {
 	// find table element
 	var el = ie5 ? e.srcElement : e.target;
 	var table = getParent(el, "table");
-	
+
 	// backup old cursor and onclick
 	var oldCursor = table.style.cursor;
 	var oldClick = table.onclick;
-	
-	// change cursor and onclick	
+
+	// change cursor and onclick
 	table.style.cursor = "wait";
 	table.onclick = null;
-	
+
 	// the event object is destroyed after this thread but we only need
 	// the srcElement and/or the target
 	var fakeEvent = {srcElement : e.srcElement, target : e.target};
-	
+
 	// call sortColumn in a new thread to allow the ui thread to be updated
 	// with the cursor/onclick
 	window.setTimeout(function () {
@@ -241,7 +241,7 @@ function sortColumn(e) {
 
 	if (tHeadParent == null)
 		return;
-		
+
 	if (el != null) {
 		var p = el.parentNode;
 		var i;
@@ -251,7 +251,7 @@ function sortColumn(e) {
 
 		if (tHeadParent.arrow != null) {
 			if (tHeadParent.arrow.parentNode != el) {
-				tHeadParent.arrow.parentNode._descending = null;	//reset sort order		
+				tHeadParent.arrow.parentNode._descending = null;	//reset sort order
 			}
 			tHeadParent.arrow.parentNode.removeChild(tHeadParent.arrow);
 		}
@@ -263,7 +263,7 @@ function sortColumn(e) {
 
 		el.appendChild(tHeadParent.arrow);
 
-			
+
 
 		// get the index of the td
 		var cells = p.cells;
@@ -306,18 +306,18 @@ function sortColumn(e) {
                    }
                    if (classes[idx] == "Date") {
                         type = "Date"
-                   } 
+                   }
                    if (classes[idx] == "CaseInsensitiveString") {
                         type = "CaseInsensitiveString"
-                   }    
-                } 
+                   }
+                }
 		sortTable(table,th_idx,el._descending, type);
 		hilite(table,th_idx);
 		hilitecolumn(table,th_idx);
 
 		classesT = table.className;
 		if (classesT=='striped') {assignTROddEven(tbody);}
-		
+
 	}
 }
 
@@ -346,9 +346,9 @@ function nextRealSibling(el) {
 
 function getInnerText(el) {
 	if (ie5) return el.innerText;	//Not needed but it is faster
-	
+
 	var str = "";
-	
+
 	var cs = el.childNodes;
 	var l = cs.length;
 	for (var i = 0; i < l; i++) {
@@ -360,15 +360,15 @@ function getInnerText(el) {
 				str += cs[i].nodeValue;
 				break;
 		}
-		
+
 	}
-	
+
 	return str;
 }
 
 function getParent(el, pTagName) {
 	if (el == null) return null;
-	else if (el.nodeType == 1 && el.tagName.toLowerCase() == pTagName.toLowerCase())	
+	else if (el.nodeType == 1 && el.tagName.toLowerCase() == pTagName.toLowerCase())
 // Gecko bug, supposed to be uppercase
 		return el;
 	else

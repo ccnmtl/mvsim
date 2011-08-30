@@ -12,7 +12,7 @@ var exportGraph = function(id, url, anchor) {
 	var dialog = jQuery("<div title='Graph Image Saved'></div>");
         var ul = jQuery("<ul/>").appendTo(dialog); var li = jQuery("<li/>").appendTo(ul);
 	jQuery("<a />").text("view")
-	  .attr("href", "/static/graphs/" + filekey + ".png")
+	  .attr("href", "/uploads/graphs/" + filekey + ".png")
       	  .attr("target", "_blank")
           .appendTo(li);
         jQuery("<span />").text("  or").appendTo(li);

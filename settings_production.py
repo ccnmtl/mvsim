@@ -19,4 +19,4 @@ try:
 except ImportError:
     pass
 
-MVSIM_GRAPH_OUTPUT_DIRECTORY = "/var/www/mvsim/graphs"
+MVSIM_GRAPH_OUTPUT_DIRECTORY = "/var/www/mvsim/uploads/graphs"
