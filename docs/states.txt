@@ -82,3 +82,27 @@ might not be obvious and are worth highlighting:
 [2] https://docs.pylonsproject.org/projects/deform/dev/basics.html
 
 [3] http://deformdemo.repoze.org/readonly_sequence_of_mappings/
+
+Future Directions
+-----------------
+
+The State model's main content is a JSON blob of all variables and
+coefficients, stored in a text field, and interpreted through the
+active configuration schema. This seems like it could be a natural fit
+for a NoSQL database -- on the other hand, it's not clear whether the
+added complexity there would worth it. The only area where I can
+imagine any concrete gain is in the graphing tool, which has some
+really horrible and inefficient code for aggregating and averaging
+some variables into new graphable datasets; on the other hand, that
+code could pretty trivially be made much cleaner and more efficient
+without any database changes.
+
+Relatedly, I was considering making States meaningfully versioned,
+with the version-dimension representing turns played, and extending
+the interface into the logic engine so that the engine would have
+access to the entire game history -- which would let us eliminate some
+of the warts in the configuration like health_t1, health_t2 etc which
+technically track current values of past state. However, this would
+bring its own complications, since a single starting state would no
+longer be sufficient to describe a new game -- so I'm now leaning
+against it.
