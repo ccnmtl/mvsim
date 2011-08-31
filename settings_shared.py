@@ -99,6 +99,7 @@ THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[mvsim] "
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = "mvsim@ccnmtl.columbia.edu"
+DEFAULT_FROM_EMAIL = 'mvsim@mvsim.ccnmtl.columbia.edu'
 
 # put any static media here to override app served static media
 STATICMEDIA_MOUNTS = (
