@@ -75,8 +75,11 @@ INSTALLED_APPS = (
     'munin',
     'djangowind',
     'courseaffils',
+    'registration',
     'main',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7
 
 import logging
 from sentry.client.handlers import SentryHandler
@@ -117,6 +120,7 @@ COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/static/',
     '/docs/',
     '/admin/',
+    '/registration/',
     )
 
 from courseaffils.columbia import CourseStringMapper

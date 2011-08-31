@@ -13,3 +13,4 @@ requirements/src/django-sentry-1.5.4.tar.gz
 requirements/src/django-munin-0.1.1.tar.gz
 requirements/src/djangohelpers-0.2.tar.gz
 requirements/src/django_courseaffils-0.3dev.tar.gz
+requirements/src/django-registration-0.7.tar.gz

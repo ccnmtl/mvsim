@@ -10,6 +10,7 @@ doc_root = os.path.join(os.path.dirname(__file__),"docs","_build","html")
 
 redirect_after_logout = getattr(settings, 'LOGOUT_REDIRECT_URL', None)
 auth_urls = (r'^accounts/',include('django.contrib.auth.urls'))
+
 logout_page = (r'^accounts/logout/$','django.contrib.auth.views.logout', {'next_page': redirect_after_logout})
 if hasattr(settings,'WIND_BASE'):
     auth_urls = (r'^accounts/',include('djangowind.urls'))
@@ -19,7 +20,7 @@ urlpatterns = patterns(
     '',
     auth_urls,
     logout_page,
-
+    (r'^registration/', include('registration.urls')),
     url(r'^$', 'main.views.home', name='home'),
     url(r'^games/$', 'main.views.games_index', name='games_index'),
     url(r'^games/new/$', 'main.views.games_index', name='new_game'),
