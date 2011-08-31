@@ -119,6 +119,7 @@ WIND_SUPERUSER_MAPPER_GROUPS = ['anp8','jb2410','zm4','sbd12','egr2107','kmh2124
 COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/accounts/',
     '/static/',
+    '/site_media/',
     '/docs/',
     '/admin/',
     '/registration/',
