@@ -12,6 +12,7 @@ login through WIND with it</p>
 </form>
 <p>otherwise: </p>
 <form method="post" action=".">
+{% csrf_token %}
 <table>
 <tr><td><label for="id_username">Username:</label></td><td>{{ form.username }}</td></tr>
 <tr><td><label for="id_password">Password:</label></td><td>{{ form.password }}</td></tr>
