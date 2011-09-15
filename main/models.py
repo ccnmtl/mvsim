@@ -1,7 +1,27 @@
 import colander
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 import json
+
+from django.db.models.signals import post_save
+
+def self_registered_user(sender, **kwargs):
+    """ if a user self-registers, we automatically
+    put them into the NON_CU group, so they get a 
+    Course affiliation """
+    try:
+        u = kwargs['instance']
+        if u.is_anonymous():
+            return
+        if len(u.groups.all()) == 0:
+            (g,created) = Group.objects.get_or_create(name="NON_CU")
+            if created:
+                # TODO also create the right course
+                pass
+            u.groups.add(g)
+    except Exception, e:
+        pass
+post_save.connect(self_registered_user,sender=User)
 
 from collections import namedtuple
 class NamedTuple(colander.Tuple):
