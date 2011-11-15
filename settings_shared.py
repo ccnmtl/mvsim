@@ -123,7 +123,6 @@ COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/docs/',
     '/admin/',
     '/registration/',
-    '/breaktest/',
     '/favicon.ico',
     )
 
