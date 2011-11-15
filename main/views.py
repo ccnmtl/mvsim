@@ -12,10 +12,6 @@ import json
 from urlparse import parse_qsl
 from pkg_resources import resource_filename
 
-def break_test(request):
-    f = 1 / 0
-    return HttpResponseRedirect("division by zero!")
-
 @allow_http("POST")
 def clone_state(request, state_id):
     state = State.objects.get(id=state_id)

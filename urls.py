@@ -20,7 +20,6 @@ urlpatterns = patterns(
     '',
     auth_urls,
     logout_page,
-    (r'^breaktest/$','main.views.break_test'),
     (r'^registration/', include('registration.urls')),
     url(r'^$', 'main.views.home', name='home'),
     url(r'^games/$', 'main.views.games_index', name='games_index'),
