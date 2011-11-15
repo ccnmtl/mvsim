@@ -21,7 +21,7 @@
   
   <body{% block body_attributes %}{% endblock %}>
     <div id="header">
-      {% if user %}
+      {% if not user.is_anonymous %}
       <div id="pageLogin">
 	<ul>
 	  <li>
