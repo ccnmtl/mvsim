@@ -124,6 +124,7 @@ COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/admin/',
     '/registration/',
     '/breaktest/',
+    '/favicon.ico',
     )
 
 from courseaffils.columbia import CourseStringMapper
