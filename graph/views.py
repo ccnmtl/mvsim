@@ -109,7 +109,7 @@ X-axis: %s
     # POST to a microapp, git.ccnmtl.columbia.edu:svg2png.git
     # because only monty's imagemagick `convert` seems to produce decent output, for some reason.
     http = httplib2.Http()
-    response = http.request("http://monty.ccnmtl.columbia.edu:5052/", method="POST", body=output)
+    response = http.request("http://monty2.ccnmtl.columbia.edu:5052/", method="POST", body=output)
 
     name = datetime.datetime.now().strftime("%s")
 
