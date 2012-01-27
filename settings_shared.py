@@ -1,5 +1,6 @@
 # Django settings for mvsim project.
 import os.path
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -95,6 +96,10 @@ SENTRY_REMOTE_URL = 'http://sentry.ccnmtl.columbia.edu/sentry/store/'
 # as documented in the wiki
 SENTRY_SITE = 'mvsim'
 
+if 'test' in sys.argv:
+    DATABASE_ENGINE = 'sqlite3'
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[mvsim] "
 EMAIL_HOST = 'localhost'
