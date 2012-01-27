@@ -262,7 +262,7 @@ def graph(request, game_id):
             except ValueError:
                 # this person was not yet born, or was dead, at this turn
                 return 0
-            return int(bool(sick[index].strip()))
+            return int(bool(str(sick[index]).strip()))
         # we need to figure out all the people who were ever part of the family
         all_names = {}
         for turn in turns:
