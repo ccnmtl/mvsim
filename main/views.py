@@ -11,6 +11,7 @@ import deform
 import json
 from urlparse import parse_qsl
 from pkg_resources import resource_filename
+from django.shortcuts import get_object_or_404
 
 @allow_http("POST")
 def clone_state(request, state_id):
@@ -64,6 +65,39 @@ def view_state(request, state_id):
     state.state = new_state
     state.save()
     return redirect(".")
+
+@rendered_with("admin/course_sections.html")
+def admin_course_sections(request):
+    if not request.user.is_superuser:
+        return forbidden()
+    sections = CourseSection.objects.all()
+    return dict(sections=sections)
+
+@rendered_with("admin/course_section.html")
+def admin_course_section(request,section_id):
+    if not request.user.is_superuser:
+        return forbidden()
+    section = get_object_or_404(CourseSection,id=section_id)
+    return dict(section=section)
+    
+def associate_state(request,section_id):
+    if not request.user.is_superuser:
+        return forbidden()
+    section = get_object_or_404(CourseSection,id=section_id)
+    state = get_object_or_404(State,id=request.POST.get('state_id',''))
+    section.starting_states.add(state)
+    section.save()
+    return redirect("/course_sections/%d/" % section.id)
+
+def disassociate_state(request,section_id,state_id):
+    if not request.user.is_superuser:
+        return forbidden()
+    section = get_object_or_404(CourseSection,id=section_id)
+    state = get_object_or_404(State,id=state_id)
+    section.starting_states.remove(state)
+    section.save()
+    return redirect("/course_sections/%d/" % section.id)
+
 
 @rendered_with("home.html")
 def home(request):

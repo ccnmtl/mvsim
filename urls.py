@@ -48,7 +48,12 @@ urlpatterns = patterns(
         name="view_state"),
     url(r'^state/(?P<state_id>\d+)/clone/$', 'main.views.clone_state',
         name="clone_state"),
-        
+
+    url(r'^course_sections/$', 'main.views.admin_course_sections',name="admin_course_sections"),
+    url(r'^course_sections/(?P<section_id>\d+)/$', 'main.views.admin_course_section',name="admin_course_section"),
+    url(r'^course_sections/(?P<section_id>\d+)/associate_state/$', 'main.views.associate_state',name="associate_state"),        
+    url(r'^course_sections/(?P<section_id>\d+)/disassociate_state/(?P<state_id>\d+)/$', 'main.views.disassociate_state',name="disassociate_state"),        
+
     (r'^admin/', include(admin.site.urls)),
     (r'^munin/',include('munin.urls')),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),

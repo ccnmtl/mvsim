@@ -309,6 +309,10 @@ class CourseSection(models.Model):
             if s.count() > 0:
                 self.starting_states.add(s[0])
 
+    def available_states(self):
+        state_ids = [s.id for s in self.starting_states.all()]
+        return State.objects.all().exclude(name="").exclude(id__in=state_ids)
+
 def ensure_section_exists(sender, instance, created, **kwargs):
     num_sections = CourseSection.objects.filter(
         course=instance).count()

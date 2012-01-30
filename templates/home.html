@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if request.user.is_superuser %}
+<p>You are a superuser, you may: <a href="/course_sections/">Admin Course Sections</a></p>
+{% endif %}
+
   <div id="welcomebox">
     <h2>Welcome to the MV Sim!</h2>
 
