@@ -303,6 +303,12 @@ class CourseSection(models.Model):
     def __unicode__(self):
         return self.name
 
+    def ensure_default_starting_state(self):
+        if self.starting_states.count() == 0:
+            s = State.objects.filter(name="Default Starting State")
+            if s.count() > 0:
+                self.starting_states.add(s[0])
+
 def ensure_section_exists(sender, instance, created, **kwargs):
     num_sections = CourseSection.objects.filter(
         course=instance).count()
@@ -310,6 +316,7 @@ def ensure_section_exists(sender, instance, created, **kwargs):
         return
     section = CourseSection(name="Default Section",
                             course=instance)
+    section.ensure_default_starting_state()
     section.save()
 
 from courseaffils.models import Course
