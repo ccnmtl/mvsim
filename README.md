@@ -16,9 +16,9 @@ The source code ships with bundled versions of all its Python module
 dependencies, and a bootstrap script that installs all of the
 dependencies in a virtualenv.  Installation is simple:
 
-$ git clone git://github.com/ccnmtl/mvsim.git
-$ cd mvsim
-$ ./bootstrap.py
+     $ git clone git://github.com/ccnmtl/mvsim.git
+     $ cd mvsim
+     $ ./bootstrap.py
 
 Note that Python 2.6 is currently required.
 
@@ -26,7 +26,7 @@ Edit the `settings_shared.py` file to suit your needs (don't forget to
 create a database, or change the settings to use SQLite) and then
 sync the database schema and necessary initial content:
 
-$ ./manage.py syncdb
+     $ ./manage.py syncdb
 
 You're now ready to run the server.  Sample Apache/mod_wsgi
 configuration files are available in the `apache` subdirectory of the
