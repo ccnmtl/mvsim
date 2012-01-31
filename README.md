@@ -16,7 +16,7 @@ The source code ships with bundled versions of all its Python module
 dependencies, and a bootstrap script that installs all of the
 dependencies in a virtualenv.  Installation is simple:
 
-$ git clone --recursive git://github.com/ccnmtl/mvsim.git
+$ git clone git://github.com/ccnmtl/mvsim.git
 $ cd mvsim
 $ ./bootstrap.py
 
