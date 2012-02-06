@@ -7,7 +7,7 @@ function setSchoolEffort(e) {
    var school_effort = parseInt($("effort-"+name+"-school").innerHTML);
    var current_effort = $("effort-"+name).value;
    var allowed_effort = parseInt($("effort-"+name+"-maximum").innerHTML);
-   
+
    if(e.src().checked) {
       var new_effort = Math.max(0, current_effort - school_effort);
       $("effort-"+name).value = new_effort;
@@ -16,7 +16,7 @@ function setSchoolEffort(e) {
    else {
       setEffortMax("effort-"+name, allowed_effort);
       var new_effort = Math.min(current_effort + school_effort, allowed_effort);
-      $("effort-"+name).value = new_effort; 
+      $("effort-"+name).value = new_effort;
    }
    updateTotalEffort();
 }
@@ -62,6 +62,9 @@ function changeEffort(e) {
 
 function changeFamilyEffort(e) {
   var id = e.src().id;
+  // force it to an integer (since the backend will treat it as one anyway)
+  var value = parseInt(getElement(id).value);
+  getElement(id).value = value;
   if(parseInt(getElement(id).value) < getEffortMin(id)) {
      getElement(id).value = getEffortMin(id);
   }
@@ -72,6 +75,8 @@ function updateTotalEffort(){
   var total_effort = 0;
   forEach(getElementsByTagAndClassName(null, "individual_effort"),
      function(element) {
+        // force it to an integer (since the backend will treat it as one anyway)
+        element.value = parseInt(element.value);
         total_effort += parseInt(element.value);
 
        // update graphic
@@ -89,7 +94,7 @@ function drawPlot() {
 
   var slider_data = Array();
   var i=1;
-  
+
   forEach(getElementsByTagAndClassName(null, "family_effort"),
      function(element) {
         available_effort = parseFloat(available_effort) - parseFloat(element.value);
@@ -102,23 +107,23 @@ function drawPlot() {
         getElement(element.id + '-inner').innerHTML = element.value;
      }
   );
-  
+
   if (available_effort < 0) {
      overallocated = 0 - available_effort;
      available_effort = 0;
   }
-                             
+
   // add available effort to the graph
   slider_data.push(available_effort);
-  
+
   var labels = ["farming", "fishing", "fuel wood", "water", "small business", "idle"];
   makeSlider("effort-graph",slider_data,labels);
-  
+
   if(overallocated > 0) {
     setEffortMessage("You are currently overallocated by " + overallocated + " hour(s).");
   }
   else { setEffortMessage(""); }
-  
+
   // set allocated effort
   var classname = 'normal_effort';
   if(overallocated > 0) {
@@ -140,20 +145,20 @@ function initEffortMonitor() {
          setEffortMax(element.id, $(element.id + "-maximum").innerHTML);
       }
    );
-   
+
    forEach(getElementsByTagAndClassName(null, "family_effort"),
       function(element) {
 	      connect(element, "onchange", changeFamilyEffort);
       }
    );
-	
+
 	forEach(getElementsByTagAndClassName(null, "enroll-school"),
 	   function(element) {
    	   connect(element, "onclick", setSchoolEffort);
     	   signal(element, "onclick");
 	   }
 	);
-	
+
    updateTotalEffort();
 }
 
