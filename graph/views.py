@@ -279,7 +279,10 @@ def graph(request, game_id):
             names = turn.variables.names
             if len(names) == 0:
                 return 0
-            return 1.0 * sum(bool(i.strip()) for i in sick) / len(names)
+            def force_number(n):
+                if type(n) == type('c'):
+                    return 
+            return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
         variables.append(BoundVariable(
                 "sick_percent", getter,
                 "Family Sick (% of family)"))
