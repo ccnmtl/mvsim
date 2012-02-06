@@ -76,7 +76,7 @@ function updateTotalEffort(){
   forEach(getElementsByTagAndClassName(null, "individual_effort"),
      function(element) {
         // force it to an integer (since the backend will treat it as one anyway)
-        element.value = parseInt(element.value);
+//        element.value = parseInt(element.value);
         total_effort += parseInt(element.value);
 
        // update graphic

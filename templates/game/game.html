@@ -19,6 +19,7 @@ jQuery.noConflict();
 <script type="text/javascript" src="/site_media/javascript/village_fund.js"></script>
 
 <script type="text/javascript" src="/site_media/javascript/plusminus.js"></script>
+<script type="text/javascript" src="/site_media/javascript/force_integer.js"></script>
 <script type="text/javascript" src="/site_media/javascript/limits.js"></script>
 <script type="text/javascript" src="/site_media/javascript/validation.js"></script>
 <script type="text/javascript" src="/site_media/javascript/allocate_calories.js"></script>
@@ -247,7 +248,7 @@ addLoadEvent(alertme);
 		      </span></td>
 		      <td>
 			<input type="text" size="2" name="food_to_buy" value="0"
-			       class="plusminus notnegative" id="food-to-buy" />
+			       class="plusminus notnegative forceinteger" id="food-to-buy" />
 			<div style="background-color: lightgray;
 				    border: 1px solid black; text-align: center;"
 			     onclick="purchase_subsistence_calories(); return 0;">
@@ -286,7 +287,8 @@ addLoadEvent(alertme);
 		      </th>
 		      <td>
 			<input type="text" size="5"
-			       class="allocate-calories plusminus notnegative"
+			       class="allocate-calories plusminus
+			       notnegative forceinteger"
 			       name="calories-{{person.name}}"
 			       id="calories-{{person.name}}" value="0" />
 		      </td>
@@ -413,7 +415,8 @@ addLoadEvent(alertme);
 			<div style='padding-left:15px; padding-top:5px;'>	
 
 			  <input style='margin-bottom:10px;' type="text" size="2"
-				 class="individual_effort plusminus notnegative"
+				 class="individual_effort plusminus
+				 notnegative forceinteger"
 				 name="effort-{{person.name}}" id="effort-{{person.name}}"
 				 value="{{person.current_max_effort}}"
 				 />
@@ -460,7 +463,8 @@ addLoadEvent(alertme);
 			Farming</th>
 		      <th>
 			<input type="text" name="effort_farming"
-			       id="effort-farming" class="family_effort plusminus notnegative"
+			       id="effort-farming"
+			       class="family_effort plusminus notnegative"
 			       value="{{state.effort_farming}}" size="2"/>
 		      </th>
 		      <td>
@@ -474,7 +478,8 @@ addLoadEvent(alertme);
 		      <th><img src="/site_media/images/icons/fishing.png"/><br />
 			Fishing</th>
 		      <th><input type="text" name="effort_fishing"
-				 id="effort-fishing" class="family_effort plusminus notnegative"
+				 id="effort-fishing"
+				 class="family_effort plusminus notnegative"
 				 value="{{state.effort_fishing}}" size="2"/> h</th>
  		      <td rowspan="4">
      			<div id='effort-graph' style='height:300px;'/>
@@ -494,7 +499,8 @@ addLoadEvent(alertme);
 			     src="/site_media/images/icons/water_collection.png"/><br />
 			Water Collection</th>
 		      <th><input type="text" name="effort_water"
-				 id="effort-water" class="family_effort plusminus notnegative"
+				 id="effort-water"
+				 class="family_effort plusminus notnegative"
 				 value="{{state.effort_water}}"
 				 size="2" /> h</th>
 		    </tr>
@@ -517,13 +523,13 @@ addLoadEvent(alertme);
 		      <td><img src="/site_media/images/icons/maize.png"/></td>
 		      <td><b>Maize</b><br />
 			<input type="text" name="maize" value="{{maize_count}}"
-			       size="2" class="plusminus" id="crops-maize"
+			       size="2" class="plusminus forceinteger" id="crops-maize"
 			       />
 		      </td>
 		      <td><img src="/site_media/images/icons/cotton.png"/></td>
 		      <td><b>Cotton</b><br />
 			<input type="text" name="cotton" value="{{cotton_count}}"
-			       size="2" class="plusminus" id="crops-cotton"
+			       size="2" class="plusminus forceinteger" id="crops-cotton"
 			       />
 		      </td>
 		    </tr>
@@ -556,7 +562,8 @@ addLoadEvent(alertme);
 			CFA <span id="{{item}}-purchase-price">{{adjusted_price}}</span></td>
 		      <td>
 			<input type="text" size="2" value="0"
-			       class="purchase-item-input plusminus notnegative"
+			       class="purchase-item-input plusminus
+			       notnegative forceinteger"
 			       id="purchase-{{item}}-quantity"
 			       name="purchase-{{item}}-quantity" />
 		      </td>
@@ -588,7 +595,7 @@ addLoadEvent(alertme);
 		      <td><input type="text"
 				 name="sell-{{item}}-quantity" 
 				 id="sell-{{item}}-quantity"
-				 class="plusminus sell-item-input notnegative"
+				 class="plusminus sell-item-input notnegative forceinteger"
 				 size="2" value="0" />
 		    </td>
 		    </tr>
@@ -610,7 +617,7 @@ addLoadEvent(alertme);
 	      <div id="tab-family-finances" class="hs-init-hide">
 		<div class="actionbox">
 		  <h3>Invest in Small Business:</h3>
-		  <input class="plusminus notnegative" type="text"
+		  <input class="plusminus notnegative forceinteger" type="text"
 			 name="small_business_investment" id="small_business_investment"
 			 size="5" value="0"/><br />
 		  <strong>
@@ -645,7 +652,7 @@ addLoadEvent(alertme);
 		      </span>, which the bank will expect you to repay over the next
 		      {{coeffs.microfinance_repay_period}} turns.</p>
 		    <strong>Take out a loan:</strong>
-		    <input class="plusminus notnegative" type="text" size="5"
+		    <input class="plusminus notnegative forceinteger" type="text" size="5"
 			   name="microfinance_borrow" id="microfinance_borrow" value="0" /> 
 		  </div>
 		  {% endif %}
