@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'courseaffils',
     'registration',
     'main',
+    'south',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -95,6 +96,9 @@ SENTRY_REMOTE_URL = 'http://sentry.ccnmtl.columbia.edu/sentry/store/'
 # remember to set the SENTRY_KEY in a local_settings.py
 # as documented in the wiki
 SENTRY_SITE = 'mvsim'
+
+SOUTH_TESTS_MIGRATE = False
+SOUTH_AUTO_FREEZE_APP = True
 
 if 'test' in sys.argv:
     DATABASE_ENGINE = 'sqlite3'
