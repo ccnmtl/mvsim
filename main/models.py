@@ -181,6 +181,7 @@ class Game(models.Model):
     user_input = models.ForeignKey(UserInput)
     course = models.ForeignKey('courseaffils.Course')
     status = models.CharField(max_length=100, default="notstarted")
+    score = models.IntegerField(default=0)
 
     def __unicode__(self):
         return "%s - in course %s" % (self.user, self.course)
@@ -249,7 +250,7 @@ class Game(models.Model):
         """
         return self.state_set.order_by("-created")[0].created
 
-    def score(self):
+    def calculate_score(self):
         return self.deserialize(self.current_state()).variables.u_points
 
     def init(self, state):

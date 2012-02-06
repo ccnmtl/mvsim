@@ -308,5 +308,7 @@ def submit_turn(request, game_id):
         game.mark_finished()
         game.save()
 
+    game.score = game.calculate_score()
+    game.save()
     return redirect(game.show_game_url())
 
