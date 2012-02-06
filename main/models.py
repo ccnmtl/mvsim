@@ -225,6 +225,10 @@ class Game(models.Model):
         return ('game_show', [self.pk], {})
 
     @models.permalink
+    def delete_url(self):
+        return ('game_delete', [self.pk], {})
+
+    @models.permalink
     def game_history_url(self):
         return ('game_history', [self.pk], {})
 

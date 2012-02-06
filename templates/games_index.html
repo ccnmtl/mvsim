@@ -96,11 +96,12 @@
 	  {% endif %}
 	</td>
 	<td style="text-align: center;">
-	  <a href="{{game.delete_url}}"
+	  <form action="{{game.delete_url}}" method="post">
+	  <input type="submit"
+		 value="Delete"
 	     onclick="return confirm('are you sure you want to delete this game?');" 
-	     class="regButton">
-	    Delete
-	  </a>
+	     class="regButton"/>
+	  </form>
 	</td>
 	</tr>
       {% endfor %}

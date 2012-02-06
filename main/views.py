@@ -229,6 +229,14 @@ def history(request, game_id):
     display_vars['starting_state_id'] = starting_state_id
     return display_vars
 
+@allow_http("POST")
+def delete_game(request,game_id):
+    game = get_object_or_404(Game,pk=game_id)
+    if not game.viewable(request):
+        return forbidden()
+    game.delete()
+    return redirect("/games/")
+
 @allow_http("GET")
 @rendered_with("game/game.html")
 def show_turn(request, game_id):
