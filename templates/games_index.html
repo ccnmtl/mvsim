@@ -107,7 +107,35 @@
       </tbody>
     </table>
 
-    <h1>High Scores -- coming soon!</h1>
+    <div style="margin: 30px 0 0 0;">
+      <h2 class="mygames">High Scores</h2>
+
+      <table border="0" cellspacing="0" cellpadding="0" class="striped">
+        <thead>
+          <tr>
+            <th class="navOut" style="cursor: default;">#</th>
+            <th class="navOut" style="cursor: default;">Player</th>
+            <th class="navOut" style="cursor: default;">Score</th>
+          </tr>
+        </thead>
+
+        <tbody>
+	  {% for g in high_scores %}
+          <tr class="{% cycle 'even' 'odd' %}">
+            <td>{{forloop.counter}}</td>
+            <td>{% if g.user.last_name %}
+	      {{g.user.get_full_name}}
+	      {% else %}
+	      {{g.user.username}}
+	      {% endif %}
+	    </td>
+            <td>{{g.score}}</td>
+          </tr>
+	  {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
 
   </div>  
 {% endblock %}

@@ -175,6 +175,20 @@ class UserInput(models.Model):
 
         return variables
 
+def high_scores(course=None,limit=10):
+    games = []
+    if course is not None: 
+        games = Game.objects.filter(
+            status="finished",
+            course=course,
+            ).order_by("-score")
+    else:
+        games = Game.objects.filter(
+            status="finished",
+            ).order_by("-score")
+    return games[:limit]
+
+
 class Game(models.Model):
     user = models.ForeignKey('auth.User')
     configuration = models.ForeignKey(Configuration)

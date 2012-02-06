@@ -3,7 +3,7 @@ from django.http import (HttpResponseRedirect as redirect,
                          HttpResponse,
                          HttpResponseForbidden as forbidden)
 from djangohelpers.lib import allow_http, rendered_with
-from main.models import Game, State, CourseSection, Configuration, UserInput
+from main.models import Game, State, CourseSection, Configuration, UserInput, high_scores
 from engine.logic import get_notifications
 from engine import logic
 from engine import display_logic
@@ -139,7 +139,8 @@ def games_index(request):
 
     games = Game.objects.filter(user=request.user,
                                 course=request.course)
-    return {'games': games, 'section': section}
+    return {'games': games, 'section': section,
+            'high_scores' : high_scores(course=request.course)}
 
 def build_template_context(request, game, turn_number=None):
     if turn_number is not None:
