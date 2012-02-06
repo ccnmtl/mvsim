@@ -207,6 +207,7 @@ class Game(models.Model):
         new_state = State(game=game, state=starting_state.state)
         new_state.save()
         game.status = "inprogress"
+        game.score = 0
         game.save()
         return game
 
