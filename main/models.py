@@ -196,9 +196,13 @@ class Game(models.Model):
     course = models.ForeignKey('courseaffils.Course')
     status = models.CharField(max_length=100, default="notstarted")
     score = models.IntegerField(default=0)
+    name = models.CharField(max_length=256, default="",blank=True,null=True)
 
     def __unicode__(self):
-        return "%s - in course %s" % (self.user, self.course)
+        if self.name:
+            return self.name
+        else:
+            return "%s - in course %s [%d]" % (self.user, self.course, self.id)
 
     @classmethod
     def initialize_from_state(cls, starting_state, **kw):
