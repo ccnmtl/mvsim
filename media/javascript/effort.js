@@ -63,8 +63,14 @@ function changeEffort(e) {
 function changeFamilyEffort(e) {
   var id = e.src().id;
   // force it to an integer (since the backend will treat it as one anyway)
-  var value = parseInt(getElement(id).value);
-  getElement(id).value = value;
+  var value = getElement(id).value;
+  if (isNaN(value)) {
+    value = value.replace(/\D/g,"");
+  }
+  if (value === '') {
+    value = 0;
+  }
+  getElement(id).value = parseInt(value);
   if(parseInt(getElement(id).value) < getEffortMin(id)) {
      getElement(id).value = getEffortMin(id);
   }

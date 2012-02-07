@@ -5,6 +5,9 @@ function force_integer(e) {
   if (isNaN(input.value)) {
     input.value = input.value.replace(/\D/g,"");
   }
+  if (input.value === '') {
+    input.value = 0;
+  }
   input.value = parseInt(input.value);
 }
 
