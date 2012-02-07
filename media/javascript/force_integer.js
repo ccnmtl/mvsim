@@ -1,11 +1,5 @@
 // add plus and minus increment/decrement buttons to text inputs
 
-function force_integer_original_id (id) {
-   var parts = id.split('-');
-   parts.pop();
-   return parts.join('-');
-}
-
 function force_integer(e) {
   var input = e.target();
   if (isNaN(input.value)) {
