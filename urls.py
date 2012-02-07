@@ -29,6 +29,8 @@ urlpatterns = patterns(
         name='game_show'),
     url(r'^games/(?P<game_id>\d+)/delete/$', 'main.views.delete_game', 
         name='game_delete'),
+    url(r'^games/(?P<game_id>\d+)/edit/$', 'main.views.edit_game', 
+        name='game_edit'),
     url(r'^games/(?P<game_id>\d+)/turn/$', 'main.views.submit_turn'),
     url(r'^games/(?P<game_id>\d+)/game_over/$', 'main.views.game_over', 
         name='game_over'),

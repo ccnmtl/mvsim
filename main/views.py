@@ -238,6 +238,16 @@ def delete_game(request,game_id):
     return redirect("/games/")
 
 @allow_http("GET")
+def edit_game(request,game_id):
+    game = get_object_or_404(Game,pk=game_id)
+    if not game.viewable(request):
+        return forbidden()
+    game.name = request.GET.get('name',unicode(game))
+    game.save()
+    return HttpResponse("ok")
+
+
+@allow_http("GET")
 @rendered_with("game/game.html")
 def show_turn(request, game_id):
     game = Game.objects.get(pk=game_id)

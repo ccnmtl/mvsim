@@ -1,4 +1,35 @@
 {% extends "base.html" %}
+{% block scripts %}
+<script type="text/javascript" src="/site_media/javascript/MochiKit/MochiKit.js"></script>
+
+  <script type="text/javascript">
+    function namechange(game_id) {
+      textbox = $("name_" + game_id);
+      name = textbox.value;
+
+      // error check -- make sure the name is not a duplicate
+      var update = true;
+      forEach(getElementsByTagAndClassName("input","gamename"),
+         function(element) {
+            if(element != textbox) {
+               if(element.value == name) {
+                  alert('Please choose a unique name.');
+                  textbox.value = $("default_" + game_id).innerHTML;
+                  update = false;
+               }
+            }
+      });
+      
+      if(update) {
+         var url = "/games/" + game_id + "/edit/";
+         doSimpleXMLHttpRequest(url, {'name':name});
+         $("default_" + game_id).value = name;
+      }
+   }
+  </script>
+
+{% endblock %}
+
 {% block content %}
 
 <div id="savedgames">
@@ -66,7 +97,7 @@
       {% for game in games %}
       <tr style="vertical-align: top;" class="{% cycle 'odd' 'even' %}">
 	<td>
-	  {{game}}
+	  <input onChange="javascript:namechange({{game.id}});" type="text" id="name_{{game.id}}" value="{{game}}" class="gamename" size="40"/>
 	</td>
 	<td>{{game.created}}</td>
 	<td>
@@ -141,4 +172,5 @@
 
 
   </div>  
+
 {% endblock %}
