@@ -88,11 +88,13 @@
 	  {% if game.in_progress %}
 	  <a href="{{game.show_game_url}}" class="regButtonblock">Resume</a>
 	  {% endif %}
-	  <a href="{{game.game_clone_url}}" class="regButtonblock">Clone</a>
+{% if game.game_clone_url %}	  <a href="{{game.game_clone_url}}"
+	  class="regButtonblock">Clone</a> {% endif %}
 	  <a href="{{game.game_history_url}}" class="regButtonblock">History</a>
 	  <a href="{{game.graph_url}}" class="regButtonblock">Graphs</a>
 	  {% if request.user.is_staff %}
-	  <a href="{{game.game_csv_url}}" class="regButtonblock">CSV</a>
+{% if game.game_csv_url %}	  <a href="{{game.game_csv_url}}"
+	  class="regButtonblock">CSV</a>{% endif %}
 	  {% endif %}
 	</td>
 	<td style="text-align: center;">
