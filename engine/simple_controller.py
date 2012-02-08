@@ -2,11 +2,32 @@ import locale
 
 import fuel
 
+def force_integers(kwargs):
+    integer_fields = ['fishing_limit','cotton','effort-Fatou',
+                      'effort-Kodjo','effort_farming','effort_fishing',
+                      'effort_fuel_wood','effort_small_business',
+                      'effort_water','food_to_buy',
+                      'maize','purchase-bednet-quantity',
+                      'purchase-boat-quantity','purchase-dragnet-quantity',
+                      'purchase-fertilizer-quantity','purchase-high_yield_seeds-quantity',
+                      'purchase-propane-quantity','purchase-stove-quantity',
+                      'sell-bednet-quantity','sell-improvedstove-quantity',
+                      'small_business_investment','tax_rate','wood_limit']
+    for field in integer_fields:
+        if field in kwargs:
+            if kwargs[field] == u"NaN":
+                kwargs[field] = 0
+            try:
+                kwargs[field] = "%d" % (int(float(kwargs[field] or '0')),)
+            except:
+                pass
+    return kwargs
+
 def adjust_submission(kwargs, names):
     """ the backend expects things in a slightly different format than
     what comes in from the forms """
 
-    kwargs = kwargs.copy()
+    kwargs = force_integers(kwargs.copy())
 
     # sometimes when there are JS errors (ie, if they are using IE
     # even though they're not supposed to be) the form comes in
