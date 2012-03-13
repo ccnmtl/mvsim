@@ -101,12 +101,13 @@ def disassociate_state(request,section_id,state_id):
 
 @rendered_with("home.html")
 def home(request):
+    course = request.course
     sections = CourseSection.objects.filter(users=request.user, 
-                                            course=request.course)
+                                            course=course)
     try:
         section = sections[0]
     except IndexError:
-        section = CourseSection.objects.filter(course=request.course)[0]
+        section = CourseSection.objects.filter(course=course)[0]
         section.users.add(request.user)
         section.save()
     try:
