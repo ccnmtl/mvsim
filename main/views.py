@@ -107,9 +107,12 @@ def home(request):
     try:
         section = sections[0]
     except IndexError:
-        section = CourseSection.objects.filter(course=course)[0]
-        section.users.add(request.user)
-        section.save()
+        try:
+            section = CourseSection.objects.filter(course=course)[0]
+            section.users.add(request.user)
+            section.save()
+        except:
+            return HttpResponse("there is no course section affiliated with this course. tell an admin")
     try:
         starting_state_id  = section.starting_states.all()[0].id
     except:
