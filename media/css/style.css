@@ -103,8 +103,7 @@ tr.even td {background-color:#fff;}
 }
 
 
-/* Login box */
-
+/* Login box 
 #loginbox
 {
 	width: 407px;
@@ -202,6 +201,7 @@ tr.even td {background-color:#fff;}
 #loginbox td.field { width: 66%; }
 #loginbox td.field input { width: 100%; }
 #loginbox td.buttons { text-align: right; }
+*/
 
 
 /* Intro screen */
@@ -2828,3 +2828,156 @@ div#slider-effort-graph-area-fuel-wood { background-color: #deb887 !important; }
 div#slider-effort-graph-area-water { background-color: #7fffd4 !important; }
 div#slider-effort-graph-area-small-business { background-color: #cdb5cd !important; }
 div#slider-effort-graph-area-idle { background-color: #d3d3d3 !important; }
+
+
+/* REGISTRATION - LOGIN */
+
+body.login #content
+{
+	display: block;
+	float: none;
+	padding: 20px;
+	font-size: 12px;
+}
+
+body.login #content p
+{
+	line-height: 140%;
+}
+
+body.login #content h2
+{
+	font-size: 16px;
+}
+
+.loginbox
+{
+	display: block;
+	float: right;
+	width: 300px;
+	margin: 0 0 0 20px;
+	padding: 0;
+	border: 1px solid #999;
+	background-color: #fff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.loginbox h2
+{
+	margin: 0 !important;
+	padding: 5px 10px;
+	-moz-border-radius: 10px 10px 0 0;
+	-webkit-border-radius: 10px 10px 0 0;
+	background: #e0e0e0;
+	font-weight: bold;
+	font-size: 14px !important;
+	line-height: 26px;
+	height: 26px;
+}
+
+.loginbox .content
+{
+	margin: 0;
+	padding: 20px 10px 0 10px;
+	border: 0;
+}
+
+.loginbox a
+{
+	color: #363;
+}
+
+.loginbox .seperator
+{
+	margin: 20px 0;
+	padding: 0;
+	border: 0;
+	border-top: 1px dotted #999;
+	background-color: #fff;
+}
+
+.loginbox .fieldwrapper
+{
+	margin: 0 0 10px 10px;
+	padding: 0;
+	border: 0;
+}
+
+.loginbox .fieldwrapper label
+{
+	display: block;
+	font-weight: bold;
+	color: #666;
+	font-size: 12px;
+}
+
+.loginbox .fieldwrapper input
+{
+	width: 200px;
+	margin: 2px 0;
+	padding: 3px;
+	border: 0;
+	border: 1px solid #ccc;
+	background-color: #f4f4f4;
+	font: bold 12px arial, helvetica, verdana, sans-serif;
+}
+
+.loginbox .fieldwrapper input:focus
+{
+	border: 1px solid #06f;
+	background-color: #fff;
+}
+
+.loginbox .regbutton
+{
+	cursor: pointer;
+	padding: 4px 17px;
+	margin: 0 0 10px 10px;
+	color: #000;
+	font-weight: normal;
+	font-size: 14px;
+	border: 1px solid #999;
+	border-bottom: 1px solid #666;
+	border-left-color: #999;
+	border-right-color: #999;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	text-align: center;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+	background: -moz-linear-gradient(top, #fff, #ccc);
+	font: bold 14px arial, helvetica, verdana, sans-serif !important;
+	text-transform: uppercase;
+}
+
+.loginbox .regbutton:hover
+{
+	border: 1px solid #363;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#d2dab3));
+	background: -moz-linear-gradient(top, #fff, #d2dab3);
+}
+
+.loginbox .regbutton:active
+{
+	border: 1px solid #003300;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#999966));
+	background: -moz-linear-gradient(top, #fff, #999966);
+}
+
+.loginbox .smalltxt
+{
+	font-size: 11px;
+}
+
+.errornote {
+	background: url("../images/icon_alert.png") no-repeat 5px 5px #FFEBE8;
+	border: 1px solid #c00;
+	display: block;
+	font-size: 11px !important;
+	margin: 0 0 10px 0;
+	padding: 5px 5px 5px 25px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+

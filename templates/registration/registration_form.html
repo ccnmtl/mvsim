@@ -1,10 +1,40 @@
 {% extends "registration/registration_base.html" %}
 {% block title %}Register for an account{% endblock %}
+{% block body_attributes %} class="login"{% endblock %}
 {% block content %}
-<table>
+<div id="content">
+
+<h2>Create a new MV Sim account</h2>
+
+<p>Use the following form to create a new account to access the Millennium Village Simulation.</p>
+
+<div class="loginbox" style="float: none;">
+	<div class="content">
+
     <form method='post' action=''>{% csrf_token %}
-        {{ form }}
-        <tr><td></td><td><input type="submit" value="Send activation email" /></td>
+	<div class="fieldwrapper">
+		<label for="id_email">Your email address:</label>
+		{{ form.email }}
+	</div><!-- fieldwrapper -->
+	<div class="fieldwrapper">
+		<label for="id_username">Create your username:</label>
+		{{ form.username }}
+	</div><!-- fieldwrapper -->
+	<div class="fieldwrapper">
+		<label for="id_password1">Create a password:</label>
+		{{ form.password1 }}
+	</div><!-- fieldwrapper -->
+	<div class="fieldwrapper">
+		<label for="id_password2">Confirm your password:</label>
+		{{ form.password2 }}
+	</div><!-- fieldwrapper -->
+	<div class="fieldwrapper">
+        <input type="submit" class="regbutton" value="Send activation email" /></td>
+	</div><!-- fieldwrapper -->
     </form>
-</table>
+
+	</div><!-- content -->
+</div><!-- loginbox -->
+<br />
+</div>
 {% endblock %}

@@ -1,27 +1,68 @@
 {% extends "base.html" %}
+{% block title %}Welcome to Millennium Village Simulation. Please log in.{% endblock %}
+{% block body_attributes %} class="login"{% endblock %}
 {% block content %}
-<form method="get" action="{{ wind_base }}login">
-<input type="hidden" name="service" value="{{ wind_service }}" />
-<input type="hidden" name="destination" value="http://{{ request.get_host }}/accounts/windlogin/?next={{ next }}" />
-<p>If you have a Columbia UNI, you already have an account and can
-login through WIND with it</p>
-<input type="submit" value="Here" />
-</form>
-<p>otherwise: </p>
+
+
+<div id="content">
+
+<div class="loginbox">
+	<h2>Choose a login option...</h2>
+	<div class="content">
+	
+	
+	<form method="get" action="{{ wind_base }}login">
+	<input type="hidden" name="service" value="{{ wind_service }}" />
+	<input type="hidden" name="destination" value="http://{{ request.get_host }}/accounts/windlogin/?next={{ next }}" />
+	<p>If you have a Columbia University Network ID (UNI)...</p>
+	<input class="regbutton" type="submit" value="LOG IN" />
+	</form>
+
+	<p class="smalltxt"><a href="http://cuit.columbia.edu/cuit/manage-my-uni" title="Learn more about UNI" target="_blank">What is a UNI?</a></p>
+	<!-- End UNI LOG IN -->
+	
+	<hr class="seperator" />
+	
+{% if form.errors %}
+    <p class="errornote"><span><b>ERROR:</b> Invalid username or password.</span> Please try again. Note that both username and password are case-sensitive.</p>
+{% endif %}
+
+	<p>If you have a project account...</p>
 <form method="post" action=".">
 {% csrf_token %}
 
-{% if form.errors %}
-<p style="color:red">Your username and password didn't match. Please try again.</p>
-{% endif %}
+	<div class="fieldwrapper">
+		<label for="id_username">Username:</label>
+		{{ form.username }}
+	</div><!-- fieldwrapper -->
 
-<table>
-<tr><td><label for="id_username">Username:</label></td><td>{{ form.username }}</td></tr>
-<tr><td><label for="id_password">Password:</label></td><td>{{ form.password }}</td></tr>
-</table>
-<input type="submit" value="login" />
+	<div class="fieldwrapper">
+		<label for="id_password">Password:</label>
+		{{ form.password }}
+	</div><!-- fieldwrapper -->
+    
+
+<input class="regbutton" type="submit" value="LOG IN" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
-<p>You may also <a href="/registration/register/">create a new account</a></p>
+
+
+	<p class="smalltxt"><a href="/registration/register/" title="Create your new project account">Need a new account?</a></p>
+	</div><!-- content -->
+</div><!-- loginbox -->
+
+<h2>Welcome to the Millennium Village Simulation</h2>
+
+
+<p><img src="/site_media/images/overview.jpg" alt="Millennium Village" width="125" height="115" style="float:left; margin: 0 10px 10px 0;" />The Millennium Village Simulation (MV Sim) is a web-based simulation of economics and survival for one family and their village in a sub-Saharan African village. In a virtual world of extreme poverty, disease, and environmental variability, students are challenged to help a family of two survive and prosper over a fifty-year period. By making decisions regarding the family's allocation of time and financial resources, students develop a greater understanding of the manifold disciplines -- such as agronomy, nutrition, economics, epidemiology, public health and development management -- that constitute sustainable development and how those disciplines interact with each other in "real world" scenarios. The simulation's creators hope that, by immersing themselves in the daily life of a family, students will identify more deeply with the local experience of extreme poverty.</p>
+
+<p>For more information, visit <a href="http://ccnmtl.columbia.edu/portfolio/social_sciences/millennium_village_s.html" target="_blank">MV Sim Project Porfolio</a> page.</p>
+
+<p><i>Please log in with your UNI or your project account ID to begin the simulation.</b></i></p>
+
+<div id="clear"></div>
+
+</div>
+
 {% endblock %}
