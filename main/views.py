@@ -12,6 +12,7 @@ import json
 from urlparse import parse_qsl
 from pkg_resources import resource_filename
 from django.shortcuts import get_object_or_404
+from django_statsd.clients import statsd
 
 @allow_http("POST")
 def clone_state(request, state_id):
@@ -184,6 +185,7 @@ def build_template_context(request, game, turn_number=None):
 @allow_http("GET")
 @rendered_with("game/game_over.html")
 def game_over(request, game_id):
+    statsd.incr("event.game_over")
     sections = CourseSection.objects.filter(users=request.user, 
                                             course=request.course)
     try:
@@ -235,6 +237,7 @@ def history(request, game_id):
 
 @allow_http("POST")
 def delete_game(request,game_id):
+    statsd.incr("event.delete_game")
     game = get_object_or_404(Game,pk=game_id)
     if not game.viewable(request):
         return forbidden()
@@ -290,6 +293,7 @@ def view_turn_history(request, game_id, turn_number):
 
 @allow_http("POST")
 def submit_turn(request, game_id):
+    statsd.incr("event.play_turn")
     game = Game.objects.get(pk=game_id)
 
     if not game.viewable(request):
