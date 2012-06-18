@@ -5,25 +5,28 @@ import json
 
 from django.db.models.signals import post_save
 
+
 def self_registered_user(sender, **kwargs):
     """ if a user self-registers, we automatically
-    put them into the NON_CU group, so they get a 
+    put them into the NON_CU group, so they get a
     Course affiliation """
     try:
         u = kwargs['instance']
         if u.is_anonymous():
             return
         if len(u.groups.all()) == 0:
-            (g,created) = Group.objects.get_or_create(name="NON_CU")
+            (g, created) = Group.objects.get_or_create(name="NON_CU")
             if created:
                 # TODO also create the right course
                 pass
             u.groups.add(g)
-    except Exception, e:
+    except:
         pass
-post_save.connect(self_registered_user,sender=User)
+post_save.connect(self_registered_user, sender=User)
 
 from collections import namedtuple
+
+
 class NamedTuple(colander.Tuple):
     def __init__(self, *args, **kw):
         self.tuplename = kw.pop('tuplename', "NamedTuple")
@@ -32,12 +35,15 @@ class NamedTuple(colander.Tuple):
     def serialize(self, node, appstruct):
         if appstruct is colander.null:
             return colander.null
+
         def callback(subnode, subappstruct):
             return subnode.serialize(subappstruct)
         return self._impl(node, appstruct, callback)
+
     def deserialize(self, node, cstruct):
         if cstruct is colander.null:
             return colander.null
+
         def callback(subnode, subval):
             return subnode.deserialize(subval)
         value = self._validate(node, cstruct)
@@ -53,17 +59,20 @@ class NamedTuple(colander.Tuple):
                 if error is None:
                     error = colander.Invalid(node)
                 error.add(e, num)
-                
+
         if error is not None:
             raise error
 
         typ = namedtuple(self.tuplename, " ".join(names))
         return typ(*result)
 
+
 class AttrDict(dict):
     def __init__(self, *args, **kw):
         dict.__init__(self, *args, **kw)
         self.__dict__ = self
+
+
 class Mapping(colander.Mapping):
     def _impl(self, node, value, callback):
         return AttrDict(colander.Mapping._impl(self, node, value, callback))
@@ -86,20 +95,20 @@ schema_node_factories = {
     'list': colander.Sequence,
     }
 
+
 class Variable(models.Model):
     name = models.TextField(unique=True)
     symbol = models.TextField(unique=True)
-    
     description = models.TextField(blank=True)
-
     type = models.TextField(choices=variable_types)
     extra_type_information = models.TextField(blank=True)
 
     def __unicode__(self):
         return self.name
-    
+
     def graphable(self):
         return self.type in ("int", "float", "bool")
+
     def schema(self, required=True):
         type = schema_node_factories[self.type]
         kw = dict()
@@ -126,7 +135,8 @@ class Variable(models.Model):
                                                         name=list_element_name,
                                                         missing=missing)
             else:
-                list_element_type = Variable.objects.get(name=list_element_type)
+                list_element_type = Variable.objects.get(
+                    name=list_element_type)
                 list_element_type = list_element_type.schema(required)
             schema.add(list_element_type)
 
@@ -138,20 +148,25 @@ class Variable(models.Model):
                 schema.add(variable_schema)
 
         return schema
-        
+
+
 class Configuration(models.Model):
     name = models.TextField(unique=True)
 
     description = models.TextField(blank=True)
 
-    coefficients = models.ManyToManyField(Variable, related_name='configurations_as_coefficient')
-    variables = models.ManyToManyField(Variable, related_name='configurations_as_variable')
+    coefficients = models.ManyToManyField(
+        Variable, related_name='configurations_as_coefficient')
+    variables = models.ManyToManyField(
+        Variable, related_name='configurations_as_variable')
 
     def schema(self, ignore_missing=False):
-        coefficients = colander.SchemaNode(Mapping(), name="coefficients",
-                                           ignore_missing_required=ignore_missing)
-        variables = colander.SchemaNode(Mapping(), name="variables",
-                                           ignore_missing_required=ignore_missing)
+        coefficients = colander.SchemaNode(
+            Mapping(), name="coefficients",
+            ignore_missing_required=ignore_missing)
+        variables = colander.SchemaNode(
+            Mapping(), name="variables",
+            ignore_missing_required=ignore_missing)
 
         for coefficient in self.coefficients.all():
             coefficients.add(coefficient.schema(ignore_missing))
@@ -164,6 +179,7 @@ class Configuration(models.Model):
 
         return schema
 
+
 class UserInput(models.Model):
     variables = models.ManyToManyField(Variable)
 
@@ -175,9 +191,10 @@ class UserInput(models.Model):
 
         return variables
 
-def high_scores(course=None,limit=10):
+
+def high_scores(course=None, limit=10):
     games = []
-    if course is not None: 
+    if course is not None:
         games = Game.objects.filter(
             status="finished",
             course=course,
@@ -196,7 +213,7 @@ class Game(models.Model):
     course = models.ForeignKey('courseaffils.Course')
     status = models.CharField(max_length=100, default="notstarted")
     score = models.IntegerField(default=0)
-    name = models.CharField(max_length=256, default="",blank=True,null=True)
+    name = models.CharField(max_length=256, default="", blank=True, null=True)
 
     def __unicode__(self):
         if self.name:
@@ -248,7 +265,7 @@ class Game(models.Model):
         return self.state_set.latest("created")
 
     def get_state(self, turn_number):
-        return self.state_set.order_by("created")[turn_number-1]
+        return self.state_set.order_by("created")[turn_number - 1]
 
     def deserialize(self, state):
         schema = self.configuration.schema()
@@ -278,7 +295,9 @@ class Game(models.Model):
 
     def init(self, state):
         if self.state_set.count() > 0:
-            raise RuntimeError("Game.initialize_from_state requires a new game with no states attached.")
+            raise RuntimeError(
+                "Game.initialize_from_state requires "
+                + "a new game with no states attached.")
 
         # Validate the state against this game's configuration interface;
         # let any validation errors bubble up and interrupt the call.
@@ -289,13 +308,14 @@ class Game(models.Model):
         state = State(state=new_state, game=self)
         state.save()
 
+
 class State(models.Model):
     name = models.TextField(blank=True)
     game = models.ForeignKey(Game, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        if self.name: 
+        if self.name:
             return self.name
 
         number = 0
@@ -318,6 +338,7 @@ class State(models.Model):
     def loads(self):
         return json.loads(self.state)
 
+
 class CourseSection(models.Model):
     name = models.TextField()
     users = models.ManyToManyField('auth.User')
@@ -337,6 +358,7 @@ class CourseSection(models.Model):
         state_ids = [s.id for s in self.starting_states.all()]
         return State.objects.all().exclude(name="").exclude(id__in=state_ids)
 
+
 def ensure_section_exists(sender, instance, created, **kwargs):
     num_sections = CourseSection.objects.filter(
         course=instance).count()
@@ -350,6 +372,7 @@ def ensure_section_exists(sender, instance, created, **kwargs):
 from courseaffils.models import Course
 models.signals.post_save.connect(
     ensure_section_exists, sender=Course)
+
 
 def get():
     return Game.objects.get(pk=1), State.objects.get(pk=1)

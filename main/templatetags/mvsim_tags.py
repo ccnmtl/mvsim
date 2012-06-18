@@ -1,63 +1,80 @@
 from django import template
 from django.utils.safestring import mark_safe
-import locale 
+import locale
 
 from engine.simple_controller import money_report as _money_report
 
 register = template.Library()
 
+
 def money_report(num):
     num = _money_report(num)
     return mark_safe(num)
 
-def format_float(number, decimals=1):    
+
+def format_float(number, decimals=1):
     return locale.format('%.' + str(decimals) + 'f', number, True)
 
+
 def format_int(number):
-    return locale.format('%i', round(number),True)
+    return locale.format('%i', round(number), True)
+
 
 def div(a, b):
     return float(a) / float(b)
 
+
 def times(a, b):
     return float(a) * float(b)
+
 
 def minus(a, b):
     return float(a) - float(b)
 
+
 def _sum(a):
     return sum(a)
+
 
 def gt(a, b):
     a = a or 0
     return float(a) > float(b)
 
+
 def gte(a, b):
     return float(a) >= float(b)
+
 
 def lt(a, b):
     return float(a) < float(b)
 
+
 def startswith(a, b):
     return a.startswith(b)
+
 
 def plus(a, b):
     return float(a) + float(b)
 
+
 def neq(a, b):
     return a != b
+
 
 def _or(a, b):
     return a or b
 
+
 def get_attr(a, b):
     return getattr(a, b)
+
 
 def get_item(a, b):
     try:
         return a[b]
     except (IndexError, KeyError):
         return ''
+
 
 def get_item_or_0(a, b,):
     try:
@@ -69,8 +86,11 @@ def get_item_or_0(a, b,):
 # from having to instantiate the state and variable objects for every turn
 # of the game
 import math
+
+
 def reverse_engineer_year(turn_number):
     return int(math.ceil(turn_number / 2.0))
+
 
 def reverse_engineer_season(turn_number):
     return "%s / 2" % str(((turn_number - 1) % 2) + 1)
