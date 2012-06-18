@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Game Stats for Course Section: {{section.name}}</h2>
+
+<p><b>Course: </b> {{section.course}}</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Student</th>
+			<th>Number of Games</th>
+			<th>Max Score</th>
+			<th>Min Score</th>
+			<th>Mean Score</th>
+			<th>Max # Turns</th>
+			<th>Min # Turns</th>
+			<th>Mean # Turns</th>
+		</tr>
+	</thead>
+
+	<tbody>
+{% for s in section.stats %}
+    <tr>
+			<th>{{s.user}}</th>
+			<td>{{s.count}}</td>
+			<td>{{s.max_score}}</td>
+			<td>{{s.min_score}}</td>
+			<td>{{s.mean_score}}</td>
+			<td>{{s.max_turns}}</td>
+			<td>{{s.min_turns}}</td>
+			<td>{{s.mean_turns}}</td>
+		</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
