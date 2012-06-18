@@ -56,6 +56,7 @@ urlpatterns = patterns(
 
     url(r'^course_sections/$', 'main.views.admin_course_sections',name="admin_course_sections"),
     url(r'^course_sections/(?P<section_id>\d+)/$', 'main.views.admin_course_section',name="admin_course_section"),
+    url(r'^course_sections/(?P<section_id>\d+)/game_stats/$', 'main.views.course_section_game_stats',name="course_section_game_stats"),
     url(r'^course_sections/(?P<section_id>\d+)/associate_state/$', 'main.views.associate_state',name="associate_state"),        
     url(r'^course_sections/(?P<section_id>\d+)/disassociate_state/(?P<state_id>\d+)/$', 'main.views.disassociate_state',name="disassociate_state"),        
 

@@ -85,6 +85,14 @@ def admin_course_section(request, section_id):
     return dict(section=section)
 
 
+@rendered_with("admin/course_section_game_stats.html")
+def course_section_game_stats(request, section_id):
+    if not request.user.is_superuser:
+        return forbidden()
+    section = get_object_or_404(CourseSection, id=section_id)
+    return dict(section=section)
+
+
 def associate_state(request, section_id):
     if not request.user.is_superuser:
         return forbidden()

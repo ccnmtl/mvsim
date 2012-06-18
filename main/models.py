@@ -206,6 +206,28 @@ def high_scores(course=None, limit=10):
     return games[:limit]
 
 
+def user_scores(user):
+    data = dict()
+    games = Game.objects.filter(user=user, status="finished")
+    data['user'] = user
+    data['count'] = games.count()
+    if games.count() == 0:
+        # bail out now
+        return data
+    #  max/mean/min score | max/mean/min number of turns per game
+    scores = [g.score for g in list(games)]
+    data['max_score'] = max(scores)
+    data['min_score'] = min(scores)
+    data['mean_score'] = float(sum(scores)) / len(scores)
+
+    turns = [g.state_set.count() for g in list(games)]
+    data['max_turns'] = max(turns)
+    data['min_turns'] = min(turns)
+    data['mean_turns'] = float(sum(turns) / len(turns))
+
+    return data
+
+
 class Game(models.Model):
     user = models.ForeignKey('auth.User')
     configuration = models.ForeignKey(Configuration)
@@ -357,6 +379,10 @@ class CourseSection(models.Model):
     def available_states(self):
         state_ids = [s.id for s in self.starting_states.all()]
         return State.objects.all().exclude(name="").exclude(id__in=state_ids)
+
+    def stats(self):
+        for user in self.users.all():
+            yield user_scores(user)
 
 
 def ensure_section_exists(sender, instance, created, **kwargs):
