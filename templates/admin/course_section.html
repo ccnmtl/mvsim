@@ -3,6 +3,7 @@
 <h2>Course Section: {{section.name}}</h2>
 
 <p><b>Course: </b> {{section.course}}</p>
+<p><a href="game_stats/">View Game Stats</a></p>
 
 <ul>Users
 {% for user in section.users.all %}
@@ -26,5 +27,7 @@
 <input type="submit" value="associate" />
 </fieldset>
 </form>
+
+
 
 {% endblock %}
