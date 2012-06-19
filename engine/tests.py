@@ -1,21 +1,22 @@
-import unittest 
+import unittest
 
-from engine.logic import *
+from engine.logic import Person, Village, Coeffs, State, setup_people, Turn
+from engine.logic import rand_n, marshall_people, new_child
 from engine.schooling import SchoolingFSM
-
 
 
 class StubTC:
     override = None
+
     def __init__(self):
         pass
 
-    def rand_n(self,**kwargs):
+    def rand_n(self, **kwargs):
         return 10
 
-    def randint(self,a=0,b=10,n=1):
+    def randint(self, a=0, b=10, n=1):
         class Res:
-            def __init__(self,n):
+            def __init__(self, n):
                 self.values = [n]
 
         if self.override is None:
@@ -23,24 +24,23 @@ class StubTC:
         else:
             return Res(self.override)
 
-
-
-
 # Since we don't want to have to change our tests every time
 # a coefficient or state variable is changed, instead of using
 # the regular State and Coeff objects which get populated from
 # the database, we create stub versions here and set every
 # coefficient and variable that the tests need.
 
+
 class StubCoeffs:
-    def __init__(self,**kwargs):
-        for k,v in kwargs.items():
-            setattr(self,k,v)
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
 
 class StubState:
-    def __init__(self,**kwargs):
-        for k,v in kwargs.items():
-            setattr(self,k,v)
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
 
 # define magic numbers
@@ -49,8 +49,9 @@ ADULT_EFFORT = 2
 CHILD_1_EFFORT = 5
 CHILD_2_EFFORT = 4
 CHILD_3_EFFORT = 3
-PRIMARY_SCHOOL_EFFORT=1
-SECONDARY_SCHOOL_EFFORT=2
+PRIMARY_SCHOOL_EFFORT = 1
+SECONDARY_SCHOOL_EFFORT = 2
+
 
 class TestPerson(unittest.TestCase):
     def setUp(self):
@@ -59,9 +60,8 @@ class TestPerson(unittest.TestCase):
                             child_1_effort=CHILD_1_EFFORT,
                             child_2_effort=CHILD_2_EFFORT,
                             child_3_effort=CHILD_3_EFFORT,
-                            fuelwood_health_loss = 10,
-                            effort_too_high_health_loss = 1,
-
+                            fuelwood_health_loss=10,
+                            effort_too_high_health_loss=1,
                             disease_respiratory_health_factor=0.8,
                             disease_respiratory_youth_factor=0.2,
                             disease_waterborne_health_factor=0.8,
@@ -78,9 +78,10 @@ class TestPerson(unittest.TestCase):
                             chance_of_getting_the_flu=0,
                             )
 
-        self.kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                            pregnant=False,sick="",schooling_state="adult",
-                            coeffs=coeffs,tc=StubTC())
+        self.kodjo = Person(name="Kodjo", gender="Male", age=15, health=100,
+                            education=12, pregnant=False, sick="",
+                            schooling_state="adult", coeffs=coeffs,
+                            tc=StubTC())
         self.kodjo.tc.override = 1
 
     def tearDown(self):
@@ -121,9 +122,6 @@ class TestPerson(unittest.TestCase):
 
     def test_starve(self):
         self.kodjo.health = 100
-        family_needs = 100.0
-        amount_calories = 50.0
-        population = 2.0
         self.kodjo.coeffs.subsistence = 500
         self.kodjo.starve(250)
         assert self.kodjo.health == 50.0
@@ -136,12 +134,13 @@ class TestPerson(unittest.TestCase):
         family_water_needs = 100.0
         amount_water = 50.0
         population = 2.0
-        self.kodjo.dehydrate(family_water_needs,amount_water,population)
+        self.kodjo.dehydrate(family_water_needs, amount_water, population)
         assert self.kodjo.health == 50.0
         self.kodjo.health = 100
-        self.kodjo.dehydrate(family_water_needs,family_water_needs,population)
+        self.kodjo.dehydrate(family_water_needs, family_water_needs,
+                             population)
         assert self.kodjo.health == 100.0
-        self.kodjo.dehydrate(family_water_needs,family_water_needs,0)
+        self.kodjo.dehydrate(family_water_needs, family_water_needs, 0)
 
     def test_maximum_effort(self):
 
@@ -185,11 +184,12 @@ class TestPerson(unittest.TestCase):
         # drops off with age over 50
         self.kodjo.age = 51
         self.kodjo.education = 24
-        for (i,age) in enumerate(range(51,75)):
+        for (i, age) in enumerate(range(51, 75)):
             self.kodjo.age = age
             # convert to int since it eventually gets far enough out that
             # floating point conversions aren't reliable
-            assert int(self.kodjo.productivity()) == int(.95 ** (i + 1) * 150.0)
+            assert int(self.kodjo.productivity()) == int(.95 ** (i + 1)
+                                                          * 150.0)
         self.kodjo.age = 15
 
     def test_check_sick(self):
@@ -222,13 +222,11 @@ class TestPerson(unittest.TestCase):
         self.kodjo.check_sick(state)
         assert not self.kodjo.sick
 
-
         self.kodjo.coeffs.illness_chance_coeff = 10000.0
         self.kodjo.health = 1.0
         self.kodjo.tc.override = 10
         self.kodjo.check_sick(state)
         assert self.kodjo.sick
-        
 
     def test_update_schooling_state(self):
         self.kodjo.schooling_state = "adult"
@@ -270,10 +268,6 @@ class TestPerson(unittest.TestCase):
         self.kodjo.health_t1 = 5
         self.kodjo.health_t2 = 5
         assert self.kodjo.is_dead() is True
-        
-
-
-
 
 # more magic numbers
 
@@ -281,11 +275,12 @@ VILLAGE_POPULATION = 500
 BIRTH_RATE = 2
 DEATH_RATE = 2
 POPULATION = 1
-PRECIPITATION=1
+PRECIPITATION = 1
+
 
 class TestVillage:
     def setUp(self):
-        coeffs = StubCoeffs(birth_rate=BIRTH_RATE,death_rate=DEATH_RATE,
+        coeffs = StubCoeffs(birth_rate=BIRTH_RATE, death_rate=DEATH_RATE,
                             starting_year=2007,
                             avg_family_size=4,
                             recovery_rate0=1.0,
@@ -308,18 +303,18 @@ class TestVillage:
                             free_bednet_year=30,
                             fish_stock_warn_threshold=0.33,
                             wood_stock_warn_threshold=0.33,
-                            available_improvements = ['a','b'],
-                            microfinance_base_interest = 0.02,
-                            microfinance_min_balance = 100.0,
-                            microfinance_repay_period = 8,
-                            microfinance_drought_effect = 1,
-                            microfinance_epidemic_effect = 1,
+                            available_improvements=['a', 'b'],
+                            microfinance_base_interest=0.02,
+                            microfinance_min_balance=100.0,
+                            microfinance_repay_period=8,
+                            microfinance_drought_effect=1,
+                            microfinance_epidemic_effect=1,
                             )
         state = StubState(village_population=VILLAGE_POPULATION,
                           population=POPULATION,
-                          clinic=False,irrigation=False,road=False,
-                          sanitation=False,water_pump=False,
-                          meals=False,electricity=False,
+                          clinic=False, irrigation=False, road=False,
+                          sanitation=False, water_pump=False,
+                          meals=False, electricity=False,
                           precipitation=PRECIPITATION,
                           health=[100],
                           year=2007,
@@ -333,13 +328,13 @@ class TestVillage:
                           microfinance_balance=0.0,
                           microfinance_borrow=0.0,
                           microfinance_current_interest_rate=0.0,
-                          microfinance_interest_rate = 0.0,
-                          microfinance_amount_due = 0.0,
-                          microfinance_amount_paid = 0.0,
-                          microfinance_max_borrow = 0.0,
+                          microfinance_interest_rate=0.0,
+                          microfinance_amount_due=0.0,
+                          microfinance_amount_paid=0.0,
+                          microfinance_max_borrow=0.0,
                           )
         tc = StubTC()
-        self.village = Village(state,coeffs,tc)
+        self.village = Village(state, coeffs, tc)
 
     def tearDown(self):
         self.village = None
@@ -356,7 +351,7 @@ class TestVillage:
         self.village.state.village_population = 10.0
         self.village.check_epidemic()
         assert self.village.state.epidemic
-        
+
     def test_avg_family_health(self):
         assert self.village.avg_family_health() == 100
 
@@ -384,7 +379,8 @@ class TestVillage:
         assert self.village.recovery_rate() == 1
 
     def test_susceptible_pop(self):
-        assert self.village.susceptible_pop() == self.village.state.village_population
+        assert (self.village.susceptible_pop()
+                == self.village.state.village_population)
 
     def test_recovered(self):
         assert self.village.recovered() == 0
@@ -401,16 +397,16 @@ class TestVillage:
         assert self.village.family_taxes(100.0) == 10
         self.village.state.tax_rate = 0
         assert self.village.family_taxes(100.0) == 0
-        
+
     def test_check_improvement_price(self):
-        self.village.coeffs.available_improvements = ['a','b']
-        self.village.coeffs.improvement_prices = [1,2]
+        self.village.coeffs.available_improvements = ['a', 'b']
+        self.village.coeffs.improvement_prices = [1, 2]
         assert self.village.check_improvement_price('a') == 1
         assert self.village.check_improvement_price('b') == 2
 
     def test_buy_improvements(self):
-        self.village.coeffs.available_improvements = ['a','b']
-        self.village.coeffs.improvement_prices = [1,200]
+        self.village.coeffs.available_improvements = ['a', 'b']
+        self.village.coeffs.improvement_prices = [1, 200]
         self.village.coeffs.subsidy_price_reduction = 1
         self.village.state.fund = 100
         self.village.state.improvements = ['a']
@@ -422,7 +418,7 @@ class TestVillage:
         self.village.state.improvements = ['b']
         self.village.buy_improvements()
         assert self.village.state.fund == 99
-        assert not hasattr(self.village.state,'b')
+        assert not hasattr(self.village.state, 'b')
 
         self.village.state.subsidy_offers = ['b']
         self.village.coeffs.subsidy_price_reduction = .05
@@ -458,7 +454,7 @@ class TestVillage:
 
         stock = self.village.calc_fish_stock()
         assert stock > 3792849 and stock < 3792850
-        
+
     def test_update_fish_stock(self):
         self.village.state.amount_fish = 5.0
         self.village.state.fish_stock = 5000.0
@@ -492,64 +488,70 @@ class TestVillage:
         self.village.state.population = 0
         self.village.calculate_taxes(10.0)
 
+
 class TestSchoolingFSM:
     def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
-                            secondary_school_effort=SECONDARY_SCHOOL_EFFORT)        
-        self.kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                            pregnant=False,sick="",schooling_state="adult",
-                            coeffs=coeffs,tc=StubTC())                
+                            secondary_school_effort=SECONDARY_SCHOOL_EFFORT)
+        self.kodjo = Person(name="Kodjo", gender="Male", age=15, health=100,
+                            education=12, pregnant=False, sick="",
+                            schooling_state="adult",
+                            coeffs=coeffs, tc=StubTC())
 
     def tearDown(self):
         pass
 
     def test_calculate_next_state(self):
-        fsm = SchoolingFSM(3,0,"under 5")
+        fsm = SchoolingFSM(3, 0, "under 5")
         assert fsm.calculate_next_state(True) == "under 5"
-        assert fsm.calculate_next_state(False) == "under 5"        
+        assert fsm.calculate_next_state(False) == "under 5"
 
-        fsm = SchoolingFSM(5,0,"under 5")
+        fsm = SchoolingFSM(5, 0, "under 5")
         assert fsm.calculate_next_state(True) == "enrolled in primary"
-        assert fsm.calculate_next_state(False) == "eligible for primary but missed turn"        
+        assert (fsm.calculate_next_state(False)
+                == "eligible for primary but missed turn")
 
-        fsm = SchoolingFSM(18,0,"adult")
+        fsm = SchoolingFSM(18, 0, "adult")
         assert fsm.calculate_next_state(True) == "adult"
-        assert fsm.calculate_next_state(False) == "adult"        
+        assert fsm.calculate_next_state(False) == "adult"
 
-        fsm = SchoolingFSM(12,13,"enrolled in secondary")
+        fsm = SchoolingFSM(12, 13, "enrolled in secondary")
         assert fsm.calculate_next_state(True) == "enrolled in secondary"
         assert fsm.calculate_next_state(False) == "eligible for secondary"
 
-        fsm = SchoolingFSM(6,1,"enrolled in primary")
+        fsm = SchoolingFSM(6, 1, "enrolled in primary")
         assert fsm.calculate_next_state(True) == "enrolled in primary"
-        assert fsm.calculate_next_state(False) == "eligible for primary but missed turn"
+        assert (fsm.calculate_next_state(False)
+                == "eligible for primary but missed turn")
 
-        fsm = SchoolingFSM(6,12,"enrolled in primary")
+        fsm = SchoolingFSM(6, 12, "enrolled in primary")
         assert fsm.calculate_next_state(True) == "enrolled in secondary"
         assert fsm.calculate_next_state(False) == "not eligible for secondary"
 
-        fsm = SchoolingFSM(7,5,"eligible for primary but missed turn")
-        assert fsm.calculate_next_state(True) == "enrolled in primary but missed turn"
-        assert fsm.calculate_next_state(False) == "eligible for primary but missed turn"
+        fsm = SchoolingFSM(7, 5, "eligible for primary but missed turn")
+        assert (fsm.calculate_next_state(True)
+                == "enrolled in primary but missed turn")
+        assert (fsm.calculate_next_state(False)
+                == "eligible for primary but missed turn")
 
-        fsm = SchoolingFSM(7,5,"enrolled in primary but missed turn")
-        assert fsm.calculate_next_state(True) == "enrolled in primary but missed turn"
-        assert fsm.calculate_next_state(False) == "eligible for primary but missed turn"
+        fsm = SchoolingFSM(7, 5, "enrolled in primary but missed turn")
+        assert (fsm.calculate_next_state(True)
+                == "enrolled in primary but missed turn")
+        assert (fsm.calculate_next_state(False)
+                == "eligible for primary but missed turn")
 
-        fsm = SchoolingFSM(7,12,"enrolled in primary but missed turn")
+        fsm = SchoolingFSM(7, 12, "enrolled in primary but missed turn")
         assert fsm.calculate_next_state(True) == "not eligible for secondary"
         assert fsm.calculate_next_state(False) == "not eligible for secondary"
 
-        fsm = SchoolingFSM(13,10,"eligible for secondary")
+        fsm = SchoolingFSM(13, 10, "eligible for secondary")
         assert fsm.calculate_next_state(True) == "enrolled in secondary"
         assert fsm.calculate_next_state(False) == "eligible for secondary"
 
-        fsm = SchoolingFSM(13,10,"not eligible for secondary")
+        fsm = SchoolingFSM(13, 10, "not eligible for secondary")
         assert fsm.calculate_next_state(True) == "not eligible for secondary"
         assert fsm.calculate_next_state(False) == "not eligible for secondary"
-
-        
 
 
 class TestCoeffs:
@@ -557,44 +559,44 @@ class TestCoeffs:
         c = Coeffs()
         assert c.__json__() == {}
 
+
 class TestState:
     def test_json(self):
         s = State()
         assert s.__json__() == {}
 
+
 class TestFunctions:
     def setup(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
-                            secondary_school_effort=SECONDARY_SCHOOL_EFFORT,starting_year=2007)        
-        kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                       pregnant=False,sick="",schooling_state="adult",
-                       coeffs=coeffs,tc=StubTC())                
-        state = StubState(people=[kodjo],health_t1=['Kodjo|100'],
-                          health_t2=['Kodjo|100'],health_t3=['Kodjo|100'],
-                          names=['Kodjo'],genders=['Male'],ages=[16],
-                          health=[100],education=[12],pregnant=[False],
-                          sick=[""],schooling_state=['adult'],
-                          efforts=[12,12],year=2007)
+                            secondary_school_effort=SECONDARY_SCHOOL_EFFORT,
+                            starting_year=2007)
+        kodjo = Person(name="Kodjo", gender="Male", age=15, health=100,
+                       education=12, pregnant=False, sick="",
+                       schooling_state="adult", coeffs=coeffs, tc=StubTC())
+        state = StubState(people=[kodjo], health_t1=['Kodjo|100'],
+                          health_t2=['Kodjo|100'], health_t3=['Kodjo|100'],
+                          names=['Kodjo'], genders=['Male'], ages=[16],
+                          health=[100], education=[12], pregnant=[False],
+                          sick=[""], schooling_state=['adult'],
+                          efforts=[12, 12], year=2007)
         tc = StubTC()
         self.tc = tc
         self.state = state
         self.coeffs = coeffs
 
-    
     def test_marshall_people(self):
-        
-        people = list(setup_people(self.state,self.coeffs,self.tc))
-        state = marshall_people(people,self.state)
+        people = list(setup_people(self.state, self.coeffs, self.tc))
+        state = marshall_people(people, self.state)
         assert len(state.health_t1) > 0
 
     def test_new_child(self):
         self.coeffs.child_names = ['bart']
         self.coeffs.child_genders = ['Male']
         self.state.births = 0
-        child = new_child(self.tc,self.coeffs,self.state)
+        child = new_child(self.tc, self.coeffs, self.state)
         assert child.name == 'bart'
-
 
 
 class TestTurn:
@@ -603,15 +605,19 @@ class TestTurn:
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
                             secondary_school_effort=SECONDARY_SCHOOL_EFFORT,
                             secondary_school_cost=1,
-                            recovery_rate0=1, recovery_rate1=1, recovery_rate2=1,
+                            recovery_rate0=1, recovery_rate1=1,
+                            recovery_rate2=1,
                             recovery_rate3=1,
-                            market_items=['stove','bednet','high_yield_seeds','propane','fertilizer'],
-                            market_sell_prices=[10,5,1,10,5],
-                            market_purchase_prices=[10,5,1,10,5],
+                            market_items=['stove', 'bednet',
+                                          'high_yield_seeds', 'propane',
+                                          'fertilizer'],
+                            market_sell_prices=[10, 5, 1, 10, 5],
+                            market_purchase_prices=[10, 5, 1, 10, 5],
                             death_rate=1,
-                            mortality0=1,mortality1=1,birth_rate=1,
+                            mortality0=1, mortality1=1, birth_rate=1,
                             mortality2=1,
-                            fish_k=2500,effort_coeff=0.042,avg_fishing_yield=900,
+                            fish_k=2500, effort_coeff=0.042,
+                            avg_fishing_yield=900,
                             maize_productivity_exponent=0.9,
                             avg_maize_yield=1000,
                             cotton_productivity_exponent=0.9,
@@ -621,18 +627,18 @@ class TestTurn:
                             avg_small_business_yield=50, wood_fuel_coeff=3.5,
                             avg_family_size=4,
                             propane_fuel_coeff=5.0,
-                            fish_growth_rate=1.2,forest_growth_rate=1.01,
-                            energy_req=18,subsistence=500,
-                            maize_cal_coeff=25,fish_cal_coeff=26.5,
+                            fish_growth_rate=1.2, forest_growth_rate=1.01,
+                            energy_req=18, subsistence=500,
+                            maize_cal_coeff=25, fish_cal_coeff=26.5,
                             w_subsistence=30,
                             fuelwood_health_loss=2.0,
                             effort_too_high_health_loss=1.0,
-                            death_threshold_1 = 0.0,
-                            death_threshold_2 = 10.0,
+                            death_threshold_1=0.0,
+                            death_threshold_2=10.0,
                             wood_price=10.0, cotton_export_units=100,
                             maize_export_units=100,
                             maize_price=10,
-                            cotton_price=100,savings_rate=0.2,
+                            cotton_price=100, savings_rate=0.2,
                             health_increment=4.0,
                             min_precipitation=100,
                             precipitation_infection_modifier=0,
@@ -661,78 +667,84 @@ class TestTurn:
                             dragnet_coeff=2.0,
                             fish_stock_warn_threshold=0.33,
                             wood_stock_warn_threshold=0.33,
-                            available_improvements = ['a','b','road'],
-                            improvement_prices = [1,2,10],
-                            small_business_depreciation_rate = 0.2,
-                            small_business_productivity_effect = 1,
-                            small_business_road_effect = 1,
-                            small_business_electricity_effect = 1,
-                            small_business_drought_effect = 1,
-                            small_business_epidemic_effect = 1,
-                            small_business_diminishing_return = 1,
-                            microfinance_base_interest = 0.02,
-                            microfinance_min_balance = 100.0,
-                            microfinance_repay_period = 8,
-                            microfinance_drought_effect = 1,
-                            microfinance_epidemic_effect = 1,
-                            health_nutrition_coeff = 1.0,
-                            health_clinic_coeff = 1.0,
-                            health_power_coeff = 1.0,
-                            health_sickness_coeff = 1.0,
+                            available_improvements=['a', 'b', 'road'],
+                            improvement_prices=[1, 2, 10],
+                            small_business_depreciation_rate=0.2,
+                            small_business_productivity_effect=1,
+                            small_business_road_effect=1,
+                            small_business_electricity_effect=1,
+                            small_business_drought_effect=1,
+                            small_business_epidemic_effect=1,
+                            small_business_diminishing_return=1,
+                            microfinance_base_interest=0.02,
+                            microfinance_min_balance=100.0,
+                            microfinance_repay_period=8,
+                            microfinance_drought_effect=1,
+                            microfinance_epidemic_effect=1,
+                            health_nutrition_coeff=1.0,
+                            health_clinic_coeff=1.0,
+                            health_power_coeff=1.0,
+                            health_sickness_coeff=1.0,
                             )
-        kodjo = Person(name="Kodjo",gender="Male",age=15,health=100,education=12,
-                       pregnant=False,sick="",schooling_state="adult",
-                       coeffs=coeffs,tc=StubTC())        
-        state = StubState(expenditure=0,income=0,tons_to_market=0,
-                          initial_population=0,cash=500,
-                          population=2,total_effort=0,fertilizer=False,
-                          people=[kodjo],health_t1=['Kodjo|100'],
-                          health_t2=['Kodjo|100'],health_t3=['Kodjo|100'],
-                          names=['Kodjo'],genders=['Male'],ages=[16],
-                          health=[100],education=[12],pregnant=[False],
-                          sick=[""],schooling_state=['adult'],
-                          efforts=[12,12],year=2007,
-                          doctor=[],sell_items=['',"stove|1"],
-                          purchase_items=['','bednet|1'],
-                          try_for_child=False,enroll=[],
-                          improvements=[],village_infected_pop=0,
-                          clinic=1.0,electricity=1.0,village_population=500,
-                          fish_stock=5000,effort_fishing=2,
-                          effort_farming=12,effort_fuel_wood=4,effort_water=9,
-                          boat=False,fishing_limit=0,fertilizer_t1=True,
-                          season=True,fertilizer_last_turn=True,
-                          soil_health=1,irrigation=False,
-                          crops=['Maize','Maize','Maize','Maize'],
-                          wood_stock=1000.0,wood_limit=0,effort_small_business=0,
-                          improved_stove=False,food_to_buy=0,
-                          meals=False,water_pump=False,stove=False,epidemic=False,
-                          cost_to_market=0,tax_rate=0.0,fund=0,owned_items=['stove'],
-                          road=False,sanitation=False,
-                          amount_water=50,user_messages=[],precipitation=0.0,
-                          family_needs=1.0,amount_calories=0.0,wood_fuel=0.0,
-                          wood_k = 500,high_yield_seeds=False,avg_productivity=1.0,
+        kodjo = Person(name="Kodjo", gender="Male", age=15, health=100,
+                       education=12, pregnant=False, sick="",
+                       schooling_state="adult", coeffs=coeffs, tc=StubTC())
+        state = StubState(expenditure=0, income=0, tons_to_market=0,
+                          initial_population=0, cash=500,
+                          population=2, total_effort=0, fertilizer=False,
+                          people=[kodjo], health_t1=['Kodjo|100'],
+                          health_t2=['Kodjo|100'], health_t3=['Kodjo|100'],
+                          names=['Kodjo'], genders=['Male'], ages=[16],
+                          health=[100], education=[12], pregnant=[False],
+                          sick=[""], schooling_state=['adult'],
+                          efforts=[12, 12], year=2007,
+                          doctor=[], sell_items=['', "stove|1"],
+                          purchase_items=['', 'bednet|1'],
+                          try_for_child=False, enroll=[],
+                          improvements=[], village_infected_pop=0,
+                          clinic=1.0, electricity=1.0, village_population=500,
+                          fish_stock=5000, effort_fishing=2,
+                          effort_farming=12, effort_fuel_wood=4,
+                          effort_water=9,
+                          boat=False, fishing_limit=0, fertilizer_t1=True,
+                          season=True, fertilizer_last_turn=True,
+                          soil_health=1, irrigation=False,
+                          crops=['Maize', 'Maize', 'Maize', 'Maize'],
+                          wood_stock=1000.0, wood_limit=0,
+                          effort_small_business=0,
+                          improved_stove=False, food_to_buy=0,
+                          meals=False, water_pump=False, stove=False,
+                          epidemic=False,
+                          cost_to_market=0, tax_rate=0.0, fund=0,
+                          owned_items=['stove'],
+                          road=False, sanitation=False,
+                          amount_water=50, user_messages=[], precipitation=0.0,
+                          family_needs=1.0, amount_calories=0.0, wood_fuel=0.0,
+                          wood_k=500, high_yield_seeds=False,
+                          avg_productivity=1.0,
                           drought=False,
                           amount_propane=0,
                           propane_fuel=0,
                           subsistence_met=True,
-                          calorie_allocation=[500,500],
-                          deaths = 0,
-                          died = [],
-                          died_reasons = [],
+                          calorie_allocation=[500, 500],
+                          deaths=0,
+                          died=[],
+                          died_reasons=[],
                           dragnet=False,
                           bednet_ages=[2],
-                          u_points = 0,
-                          small_business_capital = 0, small_business_investment = 0,
+                          u_points=0,
+                          small_business_capital=0,
+                          small_business_investment=0,
                           microfinance_balance=0.0,
                           microfinance_borrow=0.0,
                           microfinance_current_interest_rate=0.0,
-                          microfinance_interest_rate = 0.0,
-                          microfinance_amount_due = 0.0,
-                          microfinance_amount_paid = 0.0,
-                          microfinance_max_borrow = 0.0,
+                          microfinance_interest_rate=0.0,
+                          microfinance_amount_due=0.0,
+                          microfinance_amount_paid=0.0,
+                          microfinance_max_borrow=0.0,
                           )
         tc = StubTC()
-        self.turn = Turn(state,coeffs,tc)
+        self.turn = Turn(state, coeffs, tc)
 
     def tearDown(self):
         self.turn = None
@@ -746,13 +758,12 @@ class TestTurn:
         self.turn.state.road = False
         self.turn.transport_cost_per_ton()
 
-
     def test_reset(self):
         self.turn.state.expenditure = 300
         self.turn.state.income = 20
         self.turn.reset()
         assert self.turn.state.expenditure == 0
-        assert self.turn.state.income == 0 
+        assert self.turn.state.income == 0
 
     def test_is_game_over(self):
         self.turn.state.population = 10
@@ -770,7 +781,6 @@ class TestTurn:
         self.turn.state.population = 0
         assert self.turn.is_everyone_dead() is True
 
-
     def test_is_debt_too_high(self):
         self.turn.state.cash = 100
         assert self.turn.is_debt_too_high() is False
@@ -782,7 +792,7 @@ class TestTurn:
     #     self.turn.go()
 
     #     self.turn.state.population = 0
-    #     (alive,state) = self.turn.go()
+    #     (alive, state) = self.turn.go()
     #     assert alive is False
 
     def test_sell_items(self):
@@ -836,12 +846,13 @@ class TestTurn:
 
     def test_children(self):
         self.turn.children()
-        fatou = Person(name="Fatou",gender="Female",age=24,health=100,education=12,
-                       pregnant=True,sick="",schooling_state="adult",
-                       coeffs=self.turn.coeffs,tc=self.turn.tc)
+        fatou = Person(name="Fatou", gender="Female", age=24, health=100,
+                       education=12,
+                       pregnant=True, sick="", schooling_state="adult",
+                       coeffs=self.turn.coeffs, tc=self.turn.tc)
         self.turn.coeffs.child_names = ['bart']
         self.turn.coeffs.child_genders = ['Male']
-        self.turn.state.births=0
+        self.turn.state.births = 0
         self.turn.state.people.append(fatou)
         self.turn.state.try_for_child = False
         self.turn.children()
@@ -871,10 +882,9 @@ class TestTurn:
         self.turn.state.irrigation = True
         self.turn.check_drought()
         assert self.turn.state.drought is False
-        
 
     def test_rand_n(self):
-        r = rand_n(self.turn.tc,5)
+        r = rand_n(self.turn.tc, 5)
         assert r == 0
 
     def test_check_epidemic(self):
@@ -904,7 +914,6 @@ class TestTurn:
         self.turn.state.irrigation = True
         self.turn.coeffs.irrigation_coeff = 5
         assert self.turn.t_irr() == self.turn.coeffs.irrigation_coeff
-        
 
     def test_t_drought(self):
         pass
@@ -928,9 +937,9 @@ class TestTurn:
         assert self.turn.calc_wood_coeff() == 1000.0 / 7500.0
         self.turn.state.wood_stock = 10000
         assert self.turn.calc_wood_coeff() == 1
+
     def test_update_wood_coeff(self):
         self.turn.update_wood_coeff()
-
 
     def test_calc_fish_coeff(self):
         print self.turn.calc_fish_coeff()
@@ -948,16 +957,16 @@ class TestTurn:
 
     def test_percent_maize(self):
         assert self.turn.percent_maize() == 1
-        self.turn.state.crops = ["Maize","Maize","Maize","Cotton"]
+        self.turn.state.crops = ["Maize", "Maize", "Maize", "Cotton"]
         assert self.turn.percent_maize() == .75
-        self.turn.state.crops = ["Cotton","Cotton","Cotton","Cotton"]
+        self.turn.state.crops = ["Cotton", "Cotton", "Cotton", "Cotton"]
         assert self.turn.percent_maize() == 0
 
     def test_percent_cotton(self):
         assert self.turn.percent_cotton() == 0
-        self.turn.state.crops = ["Maize","Maize","Maize","Cotton"]
+        self.turn.state.crops = ["Maize", "Maize", "Maize", "Cotton"]
         assert self.turn.percent_cotton() == .25
-        self.turn.state.crops = ["Cotton","Cotton","Cotton","Cotton"]
+        self.turn.state.crops = ["Cotton", "Cotton", "Cotton", "Cotton"]
         assert self.turn.percent_cotton() == 1
 
     # def test_calc_amount_maize(self):
@@ -971,10 +980,9 @@ class TestTurn:
 
     def test_calc_amount_cotton(self):
         assert self.turn.calc_amount_cotton() == 0
-        self.turn.state.crops = ["Cotton","Cotton","Cotton","Cotton"]
+        self.turn.state.crops = ["Cotton", "Cotton", "Cotton", "Cotton"]
         amt = self.turn.calc_amount_cotton()
         assert amt > 2088.0 and amt < 2089.0
-
 
     def test_update_amount_cotton(self):
         pass
@@ -1020,7 +1028,6 @@ class TestTurn:
     #     self.turn.state.owned_items = ['stove']
     #     self.turn.state.propane_fuel = 100
     #     assert self.turn.is_enough_propane() is True
-
 
     def test_calc_energy_req(self):
         pass
@@ -1113,14 +1120,14 @@ class TestTurn:
 
     def test_sell_cotton(self):
         self.turn.state.amount_cotton = 100
-        (price,tons_to_market) = self.turn.sell_cotton()
+        (price, tons_to_market) = self.turn.sell_cotton()
         print price
         print tons_to_market
         print self.turn.coeffs.cotton_price
         assert price == 10
         assert tons_to_market == 0.1
         self.turn.coeffs.cotton_price = 200
-        (price,tons_to_market) = self.turn.sell_cotton()
+        (price, tons_to_market) = self.turn.sell_cotton()
         assert price == 20
         assert tons_to_market == 0.1
 
@@ -1128,89 +1135,3 @@ class TestTurn:
         assert self.turn.food_cost() == 20
         self.turn.state.meals = True
         assert self.turn.food_cost() == 20 * 1.2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

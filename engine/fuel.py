@@ -1,6 +1,6 @@
 class FuelType(object):
-    """ 
-    encapsulate the properties of a fuel type 
+    """
+    encapsulate the properties of a fuel type
     w.r.t. conversion of raw food to consumable calories
 
     when instantiated with a numerical quantity, represents
@@ -36,7 +36,7 @@ class FuelType(object):
         potential_capacity = self.stock * capacity
 
         if potential_capacity == 0:
-            # save some calculations -- do nothing and abort 
+            # save some calculations -- do nothing and abort
             # also avoids potential ZeroDivisionError below if capacity=0
             return 0.0, raw_food_cals
         elif potential_capacity < food_to_cook:
@@ -52,6 +52,7 @@ class FuelType(object):
 
         return energy, raw_food_cals
 
+
 class Propane(FuelType):
 
     _coefficient = 'propane_fuel_coeff'
@@ -62,10 +63,11 @@ class Propane(FuelType):
             return 0.0
         return cls.coefficient(coeffs) * 50000.0
 
+
 class Wood(FuelType):
 
     _coefficient = 'wood_fuel_coeff'
-    
+
     @classmethod
     def capacity(cls, coeffs, state):
         capacity = cls.coefficient(coeffs) * 50000.0
@@ -77,9 +79,11 @@ class Wood(FuelType):
 # then FuelSupply() should maintain a list of fuels ordered
 # from most-efficient to least-efficient, and use that list
 # to determine the sequence of conversions
+
+
 class FuelSupply(object):
-    """ 
-    represents a mixed stock of fuels 
+    """
+    represents a mixed stock of fuels
 
     this object is stateful. iff it has been used to convert fuel,
     you can ask its property `.was_sufficient` whether there was
@@ -121,7 +125,7 @@ class FuelSupply(object):
         given raw food cals, outputs (cooked food cals, uncooked food cals)
         """
         energy = 0
-        for fuel in (self.propane, self.wood):            
+        for fuel in (self.propane, self.wood):
             more_energy, raw_food_cals = fuel.convert(raw_food_cals,
                                                       self.coeffs, self.state)
             energy += more_energy
