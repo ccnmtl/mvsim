@@ -1,6 +1,9 @@
+
+
 def small_business_capital(depreciation_rate, current_capital,
                            added_investment):
     return (1 - depreciation_rate) * current_capital + added_investment
+
 
 def small_business_max_borrow(depreciation_rate, previous_capital,
                               added_investment):
@@ -11,11 +14,11 @@ def small_business_max_borrow(depreciation_rate, previous_capital,
 
     return subsistence_cost + available_capital
 
+
 def subsistence_cost(family_needs, food_cost, school_meals=False):
     if school_meals:
         food_cost *= 1.2
     return family_needs / 100 * food_cost
-
 
 
 def family_energy_requirements(family_size, energy_needed_per_person,
@@ -41,12 +44,10 @@ def family_food_requirements(family_size, food_needed_per_person):
     return family_size * food_needed_per_person
 
 
-
 # http://wiki.ccnmtl.columbia.edu/index.php/MVSim_scratchpad#On_Bednets
 def village_bednets(family_bednets,
                     family_population, village_population,
                     family_bednet_coefficient, village_bednet_coefficient):
-    
     return family_bednets \
         * (family_bednet_coefficient / village_bednet_coefficient) \
         * (village_population / family_population)
