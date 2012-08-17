@@ -4,10 +4,11 @@ from django.http import (HttpResponse,
                          HttpResponseForbidden as forbidden)
 from django.views.decorators.csrf import csrf_exempt
 from djangohelpers.lib import allow_http, rendered_with
-import httplib2
 from main.models import Game
 import os
+import tempfile
 import simplejson
+import subprocess
 
 
 @allow_http("GET")
@@ -44,12 +45,12 @@ def graph_svg(request, game_id):
               """width="%s" height="%s" """ % ('640', '__GRAPH_HEIGHT__'),
               """xml:space="preserve"><desc>Created with Raphael</desc>""",
               """<defs></defs>"""]
-    output.append("""<text x="%s" y="3" text-anchor="middle"
+    output.append("""<text x="%s" y="35" text-anchor="middle"
 font-family="Arial" font-size="28" stroke="none" fill="#000"><tspan>
 %s
 </tspan></text>""" % ("320", request.POST['title'].strip()))
 
-    output.append("""<text x="110" y="315" text-anchor="left"
+    output.append("""<text x="100" y="335" text-anchor="left"
 font-family="Arial" font-size="18" stroke="none" fill="#000"><tspan>
 X-axis: %s
 </tspan></text>""" % request.POST['xAxis'].strip())
@@ -61,7 +62,7 @@ X-axis: %s
       font="%(font)s" stroke="%(stroke)s" fill="%(fill)s">
     <tspan>%(text)s</tspan>
 </text>""" % {
-                    'x': item['x'],
+                    'x': item['x'] - 45,
                     'y': int(item['y'] + 35),
                     'text_anchor': item.get('text-anchor', "left"),
                     'font': item['font'],
@@ -106,33 +107,41 @@ X-axis: %s
         opacity = item['opacity']
         output.append(
             """<text x="%s" y="%s" text-anchor="middle" font-size="14"
- font-family="Arial" font-weight="bold" stroke="none" opacity="%s"
+ font-family="Arial" stroke="%s" opacity="%s"
  fill="%s"><tspan>%s</tspan></text>"""
-            % (x, y, str(opacity), color, var))
+            % (x, y, color, str(opacity), color, var))
         y += 20
 
     output.append("</svg>")
     output = '\n'.join(output)
     # from the variable-legend loop above
     output = output.replace("__GRAPH_HEIGHT__", str(y))
+    name = convert(output)
 
-    # POST to a microapp, git.ccnmtl.columbia.edu:svg2png.git because
-    # only monty's imagemagick `convert` seems to produce decent
-    # output, for some reason.
-    http = httplib2.Http()
-    response = http.request("http://monty2.ccnmtl.columbia.edu:5052/",
-                            method="POST", body=output)
+    return HttpResponse(name, mimetype="text/plain")
+
+
+def convert(svg_data):
+    """ convert svg to png. takes svg data string, returns filename """
+    output = svg_data
+
+    tmpfd, tmpname = tempfile.mkstemp(suffix=".svg")
+    tmp = os.fdopen(tmpfd, 'w')
+
+    tmp.write(output)
+    tmp.close()
 
     name = datetime.datetime.now().strftime("%s")
 
     graph_dir = settings.MVSIM_GRAPH_OUTPUT_DIRECTORY
     path = os.path.join(graph_dir, "%s.png" % name)
 
-    fp = open(path, "w")
-    fp.write(response[1])
-    fp.close()
+    try:
+        subprocess.call(['convert', tmpname, path])
+    finally:
+        os.unlink(tmpname)
 
-    return HttpResponse(name, mimetype="text/plain")
+    return name
 
 
 @rendered_with("graphing/graph.html")
