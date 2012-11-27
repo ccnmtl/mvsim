@@ -114,7 +114,17 @@ SOUTH_TESTS_MIGRATE = False
 SOUTH_AUTO_FREEZE_APP = True
 
 if 'test' in sys.argv:
-    DATABASE_ENGINE = 'sqlite3'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+            'HOST': '',
+            'PORT': '',
+            'USER': '',
+            'PASSWORD': '',
+            }
+        }
+
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 THUMBNAIL_SUBDIR = "thumbs"
