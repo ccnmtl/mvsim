@@ -127,6 +127,12 @@ if 'test' in sys.argv:
 
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=main,graph,engine',
+]
+
 THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[mvsim] "
 EMAIL_HOST = 'localhost'

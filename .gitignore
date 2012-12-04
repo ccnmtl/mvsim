@@ -4,3 +4,5 @@
 ve
 media/graphs/*.png
 docs/_build
+.coverage
+cover/
