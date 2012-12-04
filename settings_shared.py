@@ -78,7 +78,7 @@ INSTALLED_APPS = (
     'smartif',
     'template_utils',
     'typogrify',
-    'sentry.client',
+    'raven.contrib.django',
     'munin',
     'djangowind',
     'courseaffils',
@@ -95,20 +95,6 @@ STATSD_PORT = 8125
 STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 ACCOUNT_ACTIVATION_DAYS = 7
-
-import logging
-from sentry.client.handlers import SentryHandler
-logger = logging.getLogger()
-if SentryHandler not in map(lambda x: x.__class__, logger.handlers):
-    logger.addHandler(SentryHandler())
-    logger = logging.getLogger('sentry.errors')
-    logger.propagate = False
-    logger.addHandler(logging.StreamHandler())
-
-SENTRY_REMOTE_URL = 'http://sentry.ccnmtl.columbia.edu/sentry/store/'
-# remember to set the SENTRY_KEY in a local_settings.py
-# as documented in the wiki
-SENTRY_SITE = 'mvsim'
 
 SOUTH_TESTS_MIGRATE = False
 SOUTH_AUTO_FREEZE_APP = True
