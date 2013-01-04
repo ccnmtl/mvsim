@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ccnmtl/mvsim.png)](https://travis-ci.org/ccnmtl/mvsim)
+
 This is the Millennium Village Simulation project, or MVSim, a
 teaching tool to help students appreciate the complexity of meeting
 the [Millennium Development
