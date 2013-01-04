@@ -110,7 +110,7 @@ if 'test' in sys.argv:
             'PASSWORD': '',
             }
         }
-
+    STATSD_HOST = '127.0.0.1'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
