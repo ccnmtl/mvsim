@@ -189,7 +189,7 @@ class TestPerson(unittest.TestCase):
             # convert to int since it eventually gets far enough out that
             # floating point conversions aren't reliable
             assert int(self.kodjo.productivity()) == int(.95 ** (i + 1)
-                                                          * 150.0)
+                                                         * 150.0)
         self.kodjo.age = 15
 
     def test_check_sick(self):

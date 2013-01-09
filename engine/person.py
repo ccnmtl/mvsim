@@ -222,7 +222,7 @@ class Person:
     def update_education(self):
         # if they're in school, increase the education count
         if self.schooling_state == "enrolled in primary" or \
-           self.schooling_state == "enrolled in secondary":
+                self.schooling_state == "enrolled in secondary":
             self.education += 1
 
     def average_health_over_past_three_turns(self):

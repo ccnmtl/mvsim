@@ -83,8 +83,7 @@ variable_types = (
     ('str', "String"),
     ('bool', "Boolean"),
     ('tuple', "Data Collection"),
-    ('list', "Sequence"),
-    )
+    ('list', "Sequence"), )
 
 schema_node_factories = {
     'int': colander.Int,
@@ -92,8 +91,7 @@ schema_node_factories = {
     'str': colander.String,
     'bool': colander.Boolean,
     'tuple': Mapping,
-    'list': colander.Sequence,
-    }
+    'list': colander.Sequence, }
 
 
 class Variable(models.Model):
@@ -197,12 +195,10 @@ def high_scores(course=None, limit=10):
     if course is not None:
         games = Game.objects.filter(
             status="finished",
-            course=course,
-            ).order_by("-score")
+            course=course, ).order_by("-score")
     else:
         games = Game.objects.filter(
-            status="finished",
-            ).order_by("-score")
+            status="finished", ).order_by("-score")
     return games[:limit]
 
 

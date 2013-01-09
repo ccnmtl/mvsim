@@ -163,7 +163,7 @@ def add_extra_seasonreport_context(context):
 
     village_badnews_block = False
     if (state.drought or state.epidemic or fish_depletion_report
-        or wood_depletion_report):
+            or wood_depletion_report):
         village_badnews_block = True
 
     context['village_goodnews_block'] = village_goodnews_block

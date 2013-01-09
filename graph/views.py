@@ -62,25 +62,23 @@ X-axis: %s
       font="%(font)s" stroke="%(stroke)s" fill="%(fill)s">
     <tspan>%(text)s</tspan>
 </text>""" % {
-                    'x': item['x'] - 45,
-                    'y': int(item['y'] + 35),
-                    'text_anchor': item.get('text-anchor', "left"),
-                    'font': item['font'],
-                    'stroke': item['stroke'],
-                    'fill': item['fill'],
-                    'text': item['text'],
-                    })
+                'x': item['x'] - 45,
+                'y': int(item['y'] + 35),
+                'text_anchor': item.get('text-anchor', "left"),
+                'font': item['font'],
+                'stroke': item['stroke'],
+                'fill': item['fill'],
+                'text': item['text'], })
         if item['type'] == "path":
             output.append("""<path fill="%(fill)s" stroke="%(stroke)s"
  d="%(path)s" opacity="%(opacity)s" stroke-width="%(swidth)s"
  transform="%(transform)s"></path>""" % {
-                    'fill': item['fill'],
-                    'stroke': item['stroke'],
-                    'path': item['path'],
-                    'opacity': item.get('opacity', 1),
-                    'transform': "translate(0,35)",
-                    'swidth': item.get('stroke-width', 1),
-                    })
+                'fill': item['fill'],
+                'stroke': item['stroke'],
+                'path': item['path'],
+                'opacity': item.get('opacity', 1),
+                'transform': "translate(0,35)",
+                'swidth': item.get('stroke-width', 1), })
         if item['type'] == "circle":
             if not item.get('fill', "").strip():
                 continue
@@ -88,14 +86,13 @@ X-axis: %s
  stroke="%(stroke)s" fill="%(fill)s" r="%(radius)s"
  style="opacity: %(opacity)s; stroke-width: %(swidth)s;"
  opacity="%(opacity)s" stroke-width="%(swidth)s"></circle>""" % {
-                    'fill': item['fill'],
-                    'stroke': item['stroke'],
-                    'cx': item['cx'],
-                    'cy': int(item['cy']) + 35,
-                    'radius': item['r'],
-                    'opacity': item.get('opacity', 0),
-                    'swidth': item.get('stroke-width', 0),
-                    })
+                'fill': item['fill'],
+                'stroke': item['stroke'],
+                'cx': item['cx'],
+                'cy': int(item['cy']) + 35,
+                'radius': item['r'],
+                'opacity': item.get('opacity', 0),
+                'swidth': item.get('stroke-width', 0), })
 
     vars = request.POST['vars']
     vars = simplejson.loads(vars)
@@ -204,8 +201,7 @@ def graph(request, game_id):
         'try_for_child',
         'wood_coeff',
         'wood_fuel',
-        'year',
-        )
+        'year', )
 
     class BoundVariable(object):
         def __init__(self, name, getter=None, descriptive_name=None):
@@ -237,11 +233,11 @@ def graph(request, game_id):
             return total_effort * amount
 
         variables.append(BoundVariable(
-                "effort_farming_maize", getter,
-                "Effort Farming Maize (person-hours/day)"))
+            "effort_farming_maize", getter,
+            "Effort Farming Maize (person-hours/day)"))
         variables.append(BoundVariable(
-                "effort_farming_cotton", getter,
-                "Effort Farming Cotton (person-hours/day)"))
+            "effort_farming_cotton", getter,
+            "Effort Farming Cotton (person-hours/day)"))
 
     def add_divided_health():
         # since health is a compound variable, we want to split it apart
@@ -268,8 +264,8 @@ def graph(request, game_id):
                 all_names[name] = "health_" + name.lower()
         for name, var_name in all_names.items():
             variables.append(BoundVariable(
-                    var_name, getter,
-                    "Health %s " % name + "(%)"))
+                var_name, getter,
+                "Health %s " % name + "(%)"))
 
     def add_average_health():
         # since health is a compound variable, we want to split it apart
@@ -281,8 +277,8 @@ def graph(request, game_id):
                 return 0
             return sum(health) / len(names)
         variables.append(BoundVariable(
-                "health_average", getter,
-                "Average Family Health (%)"))
+            "health_average", getter,
+            "Average Family Health (%)"))
 
     def add_divided_sickness():
         # since sick is a compound variable, we want to split it apart
@@ -307,8 +303,8 @@ def graph(request, game_id):
                 all_names[name] = "sick_" + name.lower()
         for name, var_name in all_names.items():
             variables.append(BoundVariable(
-                    var_name, getter,
-                    "%s Sick" % name))
+                var_name, getter,
+                "%s Sick" % name))
 
     def add_percent_sickness():
         def getter(turn, name):
@@ -318,12 +314,12 @@ def graph(request, game_id):
                 return 0
 
             def force_number(n):
-                if type(n) == type('c'):
+                if isinstance(n, str):
                     return
             return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
         variables.append(BoundVariable(
-                "sick_percent", getter,
-                "Family Sick (% of family)"))
+            "sick_percent", getter,
+            "Family Sick (% of family)"))
     for variable in all_variables:
         if variable.name in excluded_variables:
             continue
@@ -340,14 +336,14 @@ def graph(request, game_id):
                 value = turn.variables[name]
                 return int(value)
             variables.append(BoundVariable(
-                    variable.name, getter,
-                    variable.description))
+                variable.name, getter,
+                variable.description))
             continue
         if not variable.graphable():
             continue
         variables.append(BoundVariable(
-                variable.name,
-                descriptive_name=variable.description))
+            variable.name,
+            descriptive_name=variable.description))
         if variable.name == "effort_farming":
             add_divided_farming()
 

@@ -54,7 +54,7 @@ class Village:
             return 0
         # TODO: 0.3 magic number should probably be a coefficient
         if (self.state.village_infected_pop
-            / float(self.state.village_population) >= 0.3):
+                / float(self.state.village_population) >= 0.3):
             self.state.epidemic = True
 
     def precipitation_modifier(self):
@@ -223,28 +223,28 @@ class Village:
                 self.message("clinic subsidy")
                 self.state.subsidy_offers.append('clinic')
         if (not self.state.irrigation
-            and 'irrigation' not in self.state.subsidy_offers):
+                and 'irrigation' not in self.state.subsidy_offers):
             if rand_n(self.tc, 100) < 5:
                 self.message("irrigation subsidy")
                 self.state.subsidy_offers.append('irrigation')
         if (not self.state.sanitation
-            and 'sanitation' not in self.state.subsidy_offers):
+                and 'sanitation' not in self.state.subsidy_offers):
             if rand_n(self.tc, 100) < 5:
                 self.message("sanitation subsidy")
                 self.state.subsidy_offers.append('sanitation')
 
         if (not self.state.water_pump
-            and 'water_pump' not in self.state.subsidy_offers):
+                and 'water_pump' not in self.state.subsidy_offers):
             if rand_n(self.tc, 100) < 5:
                 self.message('water pump subsidy')
                 self.state.subsidy_offers.append('water_pump')
         if (not self.state.meals
-            and 'meals' not in self.state.subsidy_offers):
+                and 'meals' not in self.state.subsidy_offers):
             if rand_n(self.tc, 100) < 5:
                 self.message('meals subsidy')
                 self.state.subsidy_offers.append("meals")
         if (not self.state.electricity
-            and 'electricity' not in self.state.subsidy_offers):
+                and 'electricity' not in self.state.subsidy_offers):
             if rand_n(self.tc, 100) < 5:
                 self.message('electricity subsidy')
                 self.state.subsidy_offers.append("electricity")
@@ -288,12 +288,12 @@ class Village:
         households = (self.state.village_population
                       / self.coeffs.avg_family_size)
         total_fish_caught = self.state.amount_fish * households \
-                            * ((90.0 + rand_n(self.tc, 20)) / 100.0)
+            * ((90.0 + rand_n(self.tc, 20)) / 100.0)
 
-        return max(self.state.fish_stock + \
-                   (self.coeffs.fish_growth_rate * self.state.fish_stock
-                    * (1.0 - (self.state.fish_stock
-                              / float(self.coeffs.fish_k)))) \
+        return max(self.state.fish_stock
+                   + (self.coeffs.fish_growth_rate * self.state.fish_stock
+                      * (1.0 - (self.state.fish_stock
+                                / float(self.coeffs.fish_k))))
                    - total_fish_caught,
                    0)
 
@@ -310,9 +310,9 @@ class Village:
         assert self.coeffs.wood_k != 0
         (rand_n(self.tc, 100) / 1000.00 - 0.05) * self.state.amount_wood
         total_wood_chopped = self.state.amount_wood \
-                             * ((95.0 + rand_n(self.tc, 10)) / 100.0) \
-                             * (self.state.village_population
-                                / self.coeffs.avg_family_size)
+            * ((95.0 + rand_n(self.tc, 10)) / 100.0) \
+            * (self.state.village_population
+               / self.coeffs.avg_family_size)
         return max(self.state.wood_stock
                    + (self.coeffs.forest_growth_rate
                       * self.state.wood_stock * (1 - (self.state.wood_stock

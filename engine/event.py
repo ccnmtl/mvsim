@@ -6,8 +6,7 @@ _ops = {
     ">=": lambda x, y: x >= y,
     "<": lambda x, y: x < y,
     "<=": lambda x, y: x <= y,
-    "hasnot": lambda x, y: y not in x,
-    }
+    "hasnot": lambda x, y: y not in x, }
 
 import tempita
 
@@ -142,8 +141,7 @@ _events = [
           ["fishing_limit != before.fishing_limit", "fishing_limit == 0"],
           ("The fishing quota has been rescinded.  Fish to your heart's "
            "content!"),
-          "green", "village"),
-    ]
+          "green", "village"), ]
 
 if __name__ == '__main__':
     class attrdict(dict):

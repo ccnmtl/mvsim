@@ -60,9 +60,8 @@ def view_state(request, state_id):
     try:
         appstruct = form.validate(controls)
     except deform.ValidationFailure, e:
-        return {'form': e.render(),
-                'readonly': readonly,
-                'state': state}
+        return {
+            'form': e.render(), 'readonly': readonly, 'state': state}
     new_state = json.dumps(appstruct)
     state.state = new_state
     state.save()
@@ -349,8 +348,8 @@ def submit_turn(request, game_id):
     old_state = game.current_state()
     new_state = State(name=old_state.name, game=old_state.game)
     new_state.state = json.dumps(dict(
-            variables=variables,
-            coefficients=coefficients))
+        variables=variables,
+        coefficients=coefficients))
     new_state.save()
 
     if not alive:

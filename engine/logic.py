@@ -125,14 +125,14 @@ def marshall_people(people, state):
      state.health, state.education,
      state.sick, state.efforts,
      state.schooling_state) = (
-        [p.name      for p in people],
-        [p.gender    for p in people],
-        [p.age       for p in people],
-        [p.health    for p in people],
-        [p.education for p in people],
-        [p.sick != "" and p.sick or ' ' for p in people],  # see PMT:#61928
-        [p.effort    for p in people],
-        [p.schooling_state for p in people])
+         [p.name for p in people],
+         [p.gender for p in people],
+         [p.age for p in people],
+         [p.health for p in people],
+         [p.education for p in people],
+         [p.sick != "" and p.sick or ' ' for p in people],  # see PMT:#61928
+         [p.effort for p in people],
+         [p.schooling_state for p in people])
 
     for p in people:
         if p.name == "Fatou":
@@ -300,8 +300,8 @@ class Turn:
 
     def free_bednets(self):
         if not self.coeffs.enable_free_bednets or \
-           self.state.year != (self.coeffs.starting_year
-                               + self.coeffs.free_bednet_year):
+            self.state.year != (self.coeffs.starting_year
+                                + self.coeffs.free_bednet_year):
             # this only happens in a specific year
             return
 
@@ -421,7 +421,7 @@ class Turn:
     def check_sell_price(self, item):
         prices = dict()
         for i, price in zip(self.coeffs.market_items,
-                           self.coeffs.market_sell_prices):
+                            self.coeffs.market_sell_prices):
             prices[i] = price
         return prices[item]
 
@@ -464,7 +464,7 @@ class Turn:
     def calc_school_effort(self):
         """ number of hours family members spent in school """
         primary = len([p for p in self.state.people
-                         if p.in_primary_school()])
+                       if p.in_primary_school()])
         secondary = len([p for p in self.state.people
                          if p.in_secondary_school()])
 
@@ -708,7 +708,7 @@ class Turn:
         """ updates the soil health depending on whether fertilizer
         has been used in the last three years """
         if self.state.fertilizer or self.state.fertilizer_t1 or \
-               self.state.fertilizer_t2:
+                self.state.fertilizer_t2:
             self.state.soil_health = 1.0
         else:
             #self.message("Soil health is depleted.")
@@ -798,10 +798,12 @@ class Turn:
         assert self.t_irr() >= 0
         assert self.t_high_yield_seeds() >= 0
         assert self.percent_maize() >= 0 and self.percent_maize() <= 1.0
-        return max((
-                ((self.coeffs.productivity_effort_coeff
-                  * self.state.effort_farming)
-                 ** self.coeffs.maize_productivity_exponent)
+        return max(
+            (
+                (
+                    (self.coeffs.productivity_effort_coeff
+                     * self.state.effort_farming)
+                    ** self.coeffs.maize_productivity_exponent)
                 * self.coeffs.avg_maize_yield
                 * ((95.0 + self.rand_n(10)) / 100.0)
                 * self.state.avg_productivity
@@ -809,7 +811,7 @@ class Turn:
                 * self.state.soil_health * self.t_fert()
                 * self.t_high_yield_seeds()
                 * self.percent_maize()),
-                   0.0)
+            0.0)
 
     def calc_amount_cotton(self):
         return max(((self.coeffs.productivity_effort_coeff
@@ -970,7 +972,7 @@ class Turn:
             if self.state.microfinance_borrow > 0:
                 # new loan
                 if (self.state.microfinance_borrow
-                    > self.state.microfinance_max_borrow):
+                        > self.state.microfinance_max_borrow):
                     self.state.microfinance_borrow =\
                         self.state.microfinance_max_borrow
                 self.state.microfinance_balance =\
