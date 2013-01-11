@@ -5,7 +5,7 @@ import sys
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = ( )
+ADMINS = ()
 
 MANAGERS = ADMINS
 
@@ -17,7 +17,7 @@ DATABASES = {
         'PORT': 5432,
         'USER': '',
         'PASSWORD': '',
-        }
+    }
 }
 
 TIME_ZONE = 'America/New_York'
@@ -37,7 +37,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
-    )
+)
 
 MIDDLEWARE_CLASSES = (
     'django_statsd.middleware.GraphiteRequestTimingMiddleware',
@@ -54,15 +54,12 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mvsim.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    # Put application templates before these fallback ones:
     "/var/www/mvsim/templates/",
-    os.path.join(os.path.dirname(__file__),"templates"),
+    os.path.join(os.path.dirname(__file__), "templates"),
 )
 
-DEFORM_TEMPLATE_OVERRIDES = os.path.join(os.path.dirname(__file__), "../deform_templates")
+DEFORM_TEMPLATE_OVERRIDES = os.path.join(os.path.dirname(__file__),
+                                         "../deform_templates")
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -109,8 +106,8 @@ if 'test' in sys.argv:
             'PORT': '',
             'USER': '',
             'PASSWORD': '',
-            }
         }
+    }
     STATSD_HOST = '127.0.0.1'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -133,13 +130,18 @@ STATICMEDIA_MOUNTS = (
 
 # WIND settings
 
-AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend','django.contrib.auth.backends.ModelBackend',)
+AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend',
+                           'django.contrib.auth.backends.ModelBackend', )
 WIND_BASE = "https://wind.columbia.edu/"
 WIND_SERVICE = "cnmtl_full_np"
 WIND_PROFILE_HANDLERS = ['djangowind.auth.CDAPProfileHandler']
-WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper','djangowind.auth.StaffMapper','djangowind.auth.SuperuserMapper']
+WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper',
+                       'djangowind.auth.StaffMapper',
+                       'djangowind.auth.SuperuserMapper']
 WIND_STAFF_MAPPER_GROUPS = ['tlc.cunix.local:columbia.edu']
-WIND_SUPERUSER_MAPPER_GROUPS = ['anp8','jb2410','zm4','sbd12','egr2107','kmh2124','sld2131','amm8','mar227','ed2198', 'ej2223']
+WIND_SUPERUSER_MAPPER_GROUPS = ['anp8', 'jb2410', 'zm4',
+                                'egr2107', 'sld2131',
+                                'amm8', 'mar227', ]
 
 COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/accounts/',
@@ -150,13 +152,16 @@ COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/registration/',
     '/favicon.ico',
     '/smoketest/',
-    )
+)
 
 from courseaffils.columbia import CourseStringMapper
 COURSEAFFILS_COURSESTRING_MAPPER = CourseStringMapper
 
 MVSIM_EVENTS_CSV = os.path.join(os.path.dirname(__file__), "../events.csv")
-# For a production instance this should be changed to a /var/www-like directory served by Apache
-# but for development it's convenient to just stuff these under the static media directory.
-MVSIM_GRAPH_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), "../media/graphs")
 
+# For a production instance this should be changed to a /var/www-like
+# directory served by Apache but for development it's convenient to
+# just stuff these under the static media directory.
+
+MVSIM_GRAPH_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__),
+                                            "../media/graphs")

@@ -1,3 +1,4 @@
+# flake8: noqa
 from settings import *
 
 DATABASE_ENGINE = 'postgresql_psycopg2'

@@ -5,5 +5,5 @@ python:
 install:
   - ./bootstrap.py
 script:
-  - ./ve/bin/flake8 engine main graph
+  - ./ve/bin/flake8 mvsim
   - ./manage.py test
