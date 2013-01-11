@@ -1,0 +1,24 @@
+{% load mvsim_tags %}
+<div id="report" style="display:block;">
+  <div id="shadow"><div id="shadowtop"><div id="shadowbody"></div></div></div>
+  
+  <div id="dossier">
+      
+    <!-- TODO: remove close button for turn view -->
+    <div id="d_header">
+      <div id="d_header_inner">
+	<a href="" onclick="hideReport();return false">close</a>
+	<h1>End of Season Report</h1>
+      </div>
+    </div>
+      
+    <div id="d_content">
+	
+      {% include "game/season_report_alpha.html" %}
+      {% include "game/season_report_beta.html" %}
+
+    </div>
+    
+  </div>
+  
+</div>

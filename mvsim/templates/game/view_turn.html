@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load mvsim_tags %}
+{% block title %}Millennium Village: Turn History{% endblock %}
+
+{% block content %}
+
+<div id="game-name" style="float: left; padding: 25px 0 0 10px;">
+  {{game}} | 
+  {% if game.in_progress %}
+  <a href="{{game.show_game_url}}">Resume</a>
+  {% endif %}
+</div>
+
+<h1>
+  Report for Year {{turn.number|reverse_engineer_year}},
+  Season {{turn.number|reverse_engineer_season}}
+</h1>	
+
+<div id="turn_view">
+
+  <div id="turn_report">
+    {% if False %}
+    {% include "game/season_report_initial.html" %}
+    {% endif %}
+    {% if turn.number|gt:1 %}
+    {% include "game/season_report.html" %}
+    {% endif %}
+  </div>
+
+  <div id="smokescreen"></div>
+  
+</div>
+
+{% endblock %}

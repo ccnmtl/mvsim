@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Course Section: {{section.name}}</h2>
+
+<p><b>Course: </b> {{section.course}}</p>
+<p><a href="game_stats/">View Game Stats</a></p>
+
+<ul>Users
+{% for user in section.users.all %}
+<li>{% if user.get_full_name %}{{user.get_full_name}}{% else %}{{ user.username }}{% endif %}</li>
+{% endfor %}
+</ul>
+
+<ul>Starting States
+{% for state in section.starting_states.all %}
+<li><a href="/state/{{state.id}}/">{{state.name}}</a> [<a href="disassociate_state/{{state.id}}/">remove</a>]</li>
+{% endfor %}
+</ul>
+
+<form action="associate_state/" method="post">
+<fieldset><label>Add another starting state</label>
+<select name="state_id">
+{% for state in section.available_states %}
+<option value="{{state.id}}">{{state.name}}</option>
+{% endfor %}
+</select>
+<input type="submit" value="associate" />
+</fieldset>
+</form>
+
+
+
+{% endblock %}

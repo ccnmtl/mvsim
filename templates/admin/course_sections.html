@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<ul> Admin Course Sections
-{% for section in sections %}
-<li><a href="/course_sections/{{section.id}}/">{{section.name}}</a></li>
-{% endfor %}
-</ul>
-{% endblock %}

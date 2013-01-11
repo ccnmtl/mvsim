@@ -1,0 +1,692 @@
+{% extends "base.html" %}
+{% load mvsim_tags %}
+{% block title %}Millennium Village{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="/site_media/javascript/MochiKit/MochiKit.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+
+<script type="text/javascript" src="/site_media/javascript/hideshow/hs.js"></script>
+<script type="text/javascript" src="/site_media/javascript/crops.js"></script>
+<script type="text/javascript" src="/site_media/javascript/doctor.js"></script>
+<script type="text/javascript" src="/site_media/javascript/slider.js"></script>
+<script type="text/javascript" src="/site_media/javascript/effort.js"></script>
+<script type="text/javascript" src="/site_media/javascript/shopping_cart.js"></script>
+
+<script type="text/javascript" src="/site_media/javascript/village_fund.js"></script>
+
+<script type="text/javascript" src="/site_media/javascript/plusminus.js"></script>
+<script type="text/javascript" src="/site_media/javascript/force_integer.js"></script>
+<script type="text/javascript" src="/site_media/javascript/limits.js"></script>
+<script type="text/javascript" src="/site_media/javascript/validation.js"></script>
+<script type="text/javascript" src="/site_media/javascript/allocate_calories.js"></script>
+<script type="text/javascript" src="/site_media/javascript/slideupdown.js"></script>
+<script type="text/javascript">
+
+/*==================================================
+  Set the tabber options (must do this before including tabber.js)
+  ==================================================*/
+var tabberOptions = {
+
+  'cookie':"tabber", /* Name to use for the cookie */
+
+  'onLoad': function(argsObj)
+  {
+    var t = argsObj.tabber;
+    var i;
+
+    /* Optional: Add the id of the tabber to the cookie name to allow
+       for multiple tabber interfaces on the site.  If you have
+       multiple tabber interfaces (even on different pages) I suggest
+       setting a unique id on each one, to avoid having the cookie set
+       the wrong tab.
+    */
+    if (t.id) {
+      t.cookie = t.id + t.cookie;
+    }
+
+    /* If a cookie was previously set, restore the active tab */
+    i = parseInt(getCookie(t.cookie));
+    if (isNaN(i)) { return; }
+    t.tabShow(i);
+  },
+
+  'onClick':function(argsObj)
+  {
+    var c = argsObj.tabber.cookie;
+    var i = argsObj.index;
+    setCookie(c, i);
+  }
+};
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+  .slider-labels { display: none !important; }
+</style>
+<![endif]-->
+
+
+<script type="text/javascript" src="/site_media/javascript/tabber.js"></script>
+<!-- must include village view AFTER tabber has been initialized -->
+<script type="text/javascript" src="/site_media/javascript/village_view.js"></script>
+
+<script type="text/javascript">
+function hideReport() {
+      var d = document.getElementById('turn_report');
+      d.style.display = 'none';
+      if (getElement("family-actions-tab")) {getElement("family-actions-tab").style.overflow="auto";}
+      if (getElement("village-actions-tab")) {getElement("village-actions-tab").style.overflow="auto";}
+      getElement("smokescreen").style.display="none";
+}
+
+function showReport() {
+      var d = $("turn_report");
+      if (!d) { return;}
+      d.style.display = "block";
+      if ($("family-actions-tab")) {$("family-actions-tab").style.overflow="hidden";}
+      if ($("village-actions-tab")) {$("village-actions-tab").style.overflow="hidden";}
+      $("smokescreen").style.display="block";
+}
+
+function hideReportIfAlreadySeen() {
+      var report = $('turn_report');
+      if (!report) { return; } // missing the div so don't bother with the rest
+      var game = "{{game.id}}";
+      var turn = "{{turn.number}}"; // use the turn's id
+      var cookieName = "report-seen-" + game + "-" + turn;
+      if (getCookie(cookieName)) {
+          // seen the report already, don't show again
+          hideReport();
+      } else {
+          // this is the first time they're seeing the report
+          // for this turn. show it to them and set a cookie
+          // that we can check for later
+          setCookie(cookieName,'seen');
+      }
+}
+
+
+addLoadEvent(hideReportIfAlreadySeen);
+
+</script>
+
+<script type="text/javascript" language="javascript">
+function alertme() {
+	var checkreportsheet = getElement("turn_report");
+	if ($("report")) {
+      if (checkreportsheet.style.display != "none") {
+		  if (getElement("family-actions-tab")) {getElement("family-actions-tab").style.overflow="hidden";}
+		  if (getElement("village-actions-tab")) {getElement("village-actions-tab").style.overflow="hidden";}
+		  getElement("smokescreen").style.display="block";
+      }
+	}
+};
+addLoadEvent(alertme);
+</script>
+{% endblock %}
+
+{% block content %}
+{% if turn %}
+<div>
+
+  <div id="turn_report">
+    {% if False %}
+    {% include "game/season_report_initial.html" %}
+    {% endif %}
+    {% if turn.number|gt:1 %}
+    {% include "game/season_report.html" %}
+    {% endif %}
+  </div>
+
+  <!-- #### BEGIN CONTENT #### -->
+
+  <div class="tabber" id="outer-tabber"><!-- Begin id=outer-tabber -->
+	
+    <div id="game-status">
+      <ul>
+	<li id="gamescore">Game score: {{state.u_points}} pts.</li>
+	<li id="gameyear">
+	  Year {{state.year}}, Season {% if state.season %}2{% else %}1{% endif %}
+	</li>
+      </ul>
+    </div>
+
+    <div class="tabbertab" title="Map View" style="clear: both;">      
+      <div id="choices"><!-- Begin id=choices, the column on the left -->
+	
+	{{FIXME}}
+	<form method="post" id="gameform" onSubmit="return validate();"
+	      action="/games/{{game.id}}/turn/">
+	  {% csrf_token %}
+	  <div id="actionbuttons">
+	    <div id="actionbuttons-inner">
+	      {% if False %}
+	      <input type="button" class="regButton" value="Initial report" 
+		     onclick="showReport(); return false" />
+	      {% endif %}
+	      {% if turn.number|gt:1 %}
+	      <input type="button" class="regButton" value="Last season's report"
+		     onclick="showReport();return false" />
+	      {% endif %}
+	      <input type="reset" class="clearButton" value="Clear actions" />
+	      <input type="submit" class="endButton" value="End turn" />
+	    </div><!-- End id=actionbuttons-inner -->
+	  </div><!-- End id=actionbuttons -->
+	  
+	  <div class="tabber" id="inner-tabber">
+	    <div class="tabbertab" title="Family Actions" id="family-actions-tab">
+	      <div class="h2"><h2><a href="#family-food" class="hs-control">Manage Family Food</a></h2></div>
+	      <div id="family-food" class="{{family_food_class}}">
+		<div class="actionbox">
+		  <h3>Subsistence Status</h3>
+		  
+		  {% if turn.number|gt:1 %}
+		  <p><b>Daily Food Available:</b> <span id="amount-calories2">
+		      {{state.amount_calories|div:180|format_float}}
+		    </span> calories.
+		  </p>
+		  {% if not state.stove %}
+		  <p><b>Daily Fuel Wood:</b> 
+		    {{state.amount_wood|format_float}}
+		  </p>
+		  {% endif %}
+		  {% endif %}
+		  
+		  {% if state.subsistence_met %}
+		  <table>
+		    <tr>
+		      <td><img src="/site_media/images/icon_report_greencheck.gif" /></td>
+		      <td><strong>Subsistence met with last harvest.</strong></td>
+		    </tr>
+		  </table>
+
+		  {% else %}
+		  <table>
+		    {% if not state.maize_cals|plus:state.fish_cals|gte:state.family_needs %}
+		    <tr>
+		      <td><img src="/site_media/images/icon_alert_red.gif" /></td>
+		      <td>
+			<strong>Your last harvest did not produce sufficient food.</strong>
+		      </td>
+		    </tr>
+		    {% endif %}
+
+		    {% if "insufficient wood" in state.user_messages and not state.stove %}
+		    <tr>
+		      <td><img src="/site_media/images/icon_alert_red.gif" /></td>
+		      <td>
+			<strong>You did not collect enough wood to cook your food.</strong>
+		      </td>
+		    </tr>
+		    {% endif %}
+
+		    {% if 'insufficient water' in state.user_messages %}
+		    <tr>
+		      <td><img src="/site_media/images/icon_alert_red.gif" /></td>
+		      <td>
+			<strong>You did not collect enough water to meet your needs.</strong>
+		      </td>
+		    </tr>
+		    {% endif %}
+		  </table>
+		  {% endif %}
+
+		  <br />
+
+		  {% if not state.subsistence_met %}
+		  <h3>Buy Extra Food</h3>
+		  <table>
+		    <tr>
+     		      <td><img src="/site_media/images/icons/buy_food.png" width="40" height="40" alt=""/></td>
+		      <td><b>Extra Food (10 daily cal.)</b><br /> 
+			CFA <span id="cost-of-food">
+			  {{state.calculated_food_cost|format_float}}
+		      </span></td>
+		      <td>
+			<input type="text" size="2" name="food_to_buy" value="0"
+			       class="plusminus notnegative forceinteger" id="food-to-buy" />
+			<div style="background-color: lightgray;
+				    border: 1px solid black; text-align: center;"
+			     onclick="purchase_subsistence_calories(); return 0;">
+			  Auto</div>
+		      </td>
+		  </tr></table>
+
+		  <h3>Allocate Daily Calories</h3>
+		  <p id="allocate-calories-blurb">
+		    You have not met subsistence.
+		    {% if not only_one_alive %}
+		    <span>You must allocate the calories you have among your
+		      family.</span> 
+		    {% endif %}
+		    You have
+		    <b id="amount-calories">
+		      {{state.amount_calories|div:180.0|format_int}}
+		    </b> 
+		    daily calories
+		    {% if not only_one_alive %}
+		    <span> to
+		      divide up</span>.
+		    {% endif %}
+
+		    <span id="needed-calories" style="display: none;">
+		      {{coeffs.subsistence|times:state.population|div:180.0}}
+		  </span>
+		  </p>
+
+		  <table id="allocate-calories-table">
+		    {% for person in people %}
+		    <tr>
+		      <th>{{person.name}}<br /><small>
+			  (needs {{coeffs.subsistence|div:180.0|format_int}}
+			  cals)</small>
+		      </th>
+		      <td>
+			<input type="text" size="5"
+			       class="allocate-calories plusminus
+			       notnegative forceinteger"
+			       name="calories-{{person.name}}"
+			       id="calories-{{person.name}}" value="0" />
+		      </td>
+		    </tr>
+		    {% endfor %}
+		  </table>
+		  {% endif %}
+
+		  <p id="enough-calories-allocated" style="display: none">
+		    You have purchased enough calories to meet subsistence.
+		  </p>
+
+		  <div id="calorie-needs" style="{{calorie_needs_style}}">
+		    <strong>Daily Food Requirements:</strong>
+		    <table id="calorie-needs-table">
+		      {% for person in people %}
+		      <tr>
+			<td><strong>{{person.name}}</strong></td>
+			<td style="text-align:right;">
+			  {{coeffs.subsistence|div:180.0|format_int}}
+			  cals
+			</td>
+		      </tr>
+		      {% endfor %}
+		    </table>
+		  </div>
+		  
+		</div><!-- End id=actionbox -->
+		
+	      </div><!-- End id=family-food -->
+	      <!-- ## End Manage Family Food ## --> 
+
+	      <!-- ## Manage Family Members ## --> 
+	      <div class="h2">
+		<h2><a href="#family" class="hs-control">Manage Family Members</a></h2>
+	      </div>
+	      <div id="family" class="">
+		<div class="actionbox">
+		  <table>
+		    <tr>
+		      <th>Information</th>
+		      <th>Status</th>
+		      <th>Actions</th>
+		    </tr>
+		    
+		    {% for person in people %}
+		    <tr>
+		      <td><img src="/site_media/images/icons/{{person.img_under}}.png" /><br />
+			<b>{{person.name}}</b><br />
+			<small>{{person.gender}}, Age: {{person.age}}</small>
+		      </td>
+		      <td><b>Health:</b>
+			<div class='hscale'>
+			  <div class='hscale-inner'
+			       id="hscale-{{person.name}}" 
+			       style="width:{{person.health}}px;">
+			    &nbsp;&nbsp;
+			    <span class="person-health"
+				  id="health-{{person.name}}">
+			      {{person.health|format_int}}
+			    </span>
+			</div></div><br />
+
+			{% if person.sick %}
+			<span id='sick-{{person.name}}'>
+			  {{person.sick}}
+			  <br/>
+			</span>
+			{% endif %}
+
+			{% if person.pregnant %}<span>Pregnant<br /></span>{% endif %}
+			{% if person.sick or person.health|lt:100 %}
+			<span>
+			  <input type="checkbox" name="doctor-{{person.name}}"
+				 id="doctor-{{person.name}}" class="doctor-checkbox"/>
+			  Visit Doctor (CFA <span id="cost-of-doctor">
+			    {{doctor_visit_cost|format_float}}
+			  </span>)
+			  <br />
+			</span>
+			{% endif %}
+
+			<span><b>Education:</b> {{person.education|div:2.0}}
+			  years ({{person.schooling_state}})<br />
+			</span>
+
+			{% if person.schooling_state == "under 5" and person.age == 5 %}
+			<span>
+			  <input type="checkbox" name="enroll-{{person.name}}"
+				 id="enroll-{{person.name}}"
+				 checked="checked" 
+				 class="enroll-school enroll-{{person.secondary}}" /> 
+			  enroll in primary school
+			</span>
+			{% endif %}
+
+			{% if person.schooling_state|startswith:"enrolled" %}
+			<span>
+			  <input type="checkbox" name="enroll-{{person.name}}" 
+				 id="enroll-{{person.name}}"
+				 checked="checked" 
+				 class="enroll-school enroll-{{person.secondary}}" />
+			  stay enrolled in school
+			</span>
+			{% endif %}
+
+			{% if person.schooling_state|startswith:'eligible' %}
+			<span>
+			  <input type="checkbox"
+				 name="enroll-{{person.name}}"
+				 id="enroll-{{person.name}}"
+				 class="enroll-school enroll-{{person.secondary}}" />
+			  re-enroll in school
+			</span>
+			{% endif %}
+
+			<span style='display:none;' id="effort-{{person.name}}-school">
+			  {{person.school_effort}}
+			</span>
+	  
+		      </td>
+
+		      <td><b>Set Daily Labor Hours:</b>
+			<div style='padding-left:15px; padding-top:5px;'>	
+
+			  <input style='margin-bottom:10px;' type="text" size="2"
+				 class="individual_effort plusminus
+				 notnegative forceinteger"
+				 name="effort-{{person.name}}" id="effort-{{person.name}}"
+				 value="{{person.current_max_effort}}"
+				 />
+			  <span id="effort-over-{{person.name}}"
+				style="display:none; color: #f00;">
+			    This is the maximum
+			    effort {{person.name}} may exert.
+			  </span>
+			  <span style='display:none;'
+				id="effort-{{person.name}}-maximum">
+			    {{person.maximum_effort}}
+			  </span>
+   			</div>
+		      </td>
+		    </tr>
+		    {% endfor %}
+		    
+		  </table>
+    
+		  {% if can_try_for_child %}
+		  <p>Attempt to have a child:
+		    <input type="checkbox"
+			   name="try_for_child"/></p>
+		  {% endif %}
+		  {% if state.try_for_child %}
+		  <input type="hidden"
+			 name="try_for_child" value="True" />
+		  {% endif %}
+		</div>
+	      </div>
+	      <!-- ## End Manage Family Members ## --> 
+
+	      <!-- ## Begin Manage Family Effort ## --> 
+	      <div class="h2"><h2>
+		  <a href="#family-efforts" class="hs-control">Manage Family Effort</a>
+	      </h2></div>
+	      <div id="family-efforts" class="hs-init-hide">
+		<div class="actionbox">
+		  <h3>Assign Family Hours / Day</h3>
+		  
+		  <table border="1">
+		    <tr>
+		      <th><img src="/site_media/images/icons/farming.gif"/><br />
+			Farming</th>
+		      <th>
+			<input type="text" name="effort_farming"
+			       id="effort-farming"
+			       class="family_effort plusminus notnegative"
+			       value="{{state.effort_farming}}" size="2"/>
+		      </th>
+		      <td>
+   			<div id="effort_message"></div>
+			Allocated:
+			<strong><span class='normal_effort' id='allocated_effort'>0</span> / 
+			  <span id='total_effort'>{{state.total_effort}}</span> h</strong><br />
+		      </td>
+		    </tr>
+		    <tr>
+		      <th><img src="/site_media/images/icons/fishing.png"/><br />
+			Fishing</th>
+		      <th><input type="text" name="effort_fishing"
+				 id="effort-fishing"
+				 class="family_effort plusminus notnegative"
+				 value="{{state.effort_fishing}}" size="2"/> h</th>
+ 		      <td rowspan="4">
+     			<div id='effort-graph' style='height:300px;'/>
+		      </td>
+
+		    </tr>
+		    <tr>
+		      <th><img src="/site_media/images/icons/fuel_wood.png"/><br />
+			Fuel Wood Collection</th>
+		      <th><input type="text" name="effort_fuel_wood"
+				 id="effort-fuel-wood" 
+				 class="family_effort plusminus notnegative"
+				 value="{{state.effort_fuel_wood}}" size="2" /> h</th>
+		    </tr>
+		    <tr>
+		      <th><img
+			     src="/site_media/images/icons/water_collection.png"/><br />
+			Water Collection</th>
+		      <th><input type="text" name="effort_water"
+				 id="effort-water"
+				 class="family_effort plusminus notnegative"
+				 value="{{state.effort_water}}"
+				 size="2" /> h</th>
+		    </tr>
+		    <tr>
+		      <th><img
+			     src="/site_media/images/icons/small_business.png"/><br />
+			Small Business</th>
+		      <th><input type="text"
+				 value="{{state.effort_small_business}}"
+				 class="family_effort plusminus notnegative"
+				 name="effort_small_business" id="effort-small-business"
+				 size="2" /> h</th>
+		    </tr>
+		  </table>
+		  
+		  <h3>Choose Crops</h3>
+		  
+		  <table>
+		    <tr>
+		      <td><img src="/site_media/images/icons/maize.png"/></td>
+		      <td><b>Maize</b><br />
+			<input type="text" name="maize" value="{{maize_count}}"
+			       size="2" class="plusminus forceinteger" id="crops-maize"
+			       />
+		      </td>
+		      <td><img src="/site_media/images/icons/cotton.png"/></td>
+		      <td><b>Cotton</b><br />
+			<input type="text" name="cotton" value="{{cotton_count}}"
+			       size="2" class="plusminus forceinteger" id="crops-cotton"
+			       />
+		      </td>
+		    </tr>
+		  </table>
+		</div>
+	      </div>
+	      <!-- ## End Manage Family Effort ## --> 
+
+	      <!-- ## Begin Buying/Selling Improvemnets ## --> 
+	      <div class="h2"><h2>
+		  <a href="#family-improvements" class="hs-control">
+		    Buy / Sell Family Improvements
+		  </a>
+	      </h2></div>
+	      <div id="family-improvements" class="hs-init-hide">
+		<div class="actionbox">
+		  <table>
+		    <tr>
+		      <th colspan="3">Buy (@ market prices)</th>
+		    </tr>
+		    {% for thing in items_in_market %}
+		    {% with thing.0 as item %}
+		    {% with thing.1 as label %}
+		    {% with thing.2 as price %}
+		    {% with thing.3 as adjusted_price %}
+		    <tr>
+		      <td><img src="/site_media/images/icons/{{item}}.png" width="40"
+			       height="40" alt=""/></td>
+		      <td><b>{{label}}</b><br /> 
+			CFA <span id="{{item}}-purchase-price">{{adjusted_price}}</span></td>
+		      <td>
+			<input type="text" size="2" value="0"
+			       class="purchase-item-input plusminus
+			       notnegative forceinteger"
+			       id="purchase-{{item}}-quantity"
+			       name="purchase-{{item}}-quantity" />
+		      </td>
+		    </tr>
+		    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+		    {% endfor %}
+		    
+		    {% if items_to_sell %}
+		    <tr>
+		      <th colspan="3">Sell (@ market prices)</th>
+		    </tr>
+		    {% endif %}
+
+		    {% for thing in sellable_items %}
+		    {% with thing.0 as item %}
+		    {% with thing.1 as label %}
+		    {% with thing.2 as price %}
+		    {% with thing.3 as quantity %}		    
+		    <tr>
+		      <td>
+			<img src="/site_media/images/icons/{{item}}.png"
+			     width="40" height="40" alt=""/>
+		      </td>
+		      <td><b>{{label}}</b> (<span id="num_owned-{{item}}">{{quantity}}</span> owned)<br /> CFA
+			<span id="{{item}}-sell-price">
+			  {{price}}
+		      </span>
+		      </td>
+		      <td><input type="text"
+				 name="sell-{{item}}-quantity" 
+				 id="sell-{{item}}-quantity"
+				 class="plusminus sell-item-input notnegative forceinteger"
+				 size="2" value="0" />
+		    </td>
+		    </tr>
+		    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+		    {% endfor %}
+		  </table>
+
+		  {% if state.amount_propane|gt:0 %}
+		  <p>Propane: {{state.amount_propane|format_float}} kg</p>
+		  {% endif %}
+		</div>
+	      </div>
+	      <!-- ## End Buying/Selling Improvemnets ## --> 
+
+	      <!-- ## Begin Family Finances ## --> 
+	      <div class="h2"><h2>
+		  <a href="#tab-family-finances" class="hs-control">Family Finances</a>
+	      </h2></div>
+	      <div id="tab-family-finances" class="hs-init-hide">
+		<div class="actionbox">
+		  <h3>Invest in Small Business:</h3>
+		  <input class="plusminus notnegative forceinteger" type="text"
+			 name="small_business_investment" id="small_business_investment"
+			 size="5" value="0"/><br />
+		  <strong>
+		    Total capital investment:
+		    CFA {{state.small_business_capital|format_float}}
+		  </strong>
+
+		  <hr />
+
+		  <h3>Rural Bank:</h3>
+		  {% if state.microfinance_balance %}
+		  <div>
+		    You currently owe CFA {{state.microfinance_balance|format_float}} 
+		    at an interest rate of {{state.microfinance_interest_rate|format_float}}%.
+		    {% if state.microfinance_amount_paid %}
+		    <span>Last turn you made a payment of CFA
+		      {{state.microfinance_amount_paid|format_float}}.
+		    </span>
+		    {% else %}
+		    <span>There was no payment due last turn.</span>
+		    {% endif %}
+		  </div>
+
+		  {% else %}
+		  <div>
+		    <p>The bank is currently offering an interest rate of 
+		      {{state.microfinance_current_interest_rate|format_float}}%
+		      on new loans.</p>
+		    <p>You can borrow a maximum of CFA 
+		      <span id="microfinance_max_borrow">
+			{{state.microfinance_max_borrow|format_float}}
+		      </span>, which the bank will expect you to repay over the next
+		      {{coeffs.microfinance_repay_period}} turns.</p>
+		    <strong>Take out a loan:</strong>
+		    <input class="plusminus notnegative forceinteger" type="text" size="5"
+			   name="microfinance_borrow" id="microfinance_borrow" value="0" /> 
+		  </div>
+		  {% endif %}
+
+		</div>
+
+		<!-- ## End Family Finances ## -->
+	      </div>
+
+	    </div><!-- End  class="tabbertab" title="Family Actions" -->
+    
+	    {% include "game/game_village.html" %}
+
+	  </div>    <!-- end class='tabber' -->
+	</form>
+      </div><!-- End id=choices, left column -->
+        
+      
+      <div id="display"><!-- Begin id="display", the right column for maps -->
+	{% include "game/game_map.html" %}
+      </div>  <!-- end div display -->
+
+      <div id="clear"> </div>
+      
+    </div> <!-- end div tabbertab (map view) -->
+    
+    {% include "game/game_history.html" %}
+    
+    
+  </div><!-- End id="outer-tabber" -->
+  
+  <div id="smokescreen"></div>
+  
+</div><!-- end div with conditional "turn" -->
+{% endif %}
+
+{% endblock %}
