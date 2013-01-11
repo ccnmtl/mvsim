@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'main',
     'south',
     'django_statsd',
+    'smoketest',
 )
 
 STATSD_CLIENT = 'statsd.client'
@@ -148,6 +149,7 @@ COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
     '/admin/',
     '/registration/',
     '/favicon.ico',
+    '/smoketest/',
     )
 
 from courseaffils.columbia import CourseStringMapper
