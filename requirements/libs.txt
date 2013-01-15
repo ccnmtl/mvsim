@@ -23,7 +23,7 @@ requirements/src/psycopg2-2.4-no-mx.tar.gz
 requirements/src/Imaging-1.1.7.tar.gz
 
 requirements/src/Tempita-0.5dev.tar.gz
-requirements/src/twisterclient-0.2.tar.gz
+requirements/src/chainedrandom-0.1.0.tar.gz
 
 requirements/src/iso8601-0.1.4.tar.gz
 requirements/src/translationstring-0.3.tar.gz

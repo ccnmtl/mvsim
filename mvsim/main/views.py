@@ -12,6 +12,7 @@ import deform
 import json
 from urlparse import parse_qsl
 from pkg_resources import resource_filename
+from chainedrandom import ChainedRandom
 from django.shortcuts import get_object_or_404
 from django_statsd.clients import statsd
 
@@ -338,8 +339,7 @@ def submit_turn(request, game_id):
     for key in user_submission:
         variables[key] = user_submission[key]
 
-    from twisterclient import TwisterClient as TC
-    tc = TC(base="http://twister.ccnmtl.columbia.edu/", chain=True)
+    tc = ChainedRandom()
     turn = logic.Turn(variables, coefficients, tc)
     alive, variables = turn.go()
 
