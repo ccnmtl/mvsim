@@ -129,7 +129,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=mvsim.main,mvsim.graph,engine',
+    '--cover-package=mvsim.main,mvsim.graph,engine,courseaffils',
 ]
 
 THUMBNAIL_SUBDIR = "thumbs"

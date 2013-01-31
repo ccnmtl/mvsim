@@ -367,7 +367,7 @@ class CourseSection(models.Model):
         return self.name
 
     def ensure_default_starting_state(self):
-        if self.starting_states.count() == 0:
+        if self.starting_states.all().count() == 0:
             s = State.objects.filter(name="Default Starting State")
             if s.count() > 0:
                 self.starting_states.add(s[0])
@@ -388,6 +388,9 @@ def ensure_section_exists(sender, instance, created, **kwargs):
         return
     section = CourseSection(name="Default Section",
                             course=instance)
+    # have to save before m2m relations work.
+    # see: https://code.djangoproject.com/ticket/19580
+    section.save()
     section.ensure_default_starting_state()
     section.save()
 
