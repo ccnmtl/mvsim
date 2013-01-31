@@ -6,4 +6,4 @@ install:
   - ./bootstrap.py
 script:
   - ./ve/bin/flake8 mvsim engine
-  - ./manage.py test
+  - ./manage.py test mvsim engine courseaffils
