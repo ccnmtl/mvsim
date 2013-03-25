@@ -91,6 +91,8 @@ INSTALLED_APPS = (
     'smoketest',
     'debug_toolbar',
     'impersonate',
+    'django_jenkins',
+    'engine',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )
@@ -117,7 +119,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SOUTH_TESTS_MIGRATE = False
 SOUTH_AUTO_FREEZE_APP = True
 
-if 'test' in sys.argv:
+if 'test' in sys.argv or 'jenkins' in sys.argv:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -136,6 +138,17 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=mvsim.main,mvsim.graph,engine,courseaffils',
 ]
+
+
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pylint',
+    'django_jenkins.tasks.with_coverage',
+    'django_jenkins.tasks.django_tests',
+    'django_jenkins.tasks.run_pep8',
+    'django_jenkins.tasks.run_pyflakes',
+)
+
+PROJECT_APPS = ['mvsim.main', 'engine', ]
 
 THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[mvsim] "
