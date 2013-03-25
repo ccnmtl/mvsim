@@ -278,7 +278,7 @@ POPULATION = 1
 PRECIPITATION = 1
 
 
-class TestVillage:
+class TestVillage(unittest.TestCase):
     def setUp(self):
         coeffs = StubCoeffs(birth_rate=BIRTH_RATE, death_rate=DEATH_RATE,
                             starting_year=2007,
@@ -489,7 +489,7 @@ class TestVillage:
         self.village.calculate_taxes(10.0)
 
 
-class TestSchoolingFSM:
+class TestSchoolingFSM(unittest.TestCase):
     def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
@@ -554,20 +554,20 @@ class TestSchoolingFSM:
         assert fsm.calculate_next_state(False) == "not eligible for secondary"
 
 
-class TestCoeffs:
+class TestCoeffs(unittest.TestCase):
     def test_json(self):
         c = Coeffs()
         assert c.__json__() == {}
 
 
-class TestState:
+class TestState(unittest.TestCase):
     def test_json(self):
         s = State()
         assert s.__json__() == {}
 
 
-class TestFunctions:
-    def setup(self):
+class TestFunctions(unittest.TestCase):
+    def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
                             secondary_school_effort=SECONDARY_SCHOOL_EFFORT,
@@ -599,7 +599,7 @@ class TestFunctions:
         assert child.name == 'bart'
 
 
-class TestTurn:
+class TestTurn(unittest.TestCase):
     def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
