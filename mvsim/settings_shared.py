@@ -50,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'impersonate.middleware.ImpersonateMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'courseaffils.middleware.CourseManagerMiddleware',
     'djangohelpers.middleware.AuthRequirementMiddleware',
@@ -89,6 +90,7 @@ INSTALLED_APPS = (
     'django_statsd',
     'smoketest',
     'debug_toolbar',
+    'impersonate',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )
@@ -183,3 +185,4 @@ MVSIM_EVENTS_CSV = os.path.join(os.path.dirname(__file__), "../events.csv")
 
 MVSIM_GRAPH_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__),
                                             "../media/graphs")
+LOGIN_REDIRECT_URL = "/"

@@ -50,5 +50,11 @@
     
     {% block endscripts %}
     {% endblock %}
+{% if request.user.is_impersonate %}
+<div class="alert alert-error" style="position: fixed; left: 0px; top: 75px; background-color: #fee;">
+You are impersonating. <a href="{% url impersonate-stop %}">stop</a>.
+</div>
+{% endif %}
+
   </body>
 </html>

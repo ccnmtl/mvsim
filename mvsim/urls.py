@@ -26,6 +26,7 @@ urlpatterns = patterns(
     auth_urls,
     logout_page,
     (r'^registration/', include('registration.urls')),
+    url(r'^impersonate/', include('impersonate.urls')),
     url(r'^$', 'mvsim.main.views.home', name='home'),
     url(r'^games/$', 'mvsim.main.views.games_index', name='games_index'),
     url(r'^games/new/$', 'mvsim.main.views.games_index', name='new_game'),
