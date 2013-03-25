@@ -22,3 +22,4 @@ requirements/src/django-debug-toolbar-0.9.4.tar.gz
 requirements/src/django-impersonate-0.6.0.tar.gz
 requirements/src/django-jenkins-0.14.0.tar.gz
 requirements/src/django-stagingcontext-0.1.0.tar.gz
+requirements/src/django-waffle-0.9.0.tar.gz
