@@ -203,3 +203,4 @@ MVSIM_EVENTS_CSV = os.path.join(os.path.dirname(__file__), "../events.csv")
 MVSIM_GRAPH_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__),
                                             "../media/graphs")
 LOGIN_REDIRECT_URL = "/"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
