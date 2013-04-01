@@ -5,7 +5,7 @@ from lettuce import before, after, world, step
 from lettuce.django import django_url
 import os
 import selenium.webdriver.support.ui as ui
-
+import time
 
 try:
     from lxml import html
@@ -119,6 +119,7 @@ def i_type_value_for_field(step, value, field):
         selector = "input[name=%s]" % field
         elt = world.browser.find_element_by_css_selector(selector)
         assert elt is not None, "Cannot locate input field named %s" % field
+        elt.clear()
         elt.send_keys(value)
 
 
@@ -132,12 +133,94 @@ def i_click_the_value_button(step, value):
         elt.click()
 
 
+@step(u'I see "([^"]*)"')
+def i_see_text(step, text):
+    if not world.using_selenium:
+        assert False, "not implemented in the django test client"
+    else:
+        try:
+            assert text in world.browser.page_source, world.browser.page_source
+        except:
+            time.sleep(1)
+            msg = "I did not see %s in this page" % text
+            assert text in world.browser.page_source, msg
+
+
+@step(u'there is an? "([^"]*)" link')
+def there_is_a_text_link(step, text):
+    if not world.using_selenium:
+        for a in world.dom.cssselect("a"):
+            if a.text:
+                if text.strip().lower() in a.text.strip().lower():
+                    href = a.attrib['href']
+                    response = world.client.get(django_url(href))
+                    world.dom = html.fromstring(response.content)
+                    return
+        assert False, "could not find the '%s' link" % text
+    else:
+        try:
+            link = world.browser.find_element_by_partial_link_text(text)
+            assert link.is_displayed()
+        except:
+            world.browser.get_screenshot_as_file("/tmp/selenium.png")
+            assert False, "Cannot find link %s" % text
+
+
+@step(u'I click the "([^"]*)" link')
+def i_click_the_link(step, text):
+    if not world.using_selenium:
+        for a in world.dom.cssselect("a"):
+            if a.text:
+                if text.strip().lower() in a.text.strip().lower():
+                    href = a.attrib['href']
+                    response = world.client.get(django_url(href))
+                    world.dom = html.fromstring(response.content)
+                    return
+        assert False, "could not find the '%s' link" % text
+    else:
+        try:
+            link = world.browser.find_element_by_partial_link_text(text)
+            assert link.is_displayed()
+            link.click()
+        except:
+            world.browser.get_screenshot_as_file("/tmp/selenium.png")
+            assert False, link.location
+
+
+@step(u'the value for "([^"]*)" is "([^"]*)"')
+def the_value_for_name_is_value(step, name, value):
+    elt = world.browser.find_element_by_name(name)
+    actual = elt.get_attribute("value")
+    assert actual == value, \
+        "Expected: %s, Actual: %s" % (value, actual)
+
+
+@step(u'the values for "([^"]*)" are "([^"]*)"')
+def the_values_for_label_are_values(step, label, expected):
+    elts = world.browser.find_elements_by_tag_name("label")
+    for e in elts:
+        if (e.text == label and
+                e.get_attribute("id").startswith("item-deformField")):
+            assert e.get_attribute("id") == "item-deformField173", \
+                "%s" % e.get_attribute("id")
+            parent = e.parent
+            inputs = parent.find_elements_by_css_selector("input[type=text]")
+            actual = [i.get_attribute("value") for i in inputs]
+            assert actual == expected, \
+                "Actual: %s. Expected: %s" % (actual, expected)
+
+
 def find_button_by_value(value, parent=None):
 
     if not parent:
         parent = world.browser
 
     elts = parent.find_elements_by_css_selector("input[type=submit]")
+    for e in elts:
+        if e.get_attribute("value") == value:
+            return e
+
+    elts = parent.find_elements_by_css_selector("button[type=submit]")
     for e in elts:
         if e.get_attribute("value") == value:
             return e
