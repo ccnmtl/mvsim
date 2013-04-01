@@ -1,0 +1,3111 @@
+[
+    {
+        "pk": 1, 
+        "model": "courseaffils.courseinfo", 
+        "fields": {
+            "term": null, 
+            "days": null, 
+            "course": 1, 
+            "starttime": null, 
+            "year": null, 
+            "endtime": null
+        }
+    }, 
+    {
+        "pk": 116, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "adult_effort", 
+            "type": "int", 
+            "name": "adult_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 117, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "available_improvements", 
+            "type": "list", 
+            "name": "available_improvements", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 118, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_cotton_yield", 
+            "type": "float", 
+            "name": "avg_cotton_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 119, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_family_size", 
+            "type": "int", 
+            "name": "avg_family_size", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 120, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_fishing_yield", 
+            "type": "float", 
+            "name": "avg_fishing_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 121, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_maize_yield", 
+            "type": "float", 
+            "name": "avg_maize_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 122, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_precipitation", 
+            "type": "float", 
+            "name": "avg_precipitation", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 123, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_small_business_yield", 
+            "type": "float", 
+            "name": "avg_small_business_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 124, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_water_yield", 
+            "type": "float", 
+            "name": "avg_water_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 125, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_wood_yield", 
+            "type": "float", 
+            "name": "avg_wood_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 126, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "base_infection_rate", 
+            "type": "float", 
+            "name": "base_infection_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 127, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "bednet_infection_modifier", 
+            "type": "float", 
+            "name": "bednet_infection_modifier", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 128, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "birth_rate", 
+            "type": "float", 
+            "name": "birth_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 129, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "boat_coeff", 
+            "type": "float", 
+            "name": "boat_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 130, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "chance_of_getting_the_flu", 
+            "type": "float", 
+            "name": "chance_of_getting_the_flu", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 131, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "child_1_effort", 
+            "type": "int", 
+            "name": "child_1_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 132, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "child_2_effort", 
+            "type": "int", 
+            "name": "child_2_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 133, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "child_3_effort", 
+            "type": "int", 
+            "name": "child_3_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 134, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "child_genders", 
+            "type": "list", 
+            "name": "child_genders", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 135, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "child_names", 
+            "type": "list", 
+            "name": "child_names", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 136, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cotton_export_units", 
+            "type": "int", 
+            "name": "cotton_export_units", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 137, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cotton_price", 
+            "type": "int", 
+            "name": "cotton_price", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 138, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cotton_productivity_exponent", 
+            "type": "float", 
+            "name": "cotton_productivity_exponent", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 139, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "death_rate", 
+            "type": "float", 
+            "name": "death_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "effort_water", 
+            "type": "int", 
+            "name": "effort_water", 
+            "description": "Effort Water (person-hours/day)"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "electricity", 
+            "type": "bool", 
+            "name": "electricity", 
+            "description": "Electrical Grid Connection"
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"bool\"}", 
+            "symbol": "enroll", 
+            "type": "list", 
+            "name": "enroll", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "epidemic", 
+            "type": "bool", 
+            "name": "epidemic", 
+            "description": "Malaria Epidemic"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "effort_fishing", 
+            "type": "int", 
+            "name": "effort_fishing", 
+            "description": "Effort Fishing (person-hours/day)"
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "expenditure", 
+            "type": "float", 
+            "name": "expenditure", 
+            "description": "Cotton Transport Costs"
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "family_needs", 
+            "type": "float", 
+            "name": "family_needs", 
+            "description": "Family Subsistence Needs (cal/6mo)"
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "family_water_needs", 
+            "type": "float", 
+            "name": "family_water_needs", 
+            "description": "Family Water Needs (liters/6mo)"
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fatou_pregnant", 
+            "type": "bool", 
+            "name": "fatou_pregnant", 
+            "description": "Pregnancy"
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer", 
+            "type": "bool", 
+            "name": "fertilizer", 
+            "description": "Fertilizer Used"
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer_t1", 
+            "type": "bool", 
+            "name": "fertilizer_t1", 
+            "description": "whether fertilizer was used 1 year ago"
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer_t2", 
+            "type": "bool", 
+            "name": "fertilizer_t2", 
+            "description": "whether fertilizer was used two years ago"
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_coeff", 
+            "type": "float", 
+            "name": "fish_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fishing_limit", 
+            "type": "int", 
+            "name": "fishing_limit", 
+            "description": "Fishing Limit (# fish)"
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "food_income", 
+            "type": "float", 
+            "name": "food_income", 
+            "description": "Food Income (CFA)"
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "food_yield", 
+            "type": "int", 
+            "name": "food_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "health", 
+            "type": "list", 
+            "name": "health", 
+            "description": "health (%) of people in the family"
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "health_t1", 
+            "type": "list", 
+            "name": "health_t1", 
+            "description": "health of each family member 1 turn ago"
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "health_t3", 
+            "type": "list", 
+            "name": "health_t3", 
+            "description": "health of each family member 3 turns ago"
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "high_yield_seeds", 
+            "type": "bool", 
+            "name": "high_yield_seeds", 
+            "description": "High Yield Seeds Purchased"
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "improvements", 
+            "type": "list", 
+            "name": "improvements", 
+            "description": "what improvements the user is buying for the village this turn"
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "income", 
+            "type": "float", 
+            "name": "income", 
+            "description": "Family Income (CFA)"
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "irrigation", 
+            "type": "bool", 
+            "name": "irrigation", 
+            "description": "Village Irrigation"
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "malaria_deaths", 
+            "type": "int", 
+            "name": "malaria_deaths", 
+            "description": "Village Malaria Deaths"
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maximum_effort", 
+            "type": "int", 
+            "name": "maximum_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "meals", 
+            "type": "bool", 
+            "name": "meals", 
+            "description": "School Meals"
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_amount_due", 
+            "type": "float", 
+            "name": "microfinance_amount_due", 
+            "description": "Loan Amount Due (CFA)"
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_balance", 
+            "type": "float", 
+            "name": "microfinance_balance", 
+            "description": "Loan Balance (CFA)"
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_max_borrow", 
+            "type": "float", 
+            "name": "microfinance_max_borrow", 
+            "description": "Maximum Loan Offer (CFA)"
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "names", 
+            "type": "list", 
+            "name": "names", 
+            "description": "names of the people"
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "population", 
+            "type": "int", 
+            "name": "population", 
+            "description": "Village Population"
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "precipitation", 
+            "type": "float", 
+            "name": "precipitation", 
+            "description": "Precipitation (mm)"
+        }
+    }, 
+    {
+        "pk": 82, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"bool\"}", 
+            "symbol": "pregnant", 
+            "type": "list", 
+            "name": "pregnant", 
+            "description": "whether each person is pregnant or not"
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "propane_fuel", 
+            "type": "float", 
+            "name": "propane_fuel", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "road", 
+            "type": "bool", 
+            "name": "road", 
+            "description": "Paved Road"
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "sanitation", 
+            "type": "bool", 
+            "name": "sanitation", 
+            "description": "Village Sanitation Latrines"
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "season", 
+            "type": "bool", 
+            "name": "season", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "sell_items", 
+            "type": "list", 
+            "name": "sell_items", 
+            "description": "what items the user is selling at the market this turn (item|quantity)"
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "sick", 
+            "type": "list", 
+            "name": "sick", 
+            "description": "whether each family member is sick"
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_income", 
+            "type": "float", 
+            "name": "small_business_income", 
+            "description": "Small Business Income (CFA)"
+        }
+    }, 
+    {
+        "pk": 94, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_investment", 
+            "type": "float", 
+            "name": "small_business_investment", 
+            "description": "Small Business Investment (CFA)"
+        }
+    }, 
+    {
+        "pk": 95, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "soil_health", 
+            "type": "float", 
+            "name": "soil_health", 
+            "description": "Soil Health"
+        }
+    }, 
+    {
+        "pk": 96, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "stove", 
+            "type": "bool", 
+            "name": "stove", 
+            "description": "Propane Stoves Owned"
+        }
+    }, 
+    {
+        "pk": 98, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "subsistence_met", 
+            "type": "bool", 
+            "name": "subsistence_met", 
+            "description": "Subsistence Met"
+        }
+    }, 
+    {
+        "pk": 99, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "tax_rate", 
+            "type": "float", 
+            "name": "tax_rate", 
+            "description": "Tax Rate"
+        }
+    }, 
+    {
+        "pk": 100, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "tons_to_market", 
+            "type": "float", 
+            "name": "tons_to_market", 
+            "description": "Cotton Transported (tons)"
+        }
+    }, 
+    {
+        "pk": 101, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "total_effort", 
+            "type": "int", 
+            "name": "total_effort", 
+            "description": "Total Family Effort (person-hours/day)"
+        }
+    }, 
+    {
+        "pk": 103, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "u_points", 
+            "type": "int", 
+            "name": "u_points", 
+            "description": "Achievement Points"
+        }
+    }, 
+    {
+        "pk": 105, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "village_births", 
+            "type": "int", 
+            "name": "village_births", 
+            "description": "Village Births"
+        }
+    }, 
+    {
+        "pk": 106, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "village_deaths", 
+            "type": "int", 
+            "name": "village_deaths", 
+            "description": "Village Deaths"
+        }
+    }, 
+    {
+        "pk": 107, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "village_infected_pop", 
+            "type": "int", 
+            "name": "village_infected_pop", 
+            "description": "Village Infected Population (%)"
+        }
+    }, 
+    {
+        "pk": 108, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "village_population", 
+            "type": "int", 
+            "name": "village_population", 
+            "description": "Village Population"
+        }
+    }, 
+    {
+        "pk": 109, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "water_pump", 
+            "type": "bool", 
+            "name": "water_pump", 
+            "description": "Village Water Pump"
+        }
+    }, 
+    {
+        "pk": 111, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_fuel", 
+            "type": "float", 
+            "name": "wood_fuel", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 112, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_income", 
+            "type": "float", 
+            "name": "wood_income", 
+            "description": "Wood Income (CFA)"
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_limit", 
+            "type": "int", 
+            "name": "wood_limit", 
+            "description": "Wood Collection Limit (tons)"
+        }
+    }, 
+    {
+        "pk": 115, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "year", 
+            "type": "int", 
+            "name": "year", 
+            "description": "current year"
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "food_to_buy", 
+            "type": "int", 
+            "name": "food_to_buy", 
+            "description": "Food Purchased (10 cal/day)"
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "food_to_sell", 
+            "type": "int", 
+            "name": "food_to_sell", 
+            "description": "Food Sold (cal)"
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_borrow", 
+            "type": "float", 
+            "name": "microfinance_borrow", 
+            "description": "Existing Loan Amount Taken (CFA)"
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_interest_rate", 
+            "type": "float", 
+            "name": "microfinance_interest_rate", 
+            "description": "Existing Loan Interest Rate (compounded every 6mo)"
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "report_propane_used", 
+            "type": "float", 
+            "name": "report_propane_used", 
+            "description": "Propane Used (kg)"
+        }
+    }, 
+    {
+        "pk": 140, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "death_threshold_1", 
+            "type": "float", 
+            "name": "death_threshold_1", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 141, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "death_threshold_2", 
+            "type": "float", 
+            "name": "death_threshold_2", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 142, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_malaria_bednet_factor", 
+            "type": "float", 
+            "name": "disease_malaria_bednet_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 143, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_malaria_health_factor", 
+            "type": "float", 
+            "name": "disease_malaria_health_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 144, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_malaria_sir_factor", 
+            "type": "float", 
+            "name": "disease_malaria_sir_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 145, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_respiratory_health_factor", 
+            "type": "float", 
+            "name": "disease_respiratory_health_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 146, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_respiratory_propane_factor", 
+            "type": "float", 
+            "name": "disease_respiratory_propane_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 147, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_respiratory_stove_factor", 
+            "type": "float", 
+            "name": "disease_respiratory_stove_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 148, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_respiratory_youth_factor", 
+            "type": "float", 
+            "name": "disease_respiratory_youth_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 149, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_waterborne_health_factor", 
+            "type": "float", 
+            "name": "disease_waterborne_health_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 150, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_waterborne_latrine_factor", 
+            "type": "float", 
+            "name": "disease_waterborne_latrine_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 151, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_waterborne_waterpump_factor", 
+            "type": "float", 
+            "name": "disease_waterborne_waterpump_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 152, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "disease_waterborne_watersubsistence_factor", 
+            "type": "float", 
+            "name": "disease_waterborne_watersubsistence_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 153, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "doctor_visit_cost", 
+            "type": "float", 
+            "name": "doctor_visit_cost", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 154, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "dragnet_coeff", 
+            "type": "float", 
+            "name": "dragnet_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 155, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "drought_coeff", 
+            "type": "float", 
+            "name": "drought_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 156, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "drought_threshold", 
+            "type": "float", 
+            "name": "drought_threshold", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 157, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "effort_too_high_health_loss", 
+            "type": "float", 
+            "name": "effort_too_high_health_loss", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 158, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "enable_drought", 
+            "type": "bool", 
+            "name": "enable_drought", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 159, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "enable_epidemic", 
+            "type": "bool", 
+            "name": "enable_epidemic", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 160, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "enable_free_bednets", 
+            "type": "bool", 
+            "name": "enable_free_bednets", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 161, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "enable_NGO_offers", 
+            "type": "bool", 
+            "name": "enable_NGO_offers", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 162, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "energy_req_scaling_factor", 
+            "type": "float", 
+            "name": "energy_req_scaling_factor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 163, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "epidemic_precipitation_deviation_exponent", 
+            "type": "float", 
+            "name": "epidemic_precipitation_deviation_exponent", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 164, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer_coeff", 
+            "type": "float", 
+            "name": "fertilizer_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 165, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer_cotton_coeff", 
+            "type": "float", 
+            "name": "fertilizer_cotton_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 166, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer_price", 
+            "type": "int", 
+            "name": "fertilizer_price", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 167, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_cal_coeff", 
+            "type": "float", 
+            "name": "fish_cal_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 168, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_growth_rate", 
+            "type": "float", 
+            "name": "fish_growth_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 169, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fishing_effort_coeff", 
+            "type": "float", 
+            "name": "fishing_effort_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 170, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_k", 
+            "type": "float", 
+            "name": "fish_k", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 171, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_stock_warn_threshold", 
+            "type": "float", 
+            "name": "fish_stock_warn_threshold", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 172, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "food_cost", 
+            "type": "float", 
+            "name": "food_cost", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 173, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "forest_growth_rate", 
+            "type": "float", 
+            "name": "forest_growth_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 174, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "free_bednet_year", 
+            "type": "int", 
+            "name": "free_bednet_year", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 175, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fuelwood_health_loss", 
+            "type": "float", 
+            "name": "fuelwood_health_loss", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 176, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "health_clinic_coeff", 
+            "type": "float", 
+            "name": "health_clinic_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 207, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "primary_school_effort", 
+            "type": "int", 
+            "name": "primary_school_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 208, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "productivity_effort_coeff", 
+            "type": "float", 
+            "name": "productivity_effort_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 209, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "propane_fuel_coeff", 
+            "type": "float", 
+            "name": "propane_fuel_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 210, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "recovery_rate1", 
+            "type": "float", 
+            "name": "recovery_rate1", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 211, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "recovery_rate2", 
+            "type": "float", 
+            "name": "recovery_rate2", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 212, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "recovery_rate3", 
+            "type": "float", 
+            "name": "recovery_rate3", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 213, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "resting_health_gain", 
+            "type": "float", 
+            "name": "resting_health_gain", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 214, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "road_subsidy_year", 
+            "type": "int", 
+            "name": "road_subsidy_year", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 215, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "savings_rate", 
+            "type": "float", 
+            "name": "savings_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 216, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "school_meals_calories", 
+            "type": "int", 
+            "name": "school_meals_calories", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 217, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "secondary_school_cost", 
+            "type": "float", 
+            "name": "secondary_school_cost", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 218, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "secondary_school_effort", 
+            "type": "int", 
+            "name": "secondary_school_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 219, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_depreciation_rate", 
+            "type": "float", 
+            "name": "small_business_depreciation_rate", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 220, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_diminishing_return", 
+            "type": "float", 
+            "name": "small_business_diminishing_return", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 221, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_drought_effect", 
+            "type": "float", 
+            "name": "small_business_drought_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 222, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_drought_effect_exponent", 
+            "type": "float", 
+            "name": "small_business_drought_effect_exponent", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 223, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_electricity_effect", 
+            "type": "float", 
+            "name": "small_business_electricity_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 224, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_epidemic_effect", 
+            "type": "float", 
+            "name": "small_business_epidemic_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 225, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_productivity_effect", 
+            "type": "float", 
+            "name": "small_business_productivity_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 226, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_road_effect", 
+            "type": "float", 
+            "name": "small_business_road_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 227, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "soil_depletion", 
+            "type": "float", 
+            "name": "soil_depletion", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 228, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "starting_year", 
+            "type": "int", 
+            "name": "starting_year", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 229, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "subsidy_price_reduction", 
+            "type": "float", 
+            "name": "subsidy_price_reduction", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 230, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "subsistence", 
+            "type": "int", 
+            "name": "subsistence", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 231, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "transport_cost_no_road", 
+            "type": "float", 
+            "name": "transport_cost_no_road", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 232, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "transport_cost_road", 
+            "type": "float", 
+            "name": "transport_cost_road", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 233, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "visual_intervals_fish", 
+            "type": "list", 
+            "name": "visual_intervals_fish", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 234, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "visual_intervals_forest", 
+            "type": "list", 
+            "name": "visual_intervals_forest", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 235, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_effort_coeff", 
+            "type": "float", 
+            "name": "wood_effort_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 236, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_fuel_coeff", 
+            "type": "float", 
+            "name": "wood_fuel_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 237, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_k", 
+            "type": "float", 
+            "name": "wood_k", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 238, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_price", 
+            "type": "float", 
+            "name": "wood_price", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 239, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_stock_warn_threshold", 
+            "type": "float", 
+            "name": "wood_stock_warn_threshold", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 240, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "w_subsistence", 
+            "type": "float", 
+            "name": "w_subsistence", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_stock", 
+            "type": "int", 
+            "name": "wood_stock", 
+            "description": "Wood Stock (tons)"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_calories", 
+            "type": "float", 
+            "name": "amount_calories", 
+            "description": "Family Food Consumed (cal/6mo)"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cost_to_market", 
+            "type": "float", 
+            "name": "cost_to_market", 
+            "description": "Cotton Shipping Expenditure (CFA)"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "ages", 
+            "type": "list", 
+            "name": "ages", 
+            "description": "ages of people in the family"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_cotton", 
+            "type": "float", 
+            "name": "amount_cotton", 
+            "description": "Cotton Yield (tons)"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_fish", 
+            "type": "float", 
+            "name": "amount_fish", 
+            "description": "Fish Caught (# fish)"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_maize", 
+            "type": "float", 
+            "name": "amount_maize", 
+            "description": "Maize Yield (tons)"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_propane", 
+            "type": "float", 
+            "name": "amount_propane", 
+            "description": "Propane Owned (kg)"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_water", 
+            "type": "float", 
+            "name": "amount_water", 
+            "description": "Water Collected (liters)"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "amount_wood", 
+            "type": "float", 
+            "name": "amount_wood", 
+            "description": "Wood Collected (tons)"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "avg_productivity", 
+            "type": "float", 
+            "name": "avg_productivity", 
+            "description": "Family Productivity Level (0-1)"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "bednet_ages", 
+            "type": "list", 
+            "name": "bednet_ages", 
+            "description": "ages of bednets owned"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "births", 
+            "type": "int", 
+            "name": "births", 
+            "description": "Family Births"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "boat", 
+            "type": "bool", 
+            "name": "boat", 
+            "description": "Boats Owned"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "calculated_food_cost", 
+            "type": "float", 
+            "name": "calculated_food_cost", 
+            "description": "cost of food after other considerations"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "calorie_allocation", 
+            "type": "list", 
+            "name": "calorie_allocation", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cash", 
+            "type": "float", 
+            "name": "cash", 
+            "description": "Family Fund (CFA)"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "clinic", 
+            "type": "bool", 
+            "name": "clinic", 
+            "description": "Village Clinic"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cotton_income", 
+            "type": "float", 
+            "name": "cotton_income", 
+            "description": "Cotton Income (CFA)"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "cotton_yield", 
+            "type": "float", 
+            "name": "cotton_yield", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "crops", 
+            "type": "list", 
+            "name": "crops", 
+            "description": "what crops are planted in the fields"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "deaths", 
+            "type": "int", 
+            "name": "deaths", 
+            "description": "Family Deaths"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "died", 
+            "type": "list", 
+            "name": "died", 
+            "description": "names of people who died this turn"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "died_reasons", 
+            "type": "list", 
+            "name": "died_reasons", 
+            "description": "reasons those people died"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"bool\"}", 
+            "symbol": "doctor", 
+            "type": "list", 
+            "name": "doctor", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "dragnet", 
+            "type": "bool", 
+            "name": "dragnet", 
+            "description": "Dragnets Owned"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "drought", 
+            "type": "bool", 
+            "name": "drought", 
+            "description": "Drought"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "education", 
+            "type": "list", 
+            "name": "education", 
+            "description": "number of turns of education each person has"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "effort_farming", 
+            "type": "int", 
+            "name": "effort_farming", 
+            "description": "Effort Farming (person-hours/day)"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "effort_fuel_wood", 
+            "type": "int", 
+            "name": "effort_fuel_wood", 
+            "description": "Effort Fuel Wood (person-hours/day)"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "efforts", 
+            "type": "list", 
+            "name": "efforts", 
+            "description": "efforts of each family member"
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fund", 
+            "type": "float", 
+            "name": "fund", 
+            "description": "Village Fund (CFA)"
+        }
+    }, 
+    {
+        "pk": 77, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "morx", 
+            "type": "int", 
+            "name": "morx", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 177, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "health_increment", 
+            "type": "int", 
+            "name": "health_increment", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 178, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "health_nutrition_coeff", 
+            "type": "float", 
+            "name": "health_nutrition_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 179, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "health_power_coeff", 
+            "type": "float", 
+            "name": "health_power_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 180, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "health_sickness_coeff", 
+            "type": "float", 
+            "name": "health_sickness_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 181, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "improvement_labels", 
+            "type": "list", 
+            "name": "improvement_labels", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 182, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "improvement_prices", 
+            "type": "list", 
+            "name": "improvement_prices", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 183, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "initial_infected_pop", 
+            "type": "int", 
+            "name": "initial_infected_pop", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 184, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "irrigation_coeff", 
+            "type": "float", 
+            "name": "irrigation_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 185, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maize_cal_coeff", 
+            "type": "int", 
+            "name": "maize_cal_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 186, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maize_export_units", 
+            "type": "int", 
+            "name": "maize_export_units", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 187, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maize_high_yield_seeds_multiplier", 
+            "type": "float", 
+            "name": "maize_high_yield_seeds_multiplier", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 188, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maize_price", 
+            "type": "float", 
+            "name": "maize_price", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 189, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maize_productivity_exponent", 
+            "type": "float", 
+            "name": "maize_productivity_exponent", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 190, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "market_items", 
+            "type": "list", 
+            "name": "market_items", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 191, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "market_items_labels", 
+            "type": "list", 
+            "name": "market_items_labels", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 192, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "market_purchase_prices", 
+            "type": "list", 
+            "name": "market_purchase_prices", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 193, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"int\"}", 
+            "symbol": "market_sell_prices", 
+            "type": "list", 
+            "name": "market_sell_prices", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 194, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "max_precipitation", 
+            "type": "float", 
+            "name": "max_precipitation", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 195, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_base_interest", 
+            "type": "float", 
+            "name": "microfinance_base_interest", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 196, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_drought_effect", 
+            "type": "float", 
+            "name": "microfinance_drought_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 197, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_epidemic_effect", 
+            "type": "float", 
+            "name": "microfinance_epidemic_effect", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 198, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_min_balance", 
+            "type": "float", 
+            "name": "microfinance_min_balance", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 199, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_repay_period", 
+            "type": "int", 
+            "name": "microfinance_repay_period", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 200, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "mortality1", 
+            "type": "float", 
+            "name": "mortality1", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 201, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "mortality2", 
+            "type": "float", 
+            "name": "mortality2", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 202, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "no_droughts_before", 
+            "type": "int", 
+            "name": "no_droughts_before", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 203, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "no_epidemics_before", 
+            "type": "int", 
+            "name": "no_epidemics_before", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 204, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "other_subsidy_year", 
+            "type": "int", 
+            "name": "other_subsidy_year", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 205, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "precipitation_infection_modifier", 
+            "type": "float", 
+            "name": "precipitation_infection_modifier", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 206, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "pregnant_effort", 
+            "type": "int", 
+            "name": "pregnant_effort", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "effort_small_business", 
+            "type": "int", 
+            "name": "effort_small_business", 
+            "description": "Effort Small Business (person-hours/day)"
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fertilizer_last_turn", 
+            "type": "bool", 
+            "name": "fertilizer_last_turn", 
+            "description": "whether fertilizer was used in the last turn (needed because of turns vs years stuff)"
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_stock", 
+            "type": "int", 
+            "name": "fish_stock", 
+            "description": "Fish Stock (# fish)"
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "genders", 
+            "type": "list", 
+            "name": "genders", 
+            "description": "genders of the people"
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "health_t2", 
+            "type": "list", 
+            "name": "health_t2", 
+            "description": "health of each family member 2 turns ago"
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "improved_stove", 
+            "type": "bool", 
+            "name": "improved_stove", 
+            "description": "Improved Stoves Owned"
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "initial_population", 
+            "type": "int", 
+            "name": "initial_population", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "market", 
+            "type": "bool", 
+            "name": "market", 
+            "description": "whether the user went to the market this turn"
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_amount_paid", 
+            "type": "float", 
+            "name": "microfinance_amount_paid", 
+            "description": "Loan Amount Paid (CFA)"
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "owned_items", 
+            "type": "list", 
+            "name": "owned_items", 
+            "description": "what items the user owns"
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "purchase_items", 
+            "type": "list", 
+            "name": "purchase_items", 
+            "description": "what items the user is buying from the market this turn (item|quantity)"
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "schooling_state", 
+            "type": "list", 
+            "name": "schooling_state", 
+            "description": "a list of the schooling state for each person"
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "small_business_capital", 
+            "type": "float", 
+            "name": "small_business_capital", 
+            "description": "Small Business Capital (CFA)"
+        }
+    }, 
+    {
+        "pk": 97, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "subsidy_offers", 
+            "type": "list", 
+            "name": "subsidy_offers", 
+            "description": "what village improvements have been offered to be subsidized by NGOs or the Government"
+        }
+    }, 
+    {
+        "pk": 102, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "try_for_child", 
+            "type": "bool", 
+            "name": "try_for_child", 
+            "description": "try for a child this year"
+        }
+    }, 
+    {
+        "pk": 104, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "{\"listof\": \"str\"}", 
+            "symbol": "user_messages", 
+            "type": "list", 
+            "name": "user_messages", 
+            "description": "a channel for the program to send status messages to the user interface."
+        }
+    }, 
+    {
+        "pk": 110, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "wood_coeff", 
+            "type": "float", 
+            "name": "wood_coeff", 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "fish_cals", 
+            "type": "float", 
+            "name": "fish_cals", 
+            "description": "Potential Fish Calories"
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "maize_cals", 
+            "type": "float", 
+            "name": "maize_cals", 
+            "description": "Potential Maize Calories"
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "main.variable", 
+        "fields": {
+            "extra_type_information": "", 
+            "symbol": "microfinance_current_interest_rate", 
+            "type": "float", 
+            "name": "microfinance_current_interest_rate", 
+            "description": "Market Loan Interest Rate (compounded every 6mo)"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "main.configuration", 
+        "fields": {
+            "variables": [
+                33, 
+                34, 
+                35, 
+                36, 
+                29, 
+                37, 
+                38, 
+                39, 
+                40, 
+                41, 
+                43, 
+                44, 
+                46, 
+                47, 
+                49, 
+                52, 
+                55, 
+                56, 
+                58, 
+                59, 
+                61, 
+                62, 
+                64, 
+                66, 
+                68, 
+                69, 
+                70, 
+                72, 
+                76, 
+                78, 
+                80, 
+                81, 
+                82, 
+                83, 
+                86, 
+                87, 
+                89, 
+                90, 
+                91, 
+                93, 
+                94, 
+                95, 
+                96, 
+                98, 
+                99, 
+                100, 
+                101, 
+                103, 
+                105, 
+                106, 
+                107, 
+                108, 
+                109, 
+                111, 
+                112, 
+                113, 
+                115, 
+                50, 
+                51, 
+                73, 
+                75, 
+                85, 
+                114, 
+                2, 
+                17, 
+                1, 
+                3, 
+                4, 
+                5, 
+                6, 
+                7, 
+                8, 
+                9, 
+                10, 
+                11, 
+                12, 
+                13, 
+                14, 
+                15, 
+                16, 
+                18, 
+                19, 
+                20, 
+                21, 
+                22, 
+                23, 
+                24, 
+                25, 
+                26, 
+                27, 
+                28, 
+                30, 
+                31, 
+                53, 
+                77, 
+                32, 
+                42, 
+                48, 
+                54, 
+                57, 
+                60, 
+                63, 
+                67, 
+                71, 
+                79, 
+                84, 
+                88, 
+                92, 
+                97, 
+                102, 
+                104, 
+                110, 
+                45, 
+                65, 
+                74
+            ], 
+            "name": "", 
+            "coefficients": [
+                116, 
+                117, 
+                118, 
+                119, 
+                120, 
+                121, 
+                122, 
+                123, 
+                124, 
+                125, 
+                126, 
+                127, 
+                128, 
+                129, 
+                130, 
+                131, 
+                132, 
+                133, 
+                134, 
+                135, 
+                136, 
+                137, 
+                138, 
+                139, 
+                140, 
+                141, 
+                142, 
+                143, 
+                144, 
+                145, 
+                146, 
+                147, 
+                148, 
+                149, 
+                150, 
+                151, 
+                152, 
+                153, 
+                154, 
+                155, 
+                156, 
+                157, 
+                158, 
+                159, 
+                160, 
+                161, 
+                162, 
+                163, 
+                164, 
+                165, 
+                166, 
+                167, 
+                168, 
+                169, 
+                170, 
+                171, 
+                172, 
+                173, 
+                174, 
+                175, 
+                176, 
+                207, 
+                208, 
+                209, 
+                210, 
+                211, 
+                212, 
+                213, 
+                214, 
+                215, 
+                216, 
+                217, 
+                218, 
+                219, 
+                220, 
+                221, 
+                222, 
+                223, 
+                224, 
+                225, 
+                226, 
+                227, 
+                228, 
+                229, 
+                230, 
+                231, 
+                232, 
+                233, 
+                234, 
+                235, 
+                236, 
+                237, 
+                238, 
+                239, 
+                240, 
+                177, 
+                178, 
+                179, 
+                180, 
+                181, 
+                182, 
+                183, 
+                184, 
+                185, 
+                186, 
+                187, 
+                188, 
+                189, 
+                190, 
+                191, 
+                192, 
+                193, 
+                194, 
+                195, 
+                196, 
+                197, 
+                198, 
+                199, 
+                200, 
+                201, 
+                202, 
+                203, 
+                204, 
+                205, 
+                206
+            ], 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "main.userinput", 
+        "fields": {
+            "variables": [
+                33, 
+                35, 
+                29, 
+                46, 
+                47, 
+                61, 
+                90, 
+                94, 
+                99, 
+                113, 
+                50, 
+                73, 
+                14, 
+                20, 
+                24, 
+                28, 
+                30, 
+                31, 
+                32, 
+                67, 
+                84, 
+                102
+            ]
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "main.state", 
+        "fields": {
+            "game": null, 
+            "state": "{\"variables\": {\"amount_calories\": \"900000\", \"irrigation\": \"False\", \"fish_cals\": \"0\", \"amount_cotton\": \"0\", \"stove\": \"False\", \"schooling_state\": [\"adult\", \"adult\"], \"clinic\": \"False\", \"cotton_yield\": \"0\", \"amount_maize\": \"0\", \"wood_coeff\": \"1\", \"amount_water\": \"0\", \"wood_limit\": \"0\", \"electricity\": \"False\", \"report_propane_used\": \"0.0\", \"calorie_allocation\": [\"0\", \"0\"], \"tons_to_market\": \"0\", \"u_points\": \"0\", \"energy_req\": \"0.0\", \"food_yield\": \"0\", \"epidemic\": \"False\", \"precipitation\": \"0\", \"pregnant\": [\"False\", \"False\"], \"crops\": [\"Maize\", \"Maize\", \"Maize\", \"Maize\"], \"microfinance_amount_paid\": \"0.0\", \"amount_propane\": \"0\", \"propane_fuel\": \"0\", \"microfinance_borrow\": \"0.0\", \"wood_fuel\": \"0\", \"food_income\": \"0.0\", \"efforts\": [\"12\", \"12\"], \"year\": \"2011\", \"sell_items\": [], \"water_pump\": \"False\", \"wood_stock\": \"80000\", \"health\": [\"100\", \"100\"], \"market\": \"False\", \"health_t2\": [\"Kodjo|100\", \"Fatou|100\"], \"health_t3\": [\"Kodjo|100\", \"Fatou|100\"], \"user_messages\": [], \"subsistence_met\": \"True\", \"microfinance_amount_due\": \"0.0\", \"food_to_buy\": \"0\", \"family_water_needs\": \"0\", \"tax_rate\": \"0\", \"wood_income\": \"0.0\", \"effort_small_business\": \"0\", \"small_business_income\": \"0\", \"enroll\": [\"False\", \"False\"], \"food_to_sell\": \"0\", \"sanitation\": \"False\", \"fatou_pregnant\": \"False\", \"amount_fish\": \"0\", \"cotton_income\": \"0.0\", \"high_yield_seeds\": \"False\", \"maize_cals\": \"0\", \"microfinance_balance\": \"0.0\", \"road\": \"False\", \"died_reasons\": [], \"microfinance_interest_rate\": \"0.0\", \"bednet_ages\": [], \"fishing_limit\": \"0\", \"improvements\": [], \"names\": [\"Kodjo\", \"Fatou\"], \"boat\": \"False\", \"morx\": \"0\", \"calculated_food_cost\": \"20.0\", \"effort_fuel_wood\": \"0\", \"fertilizer_last_turn\": \"True\", \"initial_population\": \"0\", \"owned_items\": [], \"small_business_investment\": \"0.0\", \"season\": \"False\", \"effort_water\": \"0\", \"fund\": \"0\", \"expenditure\": \"0\", \"effort_fishing\": \"0\", \"improved_stove\": \"False\", \"population\": \"2\", \"cash\": \"1000\", \"avg_productivity\": \"0\", \"maximum_effort\": \"0\", \"microfinance_current_interest_rate\": \"2.5\", \"genders\": [\"Male\", \"Female\"], \"cost_to_market\": \"0\", \"deaths\": \"0\", \"ages\": [\"15\", \"15\"], \"try_for_child\": \"False\", \"fertilizer_t1\": \"True\", \"fertilizer_t2\": \"True\", \"microfinance_max_borrow\": \"36000\", \"education\": [\"12\", \"12\"], \"amount_wood\": \"0\", \"village_births\": \"0\", \"subsidy_offers\": [], \"doctor\": [\"False\", \"False\"], \"effort_farming\": \"0\", \"sick\": [\" \", \" \"], \"income\": \"0\", \"family_needs\": \"900000\", \"fish_coeff\": \"1\", \"village_deaths\": \"0\", \"births\": \"0\", \"purchase_items\": [], \"dragnet\": \"False\", \"fertilizer\": \"False\", \"drought\": \"False\", \"meals\": \"False\", \"died\": [], \"malaria_deaths\": \"5\", \"soil_health\": \"1\", \"village_infected_pop\": \"0\", \"total_effort\": \"24\", \"health_t1\": [\"Kodjo|100\", \"Fatou|100\"], \"small_business_capital\": \"0.0\", \"fish_stock\": \"4000000\", \"village_population\": \"1000\"}, \"coefficients\": {\"avg_precipitation\": \"900\", \"disease_waterborne_health_factor\": \"0.04\", \"market_items_labels\": [\"Bed Net (covers 2)\", \"Improved Wood Stove\", \"Propane Stove\", \"Propane Tank (10kg)\", \"Fertilizer (Season's Supply)\", \"High Yield Maize Seeds (Season's Supply)\", \"Boat\", \"Dragnet\"], \"maize_export_units\": \"100\", \"free_bednet_year\": \"15\", \"child_3_effort\": \"8\", \"disease_respiratory_stove_factor\": \"6\", \"small_business_electricity_effect\": \"3\", \"energy_req\": \"18\", \"disease_waterborne_watersubsistence_factor\": \"0\", \"transport_cost_road\": \"850\", \"precipitation_infection_modifier\": \"0.01\", \"child_names\": [\"Damba\", \"Mamadou\", \"Awa\", \"Yao\", \"Jeanne\", \"Amadou\", \"Mariam\", \"Samuel\", \"Aminata\", \"Kuoakou\", \"Kady\", \"Jean\", \"Mame\", \"Patrick\", \"Sale\", \"Oumar\", \"Kuomba\", \"Didier\"], \"wood_fuel_coeff\": \"1.5\", \"mortality2\": \"-0.0045\", \"mortality1\": \"0.5\", \"improvement_labels\": [\"Paved Road\", \"Power Grid\", \"Latrines\", \"Water Pump\", \"Irrigation\", \"Clinic\", \"School Meals\"], \"market_purchase_prices\": [\"4500\", \"2250\", \"31500\", \"900\", \"20000\", \"4050\", \"160000\", \"100000\"], \"health_increment\": \"4\", \"wood_effort_coeff\": \"11\", \"no_epidemics_before\": \"10\", \"dragnet_coeff\": \"1.5\", \"wood_stock_warn_threshold\": \"0.33\", \"starting_year\": \"2009\", \"boat_coeff\": \"2\", \"max_precipitation\": \"1800\", \"visual_intervals_forest\": [\"100\", \"80\", \"20\"], \"enable_free_bednets\": \"True\", \"avg_wood_yield\": \"0.9\", \"disease_respiratory_youth_factor\": \"9\", \"avg_family_size\": \"4\", \"microfinance_base_interest\": \"2.0\", \"soil_depletion\": \".7\", \"other_subsidy_year\": \"8\", \"recovery_rate1\": \"0.3\", \"recovery_rate2\": \"0.1\", \"recovery_rate3\": \"0.1\", \"avg_maize_yield\": \"1.0\", \"no_droughts_before\": \"2\", \"drought_coeff\": \"0.5\", \"w_subsistence\": \"425\", \"small_business_diminishing_return\": \"0.4\", \"subsidy_price_reduction\": \"0.05\", \"improvement_prices\": [\"27000000\", \"337500000\", \"18000000\", \"3375000\", \"3600000\", \"18000000\", \"1944000\"], \"death_threshold_2\": \"10.0\", \"food_cost\": \"4\", \"death_threshold_1\": \"0.0\", \"resting_health_gain\": \"1.0\", \"subsistence\": \"450000\", \"forest_growth_rate\": \"0.01\", \"health_clinic_coeff\": \"0.7\", \"secondary_school_cost\": \"1.0\", \"health_power_coeff\": \"0.9\", \"maize_cal_coeff\": \"990000\", \"market_sell_prices\": [\"3600\", \"1800\", \"25200\", \"0\", \"0\", \"3240\", \"128000\", \"80000\"], \"fertilizer_cotton_coeff\": \"10\", \"microfinance_min_balance\": \"100.0\", \"avg_cotton_yield\": \".1\", \"microfinance_drought_effect\": \"1.0\", \"small_business_epidemic_effect\": \"0.8\", \"propane_fuel_coeff\": \"5.0\", \"productivity_effort_coeff\": \"0.2\", \"fertilizer_price\": \"25\", \"avg_water_yield\": \"2.0\", \"small_business_road_effect\": \"5\", \"small_business_drought_effect_exponent\": \"0.4\", \"wood_price\": \"6\", \"microfinance_epidemic_effect\": \"1.0\", \"fish_stock_warn_threshold\": \"0.33\", \"cotton_productivity_exponent\": \".3\", \"primary_school_effort\": \"8\", \"disease_malaria_bednet_factor\": \"8\", \"school_meals_calories\": \"225000\", \"pregnant_effort\": \"6\", \"bednet_infection_modifier\": \"-0.5\", \"child_1_effort\": \"0\", \"avg_small_business_yield\": \"100\", \"cotton_export_units\": \"100\", \"adult_effort\": \"12\", \"drought_threshold\": \"350\", \"child_2_effort\": \"4\", \"fuelwood_health_loss\": \"2.0\", \"doctor_visit_cost\": \"300.0\", \"fertilizer_coeff\": \"2.0\", \"enable_NGO_offers\": \"True\", \"transport_cost_no_road\": \"420000\", \"disease_malaria_health_factor\": \"0.02\", \"base_infection_rate\": \"0.003\", \"death_rate\": \"0.01\", \"energy_req_scaling_factor\": \"0.5\", \"wood_k\": \"90000\", \"maize_productivity_exponent\": \".3\", \"secondary_school_effort\": \"8\", \"road_subsidy_year\": \"5\", \"chance_of_getting_the_flu\": \"0.05\", \"small_business_drought_effect\": \"1.0\", \"maize_high_yield_seeds_multiplier\": \"2.0\", \"avg_fishing_yield\": \"1.10\", \"fishing_effort_coeff\": \"225\", \"birth_rate\": \"0.02\", \"health_nutrition_coeff\": \"0.0004\", \"maize_price\": \"1.5\", \"fish_cal_coeff\": \"700\", \"disease_respiratory_propane_factor\": \"9\", \"fish_growth_rate\": \"0.02\", \"available_improvements\": [\"road\", \"electricity\", \"sanitation\", \"water_pump\", \"irrigation\", \"clinic\", \"meals\"], \"disease_malaria_sir_factor\": \"200\", \"initial_infected_pop\": \"5\", \"child_genders\": [\"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\", \"Female\", \"Male\"], \"visual_intervals_fish\": [\"100\", \"80\", \"20\"], \"cotton_price\": \"18000000\", \"irrigation_coeff\": \"1.5\", \"savings_rate\": \"0\", \"effort_too_high_health_loss\": \"1.0\", \"health_sickness_coeff\": \"25\", \"enable_drought\": \"True\", \"disease_waterborne_latrine_factor\": \"8\", \"disease_waterborne_waterpump_factor\": \"3\", \"disease_respiratory_health_factor\": \"0.11\", \"small_business_depreciation_rate\": \"0.1\", \"small_business_productivity_effect\": \"1.0\", \"fish_k\": \"4000000\", \"epidemic_precipitation_deviation_exponent\": \"1\", \"market_items\": [\"bednet\", \"improvedstove\", \"stove\", \"propane\", \"fertilizer\", \"high_yield_seeds\", \"boat\", \"dragnet\"], \"enable_epidemic\": \"True\", \"microfinance_repay_period\": \"8\"}}", 
+            "name": "Default Starting State", 
+            "created": "2011-07-06T13:20:39"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "NON_CU", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Test Course Group", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Test Course Faculty", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "test_student_two", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-25T11:47:08.891", 
+            "groups": [
+                [
+                    "NON_CU"
+                ], 
+                [
+                    "Test Course Group"
+                ]
+            ], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$4ZVDSKuLqwl8$CNHWJu6UxahUE/apGCWRCqYLxg399/PnWyb0H9QL+2w=", 
+            "email": "", 
+            "date_joined": "2013-03-25T11:47:08.891"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "test_student_one", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-25T12:12:18.537", 
+            "groups": [
+                [
+                    "NON_CU"
+                ], 
+                [
+                    "Test Course Group"
+                ]
+            ], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$U051AH5cFx3Y$LlO5AG7JUEPXWOHL38acSPoDMUQ+dInpK5mHJVP+k6k=", 
+            "email": "", 
+            "date_joined": "2013-03-25T11:47:08.698"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "test_instructor", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-25T12:12:54.436", 
+            "groups": [
+                [
+                    "NON_CU"
+                ], 
+                [
+                    "Test Course Group"
+                ], 
+                [
+                    "Test Course Faculty"
+                ]
+            ], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$6k7CjaMkZQdR$9/9hucnswdCP2fS49A0GT2zQxz+XLgBHlVY+FkrsfQo=", 
+            "email": "", 
+            "date_joined": "2013-03-25T11:47:08.513"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "admin", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2013-03-25T12:17:07.998", 
+            "groups": [
+                [
+                    "NON_CU"
+                ], 
+                [
+                    "Test Course Group"
+                ], 
+                [
+                    "Test Course Faculty"
+                ]
+            ], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$Q4YfEZPzZGAo$4oy7ioWtcRYIVUbf+T0Ceugbj7EJ3TX93G3kG6KYYaI=", 
+            "email": "", 
+            "date_joined": "2013-03-25T12:15:28"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "main.coursesection", 
+        "fields": {
+            "course": 1, 
+            "name": "Default Section", 
+            "starting_states": [
+                1
+            ], 
+            "users": [
+                [
+                    "test_student_two"
+                ], 
+                [
+                    "test_student_one"
+                ], 
+                [
+                    "test_instructor"
+                ]
+            ]
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "courseaffils.course", 
+        "fields": {
+            "faculty_group": [
+                "Test Course Faculty"
+            ], 
+            "group": [
+                "Test Course Group"
+            ], 
+            "title": "Test Course"
+        }
+    }
+]

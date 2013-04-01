@@ -7,3 +7,9 @@ docs/_build
 .coverage
 cover/
 reports/
+selenium.db
+*.log
+.project
+.pydevproject
+.settings/
+mvsim/local_settings.py

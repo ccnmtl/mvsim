@@ -45,3 +45,7 @@ requirements/src/flake8-1.7.0.tar.gz
 requirements/src/logilab-common-0.59.0.tar.gz
 requirements/src/logilab-astng-0.24.1.tar.gz
 requirements/src/pylint-0.26.0.tar.gz
+
+requirements/src/lxml-2.2.8.tar.gz
+requirements/src/selenium-2.29.0.tar.gz
+requirements/src/lettuce-0.1.34.tar.gz
