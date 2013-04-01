@@ -15,7 +15,7 @@ from settings_shared import *
 # mv selenium.db mvsim/main/fixtures/selenum_base.db
 #
 # Run tests
-# ./manage.py harvest --settings=settings_selenium --debug-mode \
+# ./manage.py harvest --settings=mvsim.settings_selenium --debug-mode \
 # --verbosity=2 --traceback
 
 # Test Data
@@ -36,6 +36,10 @@ DATABASES = {
         }
     }
 }
+
+LETTUCE_APPS = (
+    'mvsim.main',
+)
 
 LETTUCE_SERVER_PORT = 8002
 STATSD_HOST = '127.0.0.1'
