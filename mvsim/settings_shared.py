@@ -30,6 +30,9 @@ MEDIA_ROOT = "/var/www/mvsim/uploads/"
 MEDIA_URL = '/uploads/'
 STATIC_URL = '/media/'
 SECRET_KEY = ')ng#)ef_u@_^zvvu@dxm7ql-yb^_!a6%v3v^j3b(mp+)l+5%@h'
+LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = '/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -205,3 +208,6 @@ MVSIM_GRAPH_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__),
                                             "../media/graphs")
 LOGIN_REDIRECT_URL = "/"
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True

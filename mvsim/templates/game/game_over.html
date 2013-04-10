@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load mvsim_tags %}
-{% block title %}Millennium Village{% endblock %}
+{% block title %}Game Over{% endblock %}
 
 {% block content %}
 <div>
@@ -21,15 +21,17 @@
       history.
     </p>
     
-    <form action="{% url new_game %}" method="post">
-    <input type="hidden" name="starting_state_id" 
-	   value="{{starting_state_id}}" />
-
-      <p>
-	You can <input type="submit" value="begin another game"
-		       class="regButton" style="font-weight: bold;" />
-	or <a href="{% url games_index %}">return to your games page</a>.</p>
-    </form>
+	<form name="start-new-game" action="{% url new_game %}" method="post">
+	  {% csrf_token %}
+	  	<p>You may <input type="button" value="begin another game"
+		    	onclick="return window.location = '/games/#start'"
+		    	class="regButton"
+		    	style="font-weight: bold;" />
+		    or 
+		    <a href="/games/#saved">return to your games page</a>.
+	    </p>
+	  </p> 
+	</form>
     
   </div>
 

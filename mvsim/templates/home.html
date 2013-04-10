@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Millenium Village Simulation Home{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-
-{% if request.user.is_superuser %}
-<p>You are a superuser, you may: <a href="/course_sections/">Admin Course Sections</a></p>
-{% endif %}
 
   <div id="welcomebox">
     <h2>Welcome to the MV Sim!</h2>
@@ -95,19 +91,17 @@ Take a look at Professor Sachs' book <a target="_blank"
     End of Poverty"</a> 
 </p>
 
-{% if starting_state_id %}
-<form name="start-new-game" action="{% url new_game %}" method="post">
-  {% csrf_token %}
-  <p>You may 
-    <input type="hidden" name="starting_state_id" 
-	   value="{{starting_state_id}}" />
-    <input type="submit" value="begin a new game"
-	   class="regButton" style="font-weight: bold;" />
-    in the Millennium Village, or 
-    <a href="/games/">pick up where you left off</a>.
-  </p> 
-</form> 
-{% endif %}
+	<form name="start-new-game" action="{% url new_game %}" method="post">
+	  {% csrf_token %}
+	  <p>You may 
+	    <input type="button" value="begin a new game"
+	    	onclick="return window.location = '/games/#start'"
+	    	class="regButton"
+	    	style="font-weight: bold;" />
+	    in the Millennium Village, or 
+	    <a href="/games/#saved">pick up where you left off</a>.
+	  </p> 
+	</form> 
 
   </div>
 

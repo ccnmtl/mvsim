@@ -20,7 +20,7 @@ from settings_shared import *
 #
 # Run tests with phantomjs:
 # SELENIUM_BROWSER=Headless ./manage.py harvest \
-#  --settings=mvsim.settings_selenium --verbosity=3
+# --settings=mvsim.settings_selenium --verbosity=3
 #
 # Install phantomjs:
 # $ npm install mocha chai webdriverjs phantomjs
@@ -50,7 +50,7 @@ LETTUCE_APPS = (
 
 LETTUCE_SERVER_PORT = 8002
 STATSD_HOST = '127.0.0.1'
-BROWSER = 'Chrome'
+BROWSER = 'Firefox'
 
 if os.environ.get('SELENIUM_BROWSER', False):
     # it's handy to be able to set this from an

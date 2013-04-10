@@ -4,7 +4,7 @@ from settings import *
 DATABASE_ENGINE = 'postgresql_psycopg2'
 
 TEMPLATE_DIRS = (
-    "/usr/local/share/sandboxes/common/mvsim/mvsim/templates",
+    "/usr/local/share/sandboxes/common/mvsim/mvsim/mvsim/templates",
 )
 
 MEDIA_ROOT = '/usr/local/share/sandboxes/common/mvsim/uploads/'

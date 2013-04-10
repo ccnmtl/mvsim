@@ -1,8 +1,37 @@
 {% extends "base.html" %}
+
+{% block title %}Course{% endblock %}
+
 {% block content %}
-<ul> Admin Course Sections
-{% for section in sections %}
-<li><a href="/course_sections/{{section.id}}/">{{section.name}}</a></li>
-{% endfor %}
-</ul>
+
+<div class="mvsim-admin">
+    <h1>Administer Course</h1>
+    
+    <div class="mvsim-admin-navigation">
+        <a href="/">Home</a> >
+       {{course}}
+    </div>
+    
+    <h2>{{course}}</h2>
+    
+    <h3>Sections</h3>
+    <ul>
+        {% for section in sections %}
+        	<li><a href="/course_sections/{{section.id}}/">{{section.name}}</a></li>
+        {% endfor %}        
+    </ul>
+
+    <h3>States</h3>
+	<ul>
+    	{% for state in all_states %}
+        	<li>
+        		<a href="/state/{{state.id}}/">{{state.name}}</a>
+        		{% if not state.visible %}
+		            <img src="/site_media/images/lock.png" title="Superusers only" alt="Superusers only" style="vertical-align: middle"/>
+		        {% endif %}
+        	</li>
+     	{% endfor %}           
+    </ul>    
+</div>
+
 {% endblock %}

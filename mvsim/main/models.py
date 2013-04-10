@@ -2,8 +2,8 @@ import colander
 from django.db import models
 from django.contrib.auth.models import User, Group
 import json
-
 from django.db.models.signals import post_save
+from deform.widget import MappingWidget
 
 
 def self_registered_user(sender, **kwargs):
@@ -94,12 +94,20 @@ schema_node_factories = {
     'list': colander.Sequence, }
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Variable(models.Model):
     name = models.TextField(unique=True)
     symbol = models.TextField(unique=True)
     description = models.TextField(blank=True)
     type = models.TextField(choices=variable_types)
     extra_type_information = models.TextField(blank=True)
+    category = models.ForeignKey(Category, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -107,7 +115,7 @@ class Variable(models.Model):
     def graphable(self):
         return self.type in ("int", "float", "bool")
 
-    def schema(self, required=True):
+    def schema(self, required=True, variable_type=None):
         type = schema_node_factories[self.type]
         kw = dict()
 
@@ -117,6 +125,14 @@ class Variable(models.Model):
         if 'choices' in info:
             choices = list(info['choices'])
             kw['validator'] = colander.OneOf(choices)
+
+        kw['description'] = self.description
+        kw['variable_type'] = variable_type
+
+        if self.category:
+            kw['category'] = self.category.name
+        else:
+            kw['category'] = 'Uncategorized'
 
         missing = required if colander.required else colander.null
         schema = colander.SchemaNode(type(),
@@ -161,15 +177,18 @@ class Configuration(models.Model):
     def schema(self, ignore_missing=False):
         coefficients = colander.SchemaNode(
             Mapping(), name="coefficients",
-            ignore_missing_required=ignore_missing)
+            ignore_missing_required=ignore_missing,
+            widget=MappingWidget(item_template='mapping_variable'))
         variables = colander.SchemaNode(
             Mapping(), name="variables",
-            ignore_missing_required=ignore_missing)
+            ignore_missing_required=ignore_missing,
+            widget=MappingWidget(item_template='mapping_variable'))
 
         for coefficient in self.coefficients.all():
-            coefficients.add(coefficient.schema(ignore_missing))
+            coefficients.add(coefficient.schema(ignore_missing, 'Coefficient'))
+
         for variable in self.variables.all():
-            variables.add(variable.schema(ignore_missing))
+            variables.add(variable.schema(ignore_missing, 'Variable'))
 
         schema = colander.SchemaNode(Mapping())
         schema.add(coefficients)
@@ -331,6 +350,7 @@ class State(models.Model):
     name = models.TextField(blank=True)
     game = models.ForeignKey(Game, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    visible = models.BooleanField(default=True)
 
     def __unicode__(self):
         if self.name:

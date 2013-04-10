@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Welcome to Millennium Village Simulation. Please log in.{% endblock %}
+{% block title %}Log In{% endblock %}
 {% block body_attributes %} class="login"{% endblock %}
 {% block content %}
 
@@ -13,7 +13,7 @@
 	
 	<form method="get" action="{{ wind_base }}login">
 	<input type="hidden" name="service" value="{{ wind_service }}" />
-	<input type="hidden" name="destination" value="http://{{ request.get_host }}/accounts/windlogin/?next={{ next }}" />
+	<input type="hidden" name="destination" value="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}/accounts/windlogin/?next={{ next }}" />
 	<p>If you have a Columbia University Network ID (UNI)...</p>
 	<input class="regbutton" type="submit" value="LOG IN" />
 	</form>

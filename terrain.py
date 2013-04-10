@@ -3,6 +3,7 @@ from django.conf import settings
 from django.test import client
 from lettuce import before, after, world, step
 from lettuce.django import django_url
+from selenium.common.exceptions import StaleElementReferenceException
 import os
 import selenium.webdriver.support.ui as ui
 import time
@@ -20,7 +21,7 @@ def setup_database(_foo):
     # make sure we have a fresh test database
     os.system("rm -f selenium.db")
     os.system("pwd")
-    os.system("cp mvsim/main/fixtures/selenum_base.db selenium.db")
+    os.system("cp mvsim/main/fixtures/selenium_base.db selenium.db")
 
 
 @before.all
@@ -123,6 +124,22 @@ def i_type_value_for_field(step, value, field):
         elt.send_keys(value)
 
 
+@step(u'there is an? ([^"]*) button')
+def there_is_a_value_button(step, value):
+    elt = find_button_by_value(value)
+    assert elt, "Cannot locate button named %s" % value
+    assert elt.is_enabled()
+    assert elt.is_displayed()
+
+
+@step(u'there is not an? ([^"]*) button')
+def there_is_not_a_value_button(step, value):
+    elt = find_button_by_value(value)
+    if elt:
+        assert not elt.is_enabled()
+        assert not elt.is_displayed()
+
+
 @step(u'I click the ([^"]*) button')
 def i_click_the_value_button(step, value):
     if not world.using_selenium:
@@ -144,6 +161,11 @@ def i_see_text(step, text):
             time.sleep(1)
             msg = "I did not see %s in this page" % text
             assert text in world.browser.page_source, msg
+
+
+@step(u'I do not see "([^"]*)"')
+def i_do_not_see_text(step, text):
+    assert text not in world.browser.page_source, world.browser.page_source
 
 
 @step(u'there is an? "([^"]*)" link')
@@ -199,15 +221,48 @@ def the_value_for_name_is_value(step, name, value):
 def the_values_for_label_are_values(step, label, expected):
     elts = world.browser.find_elements_by_tag_name("label")
     for e in elts:
-        if (e.text == label and
-                e.get_attribute("id").startswith("item-deformField")):
-            assert e.get_attribute("id") == "item-deformField173", \
-                "%s" % e.get_attribute("id")
-            parent = e.parent
-            inputs = parent.find_elements_by_css_selector("input[type=text]")
-            actual = [i.get_attribute("value") for i in inputs]
-            assert actual == expected, \
-                "Actual: %s. Expected: %s" % (actual, expected)
+        try:
+            if (e.text == label and
+                    e.get_attribute("id").startswith("item-deformField")):
+                assert e.get_attribute("id") == "item-deformField173", \
+                    "%s" % e.get_attribute("id")
+                parent = e.parent
+                inputs = parent.find_elements_by_css_selector(
+                    "input[type=text]")
+                actual = [i.get_attribute("value") for i in inputs]
+                assert actual == expected, \
+                    "Actual: %s. Expected: %s" % (actual, expected)
+        except StaleElementReferenceException:
+            pass
+
+
+@step(u'I submit the state form')
+def i_submit_the_state_form(step):
+    value = "submit"
+    if not world.using_selenium:
+        assert False, "not implemented in the django test client"
+    else:
+        elt = find_button_by_value(value)
+        assert elt, "Cannot locate button named %s" % value
+        elt.click()
+
+        elt_id = "loaded"
+        wait = ui.WebDriverWait(world.browser, 5)
+        wait.until(lambda driver: world.browser.find_element_by_id(elt_id))
+
+
+@step(u'I sort by "([^"]*)"')
+def i_sort_by_sort_order(step, sort_order):
+    elts = world.browser.find_elements_by_css_selector("th")
+    for e in elts:
+        if e.text == sort_order:
+            e.click()
+
+
+@step(u'I wait (\d+) seconds?')
+def i_wait_count_seconds(step, count):
+    n = int(count)
+    time.sleep(n)
 
 
 def find_button_by_value(value, parent=None):

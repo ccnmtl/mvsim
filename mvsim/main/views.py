@@ -1,34 +1,77 @@
-from django.conf import settings
-from django.http import (HttpResponseRedirect as redirect,
-                         HttpResponse,
-                         HttpResponseForbidden as forbidden)
-from djangohelpers.lib import allow_http, rendered_with
-from mvsim.main.models import Game, State, CourseSection, Configuration
-from mvsim.main.models import UserInput, high_scores
-from engine.logic import get_notifications
-from engine import logic
-from engine import display_logic
-import deform
-import json
-from urlparse import parse_qsl
-from pkg_resources import resource_filename
 from chainedrandom import ChainedRandom
+from django.conf import settings
+from django.http import HttpResponseRedirect as redirect, HttpResponse, \
+    HttpResponseForbidden as forbidden
 from django.shortcuts import get_object_or_404
 from django_statsd.clients import statsd
+from djangohelpers.lib import allow_http, rendered_with
+from engine import display_logic, logic
+from engine.logic import get_notifications
+from mvsim.main.models import Game, State, CourseSection, Configuration, \
+    UserInput, high_scores
+from pkg_resources import resource_filename
+from urlparse import parse_qsl
+import deform
+import json
 
 
 @allow_http("POST")
 def clone_state(request, state_id):
+    if not request.user.is_superuser:
+        return forbidden("Forbidden")
+
     state = State.objects.get(id=state_id)
 
     new_state = State(name=request.POST.get('state_name') or state.name)
     new_state.state = state.state
+    new_state.visible = request.POST.get('visible', False) == "True"
     new_state.save()
+
+    # Add new sections
+    posted_sections = request.POST.getlist('associated_sections')
+    for section_id in posted_sections:
+        section = get_object_or_404(CourseSection, id=section_id)
+        section.starting_states.add(new_state)
+        section.save()
+
     return redirect(new_state.view_state_url())
+
+
+@allow_http("POST")
+def edit_state(request, state_id):
+    if not request.user.is_superuser:
+        return forbidden()
+
+    state = State.objects.get(id=state_id)
+
+    if 'visible' in request.POST:
+        state.visible = request.POST.get('visible') == "True"
+        state.save()
+
+    posted_sections = request.POST.getlist('associated_sections')
+    associated_sections = list(state.coursesection_set.all())
+
+    # Add new sections
+    for section_id in posted_sections:
+        section = get_object_or_404(CourseSection, id=section_id)
+        if section not in associated_sections:
+            section.starting_states.add(state)
+            section.save()
+
+    # Remove sections as needed
+    for section in associated_sections:
+        if str(section.id) not in posted_sections:
+            section.starting_states.remove(state)
+            section.save()
+
+    return redirect(state.view_state_url())
 
 
 @rendered_with("admin/view_state.html")
 def view_state(request, state_id):
+    if not request.user.is_superuser:
+        return forbidden()
+
     state = State.objects.get(id=state_id)
     config = Configuration.objects.get(pk=1)
     schema = config.schema()
@@ -42,6 +85,11 @@ def view_state(request, state_id):
     if state.game:
         readonly = True
 
+    available_sections = []
+    for section in request.course.coursesection_set.all():
+        if section not in state.coursesection_set.all():
+            available_sections.append(section)
+
     # Deform's form.render API allows you to pass a readonly=True flag
     # to have deform render a readonly representation of the data;
     # but, the default readonly templates aren't form-like, they're just
@@ -52,29 +100,43 @@ def view_state(request, state_id):
     if request.method == "GET":
         return {'form': form.render(state.loads()),
                 'readonly': readonly,
-                'state': state}
+                'state': state,
+                'course': request.course,
+                'available_sections': available_sections,
+                'saved': request.GET.get('msg', None)}
 
     if readonly:
         return forbidden()
 
+    #else if request.method == "POST"
     controls = parse_qsl(request.raw_post_data, keep_blank_values=True)
+
     try:
         appstruct = form.validate(controls)
     except deform.ValidationFailure, e:
-        return {
-            'form': e.render(), 'readonly': readonly, 'state': state}
+        rv = {
+            'form': e.render(),
+            'readonly': readonly,
+            'state': state,
+            'course': request.course,
+            'available_sections': available_sections}
+        return rv
+
     new_state = json.dumps(appstruct)
     state.state = new_state
     state.save()
-    return redirect(".")
+    url = "%s?msg=saved" % state.view_state_url()
+    return redirect(url)
 
 
 @rendered_with("admin/course_sections.html")
 def admin_course_sections(request):
     if not request.user.is_superuser:
         return forbidden()
-    sections = CourseSection.objects.all()
-    return dict(sections=sections)
+
+    sections = CourseSection.objects.filter(course=request.course)
+    states = State.objects.all().exclude(name="").order_by("name")
+    return dict(sections=sections, course=request.course, all_states=states)
 
 
 @rendered_with("admin/course_section.html")
@@ -82,7 +144,13 @@ def admin_course_section(request, section_id):
     if not request.user.is_superuser:
         return forbidden()
     section = get_object_or_404(CourseSection, id=section_id)
-    return dict(section=section)
+    states = State.objects.all().exclude(name="")
+
+    users = []
+    for u in section.users.all():
+        users.append(u.get_full_name() if u.get_full_name() else u.username)
+
+    return dict(section=section, all_states=states, users=sorted(users))
 
 
 @rendered_with("admin/course_section_game_stats.html")
@@ -96,20 +164,25 @@ def course_section_game_stats(request, section_id):
 def associate_state(request, section_id):
     if not request.user.is_superuser:
         return forbidden()
-    section = get_object_or_404(CourseSection, id=section_id)
-    state = get_object_or_404(State, id=request.POST.get('state_id', ''))
-    section.starting_states.add(state)
-    section.save()
-    return redirect("/course_sections/%d/" % section.id)
 
-
-def disassociate_state(request, section_id, state_id):
-    if not request.user.is_superuser:
-        return forbidden()
     section = get_object_or_404(CourseSection, id=section_id)
-    state = get_object_or_404(State, id=state_id)
-    section.starting_states.remove(state)
-    section.save()
+
+    posted_states = request.POST.getlist('associated_states')
+    associated_states = list(section.starting_states.all())
+
+    # Add new states
+    for state_id in posted_states:
+        state = get_object_or_404(State, id=state_id)
+        if state not in associated_states:
+            section.starting_states.add(state)
+            section.save()
+
+    # Remove sections as needed
+    for state in associated_states:
+        if str(state.id) not in posted_states:
+            section.starting_states.remove(state)
+            section.save()
+
     return redirect("/course_sections/%d/" % section.id)
 
 
@@ -158,10 +231,16 @@ def games_index(request):
             starting_state=state)
         return redirect(game.show_game_url())
 
+    states = section.starting_states.all()
+    if not request.user.is_superuser:
+        states = states.exclude(visible=False)
+
     games = Game.objects.filter(user=request.user,
                                 course=request.course)
-    return {'games': games, 'section': section,
-            'high_scores': high_scores(course=request.course)}
+    return {'games': games,
+            'section': section,
+            'high_scores': high_scores(course=request.course),
+            'starting_states': states}
 
 
 def build_template_context(request, game, turn_number=None):
@@ -344,7 +423,7 @@ def submit_turn(request, game_id):
     alive, variables = turn.go()
 
     del variables.people
-    import json
+
     old_state = game.current_state()
     new_state = State(name=old_state.name, game=old_state.game)
     new_state.state = json.dumps(dict(

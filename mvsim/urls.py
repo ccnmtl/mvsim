@@ -10,11 +10,13 @@ site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 doc_root = os.path.join(os.path.dirname(__file__), "../docs", "_build", "html")
 
 redirect_after_logout = getattr(settings, 'LOGOUT_REDIRECT_URL', None)
+
 auth_urls = (r'^accounts/', include('django.contrib.auth.urls'))
 
 logout_page = (r'^accounts/logout/$',
                'django.contrib.auth.views.logout',
                {'next_page': redirect_after_logout})
+
 if hasattr(settings, 'WIND_BASE'):
     auth_urls = (r'^accounts/', include('djangowind.urls'))
     logout_page = (r'^accounts/logout/$',
@@ -23,8 +25,8 @@ if hasattr(settings, 'WIND_BASE'):
 
 urlpatterns = patterns(
     '',
-    auth_urls,
     logout_page,
+    auth_urls,
     (r'^registration/', include('registration.urls')),
     url(r'^impersonate/', include('impersonate.urls')),
     url(r'^$', 'mvsim.main.views.home', name='home'),
@@ -59,6 +61,10 @@ urlpatterns = patterns(
         name="view_state"),
     url(r'^state/(?P<state_id>\d+)/clone/$', 'mvsim.main.views.clone_state',
         name="clone_state"),
+    url(r'^state/(?P<state_id>\d+)/edit/$',
+        'mvsim.main.views.edit_state',
+        name="edit_state"),
+
 
     url(r'^course_sections/$',
         'mvsim.main.views.admin_course_sections',
@@ -71,9 +77,6 @@ urlpatterns = patterns(
         name="course_section_game_stats"),
     url(r'^course_sections/(?P<section_id>\d+)/associate_state/$',
         'mvsim.main.views.associate_state', name="associate_state"),
-    url((r'^course_sections/(?P<section_id>\d+)/disassociate_state/'
-         r'(?P<state_id>\d+)/$'),
-        'mvsim.main.views.disassociate_state', name="disassociate_state"),
 
     (r'^admin/', include(admin.site.urls)),
     (r'^munin/', include('munin.urls')),

@@ -3,7 +3,7 @@
 
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-    <title>{% block title %}{% endblock %}</title>
+    <title>MV Sim: {% block title %}{% endblock %}</title>
     
     {% block scripts %}{% endblock %}
     <style type="text/css">
@@ -25,11 +25,17 @@
       <div id="pageLogin">
 	<ul>
 	  <li>
-	    <b>Member name:</b>
+	    <b>Name:</b>
 	    {{user.username}}
 	  </li>
+	  
+	  
+	  {% if request.user.is_superuser %}
+		<li><a href="/course_sections/">Admin</a></li>
+	  {% endif %}
+
 	  <li>
-	    <a href="{% url games_index %}">My games</a>
+	    <a href="{% url games_index %}">My Games</a>
 	  </li>
 	  {% if user.is_admin %}
 	  <li><a href="/admin/">Sim admin</a></li>
