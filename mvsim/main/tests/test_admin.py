@@ -22,7 +22,7 @@ class AdminCourseTest(TestCase):
 
         state = State.objects.get(id=1)
         self.assertEquals(state.visible, True)
-        self.assertEquals(len(state.coursesection_set.all()), 2)
+        self.assertEquals(len(state.coursesection_set.all()), 1)
 
     def test_edit_state_access(self):
         client = Client()
