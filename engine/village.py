@@ -190,20 +190,25 @@ class Village:
     def message(self, m):
         self.state.user_messages.append(m)
 
-    def update_subsidy_offers(self):
-        """NGOs occasionally offer to subsidize various village improvements"""
-        if not self.coeffs.enable_NGO_offers:
-            return
-
+    def eligible_for_road_subsidy_offer(self):
         # After the first (n) years, it should be highly likely (about 50%)
         # that the government offer to subsidize a road
         if not self.state.road:
             if self.state.year > (self.coeffs.starting_year
                                   + self.coeffs.road_subsidy_year):
                 if 'road' not in self.state.subsidy_offers:
-                    if rand_n(self.tc, 100) < 50.0:
-                        self.message("road subsidy")
-                        self.state.subsidy_offers.append('road')
+                    return True
+        return False
+
+    def update_subsidy_offers(self):
+        """NGOs occasionally offer to subsidize various village improvements"""
+        if not self.coeffs.enable_NGO_offers:
+            return
+
+        if self.eligible_for_road_subsidy_offer():
+            if rand_n(self.tc, 100) < 50.0:
+                self.message("road subsidy")
+                self.state.subsidy_offers.append('road')
 
         # Before there is a road, there should be no offers to subsidize
         # village improvements
