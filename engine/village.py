@@ -310,7 +310,6 @@ class Village:
     def calc_wood_stock(self):
         assert self.coeffs.avg_family_size != 0
         assert self.coeffs.wood_k != 0
-        (rand_n(self.tc, 100) / 1000.00 - 0.05) * self.state.amount_wood
         total_wood_chopped = self.state.amount_wood \
             * ((95.0 + rand_n(self.tc, 10)) / 100.0) \
             * (self.state.village_population
