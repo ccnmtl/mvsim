@@ -244,7 +244,7 @@ class Village:
             (self.state.water_pump, 'water_pump', "water pump subsidy"),
             (self.state.meals, 'meals', "meals subsidy"),
             (self.state.electricity, 'electricity', "electricity subsidy"),
-            ]
+        ]
 
         for (state_var, offer_name, message) in offers:
             if not state_var and offer_name not in self.state.subsidy_offers:
@@ -284,14 +284,17 @@ class Village:
                     for improvement in self.state.improvements
                     if improvement != ""])
 
+    def total_fish_caught(self):
+        households = (self.state.village_population
+                      / self.coeffs.avg_family_size)
+        return (self.state.amount_fish * households
+                * ((90.0 + rand_n(self.tc, 20)) / 100.0))
+
     def calc_fish_stock(self):
         assert self.coeffs.avg_family_size != 0
         assert self.coeffs.fish_k != 0
 
-        households = (self.state.village_population
-                      / self.coeffs.avg_family_size)
-        total_fish_caught = self.state.amount_fish * households \
-            * ((90.0 + rand_n(self.tc, 20)) / 100.0)
+        total_fish_caught = self.total_fish_caught()
 
         return max(self.state.fish_stock
                    + (self.coeffs.fish_growth_rate * self.state.fish_stock
