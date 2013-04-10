@@ -2,10 +2,11 @@
 
 import stateless_logic
 
-from person import Person
+from .person import Person
 import fuel
 
-from event import get_events
+from .event import get_events
+from .util import rand_n
 
 
 def get_notifications(before, after, coeffs, events_csv=None):
@@ -171,10 +172,6 @@ def new_child(tc, coeffs, state):
                   schooling_state="under 5", health_t1=health,
                   health_t2=health, health_t3=health, coeffs=coeffs,
                   tc=tc)
-
-
-def rand_n(tc, n):
-    return tc.randint(a=0, b=n, n=1).values[0]
 
 
 class Turn:
@@ -648,7 +645,7 @@ class Turn:
             self.state.drought = True
 
     def rand_n(self, n):
-        return self.tc.randint(a=0, b=n, n=1).values[0]
+        return rand_n(self.tc, n)
 
     def check_final_health(self):
         dead = []

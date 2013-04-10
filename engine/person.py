@@ -1,9 +1,6 @@
-from schooling import SchoolingFSM
-from disease import available_diseases
-
-
-def rand_n(tc, n):
-    return tc.randint(a=0, b=n, n=1).values[0]
+from .schooling import SchoolingFSM
+from .disease import available_diseases
+from .util import rand_n
 
 
 def in_range(low, high, v):

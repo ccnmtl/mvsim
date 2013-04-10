@@ -1,3 +1,5 @@
+from .util import rand_n
+
 class Village:
     #uses the same state object as everyone else
     #village stuff:
@@ -343,7 +345,3 @@ class Village:
         # update user messages
         if self.state.precipitation >= 2 * self.coeffs.avg_precipitation:
             self.message("good rains")
-
-
-def rand_n(tc, n):
-    return tc.randint(a=0, b=n, n=1).values[0]
