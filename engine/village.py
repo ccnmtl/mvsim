@@ -216,13 +216,20 @@ class Village:
             return False
         return True
 
+    def bernoulli_variable(self, percentage):
+        """ returns True percentage % of the time
+
+        (integer percentage values only)
+        """
+        return rand_n(self.tc, 100) < percentage
+
     def update_subsidy_offers(self):
         """NGOs occasionally offer to subsidize various village improvements"""
         if not self.coeffs.enable_NGO_offers:
             return
 
         if self.eligible_for_road_subsidy_offer():
-            if rand_n(self.tc, 100) < 50.0:
+            if self.bernoulli_variable(50):
                 self.message("road subsidy")
                 self.state.subsidy_offers.append('road')
 
@@ -232,33 +239,33 @@ class Village:
         # power, sanitation, water pump, irrigation, or school meals, clinic
 
         if not self.state.clinic and 'clinic' not in self.state.subsidy_offers:
-            if rand_n(self.tc, 100) < 5:
+            if self.bernoulli_variable(5):
                 self.message("clinic subsidy")
                 self.state.subsidy_offers.append('clinic')
         if (not self.state.irrigation
                 and 'irrigation' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
+            if self.bernoulli_variable(5):
                 self.message("irrigation subsidy")
                 self.state.subsidy_offers.append('irrigation')
         if (not self.state.sanitation
                 and 'sanitation' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
+            if self.bernoulli_variable(5):
                 self.message("sanitation subsidy")
                 self.state.subsidy_offers.append('sanitation')
 
         if (not self.state.water_pump
                 and 'water_pump' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
+            if self.bernoulli_variable(5):
                 self.message('water pump subsidy')
                 self.state.subsidy_offers.append('water_pump')
         if (not self.state.meals
                 and 'meals' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
+            if self.bernoulli_variable(5):
                 self.message('meals subsidy')
                 self.state.subsidy_offers.append("meals")
         if (not self.state.electricity
                 and 'electricity' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
+            if self.bernoulli_variable(5):
                 self.message('electricity subsidy')
                 self.state.subsidy_offers.append("electricity")
 
