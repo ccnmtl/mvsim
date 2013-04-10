@@ -1,5 +1,6 @@
 from .util import rand_n
 
+
 class Village:
     #uses the same state object as everyone else
     #village stuff:
