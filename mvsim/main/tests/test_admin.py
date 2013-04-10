@@ -11,7 +11,7 @@ class AdminCourseTest(TestCase):
         # When a course is created, it automatically gets a section
         # and is associated with the default state
         course = Course.objects.get(id=1)
-        self.assertEquals(len(course.coursesection_set.all()), 2)
+        self.assertEquals(len(course.coursesection_set.all()), 1)
 
         section = CourseSection.objects.get(id=1)
         self.assertEquals(section.name, 'Default Section')
@@ -58,7 +58,7 @@ class AdminCourseTest(TestCase):
 
         state = State.objects.get(id=1)
         self.assertEquals(state.visible, True)
-        self.assertEquals(len(state.coursesection_set.all()), 2)
+        self.assertEquals(len(state.coursesection_set.all()), 1)
 
         client.post("/state/1/edit/", {u'visible': [u'True'],
                                        u'associated_sections': [u'1']})
@@ -93,7 +93,7 @@ class AdminCourseTest(TestCase):
 
         state = State.objects.get(id=1)
         self.assertEquals(state.visible, True)
-        self.assertEquals(len(state.coursesection_set.all()), 2)
+        self.assertEquals(len(state.coursesection_set.all()), 1)
         self.assertEquals(state.coursesection_set.all()[0].name,
                           "Default Section")
 
