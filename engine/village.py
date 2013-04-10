@@ -311,13 +311,16 @@ class Village:
                                     * self.coeffs.fish_stock_warn_threshold):
             self.message('fish stock depletion')
 
+    def total_wood_chopped(self):
+        return (self.state.amount_wood
+                * ((95.0 + rand_n(self.tc, 10)) / 100.0)
+                * (self.state.village_population
+                   / self.coeffs.avg_family_size))
+
     def calc_wood_stock(self):
         assert self.coeffs.avg_family_size != 0
         assert self.coeffs.wood_k != 0
-        total_wood_chopped = self.state.amount_wood \
-            * ((95.0 + rand_n(self.tc, 10)) / 100.0) \
-            * (self.state.village_population
-               / self.coeffs.avg_family_size)
+        total_wood_chopped = self.total_wood_chopped()
         return max(self.state.wood_stock
                    + (self.coeffs.forest_growth_rate
                       * self.state.wood_stock * (1 - (self.state.wood_stock
