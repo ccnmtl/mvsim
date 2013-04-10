@@ -237,37 +237,20 @@ class Village:
             return
 
         # power, sanitation, water pump, irrigation, or school meals, clinic
+        offers = [
+            (self.state.clinic, 'clinic', "clinic subsidy"),
+            (self.state.irrigation, 'irrigation', "irrigation subsidy"),
+            (self.state.sanitation, 'sanitation', "sanitation subsidy"),
+            (self.state.water_pump, 'water_pump', "water pump subsidy"),
+            (self.state.meals, 'meals', "meals subsidy"),
+            (self.state.electricity, 'electricity', "electricity subsidy"),
+            ]
 
-        if not self.state.clinic and 'clinic' not in self.state.subsidy_offers:
-            if self.bernoulli_variable(5):
-                self.message("clinic subsidy")
-                self.state.subsidy_offers.append('clinic')
-        if (not self.state.irrigation
-                and 'irrigation' not in self.state.subsidy_offers):
-            if self.bernoulli_variable(5):
-                self.message("irrigation subsidy")
-                self.state.subsidy_offers.append('irrigation')
-        if (not self.state.sanitation
-                and 'sanitation' not in self.state.subsidy_offers):
-            if self.bernoulli_variable(5):
-                self.message("sanitation subsidy")
-                self.state.subsidy_offers.append('sanitation')
-
-        if (not self.state.water_pump
-                and 'water_pump' not in self.state.subsidy_offers):
-            if self.bernoulli_variable(5):
-                self.message('water pump subsidy')
-                self.state.subsidy_offers.append('water_pump')
-        if (not self.state.meals
-                and 'meals' not in self.state.subsidy_offers):
-            if self.bernoulli_variable(5):
-                self.message('meals subsidy')
-                self.state.subsidy_offers.append("meals")
-        if (not self.state.electricity
-                and 'electricity' not in self.state.subsidy_offers):
-            if self.bernoulli_variable(5):
-                self.message('electricity subsidy')
-                self.state.subsidy_offers.append("electricity")
+        for (state_var, offer_name, message) in offers:
+            if not state_var and offer_name not in self.state.subsidy_offers:
+                if self.bernoulli_variable(5):
+                    self.message(message)
+                    self.state.subsidy_offers.append(offer_name)
 
     def check_improvement_price(self, improvement):
         price = self.raw_improvement_price(improvement)
