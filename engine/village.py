@@ -201,6 +201,21 @@ class Village:
                     return True
         return False
 
+    def eligible_for_other_subsidy_offers(self):
+        # Before there is a road, there should be no offers to subsidize
+        # village improvements
+        if not self.state.road:
+            return False
+
+        # Assuming you have a road, then beginning in the year defined
+        # in the coeffs, there is a 5% chance on any given turn that
+        # an NGO will offer to subsidize a village improvement.
+
+        if self.state.year < (self.coeffs.starting_year
+                              + self.coeffs.other_subsidy_year):
+            return False
+        return True
+
     def update_subsidy_offers(self):
         """NGOs occasionally offer to subsidize various village improvements"""
         if not self.coeffs.enable_NGO_offers:
@@ -211,17 +226,7 @@ class Village:
                 self.message("road subsidy")
                 self.state.subsidy_offers.append('road')
 
-        # Before there is a road, there should be no offers to subsidize
-        # village improvements
-        if not self.state.road:
-            return
-
-        # Assuming you have a road, then beginning in the year defined
-        # in the coeffs, there is a 5% chance on any given turn that
-        # an NGO will offer to subsidize a village improvement.
-
-        if self.state.year < (self.coeffs.starting_year
-                              + self.coeffs.other_subsidy_year):
+        if not self.eligible_for_other_subsidy_offers():
             return
 
         # power, sanitation, water pump, irrigation, or school meals, clinic
