@@ -309,6 +309,10 @@ class TestVillage(unittest.TestCase):
                             microfinance_repay_period=8,
                             microfinance_drought_effect=1,
                             microfinance_epidemic_effect=1,
+                            max_precipitation=10,
+                            drought_threshold=1,
+                            enable_drought=True,
+                            no_droughts_before=5,
                             )
         state = StubState(village_population=VILLAGE_POPULATION,
                           population=POPULATION,
@@ -487,6 +491,9 @@ class TestVillage(unittest.TestCase):
         # make sure that a zero population doesn't give us a divide by zero
         self.village.state.population = 0
         self.village.calculate_taxes(10.0)
+
+    def test_update_precipitation(self):
+        self.village.update_precipitation()
 
 
 class TestSchoolingFSM(unittest.TestCase):
