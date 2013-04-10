@@ -335,10 +335,7 @@ class Village:
                                     * self.coeffs.wood_stock_warn_threshold):
             self.message('wood stock depletion')
 
-    def update_precipitation(self):
-        self.state.precipitation = (rand_n(self.tc, 1000) / 1000.00) \
-            * self.coeffs.max_precipitation
-
+    def drought_prevention(self):
         # no drought allowed during first n years
         if self.state.precipitation < self.coeffs.drought_threshold:
             if not self.coeffs.enable_drought:
@@ -347,6 +344,13 @@ class Village:
                                              + self.coeffs.no_droughts_before)
             if self.state.year < earliest_allowed_drought_year:
                 self.state.precipitation = self.coeffs.drought_threshold
+
+    def update_precipitation(self):
+        self.state.precipitation = (rand_n(self.tc, 1000) / 1000.00) \
+            * self.coeffs.max_precipitation
+
+        # no drought allowed during first n years
+        self.drought_prevention()
 
         # update user messages
         if self.state.precipitation >= 2 * self.coeffs.avg_precipitation:
