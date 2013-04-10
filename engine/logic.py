@@ -154,8 +154,16 @@ def marshall_people(people, state):
 
 
 def new_child(tc, coeffs, state):
-    name = coeffs.child_names[state.births]
-    gender = coeffs.child_genders[state.births]
+    if state.births < len(coeffs.child_names):
+        name = coeffs.child_names[state.births]
+    else:
+        # start numbering the children
+        name = "child%d" % (state.births + 1)
+    if state.births < len(coeffs.child_genders):
+        gender = coeffs.child_genders[state.births]
+    else:
+        # randomly pick one?
+        gender = ['Male', 'Female'][tc.randint(a=0, b=1, n=1).values[0]]
     health = tc.randint(a=0, b=100, n=1).values[0]  # is this right?
     state.births += 1
     return Person(name=name, gender=gender, age=0, health=health,

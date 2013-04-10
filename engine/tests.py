@@ -598,6 +598,21 @@ class TestFunctions(unittest.TestCase):
         child = new_child(self.tc, self.coeffs, self.state)
         assert child.name == 'bart'
 
+    def test_new_child_more_children_than_names(self):
+        """ if more children are born than we have names for
+        we need to start numbering them.
+        shows up as sentry: /sentry/group/1400
+        """
+        self.coeffs.child_names = ['bart']
+        self.coeffs.child_genders = ['Male']
+        self.state.births = 0
+        child = new_child(self.tc, self.coeffs, self.state)
+        assert child.name == 'bart'
+        child2 = new_child(self.tc, self.coeffs, self.state)
+        assert child2.name == 'child2'
+        child3 = new_child(self.tc, self.coeffs, self.state)
+        assert child3.name == 'child3'
+
 
 class TestTurn(unittest.TestCase):
     def setUp(self):
