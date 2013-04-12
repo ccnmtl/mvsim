@@ -1215,3 +1215,13 @@ class TestDisplayLogic(unittest.TestCase):
         }
         r = add_extra_seasonreport_context(context)
         assert r['new_baby'] == "child1"
+
+        # and make sure the normal case still works
+        self.coeffs.child_names = ['bart']
+        context = {
+            'people': [],
+            'state': self.state,
+            'coeffs': self.coeffs,
+        }
+        r = add_extra_seasonreport_context(context)
+        self.assertEquals(r['new_baby'], "bart")

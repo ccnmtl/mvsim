@@ -242,7 +242,7 @@ def add_extra_seasonreport_context(context):
     context['percent_infected'] = percent_infected
 
     if 'child born' in state.user_messages:
-        if int(state.births) < len(coeffs.child_names):
+        if int(state.births) < len(coeffs.child_names) + 1:
             context['new_baby'] = coeffs.child_names[int(state.births) - 1]
         else:
             context['new_baby'] = "child%d" % int(state.births)
