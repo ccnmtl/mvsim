@@ -3,6 +3,7 @@ import unittest
 from engine.logic import Person, Village, Coeffs, State, setup_people, Turn
 from engine.logic import rand_n, marshall_people, new_child
 from engine.schooling import SchoolingFSM
+from engine.display_logic import add_extra_seasonreport_context
 
 
 class StubTC:
@@ -1157,3 +1158,48 @@ class TestTurn(unittest.TestCase):
         assert self.turn.food_cost() == 20
         self.turn.state.meals = True
         assert self.turn.food_cost() == 20 * 1.2
+
+
+class TestDisplayLogic(unittest.TestCase):
+    def setUp(self):
+        self.state = StubState(
+            drought=False,
+            epidemic=False,
+            family_water_needs=0,
+            amount_water=0,
+            water_pump=False,
+            wood_income=0,
+            amount_wood=0,
+            purchase_items=[],
+            sell_items=[],
+            user_messages=[],
+            improvements=[],
+            village_population=1,
+            village_infected_pop=0,
+            wood_stock=0,
+            fish_stock=0,
+            clinic=False,
+        )
+        self.coeffs=StubCoeffs(
+            wood_price=1,
+            wood_fuel_coeff=1,
+            doctor_visit_cost=1,
+            available_improvements=[],
+            improvement_labels=[],
+            visual_intervals_forest=[],
+            visual_intervals_fish=[],
+        )
+
+    def tearDown(self):
+        pass
+
+    def test_add_extra_seasonreport_context(self):
+        context = {
+            'people': [],
+            'state': self.state,
+            'coeffs': self.coeffs,
+        }
+        r = add_extra_seasonreport_context(context)
+        assert r['n_health_people'] == 0
+        assert r['money_spent'] == 0
+        assert r['money_earned'] == 0
