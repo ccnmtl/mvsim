@@ -1203,6 +1203,20 @@ class TestDisplayLogic(unittest.TestCase):
         assert r['n_health_people'] == 0
         assert r['money_spent'] == 0
         assert r['money_earned'] == 0
+        assert r['percent_infected'] == 0
+
+        # needs to not barf on zero population
+        context['state'].village_population = 0
+        r = add_extra_seasonreport_context(context)
+        assert r['percent_infected'] == 0
+
+        # test out village improvements
+        context['state'].improvements = ['foo']
+        context['coeffs'].available_improvements = ['foo']
+        context['coeffs'].improvement_labels = ['bar']
+        r = add_extra_seasonreport_context(context)
+        assert r['village_improvements'] == ['bar']
+
 
     def test_more_births_than_child_names(self):
         self.state.user_messages.append('child born')
