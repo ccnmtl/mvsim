@@ -242,7 +242,10 @@ def add_extra_seasonreport_context(context):
     context['percent_infected'] = percent_infected
 
     if 'child born' in state.user_messages:
-        context['new_baby'] = coeffs.child_names[int(state.births) - 1]
+        if int(state.births) < len(coeffs.child_names):
+            context['new_baby'] = coeffs.child_names[int(state.births) - 1]
+        else:
+            context['new_baby'] = "child%d" % int(state.births)
 
     context['foreststock'] = simple_controller.get_interval_class(
         state.wood_stock, coeffs.visual_intervals_forest)
