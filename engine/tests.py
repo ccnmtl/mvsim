@@ -1180,7 +1180,7 @@ class TestDisplayLogic(unittest.TestCase):
             fish_stock=0,
             clinic=False,
         )
-        self.coeffs=StubCoeffs(
+        self.coeffs = StubCoeffs(
             wood_price=1,
             wood_fuel_coeff=1,
             doctor_visit_cost=1,
