@@ -262,8 +262,5 @@ def village_badnews_block(state):
     fish_depletion_report = 'fish stock depletion' in state.user_messages
     wood_depletion_report = 'wood stock depletion' in state.user_messages
 
-    if (state.drought or state.epidemic or fish_depletion_report
-            or wood_depletion_report):
-        return True
-    else:
-        return False
+    return any([state.drought, state.epidemic, fish_depletion_report,
+                wood_depletion_report])
