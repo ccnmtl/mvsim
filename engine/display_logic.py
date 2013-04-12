@@ -257,10 +257,9 @@ def village_goodnews_block(state):
     electric_subs_report = 'electricity subsidy' in state.user_messages
     good_rain_report = 'good rains' in state.user_messages
 
-    has_subsidy = False
-    if ngo_bednets_report or road_subs_report or clinic_subs_report or \
-            irrigation_subs_report or sanitation_subs_report or \
-            water_pump_report or meals_subs_report or electric_subs_report:
-        has_subsidy = True
+    has_subsidy = any(
+        [ngo_bednets_report, road_subs_report, clinic_subs_report,
+         irrigation_subs_report, sanitation_subs_report, water_pump_report,
+         meals_subs_report, electric_subs_report])
 
     return (has_subsidy or good_rain_report, has_subsidy)
