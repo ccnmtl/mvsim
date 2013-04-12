@@ -226,13 +226,10 @@ def add_extra_seasonreport_context(context):
     context['items_bought'] = items_bought
     context['items_sold'] = items_sold
 
-    village_improvements = []
-    for item, label in zip(coeffs.available_improvements,
-                           coeffs.improvement_labels):
-        if item in state.improvements:
-            village_improvements.append(label)
-
-    context['village_improvements'] = village_improvements
+    context['village_improvements'] = list(village_improvements(
+        coeffs.available_improvements,
+        coeffs.improvement_labels,
+        state.improvements))
 
     percent_infected = 0
     if state.village_population != 0:
@@ -261,3 +258,9 @@ def new_child_name(births, child_names):
         return child_names[int(births) - 1]
     else:
         return "child%d" % int(births)
+
+
+def village_improvements(available, labels, all_improvements):
+    for item, label in zip(available, labels):
+        if item in all_improvements:
+            yield label

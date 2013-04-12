@@ -1217,7 +1217,6 @@ class TestDisplayLogic(unittest.TestCase):
         r = add_extra_seasonreport_context(context)
         assert r['village_improvements'] == ['bar']
 
-
     def test_more_births_than_child_names(self):
         self.state.user_messages.append('child born')
         self.state.births = 1
