@@ -203,12 +203,7 @@ def add_extra_seasonreport_context(context):
         coeffs.improvement_labels,
         state.improvements))
 
-    percent_infected = 0
-    if state.village_population != 0:
-        percent_infected = (state.village_infected_pop
-                            / float(state.village_population) * 100)
-
-    context['percent_infected'] = percent_infected
+    context['percent_infected'] = percent_infected(state)
 
     if 'child born' in state.user_messages:
         context['new_baby'] = new_child_name(state.births, coeffs.child_names)
@@ -263,3 +258,11 @@ def village_goodnews_block(state):
          meals_subs_report, electric_subs_report])
 
     return (has_subsidy or good_rain_report, has_subsidy)
+
+
+def percent_infected(state):
+    if state.village_population != 0:
+        return (state.village_infected_pop
+                / float(state.village_population) * 100)
+    else:
+        return 0
