@@ -138,29 +138,9 @@ def add_extra_seasonreport_context(context):
 
     state = context['state']
 
-    ngo_bednets_report = 'NGO bednets' in state.user_messages
-    road_subs_report = 'road subsidy' in state.user_messages
-    clinic_subs_report = 'clinic subsidy' in state.user_messages
-    irrigation_subs_report = 'irrigation subsidy' in state.user_messages
-    sanitation_subs_report = 'sanitation subsidy' in state.user_messages
-    water_pump_report = 'water pump subsidy' in state.user_messages
-    meals_subs_report = 'meals subsidy' in state.user_messages
-    electric_subs_report = 'electricity subsidy' in state.user_messages
-    good_rain_report = 'good rains' in state.user_messages
-
-    has_subsidy = False
-    if ngo_bednets_report or road_subs_report or clinic_subs_report or \
-            irrigation_subs_report or sanitation_subs_report or \
-            water_pump_report or meals_subs_report or electric_subs_report:
-        has_subsidy = True
-
-    village_goodnews_block = False
-    if has_subsidy or good_rain_report:
-        village_goodnews_block = True
-
-    context['village_goodnews_block'] = village_goodnews_block
+    (context['village_goodnews_block'],
+     context['has_subsidy']) = village_goodnews_block(state)
     context['village_badnews_block'] = village_badnews_block(state)
-    context['has_subsidy'] = has_subsidy
 
     water_used = state.family_water_needs
     if water_used > state.amount_water:
@@ -264,3 +244,23 @@ def village_badnews_block(state):
 
     return any([state.drought, state.epidemic, fish_depletion_report,
                 wood_depletion_report])
+
+
+def village_goodnews_block(state):
+    ngo_bednets_report = 'NGO bednets' in state.user_messages
+    road_subs_report = 'road subsidy' in state.user_messages
+    clinic_subs_report = 'clinic subsidy' in state.user_messages
+    irrigation_subs_report = 'irrigation subsidy' in state.user_messages
+    sanitation_subs_report = 'sanitation subsidy' in state.user_messages
+    water_pump_report = 'water pump subsidy' in state.user_messages
+    meals_subs_report = 'meals subsidy' in state.user_messages
+    electric_subs_report = 'electricity subsidy' in state.user_messages
+    good_rain_report = 'good rains' in state.user_messages
+
+    has_subsidy = False
+    if ngo_bednets_report or road_subs_report or clinic_subs_report or \
+            irrigation_subs_report or sanitation_subs_report or \
+            water_pump_report or meals_subs_report or electric_subs_report:
+        has_subsidy = True
+
+    return (has_subsidy or good_rain_report, has_subsidy)
