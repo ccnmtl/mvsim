@@ -158,16 +158,8 @@ def add_extra_seasonreport_context(context):
     if has_subsidy or good_rain_report:
         village_goodnews_block = True
 
-    fish_depletion_report = 'fish stock depletion' in state.user_messages
-    wood_depletion_report = 'wood stock depletion' in state.user_messages
-
-    village_badnews_block = False
-    if (state.drought or state.epidemic or fish_depletion_report
-            or wood_depletion_report):
-        village_badnews_block = True
-
     context['village_goodnews_block'] = village_goodnews_block
-    context['village_badnews_block'] = village_badnews_block
+    context['village_badnews_block'] = village_badnews_block(state)
     context['has_subsidy'] = has_subsidy
 
     water_used = state.family_water_needs
@@ -264,3 +256,14 @@ def village_improvements(available, labels, all_improvements):
     for item, label in zip(available, labels):
         if item in all_improvements:
             yield label
+
+
+def village_badnews_block(state):
+    fish_depletion_report = 'fish stock depletion' in state.user_messages
+    wood_depletion_report = 'wood stock depletion' in state.user_messages
+
+    if (state.drought or state.epidemic or fish_depletion_report
+            or wood_depletion_report):
+        return True
+    else:
+        return False
