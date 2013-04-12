@@ -35,11 +35,7 @@ def add_extra_gameshow_context(context):
             items_to_sell = True
     extra_display_vars['items_to_sell'] = items_to_sell
 
-    # doctor visits are 20% if there's a clinic
-    doctor_visit_cost = coeffs.doctor_visit_cost
-    if state.clinic:
-        doctor_visit_cost *= .2
-    extra_display_vars['doctor_visit_cost'] = doctor_visit_cost
+    extra_display_vars['doctor_visit_cost'] = doctor_visit_cost(coeffs, state)
 
     # infections in the family
     extra_display_vars['n_sick_people'], \
@@ -183,12 +179,7 @@ def add_extra_seasonreport_context(context):
     context['money_earned'] = money_earned
     context['money_spent'] = money_spent
 
-    # doctor visits are 20% if there's a clinic
-    doctor_visit_cost = coeffs.doctor_visit_cost
-    if state.clinic:
-        doctor_visit_cost *= .2
-
-    context['doctor_visit_cost'] = doctor_visit_cost
+    context['doctor_visit_cost'] = doctor_visit_cost(coeffs, state)
     context['items_bought'] = items_bought
     context['items_sold'] = items_sold
 
@@ -269,3 +260,11 @@ def water_used(state):
     if state.water_pump:
         used = 0
     return used
+
+
+def doctor_visit_cost(coeffs, state):
+    # doctor visits are 20% if there's a clinic
+    if state.clinic:
+        return coeffs.doctor_visit_cost * .2
+    else:
+        return coeffs.doctor_visit_cost
