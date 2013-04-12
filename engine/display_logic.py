@@ -142,13 +142,7 @@ def add_extra_seasonreport_context(context):
      context['has_subsidy']) = village_goodnews_block(state)
     context['village_badnews_block'] = village_badnews_block(state)
 
-    water_used = state.family_water_needs
-    if water_used > state.amount_water:
-        water_used = state.amount_water
-    if state.water_pump:
-        water_used = 0
-
-    context['water_used'] = water_used
+    context['water_used'] = water_used(state)
 
     coeffs = context['coeffs']
 
@@ -266,3 +260,12 @@ def percent_infected(state):
                 / float(state.village_population) * 100)
     else:
         return 0
+
+
+def water_used(state):
+    used = state.family_water_needs
+    if used > state.amount_water:
+        used = state.amount_water
+    if state.water_pump:
+        used = 0
+    return used
