@@ -1203,3 +1203,15 @@ class TestDisplayLogic(unittest.TestCase):
         assert r['n_health_people'] == 0
         assert r['money_spent'] == 0
         assert r['money_earned'] == 0
+
+    def test_more_births_than_child_names(self):
+        self.state.user_messages.append('child born')
+        self.state.births = 1
+        self.coeffs.child_names = []
+        context = {
+            'people': [],
+            'state': self.state,
+            'coeffs': self.coeffs,
+        }
+        r = add_extra_seasonreport_context(context)
+        assert r['new_baby'] == "child1"
