@@ -1,0 +1,127 @@
+NAME,CATEGORY,TYPE,VALUE,CHOICES,DESCRIPTION
+starting_year,General,int,2009,,the year the simulation starts
+avg_precipitation,Climate,float,200,,average precipitation for the region (mm)
+max_precipitation,Climate,float,400,,maximum precipitation for the region (mm).  anything less than 25% of this will be considered drought.
+drought_coeff,Climate,float,0.5,,
+drought_threshold,Climate,float,100,,mm of rainfall below which is considered a drought
+enable_drought,Climate,bool,TRUE,,enable droughts
+no_droughts_before,Climate,int,2,,year of gameplay before which there will be no droughts
+birth_rate,Demographics,float,0.02,,birth rate of the villagers
+death_rate,Demographics,float,0.01,,death rate of the villagers (natural causes)
+avg_family_size,Demographics,int,4,,average family size in the village (for income tax purposes)
+child_1_effort,Demographics,int,0,,effort coefficient for child under 5
+child_2_effort,Demographics,int,4,,effort coefficient for child between 5 and 10
+child_3_effort,Demographics,int,8,,effort coefficient for child 10 - 15
+child_genders,Demographics,list:enum:str,"Female,Male,Female,Male,Female,Male,Female,Male,Female,Male,Female,Male,Female,Male,Female,Male,Female,Male","Male,Female",list of genders of the children in the order that they're born
+child_names,Demographics,list:str,"Damba,Mamadou,Awa,Yao,Jeanne,Amadou,Mariam,Samuel,Aminata,Kuoakou,Kady,Jean,Mame,Patrick,Sale,Oumar,Kuomba,Didier",,names for the children in the order that they are born
+subsistence,Demographics,int,450000,,
+w_subsistence,Demographics,float,30,,
+adult_effort,Household Economy,int,12,,effort coefficient for adult
+microfinance_base_interest,Household Economy,float,0.02,,base interest rate for microfinance loans
+microfinance_drought_effect,Household Economy,float,1,,effect of drought on microfinance interest rate
+microfinance_epidemic_effect,Household Economy,float,1,,effect of epidemic on microfinance interest rate
+microfinance_min_balance,Household Economy,float,100,,minimum balance for microfinance unit
+microfinance_repay_period,Household Economy,int,8,,number of turns to repay microfinance loan
+energy_req,Household Economy,int,18,,
+energy_req_scaling_factor,Household Economy,float,0.5,,set this to (1 / initial family size)
+propane_fuel_coeff,Household Economy,float,5,,
+avg_water_yield,Household Economy,float,250,,
+pregnant_effort,Household Economy,int,6,,effort coefficient for pregnant adult
+productivity_effort_coeff,Household Economy,float,0.2,,coefficient for effort * productivity
+avg_small_business_yield,Small Business,float,50,,
+small_business_depreciation_rate,Small Business,float,0.2,,depreciation rate of small business capital
+small_business_diminishing_return,Small Business,float,1,,dimishing return effect for small business income
+small_business_drought_effect,Small Business,float,1,,effect of drought on small business income
+small_business_drought_effect_exponent,Small Business,float,0.4,,
+small_business_electricity_effect,Small Business,float,1,,effect of power grid on small business income
+small_business_epidemic_effect,Small Business,float,1,,effect of epidemic on small business income
+small_business_productivity_effect,Small Business,float,1,,effect of productivity and capital on small business income
+small_business_road_effect,Small Business,float,1,,effect of road on small business income
+market_items,Village Economy and Market,list:str,"bednet,improvedstove,stove,propane,fertilizer,high_yield_seeds,boat,dragnet",,What items are available for purchase at the market
+market_items_labels,Village Economy and Market,list:str,"Bed Net (covers 2),Improved Wood Stove,Propane Stove,Propane Tank (10kg),Fertilizer (season's supply),High Yield Maize Seeds (season's supply),Boat,Dragnet",,display labels for items for sale in market
+market_purchase_prices,Village Economy and Market,list:int,"30,50,50,10,5,10,200,100",,purchase prices for each market item
+market_sell_prices,Village Economy and Market,list:int,"30,50,50,0,0,0,200,100",,sell prices of market items (0 = can't be resold)
+fertilizer_price,Village Economy and Market,int,25,,cost of fertilizer
+food_cost,Village Economy and Market,float,20,,cost to buy food
+available_improvements,Village Economy and Market,list:str,"road,electricity,sanitation,water_pump,irrigation,clinic,meals",,available village improvements
+improvement_labels,Village Economy and Market,list:str,"Paved Road,Power Grid,Latrines,Water Pump,Irrigation,Clinic,School Meals",,display labels for the village improvements
+improvement_prices,Village Economy and Market,list:int,"2,000,100,012,001,000,000,000,000",,purchase prices for each village improvement
+transport_cost_no_road,Village Economy and Market,float,100,,cost to transport a ton of goods when there is no road
+transport_cost_road,Village Economy and Market,float,10,,cost to transport a ton of goods when there is a road
+road_subsidy_year,Village Economy and Market,int,10,,year of gameplay after which a road subsidy becomes likely
+subsidy_price_reduction,Village Economy and Market,float,0.05,,price of improvements (in % of original price) after NGO subsidization
+savings_rate,Village Economy and Market,float,0,,
+school_meals_calories,Village Economy and Market,int,500,,how many calories are provided to each child in school if school meals are in place
+primary_school_effort,Village Economy and Market,int,8,,hours/day per child that primary school takes up
+secondary_school_cost,Village Economy and Market,float,1,,cost per turn per child in secondary school
+secondary_school_effort,Village Economy and Market,int,8,,hours/day per child that secondary school takes up
+enable_free_bednets,Village Economy and Market,bool,TRUE,,enable free bednet + canned epidemic event (free bednets only if epidemics are disabled)
+enable_NGO_offers,Village Economy and Market,bool,TRUE,,enable NGO subsidies
+free_bednet_year,Village Economy and Market,int,30,,year of gameplay in which the free bednets + canned epidemic event happens
+other_subsidy_year,Village Economy and Market,int,20,,year of gameplay after which NGO subsidies may appear
+initial_infected_pop,Health,int,5,,initially infected population (to jump-start the SIR model)
+bednet_infection_modifier,Health,float,0.5,,effect of bednets on reducing infection
+chance_of_getting_the_flu,Health,float,0.05,,% likelihood of getting the flu if no other diseases infect you
+base_infection_rate,Health,float,0.025,,base disease infection rate
+death_threshold_1,Health,float,0,,"if a person's health drops below this threshold, they die immediately"
+death_threshold_2,Health,float,10,,if a person's average health for the last three turns is below this threshold they die
+disease_malaria_bednet_factor,Health,float,0.8,,
+disease_malaria_health_factor,Health,float,0.01,,
+disease_malaria_sir_factor,Health,float,0.3,,
+disease_respiratory_health_factor,Health,float,0.01,,
+disease_respiratory_propane_factor,Health,float,0.5,,
+disease_respiratory_stove_factor,Health,float,0.2,,
+disease_respiratory_youth_factor,Health,float,0.3,,
+disease_waterborne_health_factor,Health,float,0.01,,
+disease_waterborne_latrine_factor,Health,float,0.6,,
+disease_waterborne_waterpump_factor,Health,float,0.4,,
+disease_waterborne_watersubsistence_factor,Health,float,0.5,,
+doctor_visit_cost,Health,float,30,,cost per person to visit a doctor
+health_clinic_coeff,Health,float,0.7,,
+health_increment,Health,int,4,,percentage that health improves each turn
+health_nutrition_coeff,Health,float,0.04,,
+health_power_coeff,Health,float,0.9,,
+health_sickness_coeff,Health,float,25,,
+mortality1,Health,float,0.5,,base mortality rate
+mortality2,Health,float,-0.0045,,mortality rate multiplied by village health
+effort_too_high_health_loss,Health,float,1,,number of health points lost per hour of effort above optimal.
+fuelwood_health_loss,Health,float,2,,health lost due to household use of fuel wood before the age of 5 (half this is lost thereafter)
+recovery_rate1,Health,float,0.3,,base disease recovery rate
+recovery_rate2,Health,float,0.1,,added recovery coefficient if there is a clinic
+recovery_rate3,Health,float,0.1,,added recovery coefficient if there is both a clinic and electricity
+resting_health_gain,Health,float,1,,"number of health points gained per hour of effort below optimal (ie, spent resting)"
+precipitation_infection_modifier,Health,float,0,,effect of precipitation on infection
+enable_epidemic,Health,bool,TRUE,,enable epidemics
+no_epidemics_before,Health,int,10,,year of gameplay before which there will be no epidemics
+epidemic_precipitation_deviation_exponent,Health,float,1,,
+avg_maize_yield,Agriculture,float,1000,,
+maize_cal_coeff,Agriculture,int,25,,
+maize_price,Agriculture,float,20,,price of maize at the market
+maize_productivity_exponent,Agriculture,float,0.9,,productivity coefficient for maize production that assures decreasing marginal returns on farming effort (should be between 0.0 and 1.0)
+maize_high_yield_seeds_multiplier,Agriculture,float,2,,multiplier - effect of high yield seeds on maize production
+maize_export_units,Agriculture,int,100,,
+avg_cotton_yield,Agriculture,float,1000,,
+cotton_price,Agriculture,int,100,,price of cotton at the market
+cotton_productivity_exponent,Agriculture,float,0.9,,productivity coefficient for cotton production that assures decreasing marginal returns on farming effort (should be between 0.0 and 1.0)
+cotton_export_units,Agriculture,int,100,,
+irrigation_coeff,Agriculture,float,1.5,,
+fertilizer_coeff,Agriculture,float,2,,
+fertilizer_cotton_coeff,Agriculture,float,2,,
+soil_depletion,Agriculture,float,0.7,,soil health when fertilizer hasn't been used in the last 3 years
+avg_fishing_yield,Natural Resources - Fish,float,900,,
+fish_growth_rate,Natural Resources - Fish,float,1.2,,
+fish_k,Natural Resources - Fish,float,7500,,Carrying capacity of fishery
+fish_cal_coeff,Natural Resources - Fish,float,26.5,,
+fishing_effort_coeff,Natural Resources - Fish,float,0.042,,
+fish_stock_warn_threshold,Natural Resources - Fish,float,0.33,,
+boat_coeff,Natural Resources - Fish,float,2,,
+dragnet_coeff,Natural Resources - Fish,float,2,,
+visual_intervals_fish,Natural Resources - Fish,list:int,,100 60 40,
+avg_wood_yield,Natural Resources - Forest,float,80,,
+forest_growth_rate,Natural Resources - Forest,float,1.01,,
+wood_k,Natural Resources - Forest,float,7500,,Carrying capacity of forest
+wood_fuel_coeff,Natural Resources - Forest,float,3.2,,
+wood_effort_coeff,Natural Resources - Forest,float,0.042,,
+wood_price,Natural Resources - Forest,float,10,,sale price per unit of wood
+wood_stock_warn_threshold,Natural Resources - Forest,float,0.33,,
+visual_intervals_forest,Natural Resources - Forest,list:int,,100 60 40,

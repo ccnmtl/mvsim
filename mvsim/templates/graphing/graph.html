@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% load mvsim_tags %}
+{% block title %}Game Graph{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="/site_media/javascript/MochiKit/MochiKit.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+<script type="text/javascript" src="/site_media/graphtool/js/tabber.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/getlink.js"></script>
+
+<script type="text/javascript" src="/site_media/js/raphael/raphael.js"></script>
+<script type="text/javascript" src="/site_media/js/raphael/g.raphael.js"></script>
+<script type="text/javascript" src="/site_media/js/raphael/g.line.js"></script>
+<script type="text/javascript" src="/site_media/js/raphael/g.dot.js"></script>
+
+<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="/site_media/js/raphael/raphael.serialize.js"></script>
+
+<style type="text/css">
+div.bluff-tooltip {
+  background-color: white;
+  border: 1px solid black;
+}
+#data table {
+  float: left;
+}
+</style>
+<style type="text/css">
+  @import "/site_media/graphtool/css/graphingtool.css";
+</style>
+
+<script type="text/javascript" src="/site_media/graphtool/js/graph.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/graph_model.js"></script>
+<script type="text/javascript" src="/site_media/graphtool/js/graph_application.js"></script>
+
+<script type="text/javascript">
+var initial_layer = "{{layers.keys.0}}";
+var url_builder = function(variable) {
+  return "/games/{{game.id}}/variable_history_raw/?variable=" + variable;
+};
+var set_bookmark = function() {
+  var bookmark = make_bookmark();
+  // TODO
+  bookmark = window.location.protocol+"//"+window.location.host + "/games/{{game.id}}/graph/?" + bookmark;
+  jQuery("#getlink_url").val(bookmark);
+};
+startApp(initial_layer, url_builder, null, set_bookmark);
+</script>
+
+{% endblock %}
+
+{% block body_attributes %} class="graphingtool"{% endblock %}
+{% block content %}
+
+<!-- Begin MAIN GRAPH -->
+<div class="mg">
+
+  <h2>Main Graph: <span id="main_graph_title"></span></h2>
+  
+  <div class="panel">
+    <!-- Begin tabbed pannel for Main Graph Layers-Events -->
+    <div id="mg_tabber" class="tabber"> 
+      
+      <div class="tabbertab" title="Layers">
+	<div id="layers_in_graph">
+	  
+	  <form id="mg_layers">
+	    <ul class="layerstab">
+	    </ul><!-- layerstab -->
+	  </form>
+	  
+	</div>
+      </div><!-- tabbertab Layers --> 
+      
+      <!-- we would have "events" here in a tabbertab --> 
+      
+    </div><!-- mg_tabber tabber -->
+    <!-- End tabbed panel for Main Graph Layers-Events -->
+  </div><!-- class="panel" -->
+  
+  <div class="varlegend">
+    <h3>Variables in this graph</h3>
+    
+    <div class="legendbox" id="mg_varlegend"> <!-- box needed for some auto-scrolling quirkiness -->
+      
+      <ul id="legend">
+      </ul><!-- id="legend" -->
+      
+    </div>
+  </div>
+  
+  <div class="plotbox">
+    <!-- Bookmarking button -->
+    <div class="getlink">
+      <a class="permalink" 
+	 onclick="set_bookmark();toggleSlide('permalinkdiv');jQuery('#getlink_url').select();return false;" 
+	 id="panzoom1_permalink">Link</a> 
+      <a class="permalink" id="export" href="#" target="_blank"
+	 onclick="exportGraph('primary', '/games/{{game.id}}/', this); return false;">
+	Save
+      </a>
+    </div><!-- class="getlink" -->
+    <div class="bubblebox"> 
+      <div style="display:none; height: 60px; width: 360px;" id="permalinkdiv" class="bubble"> 
+	<a href="javascript://;" class="closebutton" onmousedown="slideup('permalinkdiv');">Close</a> 
+	<form> 
+	  Copy and paste this link for this graph:<br /> 
+	  <input style="width: 320px;" type="text" id="getlink_url" /> 
+	</form> 
+      </div><!-- class="bubble" -->
+    </div><!-- class="bubblebox" -->
+    
+    <div class="plot">
+      <div id="primary_graph"
+	   width="600" height="300" border="0">
+	<img 
+	   alt="The graph will be drawn here"
+	   src="/site_media/images/placegraph.gif" />
+      </div>
+      <div class="x_axis">
+	<form> 
+	  X-axis:
+	  <select>
+	    <option value=""># Turn</option>
+	    {% for variable in variables %}
+	    <option 
+	       value="{{variable.name}}"
+	       {% ifequal variable.name primary_xaxis %}{% if variable.name|neq:"morx" %}selected="selected"{% endif %}{% endifequal %}>
+	      {{variable.descriptive_name}}
+	    </option>
+	    {% endfor %}
+	  </select>
+	</form>
+      </div><!-- class="x_axis" -->
+    </div><!-- class="plot" -->
+  </div><!-- plotbox -->
+  
+  
+</div><!-- class="mg" -->
+<!-- End MAIN GRAPH -->
+
+
+<div class="shim"></div><!-- Separator class="shim" -->
+
+
+<!-- Begin GRAPHING LAYERS -->
+<div class="gl">
+  
+  <h2>Graphing Layers</h2>
+  
+  <div class="panel">
+    <!-- Begin tabbed pannel for Graphing Layers Variable-Layers -->
+    <div id="gl_tabber" class="tabber"> 
+      
+      <div id="gl_tabber_variables" class="tabbertab" title="Variables"> 
+	<div class="varbin">
+	  <form>
+	    <ul class="variablestab">
+	      {% for variable in variables %}
+	      {% if variable.name|neq:"morx" %}
+	      <li>
+		<a href="#{{variable.name}}">
+		  {{variable.descriptive_name}}
+		</a>
+	      </li>
+	      {% endif %}
+
+	      {% endfor %}
+	    </ul><!-- eventstab -->
+	  </form>
+	</div><!-- class="varbin" -->
+      </div><!-- tabbertab Variables --> 
+      
+      <div id="gl_tabber_layers" class="tabbertab" title="Layers">
+	
+	<form>
+	  <ul class="layerstab">
+	    
+	  </ul><!-- layerstab -->
+	</form>
+	
+      </div><!-- tabbertab Layers --> 
+      
+    </div><!-- mg_tabber tabber -->
+    <!-- End tabbed panel for Graphing Layers Variable-Layers -->
+  </div><!-- class="panel" -->
+  
+  <div class="plotbox">
+    <div class="createbox">
+      <a href="#">(+) Create new layer</a> (Click on layer name below to rename it)
+    </div><!-- class="createbox" -->
+    <div id="layer_panel" class="plotbox_inner">
+      <h3 class="layertitle">
+	The title of the active Layer goes here.
+      </h3>
+      <div class="gl_varlegend">
+	<div class="varlegend">
+	  <h3>Variables in this graph</h3>
+	  
+	  <div id="legendbox" class="legendbox"><!-- box needed for some auto-scrolling quirkiness -->
+	    
+	    <ul id="legend">
+	    </ul><!-- id="legend" -->
+	    
+	  </div><!-- End legendbox -->
+	  
+	  <div class="layer_actions">
+	    <form>
+	      <div><input type="button" value="Push" disabled="disabled" /> layer to graph</div>
+	      <div><input type="button" value="Delete" disabled="disabled" /> layer from graph</div>
+	    </form>
+	  </div><!-- class="layer_actions" -->
+	</div><!-- varlegend -->
+      </div><!-- class="gl_varlegend" -->
+      <div id="layer_graph_container" class="plot">
+	<span>The graph will go here.</span>
+	<div class="x_axis">
+	  <form> 
+	    X-axis:
+	    <select>
+	      <option value=""># Turn</option>
+	      {% for variable in variables %}
+	      <option 
+		 value="{{variable.name}}"
+		 {% ifequal variable.name secondary_xaxis %}{% if variable.name|neq:"morx" %}selected="selected"{% endif %}{% endifequal %}>
+		{{variable.descriptive_name}}
+	      </option>
+	      {% endfor %}
+	    </select>
+	  </form>
+	</div><!-- class="x_axis" -->
+      </div><!-- class="plot" -->
+      <div class="shim"></div><!-- Separator class="shim" -->
+    </div><!-- class="plotbox_inner -->
+  </div><!-- class="plotbox" -->
+  
+  
+</div><!-- class="gl" -->
+<!-- End GRAPHING LAYERS -->
+
+
+<div class="shim"></div><!-- Separator class="shim" -->
+<!-- ######  End here ######## -->
+</div><!-- class="main_content" -->
+
+<div id="data_models" style="display:none;">
+  
+  <div id="layer_set">
+    
+    <div id="primary" class="graph">
+      <div class="variables"></div>
+      <div class="layers">
+	{% for layer in primary_layers %}
+	<a href="#{{layer}}"></a>
+	{% endfor %}
+      </div>
+    </div>
+    
+    {% for item in layers.items %}
+    {% with item.0 as layer %}{% with item.1 as vars %}
+    <div id="{{layer}}" class="graph"
+	 name="{{layer_names|get_item:layer}}">
+      <div class="variables">
+	{% for variable in vars %}
+	<a href="#{{variable}}"></a>
+	{% endfor %}
+      </div>
+    </div>
+    {% endwith %}{% endwith %}
+    {% endfor %}
+  </div>
+
+  <div id="shadow_layers">
+  </div>
+
+  <div id="data">
+    {% for variable in variables %}
+    <table id="{{variable.name}}"
+	   class="{{variable.descriptive_name}}">
+      <tr>
+	<th scope="col">turn #</th>
+	<th scope="col">{{variable.name}}</th>
+      </tr>
+      
+      {% for turn in turns %}
+      {% with forloop.counter0 as i %}
+      <tr class="{% cycle 'odd' 'even' %}">
+	<th scope="row">{{i}}</th>
+	
+	<td>{{variable.values|get_item_or_0:i}}</td>
+      </tr>
+      {% endwith %}
+      {% endfor %}
+    </table>
+    {% endfor %}
+    
+  </div>
+</div>
+<div id="invisible_container" style="display:none;">
+
+</div>
+
+{% endblock %}

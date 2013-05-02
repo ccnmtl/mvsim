@@ -1,0 +1,29 @@
+<!-- mapping_item -->
+<tr tal:attributes="class 'structural' if field.widget.category == 'structural'
+	else field.error and field.widget.error_class"
+    tal:omit-tag="field.widget.hidden"
+    title="${field.description}"
+    id="item-${field.oid}"
+    i18n:domain="deform">
+
+  	<td/>
+  	<td>__start__ ${field.name}:mapping</td>  		
+  	<td/>
+  	<td/>
+  	<td>
+  		<input type="hidden" name="__start__" value="${field.name}:mapping"/>
+	</td>	
+</tr>
+
+<span tal:replace="structure field.serialize(cstruct)"/>
+
+<tr class="structural">
+  	<td/>
+  	<td>__end__ ${field.name}:mapping</td>
+  	<td/>
+  	<td/>
+  	<td>  		
+  		<input type="hidden" name="__end__" value="${field.name}:mapping"/>
+	</td>	
+</tr>
+  		

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>MV Sim: {% block title %}{% endblock %}</title>
+    
+    {% block scripts %}{% endblock %}
+    <style type="text/css">
+      #pageLogin {
+        font-size: 10px;
+        font-family: verdana;
+        text-align: right;
+      }
+    </style>
+    <style type="text/css" media="screen">
+      @import "/site_media/css/style.css?mvsim";
+    </style>
+    
+  </head>
+  
+  <body{% block body_attributes %}{% endblock %}>
+    <div id="header">
+      {% if not user.is_anonymous %}
+      <div id="pageLogin">
+	<ul>
+	  <li>
+	    <b>Name:</b>
+	    {{user.username}}
+	  </li>
+	  
+	  
+	  {% if request.user.is_superuser %}
+		<li><a href="/course_sections/">Admin</a></li>
+	  {% endif %}
+
+	  <li>
+	    <a href="{% url games_index %}">My Games</a>
+	  </li>
+	  {% if user.is_admin %}
+	  <li><a href="/admin/">Sim admin</a></li>
+	  {% endif %}
+	  <li><a href="http://mvsim.wikispaces.com">Help</a></li>
+	  <li><a href="http://mvsim.wikispaces.com/Credits">Credits</a></li>
+	  <li><a href="mailto:ccnmtl-mvsim@columbia.edu">Feedback</a></li>
+	  <li><a href="/?unset_course">Switch Course</a></li>
+	  <li><a href="/accounts/logout/">Logout</a></li>
+	</ul>
+      </div>
+      {% endif %}
+    </div>
+    
+    <div id="main_content">
+      {% block content %}{% endblock %}
+    </div>
+    
+    {% block endscripts %}
+    {% endblock %}
+{% if request.user.is_impersonate %}
+<div class="alert alert-error" style="position: fixed; left: 0px; top: 75px; background-color: #fee;">
+You are impersonating. <a href="{% url impersonate-stop %}">stop</a>.
+</div>
+{% endif %}
+
+{% if STAGING_ENV %}
+<div class="alert alert-error"
+ style="position: fixed; bottom: 0px; background-color: #fee; border: #f00 solid 1px;">
+<h4>Warning: Staging Site</h4>
+<p>You are viewing a staging version of this site, not the production site.</p>
+<p>This site was last updated on: <b>{{STAGING_DEPLOY_TIME}}</b></p>
+</div>
+{% endif %}
+  </body>
+</html>

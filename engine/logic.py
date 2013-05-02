@@ -2,10 +2,11 @@
 
 import stateless_logic
 
-from person import Person
+from .person import Person
 import fuel
 
-from event import get_events
+from .event import get_events
+from .util import rand_n
 
 
 def get_notifications(before, after, coeffs, events_csv=None):
@@ -125,14 +126,14 @@ def marshall_people(people, state):
      state.health, state.education,
      state.sick, state.efforts,
      state.schooling_state) = (
-        [p.name      for p in people],
-        [p.gender    for p in people],
-        [p.age       for p in people],
-        [p.health    for p in people],
-        [p.education for p in people],
-        [p.sick != "" and p.sick or ' ' for p in people],  # see PMT:#61928
-        [p.effort    for p in people],
-        [p.schooling_state for p in people])
+         [p.name for p in people],
+         [p.gender for p in people],
+         [p.age for p in people],
+         [p.health for p in people],
+         [p.education for p in people],
+         [p.sick != "" and p.sick or ' ' for p in people],  # see PMT:#61928
+         [p.effort for p in people],
+         [p.schooling_state for p in people])
 
     for p in people:
         if p.name == "Fatou":
@@ -154,8 +155,16 @@ def marshall_people(people, state):
 
 
 def new_child(tc, coeffs, state):
-    name = coeffs.child_names[state.births]
-    gender = coeffs.child_genders[state.births]
+    if state.births < len(coeffs.child_names):
+        name = coeffs.child_names[state.births]
+    else:
+        # start numbering the children
+        name = "child%d" % (state.births + 1)
+    if state.births < len(coeffs.child_genders):
+        gender = coeffs.child_genders[state.births]
+    else:
+        # randomly pick one?
+        gender = ['Male', 'Female'][tc.randint(a=0, b=1, n=1).values[0]]
     health = tc.randint(a=0, b=100, n=1).values[0]  # is this right?
     state.births += 1
     return Person(name=name, gender=gender, age=0, health=health,
@@ -163,10 +172,6 @@ def new_child(tc, coeffs, state):
                   schooling_state="under 5", health_t1=health,
                   health_t2=health, health_t3=health, coeffs=coeffs,
                   tc=tc)
-
-
-def rand_n(tc, n):
-    return tc.randint(a=0, b=n, n=1).values[0]
 
 
 class Turn:
@@ -300,8 +305,8 @@ class Turn:
 
     def free_bednets(self):
         if not self.coeffs.enable_free_bednets or \
-           self.state.year != (self.coeffs.starting_year
-                               + self.coeffs.free_bednet_year):
+            self.state.year != (self.coeffs.starting_year
+                                + self.coeffs.free_bednet_year):
             # this only happens in a specific year
             return
 
@@ -421,7 +426,7 @@ class Turn:
     def check_sell_price(self, item):
         prices = dict()
         for i, price in zip(self.coeffs.market_items,
-                           self.coeffs.market_sell_prices):
+                            self.coeffs.market_sell_prices):
             prices[i] = price
         return prices[item]
 
@@ -464,7 +469,7 @@ class Turn:
     def calc_school_effort(self):
         """ number of hours family members spent in school """
         primary = len([p for p in self.state.people
-                         if p.in_primary_school()])
+                       if p.in_primary_school()])
         secondary = len([p for p in self.state.people
                          if p.in_secondary_school()])
 
@@ -640,7 +645,7 @@ class Turn:
             self.state.drought = True
 
     def rand_n(self, n):
-        return self.tc.randint(a=0, b=n, n=1).values[0]
+        return rand_n(self.tc, n)
 
     def check_final_health(self):
         dead = []
@@ -708,7 +713,7 @@ class Turn:
         """ updates the soil health depending on whether fertilizer
         has been used in the last three years """
         if self.state.fertilizer or self.state.fertilizer_t1 or \
-               self.state.fertilizer_t2:
+                self.state.fertilizer_t2:
             self.state.soil_health = 1.0
         else:
             #self.message("Soil health is depleted.")
@@ -798,10 +803,12 @@ class Turn:
         assert self.t_irr() >= 0
         assert self.t_high_yield_seeds() >= 0
         assert self.percent_maize() >= 0 and self.percent_maize() <= 1.0
-        return max((
-                ((self.coeffs.productivity_effort_coeff
-                  * self.state.effort_farming)
-                 ** self.coeffs.maize_productivity_exponent)
+        return max(
+            (
+                (
+                    (self.coeffs.productivity_effort_coeff
+                     * self.state.effort_farming)
+                    ** self.coeffs.maize_productivity_exponent)
                 * self.coeffs.avg_maize_yield
                 * ((95.0 + self.rand_n(10)) / 100.0)
                 * self.state.avg_productivity
@@ -809,7 +816,7 @@ class Turn:
                 * self.state.soil_health * self.t_fert()
                 * self.t_high_yield_seeds()
                 * self.percent_maize()),
-                   0.0)
+            0.0)
 
     def calc_amount_cotton(self):
         return max(((self.coeffs.productivity_effort_coeff
@@ -970,7 +977,7 @@ class Turn:
             if self.state.microfinance_borrow > 0:
                 # new loan
                 if (self.state.microfinance_borrow
-                    > self.state.microfinance_max_borrow):
+                        > self.state.microfinance_max_borrow):
                     self.state.microfinance_borrow =\
                         self.state.microfinance_max_borrow
                 self.state.microfinance_balance =\

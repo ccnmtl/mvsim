@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{section.name}}{% endblock %}
+
+{% block content %}
+
+<div class="mvsim-admin">
+    <h1>Administer Section</h1>
+    
+    <div class="mvsim-admin-navigation">
+        <a href="/">Home</a> >
+        <a href="/course_sections/">{{section.course}}</a> >
+        {{section.name}}
+    </div>    
+    
+    <h2>{{section.name}}</h2>
+    <a href="game_stats/">View Game Stats</a>
+    
+    <h3>Starting States</h3>
+    <form action="associate_state/" method="post">
+	    <fieldset class="module aligned">
+			<div class="form-row field-name">
+                <div>
+                    <label for="associated_states">Associate States:</label>
+                    <div class="left">
+					{% for state in all_states %}
+		          		<div>
+		          			<input type="checkbox"
+		          				name="associated_states"
+		          				value="{{state.id}}"
+		          				{% if state in section.starting_states.all %}checked="checked"{% endif %}		          				  
+		          				/>
+		          			<a href="/state/{{state.id}}">{{state.name}}</a>
+		          			{% if not state.visible %}
+		          				<img src="/site_media/images/lock.png" title="Superusers only" alt="Superusers only" style="vertical-align: middle"/>
+		          			{% endif %}
+		          		</div>
+					{% endfor %}
+					</div>
+               	</div>
+            </div>
+	    </fieldset>
+	    <div class="submit-row"><input type="submit" value="Save" class="regButton right" /></div>
+    </form>
+    
+    
+    <h3>Users</h3>
+    <fieldset class="module aligned">
+    	{% for user in users %}
+    	<div class="form-row field-name">
+        	<div>{{user}}</div>
+		</div>
+	    {% endfor %}
+    </fieldset>
+</div>
+
+
+{% endblock %}

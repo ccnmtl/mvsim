@@ -1,0 +1,72 @@
+[
+  {
+    "pk": 2, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Climate"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Demographics"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Household Economy"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Small Business"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Village Economy and Market"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Health"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Agriculture"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Natural Resources - Fish"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "main.category", 
+    "fields": {
+      "name": "Natural Resources - Forest"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "main.category", 
+    "fields": {
+      "name": "General"
+    }
+  }
+]

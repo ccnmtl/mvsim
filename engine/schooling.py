@@ -17,10 +17,9 @@ class SchoolingFSM:
             "not eligible for secondary": self.not_eligible_for_secondary_fsm,
             "eligible for secondary": self.eligible_for_secondary_fsm,
             "enrolled in primary but missed turn":
-                self.enrolled_in_primary_but_missed_turn_fsm,
+            self.enrolled_in_primary_but_missed_turn_fsm,
             "eligible for primary but missed turn":
-                self.eligible_for_primary_but_missed_turn_fsm,
-            }
+            self.eligible_for_primary_but_missed_turn_fsm, }
 
         # basic guards first
         if self.age > 17:

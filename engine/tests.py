@@ -3,6 +3,7 @@ import unittest
 from engine.logic import Person, Village, Coeffs, State, setup_people, Turn
 from engine.logic import rand_n, marshall_people, new_child
 from engine.schooling import SchoolingFSM
+from engine.display_logic import add_extra_seasonreport_context
 
 
 class StubTC:
@@ -189,7 +190,7 @@ class TestPerson(unittest.TestCase):
             # convert to int since it eventually gets far enough out that
             # floating point conversions aren't reliable
             assert int(self.kodjo.productivity()) == int(.95 ** (i + 1)
-                                                          * 150.0)
+                                                         * 150.0)
         self.kodjo.age = 15
 
     def test_check_sick(self):
@@ -278,7 +279,7 @@ POPULATION = 1
 PRECIPITATION = 1
 
 
-class TestVillage:
+class TestVillage(unittest.TestCase):
     def setUp(self):
         coeffs = StubCoeffs(birth_rate=BIRTH_RATE, death_rate=DEATH_RATE,
                             starting_year=2007,
@@ -309,6 +310,10 @@ class TestVillage:
                             microfinance_repay_period=8,
                             microfinance_drought_effect=1,
                             microfinance_epidemic_effect=1,
+                            max_precipitation=10,
+                            drought_threshold=1,
+                            enable_drought=True,
+                            no_droughts_before=5,
                             )
         state = StubState(village_population=VILLAGE_POPULATION,
                           population=POPULATION,
@@ -488,8 +493,11 @@ class TestVillage:
         self.village.state.population = 0
         self.village.calculate_taxes(10.0)
 
+    def test_update_precipitation(self):
+        self.village.update_precipitation()
 
-class TestSchoolingFSM:
+
+class TestSchoolingFSM(unittest.TestCase):
     def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
@@ -554,20 +562,20 @@ class TestSchoolingFSM:
         assert fsm.calculate_next_state(False) == "not eligible for secondary"
 
 
-class TestCoeffs:
+class TestCoeffs(unittest.TestCase):
     def test_json(self):
         c = Coeffs()
         assert c.__json__() == {}
 
 
-class TestState:
+class TestState(unittest.TestCase):
     def test_json(self):
         s = State()
         assert s.__json__() == {}
 
 
-class TestFunctions:
-    def setup(self):
+class TestFunctions(unittest.TestCase):
+    def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
                             secondary_school_effort=SECONDARY_SCHOOL_EFFORT,
@@ -598,8 +606,23 @@ class TestFunctions:
         child = new_child(self.tc, self.coeffs, self.state)
         assert child.name == 'bart'
 
+    def test_new_child_more_children_than_names(self):
+        """ if more children are born than we have names for
+        we need to start numbering them.
+        shows up as sentry: /sentry/group/1400
+        """
+        self.coeffs.child_names = ['bart']
+        self.coeffs.child_genders = ['Male']
+        self.state.births = 0
+        child = new_child(self.tc, self.coeffs, self.state)
+        assert child.name == 'bart'
+        child2 = new_child(self.tc, self.coeffs, self.state)
+        assert child2.name == 'child2'
+        child3 = new_child(self.tc, self.coeffs, self.state)
+        assert child3.name == 'child3'
 
-class TestTurn:
+
+class TestTurn(unittest.TestCase):
     def setUp(self):
         coeffs = StubCoeffs(adult_effort=ADULT_EFFORT,
                             primary_school_effort=PRIMARY_SCHOOL_EFFORT,
@@ -1135,3 +1158,83 @@ class TestTurn:
         assert self.turn.food_cost() == 20
         self.turn.state.meals = True
         assert self.turn.food_cost() == 20 * 1.2
+
+
+class TestDisplayLogic(unittest.TestCase):
+    def setUp(self):
+        self.state = StubState(
+            drought=False,
+            epidemic=False,
+            family_water_needs=0,
+            amount_water=0,
+            water_pump=False,
+            wood_income=0,
+            amount_wood=0,
+            purchase_items=[],
+            sell_items=[],
+            user_messages=[],
+            improvements=[],
+            village_population=1,
+            village_infected_pop=0,
+            wood_stock=0,
+            fish_stock=0,
+            clinic=False,
+        )
+        self.coeffs = StubCoeffs(
+            wood_price=1,
+            wood_fuel_coeff=1,
+            doctor_visit_cost=1,
+            available_improvements=[],
+            improvement_labels=[],
+            visual_intervals_forest=[],
+            visual_intervals_fish=[],
+        )
+
+    def tearDown(self):
+        pass
+
+    def test_add_extra_seasonreport_context(self):
+        context = {
+            'people': [],
+            'state': self.state,
+            'coeffs': self.coeffs,
+        }
+        r = add_extra_seasonreport_context(context)
+        assert r['n_health_people'] == 0
+        assert r['money_spent'] == 0
+        assert r['money_earned'] == 0
+        assert r['percent_infected'] == 0
+
+        # needs to not barf on zero population
+        context['state'].village_population = 0
+        r = add_extra_seasonreport_context(context)
+        assert r['percent_infected'] == 0
+
+        # test out village improvements
+        context['state'].improvements = ['foo']
+        context['coeffs'].available_improvements = ['foo']
+        context['coeffs'].improvement_labels = ['bar']
+        r = add_extra_seasonreport_context(context)
+        assert r['village_improvements'] == ['bar']
+
+    def test_more_births_than_child_names(self):
+        self.state.user_messages.append('child born')
+        self.state.births = 1
+        self.coeffs.child_names = []
+        context = {
+            'people': [],
+            'state': self.state,
+            'coeffs': self.coeffs,
+        }
+        r = add_extra_seasonreport_context(context)
+        assert r['new_baby'] == "child1"
+
+        # and make sure the normal case still works
+        self.coeffs.child_names = ['bart']
+        context = {
+            'people': [],
+            'state': self.state,
+            'coeffs': self.coeffs,
+        }
+        r = add_extra_seasonreport_context(context)
+        self.assertEquals(r['new_baby'], "bart")

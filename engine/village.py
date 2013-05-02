@@ -1,3 +1,6 @@
+from .util import rand_n
+
+
 class Village:
     #uses the same state object as everyone else
     #village stuff:
@@ -54,7 +57,7 @@ class Village:
             return 0
         # TODO: 0.3 magic number should probably be a coefficient
         if (self.state.village_infected_pop
-            / float(self.state.village_population) >= 0.3):
+                / float(self.state.village_population) >= 0.3):
             self.state.epidemic = True
 
     def precipitation_modifier(self):
@@ -188,25 +191,21 @@ class Village:
     def message(self, m):
         self.state.user_messages.append(m)
 
-    def update_subsidy_offers(self):
-        """NGOs occasionally offer to subsidize various village improvements"""
-        if not self.coeffs.enable_NGO_offers:
-            return
-
+    def eligible_for_road_subsidy_offer(self):
         # After the first (n) years, it should be highly likely (about 50%)
         # that the government offer to subsidize a road
         if not self.state.road:
             if self.state.year > (self.coeffs.starting_year
                                   + self.coeffs.road_subsidy_year):
                 if 'road' not in self.state.subsidy_offers:
-                    if rand_n(self.tc, 100) < 50.0:
-                        self.message("road subsidy")
-                        self.state.subsidy_offers.append('road')
+                    return True
+        return False
 
+    def eligible_for_other_subsidy_offers(self):
         # Before there is a road, there should be no offers to subsidize
         # village improvements
         if not self.state.road:
-            return
+            return False
 
         # Assuming you have a road, then beginning in the year defined
         # in the coeffs, there is a 5% chance on any given turn that
@@ -214,40 +213,44 @@ class Village:
 
         if self.state.year < (self.coeffs.starting_year
                               + self.coeffs.other_subsidy_year):
+            return False
+        return True
+
+    def bernoulli_variable(self, percentage):
+        """ returns True percentage % of the time
+
+        (integer percentage values only)
+        """
+        return rand_n(self.tc, 100) < percentage
+
+    def update_subsidy_offers(self):
+        """NGOs occasionally offer to subsidize various village improvements"""
+        if not self.coeffs.enable_NGO_offers:
+            return
+
+        if self.eligible_for_road_subsidy_offer():
+            if self.bernoulli_variable(50):
+                self.message("road subsidy")
+                self.state.subsidy_offers.append('road')
+
+        if not self.eligible_for_other_subsidy_offers():
             return
 
         # power, sanitation, water pump, irrigation, or school meals, clinic
+        offers = [
+            (self.state.clinic, 'clinic', "clinic subsidy"),
+            (self.state.irrigation, 'irrigation', "irrigation subsidy"),
+            (self.state.sanitation, 'sanitation', "sanitation subsidy"),
+            (self.state.water_pump, 'water_pump', "water pump subsidy"),
+            (self.state.meals, 'meals', "meals subsidy"),
+            (self.state.electricity, 'electricity', "electricity subsidy"),
+        ]
 
-        if not self.state.clinic and 'clinic' not in self.state.subsidy_offers:
-            if rand_n(self.tc, 100) < 5:
-                self.message("clinic subsidy")
-                self.state.subsidy_offers.append('clinic')
-        if (not self.state.irrigation
-            and 'irrigation' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
-                self.message("irrigation subsidy")
-                self.state.subsidy_offers.append('irrigation')
-        if (not self.state.sanitation
-            and 'sanitation' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
-                self.message("sanitation subsidy")
-                self.state.subsidy_offers.append('sanitation')
-
-        if (not self.state.water_pump
-            and 'water_pump' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
-                self.message('water pump subsidy')
-                self.state.subsidy_offers.append('water_pump')
-        if (not self.state.meals
-            and 'meals' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
-                self.message('meals subsidy')
-                self.state.subsidy_offers.append("meals")
-        if (not self.state.electricity
-            and 'electricity' not in self.state.subsidy_offers):
-            if rand_n(self.tc, 100) < 5:
-                self.message('electricity subsidy')
-                self.state.subsidy_offers.append("electricity")
+        for (state_var, offer_name, message) in offers:
+            if not state_var and offer_name not in self.state.subsidy_offers:
+                if self.bernoulli_variable(5):
+                    self.message(message)
+                    self.state.subsidy_offers.append(offer_name)
 
     def check_improvement_price(self, improvement):
         price = self.raw_improvement_price(improvement)
@@ -281,19 +284,22 @@ class Village:
                     for improvement in self.state.improvements
                     if improvement != ""])
 
+    def total_fish_caught(self):
+        households = (self.state.village_population
+                      / self.coeffs.avg_family_size)
+        return (self.state.amount_fish * households
+                * ((90.0 + rand_n(self.tc, 20)) / 100.0))
+
     def calc_fish_stock(self):
         assert self.coeffs.avg_family_size != 0
         assert self.coeffs.fish_k != 0
 
-        households = (self.state.village_population
-                      / self.coeffs.avg_family_size)
-        total_fish_caught = self.state.amount_fish * households \
-                            * ((90.0 + rand_n(self.tc, 20)) / 100.0)
+        total_fish_caught = self.total_fish_caught()
 
-        return max(self.state.fish_stock + \
-                   (self.coeffs.fish_growth_rate * self.state.fish_stock
-                    * (1.0 - (self.state.fish_stock
-                              / float(self.coeffs.fish_k)))) \
+        return max(self.state.fish_stock
+                   + (self.coeffs.fish_growth_rate * self.state.fish_stock
+                      * (1.0 - (self.state.fish_stock
+                                / float(self.coeffs.fish_k))))
                    - total_fish_caught,
                    0)
 
@@ -305,14 +311,16 @@ class Village:
                                     * self.coeffs.fish_stock_warn_threshold):
             self.message('fish stock depletion')
 
+    def total_wood_chopped(self):
+        return (self.state.amount_wood
+                * ((95.0 + rand_n(self.tc, 10)) / 100.0)
+                * (self.state.village_population
+                   / self.coeffs.avg_family_size))
+
     def calc_wood_stock(self):
         assert self.coeffs.avg_family_size != 0
         assert self.coeffs.wood_k != 0
-        (rand_n(self.tc, 100) / 1000.00 - 0.05) * self.state.amount_wood
-        total_wood_chopped = self.state.amount_wood \
-                             * ((95.0 + rand_n(self.tc, 10)) / 100.0) \
-                             * (self.state.village_population
-                                / self.coeffs.avg_family_size)
+        total_wood_chopped = self.total_wood_chopped()
         return max(self.state.wood_stock
                    + (self.coeffs.forest_growth_rate
                       * self.state.wood_stock * (1 - (self.state.wood_stock
@@ -327,10 +335,7 @@ class Village:
                                     * self.coeffs.wood_stock_warn_threshold):
             self.message('wood stock depletion')
 
-    def update_precipitation(self):
-        self.state.precipitation = (rand_n(self.tc, 1000) / 1000.00) \
-            * self.coeffs.max_precipitation
-
+    def drought_prevention(self):
         # no drought allowed during first n years
         if self.state.precipitation < self.coeffs.drought_threshold:
             if not self.coeffs.enable_drought:
@@ -340,10 +345,13 @@ class Village:
             if self.state.year < earliest_allowed_drought_year:
                 self.state.precipitation = self.coeffs.drought_threshold
 
+    def update_precipitation(self):
+        self.state.precipitation = (rand_n(self.tc, 1000) / 1000.00) \
+            * self.coeffs.max_precipitation
+
+        # no drought allowed during first n years
+        self.drought_prevention()
+
         # update user messages
         if self.state.precipitation >= 2 * self.coeffs.avg_precipitation:
             self.message("good rains")
-
-
-def rand_n(tc, n):
-    return tc.randint(a=0, b=n, n=1).values[0]

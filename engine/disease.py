@@ -1,3 +1,7 @@
+from .util import rand_n
+from engine.stateless_logic import village_bednets
+
+
 class Disease(object):
     """
     encapsulate the fun facts about a particular disease type
@@ -7,7 +11,6 @@ class Disease(object):
     health_coefficient = "DEFINE IN SUBCLASS"
 
     def random(self, person):
-        from person import rand_n
         return rand_n(person.tc, 100) / 100.0
 
     def t_sick(self, person, state):
@@ -115,7 +118,6 @@ class Malaria(Disease):
 
         infection_rate = infection_rate_i0 + precipitation_factor
 
-        from stateless_logic import village_bednets
         num_village_bednets = village_bednets(
             num_bednets,
             num_family_members,

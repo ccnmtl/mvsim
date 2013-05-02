@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load mvsim_tags %}
+{% block title %}Game Over{% endblock %}
+
+{% block content %}
+<div>
+
+  <div id="gameover_report">
+    <h1><div><div id="inner_h1">Game Over: Final Report</div></div></h1>	
+    <div id="d_content">
+      {% include "game/season_report_alpha.html" %}
+      {% include "game/season_report_beta.html" %}
+      <div style="clear:both;"></div>
+    </div>
+    
+    <p>
+      You may <a href="{{game.game_history_url}}">browse the
+	history</a> of this game 
+      or <a href="{{game.game_history_csv_url}}">download 
+	a CSV file</a> of the complete 
+      history.
+    </p>
+    
+	<form name="start-new-game" action="{% url new_game %}" method="post">
+	  {% csrf_token %}
+	  	<p>You may <input type="button" value="begin another game"
+		    	onclick="return window.location = '/games/#start'"
+		    	class="regButton"
+		    	style="font-weight: bold;" />
+		    or 
+		    <a href="/games/#saved">return to your games page</a>.
+	    </p>
+	  </p> 
+	</form>
+    
+  </div>
+
+</div>
+
+{% endblock %}

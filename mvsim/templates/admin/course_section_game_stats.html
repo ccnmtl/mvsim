@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Game Stats{% endblock %}
+
+{% block scripts %}
+	<link rel="stylesheet" href="/site_media/css/state.css" media="screen" />
+
+  	<!-- JavaScript -->
+  	<script type="text/javascript" src="/site_media/scripts/jquery-1.4.2.min.js"></script>
+  	<script type="text/javascript" src="/site_media/scripts/jquery.tablesorter.min.js"></script>
+  	<script type="text/javascript" src="/site_media/scripts/json2.js"></script>
+  	<script type="text/javascript" src="/site_media/js/util.js"></script>
+{% endblock %}
+
+{% block endscripts %}
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+           	jQuery("table.tablesorter tr:odd").addClass("odd");
+           	
+           	jQuery("table.tablesorter").tablesorter({
+           		sortList: [[0,0]]                
+           	});
+        });
+      </script>
+    
+{% endblock %}
+
+{% block content %}
+
+<div class="mvsim-admin">
+    <h1>View {{course}} Game Stats</h1> 
+    <div class="mvsim-admin-navigation">
+        <a href="/">Home</a> >
+        <a href="/course_sections/">{{section.course}}</a>  >
+        <a href="/course_sections/{{section.id}}/">{{section.name}}</a> >
+        Game Stats
+    </div>
+
+    <h2>{{section.name}} Game Stats</h2>    
+
+<table class="game-stats tablesorter">
+	<thead>
+		<tr>
+			<th>Student</th>
+			<th>Number of Games</th>
+			<th>Max Score</th>
+			<th>Min Score</th>
+			<th>Mean Score</th>
+			<th>Max # Turns</th>
+			<th>Min # Turns</th>
+			<th>Mean # Turns</th>
+		</tr>
+	</thead>
+
+	<tbody>
+{% for s in section.stats %}
+    <tr>
+			<td>{{s.user}}</td>
+			<td>{{s.count}}</td>
+			<td>{{s.max_score}}</td>
+			<td>{{s.min_score}}</td>
+			<td>{{s.mean_score}}</td>
+			<td>{{s.max_turns}}</td>
+			<td>{{s.min_turns}}</td>
+			<td>{{s.mean_turns}}</td>
+		</tr>
+{% endfor %}
+</table>
+
+</div>
+
+{% endblock %}

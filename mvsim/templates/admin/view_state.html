@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %}{{state.name}}{% endblock %}
+
+{% block scripts %}
+  	<!-- CSS -->
+  	<link rel="stylesheet" href="/site_media/css/form.css" type="text/css" />
+  	<link rel="stylesheet" href="/site_media/css/state.css" media="screen" />
+  
+  	<!-- JavaScript -->
+  	<script type="text/javascript" src="/site_media/scripts/jquery-1.4.2.min.js"></script>
+  	<script type="text/javascript" src="/site_media/scripts/jquery.tablesorter.min.js"></script>
+  	<script type="text/javascript" src="/site_media/scripts/json2.js"></script>
+  	<script type="text/javascript" src="/site_media/js/util.js"></script>
+  	
+	{% if not readonly %}
+	  <script type="text/javascript" src="/site_media/scripts/deform.js"></script>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="mvsim-admin">
+    <h1>Administer Game State</h1>
+    <div class="mvsim-admin-navigation">
+        <a href="/">Home</a> >
+        <a href="/course_sections/">{{course}}</a> >
+        {{state.name}}
+    </div>
+    
+    <h2>{{state.name}}</h2>
+    <input type="hidden" id="loaded" name="loaded" value="true" />
+      
+    {% if readonly %}
+        <div class="alert warning">
+        	{% ifequal state.id 1 %}
+            	This state is the default starting state for the MV Sim application. The variables and coefficients cannot be changed.
+            {% else %}
+            	This state has associated games. It cannot be changed.
+            {% endifequal %}
+        </div>
+    {% endif %}
+
+    <div class="mvsim-admin-section">
+        <h3>Properties</h3>
+        <form method="POST" action="{% url edit_state state.id %}">
+            <fieldset class="module aligned">            
+                <div class="form-row field-name">
+                    <div>
+                        <label for="visibile">Visible:</label>
+                           <select name="visible" {% if readonly %}disabled="disabled"{% endif %}>
+                              <option value="False" {% if not state.visible %}selected="selected"{% endif %}>Superusers</option>
+                              <option value="True" {% if state.visible %}selected="selected"{% endif %}>Superusers & Students</option>                      
+                          </select>
+                    </div>
+                </div>                
+                <div class="form-row field-name">
+                    <div>
+                        <label for="associated_sections">Associate Sections:</label>
+                        {% for section in course.coursesection_set.all %}
+                              <div>
+                                  <input type="checkbox"
+                                      name="associated_sections"
+                                      value="{{section.id}}"
+                                      {% if section in state.coursesection_set.all %}checked="checked"{% endif %} />
+                                  <a href="/course_sections/{{section.id}}">{{section.name}}</a>
+                              </div>
+                        {% endfor %}
+                       </div>
+                </div>      
+            </fieldset>
+            <div class="submit-row"><input type="submit" value="Save" class="regButton right" /></div>
+        </form>
+    </div>
+    
+
+    
+    <h3 id="variables_coefficients">Variables & Coefficients</h3>
+    <div class="variables_coefficients">
+    	{% if saved %}
+    		<div class="success">
+    			Your changes were saved.
+    			<img src="/site_media/images/alert_close.png" class="alert_close" />
+    		</div>
+    	{% endif %}
+    
+        {{form|safe}}
+    </div>
+    
+    <div class="clone-state">
+        <h3>Clone State</h3>
+        <form method="POST" action="{% url clone_state state.id %}">
+            <fieldset class="module aligned">
+                <div class="form-row field-name">
+                    <div>
+                        <label for="state_name">Name:</label>
+                        <input type="text" name="state_name" value="" style="width: 300px"/>
+                    </div>
+                </div>                             
+                <div class="form-row field-name">
+                    <div>
+                        <label for="visibile">Visible:</label>
+                           <select name="visible">
+                              <option value="False">Superusers</option>
+                            <option value="True">Superusers & Students</option>                               
+                          </select>
+                    </div>
+                </div>   
+                <div class="form-row field-name">
+                    <div>
+                        <label for="associated_sections">Associated Sections:</label>
+                        {% for section in course.coursesection_set.all %}
+                              <div>
+                                  <input type="checkbox"
+                                      name="associated_sections"
+                                      value="{{section.id}}" />{{section.name}}
+                              </div>
+                        {% endfor %}
+                       </div>
+                </div>
+            </fieldset>
+            <div class="submit-row"><input type="submit" value="Clone" class="regButton right" /></div>
+        </form>
+    </div>    
+        
+
+</div>
+
+{% endblock %}
+
+
+{% block endscripts %}
+    
+    <script type="text/javascript">
+		function compare(a, b) {
+			var aOrder = jQuery(a).data('order');
+			var bOrder = jQuery(b).data('order');
+			if (aOrder == bOrder) {
+				return 0;
+			} else {
+				return aOrder > bOrder ? 1 : -1;
+			}
+		}
+	
+        jQuery(document).ready(function() {
+            {% if readonly %}
+            	jQuery("#deform input").attr("disabled", "disabled");
+               	jQuery("#deformsubmit").attr("disabled", "disabled");
+               	jQuery("#deformsubmit").hide();
+               	jQuery("a.deformSeqAdd").hide();
+            {% endif %}
+            
+            // setup some ajax progress indicator
+            jQuery("html").bind("ajaxStart", function(){  
+               jQuery(this).addClass('busy');  
+            }).bind("ajaxStop", function(){  
+               jQuery(this).removeClass('busy');  
+            });
+
+            // setup the default order
+           	jQuery("table.tablesorter tr").each(function(index, elt) {
+           		jQuery(elt).data('order', index);
+           	});
+            
+            // hide the "start" & end structural rows
+            jQuery("tr.structural").hide();
+            
+            // table stripes
+           	jQuery("table.tablesorter tr:odd").addClass("odd");
+
+           	// change the field background to indicate changed
+           	jQuery("table.tablesorter tr td input").keyup(function (evt) {
+           		var keyCode = evt.keyCode || evt.which;
+           		if (keyCode != 9 && keyCode != 8 && keyCode != 13 && keyCode != 32) {
+       				var elt = evt.srcElement || evt.target || evt.originalTarget;
+       				jQuery(elt).addClass("changed");
+       			}           		
+           	});
+           	
+           	var savedSort = JSON.parse(getCookie("table_sort_list"));
+            if (savedSort === null) {
+                savedSort = [[0,0],[1,0],[2,0]];                
+            }
+           	
+           	jQuery("table.tablesorter").tablesorter({
+           		sortList: savedSort,
+                headers: {4: {sorter: false}, 5: {sorter: false}},                
+           	});
+           	
+            jQuery("table.tablesorter").bind("sortEnd", function (sorter) { 
+            	setCookie("table_sort_list", JSON.stringify(sorter.target.config.sortList));
+            });
+            
+            jQuery("img.alert_close").click(function(evt) {
+            	var elt = evt.srcElement || evt.target || evt.originalTarget;
+            	jQuery(elt).parent().hide();
+            });
+           	
+           	jQuery("form#deform").submit(function(evt) {           		
+           		// stop form from submitting normally
+           		evt.preventDefault();
+           		
+           		{% if not readonly %}
+           			jQuery("#loaded").remove();
+           		 
+	           		// retrieve the table rows by their original data order
+	           		// serialize the form values manually to ensure "correct" order
+	           		// deform must have the fields back in a render order
+	           		var data = "";
+	           		var rows = jQuery("table.tablesorter tr").sort(compare);
+	           		jQuery(rows).each(function(index, elt) {
+	           			data += jQuery(elt).find('input').serialize() + "&";
+	           		});
+
+	           		jQuery.ajax({
+	           		    type: "POST",
+	           		    url: this.action,
+	           		    data: data,
+	           		    success: function(json, textStatus, jqXHR) {
+	           		    	if (typeof(json) === "string") {
+	           		    		var newDoc = document.open("text/html", "replace");
+	           		    		newDoc.write(json);
+	           		    		newDoc.close();
+	           		    		jQuery("h3#variables_coefficients")[0].scrollIntoView();
+	           		    	} else {
+	           		    		window.location.replace('.');
+	           		    	}
+	           		   	}
+	           		});
+	           	{% endif %}		
+           		return false;
+           	});
+        });
+      </script>
+    
+{% endblock %}

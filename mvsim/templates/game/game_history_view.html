@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load mvsim_tags %}
+{% block title %}Game History{% endblock %}
+
+{% block content %}
+<div class="game_history">
+
+  <div id="turn_report">
+    <h1><div><div id="inner_h1">History of Game {{game}}</div></div></h1>	
+
+    {% with "True" as full_page_view %}
+    {% include "game/game_history.html" %}        
+    {% endwith %}
+
+	<form name="start-new-game" action="{% url new_game %}" method="post">
+	  {% csrf_token %}
+	  <p>You may 
+	    <input type="button" value="begin a new game"
+	    	onclick="return window.location = '/games/#start'"
+	    	class="regButton"
+	    	style="font-weight: bold;" />
+	    or 
+	    <a href="/games/#saved">pick up where you left off</a>.
+	  </p> 
+	</form>
+    
+  </div>
+
+</div>
+
+{% endblock %}

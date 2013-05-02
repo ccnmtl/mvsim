@@ -52,20 +52,25 @@ div.deformReplaces {
 
 /* error handling */
 .deform .errorLi {
-    border:1px solid red;
-    text-align: center;
-    -webkit-border-radius:20px;
-    -moz-border-radius:20px;
+	padding: 14px 35px 14px 14px;
+	margin-bottom: 20px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+	font-size: 1em;
 }
 
-.deform li.error{
-    background-color: #FFDFDF;
+
+.deform tr.error,
+.deform tr.error td {
+    background-color: #f2dede !important;
 }
 
 .deform li.error label.desc, .deform p.error, deform h3.errorMsgLbl{
-    color: #DF0000;
-}
-
-.deform p.error{
-    font-size: 70%;
+    color: #b94a48;
+	margin: 4px 0;
+	font-weight: bold;
 }

@@ -35,11 +35,7 @@ def add_extra_gameshow_context(context):
             items_to_sell = True
     extra_display_vars['items_to_sell'] = items_to_sell
 
-    # doctor visits are 20% if there's a clinic
-    doctor_visit_cost = coeffs.doctor_visit_cost
-    if state.clinic:
-        doctor_visit_cost *= .2
-    extra_display_vars['doctor_visit_cost'] = doctor_visit_cost
+    extra_display_vars['doctor_visit_cost'] = doctor_visit_cost(coeffs, state)
 
     # infections in the family
     extra_display_vars['n_sick_people'], \
@@ -138,45 +134,11 @@ def add_extra_seasonreport_context(context):
 
     state = context['state']
 
-    ngo_bednets_report = 'NGO bednets' in state.user_messages
-    road_subs_report = 'road subsidy' in state.user_messages
-    clinic_subs_report = 'clinic subsidy' in state.user_messages
-    irrigation_subs_report = 'irrigation subsidy' in state.user_messages
-    sanitation_subs_report = 'sanitation subsidy' in state.user_messages
-    water_pump_report = 'water pump subsidy' in state.user_messages
-    meals_subs_report = 'meals subsidy' in state.user_messages
-    electric_subs_report = 'electricity subsidy' in state.user_messages
-    good_rain_report = 'good rains' in state.user_messages
+    (context['village_goodnews_block'],
+     context['has_subsidy']) = village_goodnews_block(state)
+    context['village_badnews_block'] = village_badnews_block(state)
 
-    has_subsidy = False
-    if ngo_bednets_report or road_subs_report or clinic_subs_report or \
-            irrigation_subs_report or sanitation_subs_report or \
-            water_pump_report or meals_subs_report or electric_subs_report:
-        has_subsidy = True
-
-    village_goodnews_block = False
-    if has_subsidy or good_rain_report:
-        village_goodnews_block = True
-
-    fish_depletion_report = 'fish stock depletion' in state.user_messages
-    wood_depletion_report = 'wood stock depletion' in state.user_messages
-
-    village_badnews_block = False
-    if (state.drought or state.epidemic or fish_depletion_report
-        or wood_depletion_report):
-        village_badnews_block = True
-
-    context['village_goodnews_block'] = village_goodnews_block
-    context['village_badnews_block'] = village_badnews_block
-    context['has_subsidy'] = has_subsidy
-
-    water_used = state.family_water_needs
-    if water_used > state.amount_water:
-        water_used = state.amount_water
-    if state.water_pump:
-        water_used = 0
-
-    context['water_used'] = water_used
+    context['water_used'] = water_used(state)
 
     coeffs = context['coeffs']
 
@@ -217,32 +179,19 @@ def add_extra_seasonreport_context(context):
     context['money_earned'] = money_earned
     context['money_spent'] = money_spent
 
-    # doctor visits are 20% if there's a clinic
-    doctor_visit_cost = coeffs.doctor_visit_cost
-    if state.clinic:
-        doctor_visit_cost *= .2
-
-    context['doctor_visit_cost'] = doctor_visit_cost
+    context['doctor_visit_cost'] = doctor_visit_cost(coeffs, state)
     context['items_bought'] = items_bought
     context['items_sold'] = items_sold
 
-    village_improvements = []
-    for item, label in zip(coeffs.available_improvements,
-                           coeffs.improvement_labels):
-        if item in state.improvements:
-            village_improvements.append(label)
+    context['village_improvements'] = list(village_improvements(
+        coeffs.available_improvements,
+        coeffs.improvement_labels,
+        state.improvements))
 
-    context['village_improvements'] = village_improvements
-
-    percent_infected = 0
-    if state.village_population != 0:
-        percent_infected = (state.village_infected_pop
-                            / float(state.village_population) * 100)
-
-    context['percent_infected'] = percent_infected
+    context['percent_infected'] = percent_infected(state)
 
     if 'child born' in state.user_messages:
-        context['new_baby'] = coeffs.child_names[int(state.births) - 1]
+        context['new_baby'] = new_child_name(state.births, coeffs.child_names)
 
     context['foreststock'] = simple_controller.get_interval_class(
         state.wood_stock, coeffs.visual_intervals_forest)
@@ -254,3 +203,68 @@ def add_extra_seasonreport_context(context):
     context['notifications'] = []
 
     return context
+
+
+def new_child_name(births, child_names):
+    if int(births) < len(child_names) + 1:
+        return child_names[int(births) - 1]
+    else:
+        return "child%d" % int(births)
+
+
+def village_improvements(available, labels, all_improvements):
+    for item, label in zip(available, labels):
+        if item in all_improvements:
+            yield label
+
+
+def village_badnews_block(state):
+    fish_depletion_report = 'fish stock depletion' in state.user_messages
+    wood_depletion_report = 'wood stock depletion' in state.user_messages
+
+    return any([state.drought, state.epidemic, fish_depletion_report,
+                wood_depletion_report])
+
+
+def village_goodnews_block(state):
+    ngo_bednets_report = 'NGO bednets' in state.user_messages
+    road_subs_report = 'road subsidy' in state.user_messages
+    clinic_subs_report = 'clinic subsidy' in state.user_messages
+    irrigation_subs_report = 'irrigation subsidy' in state.user_messages
+    sanitation_subs_report = 'sanitation subsidy' in state.user_messages
+    water_pump_report = 'water pump subsidy' in state.user_messages
+    meals_subs_report = 'meals subsidy' in state.user_messages
+    electric_subs_report = 'electricity subsidy' in state.user_messages
+    good_rain_report = 'good rains' in state.user_messages
+
+    has_subsidy = any(
+        [ngo_bednets_report, road_subs_report, clinic_subs_report,
+         irrigation_subs_report, sanitation_subs_report, water_pump_report,
+         meals_subs_report, electric_subs_report])
+
+    return (has_subsidy or good_rain_report, has_subsidy)
+
+
+def percent_infected(state):
+    if state.village_population != 0:
+        return (state.village_infected_pop
+                / float(state.village_population) * 100)
+    else:
+        return 0
+
+
+def water_used(state):
+    used = state.family_water_needs
+    if used > state.amount_water:
+        used = state.amount_water
+    if state.water_pump:
+        used = 0
+    return used
+
+
+def doctor_visit_cost(coeffs, state):
+    # doctor visits are 20% if there's a clinic
+    if state.clinic:
+        return coeffs.doctor_visit_cost * .2
+    else:
+        return coeffs.doctor_visit_cost
