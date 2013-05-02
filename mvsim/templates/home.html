@@ -91,18 +91,31 @@ Take a look at Professor Sachs' book <a target="_blank"
     End of Poverty"</a> 
 </p>
 
-	<form name="start-new-game" action="{% url new_game %}" method="post">
-	  {% csrf_token %}
-	  <p>You may 
-	    <input type="button" value="begin a new game"
-	    	onclick="return window.location = '/games/#start'"
-	    	class="regButton"
-	    	style="font-weight: bold;" />
-	    in the Millennium Village, or 
-	    <a href="/games/#saved">pick up where you left off</a>.
-	  </p> 
-	</form> 
 
-  </div>
+{% if sections %}
+<table>
+	{% for section in sections %}
+<tr>
+	<td><form name="start-new-game" action="{% url new_game section.id %}" method="post">
+			{% csrf_token %}
+     <p>You may 
+           <input type="button" value="begin a new game"
+               onclick="return window.location = '/section/{{section.id}}/games/#start'"
+               class="regButton"
+               style="font-weight: bold;" />
+           in the Millennium Village ("{{section.name}}" Section), or 
+           <a href="/section/{{section.id}}/games/#saved">pick up where you left off</a>.
+         </p> 
+       </form> 
+	</td>
+</tr>
+	{% endfor %}
+</table>
+
+{% else %}
+<p>You are not in any course sections. What do we do here?</p>
+{% endif %}
+
+</div>
 
 {% endblock %}

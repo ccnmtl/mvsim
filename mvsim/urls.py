@@ -30,8 +30,10 @@ urlpatterns = patterns(
     (r'^registration/', include('registration.urls')),
     url(r'^impersonate/', include('impersonate.urls')),
     url(r'^$', 'mvsim.main.views.home', name='home'),
-    url(r'^games/$', 'mvsim.main.views.games_index', name='games_index'),
-    url(r'^games/new/$', 'mvsim.main.views.games_index', name='new_game'),
+    url(r'^section/(?P<section_id>\d+)/games/$',
+        'mvsim.main.views.games_index', name='games_index'),
+    url(r'^section/(?P<section_id>\d+)/games/new/$',
+        'mvsim.main.views.games_index', name='new_game'),
 
     url(r'^games/(?P<game_id>\d+)/$', 'mvsim.main.views.show_turn',
         name='game_show'),

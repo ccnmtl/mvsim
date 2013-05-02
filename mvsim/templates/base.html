@@ -35,7 +35,11 @@
 	  {% endif %}
 
 	  <li>
-	    <a href="{% url games_index %}">My Games</a>
+{% if section %}
+      <a href="/section/{{section.id}}/games/">My Games</a>
+{% else %}
+	    <a href="/">My Games</a>
+{% endif %}
 	  </li>
 	  {% if user.is_admin %}
 	  <li><a href="/admin/">Sim admin</a></li>

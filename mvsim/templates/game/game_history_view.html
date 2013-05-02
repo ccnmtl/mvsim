@@ -12,15 +12,15 @@
     {% include "game/game_history.html" %}        
     {% endwith %}
 
-	<form name="start-new-game" action="{% url new_game %}" method="post">
+	<form name="start-new-game" action="{% url new_game section.id %}" method="post">
 	  {% csrf_token %}
 	  <p>You may 
 	    <input type="button" value="begin a new game"
-	    	onclick="return window.location = '/games/#start'"
+	    	onclick="return window.location = '/section/{{section.id}}/games/#start'"
 	    	class="regButton"
 	    	style="font-weight: bold;" />
 	    or 
-	    <a href="/games/#saved">pick up where you left off</a>.
+	    <a href="/section/{{section.id}}/games/#saved">pick up where you left off</a>.
 	  </p> 
 	</form>
     

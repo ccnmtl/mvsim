@@ -345,6 +345,27 @@ class Game(models.Model):
         state = State(state=new_state, game=self)
         state.save()
 
+    def course_section(self, user=None):
+        """ get the CourseSection associated with this game
+        (via the CourseAffils.Course)
+
+        filtering by user if one is specified.
+
+        auto-vivify if necessary"""
+        if user:
+            sections = CourseSection.objects.filter(
+                users=user,
+                course=self.course)
+            if sections.count() > 0:
+                return sections[0]
+            else:
+                section = CourseSection.objects.filter(course=self.course)[0]
+                section.users.add(user)
+                section.save()
+                return section
+        else:
+            return CourseSection.objects.filter(course=self.course)[0]
+
 
 class State(models.Model):
     name = models.TextField(blank=True)

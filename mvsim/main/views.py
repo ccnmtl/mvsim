@@ -86,9 +86,10 @@ def view_state(request, state_id):
         readonly = True
 
     available_sections = []
-    for section in request.course.coursesection_set.all():
-        if section not in state.coursesection_set.all():
-            available_sections.append(section)
+    if state.game:
+        for section in state.game.course.coursesection_set.all():
+            if section not in state.coursesection_set.all():
+                available_sections.append(section)
 
     # Deform's form.render API allows you to pass a readonly=True flag
     # to have deform render a readonly representation of the data;
@@ -98,10 +99,13 @@ def view_state(request, state_id):
     # and, if it's set, removes Deform's javascript and injects some JS
     # to disable all the form fields on page load.  The result is prettier.
     if request.method == "GET":
+        course = None
+        if state.game:
+            course = state.game.course
         return {'form': form.render(state.loads()),
                 'readonly': readonly,
                 'state': state,
-                'course': request.course,
+                'course': course,
                 'available_sections': available_sections,
                 'saved': request.GET.get('msg', None)}
 
@@ -118,7 +122,7 @@ def view_state(request, state_id):
             'form': e.render(),
             'readonly': readonly,
             'state': state,
-            'course': request.course,
+            'course': state.game.course,
             'available_sections': available_sections}
         return rv
 
@@ -188,37 +192,14 @@ def associate_state(request, section_id):
 
 @rendered_with("home.html")
 def home(request):
-    course = request.course
-    sections = CourseSection.objects.filter(users=request.user,
-                                            course=course)
-    try:
-        section = sections[0]
-    except IndexError:
-        try:
-            section = CourseSection.objects.filter(course=course)[0]
-            section.users.add(request.user)
-            section.save()
-        except:
-            return HttpResponse(
-                "there is no course section affiliated with this course. "
-                + "tell an admin")
-    try:
-        starting_state_id = section.starting_states.all()[0].id
-    except:
-        starting_state_id = None
-    return {'starting_state_id': starting_state_id}
+    return dict(
+        starting_state_id=None,
+        sections=CourseSection.objects.filter(users=request.user))
 
 
 @rendered_with("games_index.html")
-def games_index(request):
-    sections = CourseSection.objects.filter(users=request.user,
-                                            course=request.course)
-    try:
-        section = sections[0]
-    except IndexError:
-        section = CourseSection.objects.filter(course=request.course)[0]
-        section.users.add(request.user)
-        section.save()
+def games_index(request, section_id):
+    section = get_object_or_404(CourseSection, id=section_id)
 
     if request.method == "POST":
         state = section.starting_states.get(
@@ -227,7 +208,7 @@ def games_index(request):
             user=request.user,
             configuration=Configuration.objects.get(pk=1),
             user_input=UserInput.objects.get(pk=1),
-            course=request.course,
+            course=section.course,
             starting_state=state)
         return redirect(game.show_game_url())
 
@@ -235,11 +216,10 @@ def games_index(request):
     if not request.user.is_superuser:
         states = states.exclude(visible=False)
 
-    games = Game.objects.filter(user=request.user,
-                                course=request.course)
+    games = Game.objects.filter(user=request.user)
     return {'games': games,
             'section': section,
-            'high_scores': high_scores(course=request.course),
+            'high_scores': high_scores(course=section.course),
             'starting_states': states}
 
 
@@ -282,20 +262,13 @@ def build_template_context(request, game, turn_number=None):
 @rendered_with("game/game_over.html")
 def game_over(request, game_id):
     statsd.incr("event.game_over")
-    sections = CourseSection.objects.filter(users=request.user,
-                                            course=request.course)
-    try:
-        section = sections[0]
-    except IndexError:
-        section = CourseSection.objects.filter(course=request.course)[0]
-        section.users.add(request.user)
-        section.save()
+    game = get_object_or_404(Game, id=game_id)
+    section = game.course_section(user=request.user)
     try:
         starting_state_id = section.starting_states.all()[0].id
     except:
         starting_state_id = None
 
-    game = Game.objects.get(pk=game_id)
     if game.in_progress():
         return redirect(game.show_game_url())
 
@@ -304,6 +277,7 @@ def game_over(request, game_id):
 
     display_vars = build_template_context(request, game)
     display_vars['starting_state_id'] = starting_state_id
+    display_vars['section'] = section
     return display_vars
 
 
@@ -315,14 +289,7 @@ def history(request, game_id):
     if not game.viewable(request):
         return forbidden()
 
-    sections = CourseSection.objects.filter(users=request.user,
-                                            course=game.course)
-    try:
-        section = sections[0]
-    except IndexError:
-        section = CourseSection.objects.filter(course=game.course)[0]
-        section.users.add(request.user)
-        section.save()
+    section = game.course_section(user=request.user)
     try:
         starting_state_id = section.starting_states.all()[0].id
     except:
@@ -330,6 +297,7 @@ def history(request, game_id):
 
     display_vars = build_template_context(request, game)
     display_vars['starting_state_id'] = starting_state_id
+    display_vars['section'] = section
     return display_vars
 
 
@@ -337,10 +305,11 @@ def history(request, game_id):
 def delete_game(request, game_id):
     statsd.incr("event.delete_game")
     game = get_object_or_404(Game, pk=game_id)
+    section = game.course_section()
     if not game.viewable(request):
         return forbidden()
     game.delete()
-    return redirect("/games/")
+    return redirect("/section/%d/games/" % section.id)
 
 
 @allow_http("GET")

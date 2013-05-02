@@ -12,4 +12,5 @@ class SimpleTest(TestCase):
 
     def test_smoke(self):
         response = self.c.get("/smoketest/")
+        print response
         self.assertEqual(response.status_code, 200)

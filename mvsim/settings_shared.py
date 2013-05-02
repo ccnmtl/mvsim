@@ -58,7 +58,6 @@ MIDDLEWARE_CLASSES = (
     'waffle.middleware.WaffleMiddleware',
     'impersonate.middleware.ImpersonateMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'courseaffils.middleware.CourseManagerMiddleware',
     'djangohelpers.middleware.AuthRequirementMiddleware',
 )
 
@@ -184,7 +183,7 @@ WIND_SUPERUSER_MAPPER_GROUPS = ['anp8', 'jb2410', 'zm4',
                                 'egr2107', 'sld2131',
                                 'amm8', 'mar227', ]
 
-COURSEAFFILS_EXEMPT_PATHS = ANONYMOUS_PATHS = (
+ANONYMOUS_PATHS = (
     '/accounts/',
     '/static/',
     '/site_media/',
