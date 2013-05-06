@@ -118,11 +118,14 @@ def view_state(request, state_id):
     try:
         appstruct = form.validate(controls)
     except deform.ValidationFailure, e:
+        course = None
+        if state.game:
+            course = state.game.course
         rv = {
             'form': e.render(),
             'readonly': readonly,
             'state': state,
-            'course': state.game.course,
+            'course': course,
             'available_sections': available_sections}
         return rv
 
