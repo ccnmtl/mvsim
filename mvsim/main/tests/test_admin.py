@@ -52,7 +52,6 @@ class AdminCourseTest(TestCase):
         self.assertTrue(
             client.login(username='admin', password='admin'))
 
-        client.get("/?set_course=Test%20Course%20Group")
         response = client.get("/state/1/")
         self.assertTemplateUsed(response, "admin/view_state.html")
 
@@ -87,7 +86,6 @@ class AdminCourseTest(TestCase):
         self.assertTrue(
             client.login(username='admin', password='admin'))
 
-        client.get("/?set_course=Test%20Course%20Group")
         response = client.get("/state/1/")
         self.assertTemplateUsed(response, "admin/view_state.html")
 
@@ -129,7 +127,6 @@ class AdminCourseTest(TestCase):
         self.assertTrue(
             client.login(username='admin', password='admin'))
 
-        client.get("/?set_course=Test%20Course%20Group")
         response = client.get("/state/1/")
         self.assertTemplateUsed(response, "admin/view_state.html")
 
@@ -164,7 +161,6 @@ class AdminCourseTest(TestCase):
 
         self.assertTrue(
             client.login(username='admin', password='admin'))
-        client.get("/?set_course=Test%20Course%20Group")
 
         section = CourseSection.objects.get(id=1)
         self.assertEqual(section.name, "Default Section")
