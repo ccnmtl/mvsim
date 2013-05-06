@@ -234,9 +234,9 @@ def build_template_context(request, game, turn_number=None):
 
     variables, coefficients = state['variables'], state['coefficients']
 
-    if '' in variables.owned_items:
+    while '' in variables.owned_items:
         variables.owned_items.remove('')
-    if '' in variables.user_messages:
+    while '' in variables.user_messages:
         variables.user_messages.remove('')
 
     people = list(logic.setup_people(variables, coefficients, None))
@@ -374,9 +374,9 @@ def submit_turn(request, game_id):
     state = game.deserialize(game.current_state())
     variables, coefficients = state['variables'], state['coefficients']
 
-    if '' in variables.owned_items:
+    while '' in variables.owned_items:
         variables.owned_items.remove('')
-    if '' in variables.user_messages:
+    while '' in variables.user_messages:
         variables.user_messages.remove('')
 
     from engine.simple_controller import adjust_submission

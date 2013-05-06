@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test.client import Client
 from mvsim.main.models import CourseSection
 from mvsim.main.models import Game
+from django.contrib.auth.models import User
 
 
 class SimpleTest(TestCase):
@@ -14,8 +15,23 @@ class SimpleTest(TestCase):
 
     def test_smoke(self):
         response = self.c.get("/smoketest/")
-        print response
         self.assertEqual(response.status_code, 200)
+
+
+class LoggedInTest(TestCase):
+    def setUp(self):
+        self.c = Client()
+        self.u = User.objects.create(username="testuser")
+        self.u.set_password("test")
+        self.u.save()
+        self.c.login(username="testuser", password="test")
+
+    def tearDown(self):
+        self.u.delete()
+
+    def test_root(self):
+        response = self.c.get("/")
+        self.assertEquals(response.status_code, 200)
 
 
 class PlayGameTest(TestCase):
@@ -33,9 +49,9 @@ class PlayGameTest(TestCase):
 
     def setUp(self):
         self.c = Client()
+        self.c.login(username='admin', password='admin')
 
     def test_play(self):
-        self.c.login(username='admin', password='admin')
         cs = CourseSection.objects.get(name="Default Section")
         response = self.c.get("/section/%d/games/" % cs.id)
         self.assertEqual(response.status_code, 200)
@@ -47,7 +63,6 @@ class PlayGameTest(TestCase):
         self.assertEqual(len(response.redirect_chain), 1)
 
         game_url = response.redirect_chain[0][0]
-        print game_url
         assert game_url.startswith("http://testserver/games/")
         game_id = game_url.split("/")[4]
         g = Game.objects.get(id=game_id)
@@ -56,21 +71,71 @@ class PlayGameTest(TestCase):
         # so we don't expect a happy outcome
         response = self.c.post(
             "/games/%d/turn/" % g.id,
-            dict()
+            {'effort-Kodjo': '12',
+             'effort-Fatou': '12',
+             'effort_farming': '15',
+             'effort_fishing': '0',
+             'effort_fuel_wood': '3',
+             'effort_water': '6',
+             'effort_small_business': '0',
+             'maize': '4',
+             'cotton': '0',
+             }
         )
         self.assertEqual(response.status_code, 302)
+
+        response = self.c.get("/games/%d/" % g.id)
+        self.assertEqual(response.status_code, 200)
 
         # check history stuff
         response = self.c.get("/games/%d/history/" % g.id)
         self.assertEqual(response.status_code, 200)
 
-        response = self.c.get("/games/%d/game_over/" % g.id)
+        response = self.c.get("/games/%d/turn/1/" % g.id)
         self.assertEqual(response.status_code, 200)
+
+        response = self.c.get("/games/%d/turn/2/" % g.id)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.c.get("/games/%d/game_over/" % g.id)
+        self.assertEqual(response.status_code, 302)
 
         response = self.c.get("/games/%d/graph/" % g.id)
         self.assertEqual(response.status_code, 200)
 
         response = self.c.get("/games/%d/edit/" % g.id)
+        self.assertEqual(response.status_code, 200)
+
+        # clean up
+        response = self.c.post("/games/%d/delete/" % g.id)
+        self.assertEqual(response.status_code, 302)
+
+    def test_play_suicide(self):
+        """ play a turn that ought to end the game """
+        cs = CourseSection.objects.get(name="Default Section")
+        response = self.c.get("/section/%d/games/" % cs.id)
+        self.assertEqual(response.status_code, 200)
+
+        s = cs.starting_states.all()[0]
+        response = self.c.post("/section/%d/games/new/" % cs.id,
+                               dict(starting_state_id=s.id),
+                               follow=True)
+        self.assertEqual(len(response.redirect_chain), 1)
+
+        game_url = response.redirect_chain[0][0]
+        assert game_url.startswith("http://testserver/games/")
+        game_id = game_url.split("/")[4]
+        g = Game.objects.get(id=game_id)
+
+        # submit a turn, not setting any variables
+        # so we don't expect a happy outcome
+        response = self.c.post(
+            "/games/%d/turn/" % g.id,
+            {}
+        )
+        self.assertEqual(response.status_code, 302)
+
+        response = self.c.get("/games/%d/game_over/" % g.id)
         self.assertEqual(response.status_code, 200)
 
         # clean up
