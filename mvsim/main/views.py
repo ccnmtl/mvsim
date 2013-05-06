@@ -266,6 +266,9 @@ def build_template_context(request, game, turn_number=None):
 def game_over(request, game_id):
     statsd.incr("event.game_over")
     game = get_object_or_404(Game, id=game_id)
+    if not game.viewable(request):
+        return forbidden()
+
     section = game.course_section(user=request.user)
     starting_state_id = None
     if section.starting_states.all().count() > 0:
@@ -273,9 +276,6 @@ def game_over(request, game_id):
 
     if game.in_progress():
         return redirect(game.show_game_url())
-
-    if not game.viewable(request):
-        return forbidden()
 
     display_vars = build_template_context(request, game)
     display_vars['starting_state_id'] = starting_state_id

@@ -141,3 +141,70 @@ class PlayGameTest(TestCase):
         # clean up
         response = self.c.post("/games/%d/delete/" % g.id)
         self.assertEqual(response.status_code, 302)
+
+    def test_game_auth(self):
+        """ play a turn to get a game started,
+        then try to access it as a different user """
+        cs = CourseSection.objects.get(name="Default Section")
+        response = self.c.get("/section/%d/games/" % cs.id)
+        self.assertEqual(response.status_code, 200)
+
+        s = cs.starting_states.all()[0]
+        response = self.c.post("/section/%d/games/new/" % cs.id,
+                               dict(starting_state_id=s.id),
+                               follow=True)
+        self.assertEqual(len(response.redirect_chain), 1)
+
+        game_url = response.redirect_chain[0][0]
+        assert game_url.startswith("http://testserver/games/")
+        game_id = game_url.split("/")[4]
+        g = Game.objects.get(id=game_id)
+
+        # submit a turn, not setting any variables
+        # so we don't expect a happy outcome
+        response = self.c.post(
+            "/games/%d/turn/" % g.id,
+            {'effort-Kodjo': '12',
+             'effort-Fatou': '12',
+             'effort_farming': '15',
+             'effort_fishing': '0',
+             'effort_fuel_wood': '3',
+             'effort_water': '6',
+             'effort_small_business': '0',
+             'maize': '4',
+             'cotton': '0',
+             }
+        )
+        self.assertEqual(response.status_code, 302)
+
+        u2 = User.objects.create(username="testuser2")
+        u2.set_password('test')
+        u2.save()
+        self.c.login(username="testuser2", password="test")
+
+        # make sure we are denied access to everything
+        response = self.c.get("/games/%d/" % g.id)
+        self.assertEquals(response.status_code, 403)
+
+        response = self.c.get("/games/%d/history/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        response = self.c.get("/games/%d/turn/1/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        response = self.c.get("/games/%d/turn/2/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        response = self.c.get("/games/%d/game_over/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        response = self.c.get("/games/%d/graph/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        response = self.c.get("/games/%d/edit/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        response = self.c.post("/games/%d/delete/" % g.id)
+        self.assertEqual(response.status_code, 403)
+
+        u2.delete()
