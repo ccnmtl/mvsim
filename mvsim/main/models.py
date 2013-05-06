@@ -271,10 +271,10 @@ class Game(models.Model):
         game.save()
         return game
 
-    def viewable(self, request):
-        return (self.user == request.user or
-                request.user.is_staff or
-                self.course.is_faculty(request.user)
+    def viewable(self, user):
+        return (self.user == user or
+                user.is_staff or
+                self.course.is_faculty(user)
                 )
 
     def turns(self):

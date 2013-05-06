@@ -145,7 +145,7 @@ def convert(svg_data):
 def graph(request, game_id):
     game = Game.objects.get(pk=game_id)
 
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
 
     turns = [game.deserialize(state) for state

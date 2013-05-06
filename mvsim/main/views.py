@@ -266,7 +266,7 @@ def build_template_context(request, game, turn_number=None):
 def game_over(request, game_id):
     statsd.incr("event.game_over")
     game = get_object_or_404(Game, id=game_id)
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
 
     section = game.course_section(user=request.user)
@@ -288,7 +288,7 @@ def game_over(request, game_id):
 def history(request, game_id):
     game = Game.objects.get(pk=game_id)
 
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
 
     section = game.course_section(user=request.user)
@@ -307,7 +307,7 @@ def delete_game(request, game_id):
     statsd.incr("event.delete_game")
     game = get_object_or_404(Game, pk=game_id)
     section = game.course_section()
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
     game.delete()
     return redirect("/section/%d/games/" % section.id)
@@ -316,7 +316,7 @@ def delete_game(request, game_id):
 @allow_http("GET")
 def edit_game(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
     game.name = request.GET.get('name', unicode(game))
     game.save()
@@ -328,7 +328,7 @@ def edit_game(request, game_id):
 def show_turn(request, game_id):
     game = Game.objects.get(pk=game_id)
 
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
 
     if not game.in_progress():
@@ -342,7 +342,7 @@ def show_turn(request, game_id):
 def view_turn_history_first_turn(request, game_id):
     game = Game.objects.get(pk=game_id)
 
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
     return {'game': game}
 
@@ -352,7 +352,7 @@ def view_turn_history_first_turn(request, game_id):
 def view_turn_history(request, game_id, turn_number):
     game = Game.objects.get(pk=game_id)
 
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
     turn_number = int(turn_number)
     if turn_number == 1:
@@ -367,7 +367,7 @@ def submit_turn(request, game_id):
     statsd.incr("event.play_turn")
     game = Game.objects.get(pk=game_id)
 
-    if not game.viewable(request):
+    if not game.viewable(request.user):
         return forbidden()
     state = game.deserialize(game.current_state())
     variables, coefficients = state['variables'], state['coefficients']
