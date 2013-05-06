@@ -138,9 +138,9 @@ def admin_course_sections(request):
     if not request.user.is_superuser:
         return forbidden()
 
-    sections = CourseSection.objects.filter(course=request.course)
+    sections = CourseSection.objects.all()
     states = State.objects.all().exclude(name="").order_by("name")
-    return dict(sections=sections, course=request.course, all_states=states)
+    return dict(sections=sections, all_states=states)
 
 
 @rendered_with("admin/course_section.html")

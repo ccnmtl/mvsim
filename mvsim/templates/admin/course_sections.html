@@ -9,16 +9,13 @@
     
     <div class="mvsim-admin-navigation">
         <a href="/">Home</a> >
-       {{course}}
     </div>
-    
-    <h2>{{course}}</h2>
-    
+
     <h3>Sections</h3>
     <ul>
         {% for section in sections %}
-        	<li><a href="/course_sections/{{section.id}}/">{{section.name}}</a></li>
-        {% endfor %}        
+        	<li><a href="/course_sections/{{section.id}}/">{{section.course}}: {{section.name}}</a></li>
+        {% endfor %}
     </ul>
 
     <h3>States</h3>
@@ -30,8 +27,8 @@
 		            <img src="/site_media/images/lock.png" title="Superusers only" alt="Superusers only" style="vertical-align: middle"/>
 		        {% endif %}
         	</li>
-     	{% endfor %}           
-    </ul>    
+     	{% endfor %}
+    </ul>
 </div>
 
 {% endblock %}
