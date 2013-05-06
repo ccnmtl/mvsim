@@ -438,7 +438,3 @@ def ensure_section_exists(sender, instance, created, **kwargs):
 from courseaffils.models import Course
 models.signals.post_save.connect(
     ensure_section_exists, sender=Course)
-
-
-def get():
-    return Game.objects.get(pk=1), State.objects.get(pk=1)
