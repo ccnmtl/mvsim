@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, Group
 import json
 from django.db.models.signals import post_save
 from deform.widget import MappingWidget
+from courseaffils.models import Course
+from collections import namedtuple
 
 
 def self_registered_user(sender, **kwargs):
@@ -22,9 +24,9 @@ def self_registered_user(sender, **kwargs):
             u.groups.add(g)
     except:
         pass
-post_save.connect(self_registered_user, sender=User)
 
-from collections import namedtuple
+
+post_save.connect(self_registered_user, sender=User)
 
 
 class NamedTuple(colander.Tuple):
@@ -434,7 +436,4 @@ def ensure_section_exists(sender, instance, created, **kwargs):
     section.save()
     section.ensure_default_starting_state()
     section.save()
-
-from courseaffils.models import Course
-models.signals.post_save.connect(
-    ensure_section_exists, sender=Course)
+models.signals.post_save.connect(ensure_section_exists, sender=Course)
