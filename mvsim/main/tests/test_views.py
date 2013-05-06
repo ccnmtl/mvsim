@@ -186,6 +186,21 @@ class PlayGameTest(TestCase):
         response = self.c.get("/games/%d/" % g.id)
         self.assertEquals(response.status_code, 403)
 
+        response = self.c.post(
+            "/games/%d/turn/" % g.id,
+            {'effort-Kodjo': '12',
+             'effort-Fatou': '12',
+             'effort_farming': '15',
+             'effort_fishing': '0',
+             'effort_fuel_wood': '3',
+             'effort_water': '6',
+             'effort_small_business': '0',
+             'maize': '4',
+             'cotton': '0',
+             }
+        )
+        self.assertEqual(response.status_code, 403)
+
         response = self.c.get("/games/%d/history/" % g.id)
         self.assertEqual(response.status_code, 403)
 
