@@ -267,10 +267,9 @@ def game_over(request, game_id):
     statsd.incr("event.game_over")
     game = get_object_or_404(Game, id=game_id)
     section = game.course_section(user=request.user)
-    try:
+    starting_state_id = None
+    if section.starting_states.all().count() > 0:
         starting_state_id = section.starting_states.all()[0].id
-    except:
-        starting_state_id = None
 
     if game.in_progress():
         return redirect(game.show_game_url())
@@ -293,10 +292,9 @@ def history(request, game_id):
         return forbidden()
 
     section = game.course_section(user=request.user)
-    try:
+    starting_state_id = None
+    if section.starting_states.all().count() > 0:
         starting_state_id = section.starting_states.all()[0].id
-    except:
-        starting_state_id = None
 
     display_vars = build_template_context(request, game)
     display_vars['starting_state_id'] = starting_state_id
