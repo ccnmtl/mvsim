@@ -28,6 +28,83 @@ def force_integers(kwargs):
     return kwargs
 
 
+def extract_item_quantity(k, kwargs):
+    (p, item, q) = k.split('-')
+    if kwargs[k] == '':
+        return None
+    q = int(kwargs[k])
+    if q != 0:
+        return "%s|%d" % (item, q)
+    return None
+
+
+def extract_purchase_items(kwargs):
+    for k in kwargs.keys():
+        if k.startswith('purchase-'):
+            iqstring = extract_item_quantity(k, kwargs)
+            if iqstring:
+                yield iqstring
+
+
+def extract_sell_items(kwargs):
+    for k in kwargs.keys():
+        if k.startswith('sell-'):
+            iqstring = extract_item_quantity(k, kwargs)
+            if iqstring:
+                yield iqstring
+
+
+def extract_improvements(kwargs):
+    for k in kwargs.keys():
+        if k.startswith('improvement-'):
+            (p, item) = k.split('-')
+            yield item
+
+
+def enrollments(kwargs, name_positions, names):
+    enroll = [False] * len(names)
+    for k in kwargs.keys():
+        if k.startswith('enroll-'):
+            (e, name) = k.split('-')
+            if kwargs[k] == '' or name not in name_positions:
+                continue
+            enroll[name_positions[name]] = True
+    return enroll
+
+
+def doctor_visits(kwargs, name_positions, names):
+    doctor = [False] * len(names)
+    for k in kwargs.keys():
+        if k.startswith('doctor-'):
+            (e, name) = k.split('-')
+            if kwargs[k] == '' or name not in name_positions:
+                continue
+            doctor[name_positions[name]] = True
+    return doctor
+
+
+def effort_list(kwargs, name_positions, names):
+    efforts = [12] * len(names)
+    for k in kwargs.keys():
+        if k.startswith('effort-'):
+            (e, name) = k.split('-')
+            if kwargs[k] == '' or name not in name_positions:
+                continue
+            efforts[name_positions[name]] = int(kwargs[k])
+    return efforts
+
+
+def calories_list(kwargs, name_positions, names):
+    calories = [0] * len(names)
+    for k in kwargs.keys():
+        if k.startswith('calories-'):
+            (c, name) = k.split('-')
+            if kwargs[k] == '' or name not in name_positions:
+                continue
+            calories[name_positions[name]] = int(float(kwargs[k]))
+    return calories
+
+
 def adjust_submission(kwargs, names):
     """ the backend expects things in a slightly different format than
     what comes in from the forms """
@@ -49,66 +126,29 @@ def adjust_submission(kwargs, names):
     except KeyError:
         pass
 
-    enroll = [False] * len(names)
-    doctor = [False] * len(names)
-    efforts = [12] * len(names)
-    calories = [0] * len(names)
     name_positions = dict()
     i = 0
     for n in names:
         name_positions[n] = i
         i += 1
 
-    purchase_items = []
-    sell_items = []
-    improvements = []
     keys = kwargs.keys()
 
+    purchase_items = list(extract_purchase_items(kwargs))
+    sell_items = list(extract_sell_items(kwargs))
+    improvements = list(extract_improvements(kwargs))
+    enroll = enrollments(kwargs, name_positions, names)
+    doctor = doctor_visits(kwargs, name_positions, names)
+    efforts = effort_list(kwargs, name_positions, names)
+    calories = calories_list(kwargs, name_positions, names)
+
+    prefixes = ['purchase-', 'sell-', 'improvement-',
+                'enroll-', 'doctor-', 'effort-', 'calories-']
+
     for k in keys:
-        if k.startswith('purchase-'):
-            (p, item, q) = k.split('-')
-            if kwargs[k] == '':
-                continue
-            q = int(kwargs[k])
-            if q != 0:
-                purchase_items.append("%s|%d" % (item, q))
-            del kwargs[k]
-        if k.startswith('sell-'):
-            (p, item, q) = k.split('-')
-            if kwargs[k] == '':
-                continue
-            q = int(kwargs[k])
-            if q != 0:
-                sell_items.append("%s|%d" % (item, q))
-            del kwargs[k]
-        if k.startswith('improvement-'):
-            (p, item) = k.split('-')
-            improvements.append(item)
-            del kwargs[k]
-        if k.startswith('enroll-'):
-            (e, name) = k.split('-')
-            if kwargs[k] == '' or name not in name_positions:
-                continue
-            enroll[name_positions[name]] = True
-            del kwargs[k]
-        if k.startswith('doctor-'):
-            (d, name) = k.split('-')
-            if kwargs[k] == '' or name not in name_positions:
-                continue
-            doctor[name_positions[name]] = True
-            del kwargs[k]
-        if k.startswith('effort-'):
-            (e, name) = k.split('-')
-            if kwargs[k] == '' or name not in name_positions:
-                continue
-            efforts[name_positions[name]] = int(kwargs[k])
-            del kwargs[k]
-        if k.startswith('calories-'):
-            (c, name) = k.split('-')
-            if kwargs[k] == '' or name not in name_positions:
-                continue
-            calories[name_positions[name]] = int(float(kwargs[k]))
-            del kwargs[k]
+        for p in prefixes:
+            if k.startswith(p):
+                del kwargs[k]
 
     if kwargs.get('try_for_child', '') != '':
         kwargs['try_for_child'] = True
