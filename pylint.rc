@@ -3,4 +3,4 @@ ignore=migrations
 [MESSAGES CONTROL]
 disable=E1103,C0103,R0904,C0111
 [TYPECHECK]
-generated-members=objects,_meta,id,DoesNotExist,all
+generated-members=objects,_meta,id,DoesNotExist,all,is_faculty,state_set,schema,add,health_t1,user_messages

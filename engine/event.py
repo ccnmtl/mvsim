@@ -9,6 +9,7 @@ _ops = {
     "hasnot": lambda x, y: y not in x, }
 
 import tempita
+import engine.simple_controller as simple_controller
 
 
 class Condition(object):
@@ -29,9 +30,6 @@ class Condition(object):
         rhs = eval(rhs)
 
         return self.op(lhs, rhs)
-
-
-import simple_controller
 
 
 def format_float(number, decimals=2):

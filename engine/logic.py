@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
-import stateless_logic
+import engine.stateless_logic as stateless_logic
 
 from .person import Person
-import fuel
+import engine.fuel as fuel
 
 from .event import get_events
 from .util import rand_n
+from .village import Village
 
 
 def get_notifications(before, after, coeffs, events_csv=None):
@@ -69,9 +70,6 @@ class State:
         return self.__dict__[item]
 
 # ================
-
-
-from village import Village
 
 
 def setup_people(state, coeffs, tc):
@@ -143,7 +141,6 @@ def marshall_people(people, state):
                 state.fatou_pregnant = False
 
     # see comment in setup_people()
-    health_t1_dict, health_t2_dict, health_t3_dict = dict(), dict(), dict()
     state.health_t1 = []
     state.health_t2 = []
     state.health_t3 = []
@@ -179,10 +176,7 @@ class Turn:
         self.state = state
         self.coeffs = coeffs
         self.tc = tc
-        #self.update_bank_offer()
-        # TODO: I do not know why this does not work.
-        #if self.state.year == -1:
-           #self.state.year = self.coeffs.starting_year
+        self.village = None
 
     def calc_maximum_effort(self):
         return sum([p.maximum_effort()
@@ -950,7 +944,7 @@ class Turn:
         if self.state.microfinance_balance > payment_amount:
             self.state.microfinance_amount_due += payment_amount + interest
         else:
-            self.state.microfinance_amount_due +=\
+            self.state.microfinance_amount_due += \
                 self.state.microfinance_balance
 
         # now actually pay
@@ -967,7 +961,7 @@ class Turn:
                    * self.state.epidemic))
 
     def update_microfinance_interest(self):
-        self.state.microfinance_current_interest_rate =\
+        self.state.microfinance_current_interest_rate = \
             self.calc_microfinance_interest()
 
     def update_microfinance_bank(self):
@@ -978,9 +972,9 @@ class Turn:
                 # new loan
                 if (self.state.microfinance_borrow
                         > self.state.microfinance_max_borrow):
-                    self.state.microfinance_borrow =\
+                    self.state.microfinance_borrow = \
                         self.state.microfinance_max_borrow
-                self.state.microfinance_balance =\
+                self.state.microfinance_balance = \
                     self.state.microfinance_borrow
                 self.state.cash += self.state.microfinance_borrow
             self.state.microfinance_interest_rate = \
