@@ -21,6 +21,31 @@ def generate_disease_report(people):
     return len(sick_people), sick_people_string
 
 
+def adjust_price(state, price):
+    # prices drop by 20% if there's a road
+    if state.road:
+        return int(0.8 * price)
+    else:
+        return price
+
+
+def adjust_village_improvement_price_label(state, coeffs, item, label, price):
+    if item in state.subsidy_offers:
+        price = int(round(price * coeffs.subsidy_price_reduction))
+        label = label + " (subsidized)"
+    return (item, label, price)
+
+
+def determine_can_try_for_child(state):
+    for name, age in zip(state.names, state.ages):
+        if name == 'Fatou':
+            if age > 19 and age < 41:
+                if 'Kodjo' in state.names:
+                    if not state.fatou_pregnant:
+                        return True
+    return False
+
+
 def add_extra_gameshow_context(context):
     # ------ display logic moved in from template -----
     extra_display_vars = dict(context)
@@ -68,13 +93,7 @@ def add_extra_gameshow_context(context):
         calorie_needs_style = "display: none"
     extra_display_vars['calorie_needs_style'] = calorie_needs_style
 
-    can_try_for_child = False
-    for name, age in zip(state.names, state.ages):
-        if name == 'Fatou':
-            if age > 19 and age < 41:
-                if 'Kodjo' in state.names:
-                    if not state.fatou_pregnant:
-                        can_try_for_child = True
+    can_try_for_child = determine_can_try_for_child(state)
     extra_display_vars['can_try_for_child'] = can_try_for_child
 
     extra_display_vars['maize_count'] = len([x for x in state.crops
@@ -85,15 +104,8 @@ def add_extra_gameshow_context(context):
     extra_display_vars['num_bednets'] = len(
         [elem for elem in state.owned_items if elem == "bednet"])
 
-    def adjust_price(price):
-        # prices drop by 20% if there's a road
-        if state.road:
-            return int(0.8 * price)
-        else:
-            return price
-
     extra_display_vars['items_in_market'] = [
-        (item, label, price, adjust_price(price))
+        (item, label, price, adjust_price(state, price))
         for (item, label, price)
         in zip(coeffs.market_items,
                coeffs.market_items_labels,
@@ -109,14 +121,9 @@ def add_extra_gameshow_context(context):
                coeffs.market_sell_prices)
         if item in state.owned_items and price != 0]
 
-    def adjust_village_improvement_price_label(item, label, price):
-        if item in state.subsidy_offers:
-            price = int(round(price * coeffs.subsidy_price_reduction))
-            label = label + " (subsidized)"
-        return (item, label, price)
-
     extra_display_vars['available_village_improvements'] = [
-        adjust_village_improvement_price_label(i, l, p) for (i, l, p)
+        adjust_village_improvement_price_label(
+            state, coeffs, i, l, p) for (i, l, p)
         in zip(coeffs.available_improvements,
                coeffs.improvement_labels,
                coeffs.improvement_prices)]
