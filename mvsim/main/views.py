@@ -20,7 +20,7 @@ def clone_state(request, state_id):
     if not request.user.is_superuser:
         return forbidden("Forbidden")
 
-    state = State.objects.get(id=state_id)
+    state = get_object_or_404(State, id=state_id)
 
     new_state = State(name=request.POST.get('state_name') or state.name)
     new_state.state = state.state
@@ -42,7 +42,7 @@ def edit_state(request, state_id):
     if not request.user.is_superuser:
         return forbidden()
 
-    state = State.objects.get(id=state_id)
+    state = get_object_or_404(State, id=state_id)
 
     if 'visible' in request.POST:
         state.visible = request.POST.get('visible') == "True"
@@ -72,7 +72,7 @@ def view_state(request, state_id):
     if not request.user.is_superuser:
         return forbidden()
 
-    state = State.objects.get(id=state_id)
+    state = get_object_or_404(State, id=state_id)
     config = Configuration.objects.get(pk=1)
     schema = config.schema()
 
@@ -326,7 +326,7 @@ def edit_game(request, game_id):
 @allow_http("GET")
 @rendered_with("game/game.html")
 def show_turn(request, game_id):
-    game = Game.objects.get(pk=game_id)
+    game = get_object_or_404(Game, id=game_id)
 
     if not game.viewable(request.user):
         return forbidden()
@@ -340,7 +340,7 @@ def show_turn(request, game_id):
 @allow_http("GET")
 @rendered_with("game/view_turn_first_turn.html")
 def view_turn_history_first_turn(request, game_id):
-    game = Game.objects.get(pk=game_id)
+    game = get_object_or_404(Game, id=game_id)
 
     if not game.viewable(request.user):
         return forbidden()
@@ -350,7 +350,7 @@ def view_turn_history_first_turn(request, game_id):
 @allow_http("GET")
 @rendered_with("game/view_turn.html")
 def view_turn_history(request, game_id, turn_number):
-    game = Game.objects.get(pk=game_id)
+    game = get_object_or_404(Game, id=game_id)
 
     if not game.viewable(request.user):
         return forbidden()
@@ -365,7 +365,7 @@ def view_turn_history(request, game_id, turn_number):
 @allow_http("POST")
 def submit_turn(request, game_id):
     statsd.incr("event.play_turn")
-    game = Game.objects.get(pk=game_id)
+    game = get_object_or_404(Game, id=game_id)
 
     if not game.viewable(request.user):
         return forbidden()
