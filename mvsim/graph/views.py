@@ -2,6 +2,7 @@ import datetime
 from django.conf import settings
 from django.http import (HttpResponse,
                          HttpResponseForbidden as forbidden)
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from djangohelpers.lib import allow_http, rendered_with
 from mvsim.main.models import Game
@@ -143,7 +144,7 @@ def convert(svg_data):
 
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
-    game = Game.objects.get(pk=game_id)
+    game = get_object_or_404(Game, id=game_id)
 
     if not game.viewable(request.user):
         return forbidden()
