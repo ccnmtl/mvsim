@@ -356,6 +356,18 @@ class Turn:
                 self.state.dragnet = False
         self.state.sell_items = real_sold_items
 
+    def purchase_quantity_of_item(self, item, quantity, price):
+        for x in range(int(quantity)):
+            # some items only affect state, are not stored
+            if item == "fertilizer":
+                self.state.fertilizer = True
+            elif item == "propane":
+                self.state.amount_propane += 10  # 10kg propane per tank
+            elif item == "high_yield_seeds":
+                self.state.high_yield_seeds = True
+            else:
+                self.state.owned_items.append(item)
+
     def purchase_items(self):
         # pay for education first
         self.state.cash -= self.calc_school_cost()
@@ -368,16 +380,7 @@ class Turn:
             item, quantity = i.split("|")
             price = self.check_purchase_price(item) * int(quantity)
             self.state.cash -= price
-            for x in range(int(quantity)):
-                # some items only affect state, are not stored
-                if item == "fertilizer":
-                    self.state.fertilizer = True
-                elif item == "propane":
-                    self.state.amount_propane += 10  # 10kg propane per tank
-                elif item == "high_yield_seeds":
-                    self.state.high_yield_seeds = True
-                else:
-                    self.state.owned_items.append(item)
+            self.purchase_quantity_of_item(item, quantity, price)
             if item == "bednet":
                 self.state.bednet_ages.extend([0] * int(quantity))
             if item == "stove":
