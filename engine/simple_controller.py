@@ -46,7 +46,7 @@ def adjust_submission(kwargs, names):
     try:
         del kwargs['maize']
         del kwargs['cotton']
-    except:
+    except KeyError:
         pass
 
     enroll = [False] * len(names)
