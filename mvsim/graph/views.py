@@ -194,6 +194,21 @@ def add_divided_sickness_getter(turn, name):
     return int(bool(str(sick[index]).strip()))
 
 
+def add_divided_sickness(variables, turns):
+    # we need to figure out all the people who were ever part of
+    # the family
+    all_names = {}
+    for turn in turns:
+        names = turn.variables.names
+        for name in names:
+            all_names[name] = "sick_" + name.lower()
+    for name, var_name in all_names.items():
+        variables.append(BoundVariable(
+            var_name, add_divided_sickness_getter,
+            "%s Sick" % name, turns))
+    return variables
+
+
 def add_average_health_getter(turn, name):
     health = turn.variables.health
     names = turn.variables.names
@@ -332,19 +347,6 @@ def graph(request, game_id):
 
     variables = []
 
-    def add_divided_sickness():
-        # we need to figure out all the people who were ever part of
-        # the family
-        all_names = {}
-        for turn in turns:
-            names = turn.variables.names
-            for name in names:
-                all_names[name] = "sick_" + name.lower()
-        for name, var_name in all_names.items():
-            variables.append(BoundVariable(
-                var_name, add_divided_sickness_getter,
-                "%s Sick" % name, turns))
-
     for variable in all_variables:
         if variable.name in excluded_variables:
             continue
@@ -353,7 +355,7 @@ def graph(request, game_id):
             variables = add_average_health(variables, turns)
             continue
         if variable.name == "sick":
-            add_divided_sickness()
+            variables = add_divided_sickness(variables, turns)
             variables = add_percent_sickness(variables, turns)
             continue
         if variable.type == "bool":
