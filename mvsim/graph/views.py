@@ -283,7 +283,26 @@ def add_divided_farming(variables, turns):
     return variables
 
 
-def process_variable(variable, variables, turns, excluded_variables):
+def process_variable(variable, variables, turns):
+    excluded_variables = (
+        'calculated_food_cost',
+        'cotton_yield',
+        'energy_req',
+        'fertilizer_last_turn',
+        'fertilizer_t1',
+        'fertilizer_t2',
+        'fish_coeff',
+        'food_yield',
+        'initial_population',
+        'market',
+        'maximum_effort',
+        'propane_fuel',
+        'season',
+        'try_for_child',
+        'wood_coeff',
+        'wood_fuel',
+        'year', )
+
     if variable.name in excluded_variables:
         return variables
     if variable.name == "health":
@@ -366,30 +385,10 @@ def graph(request, game_id):
     primary_layers = sorted(primary_layers) or []
 
     all_variables = game.configuration.variables.all()
-    excluded_variables = (
-        'calculated_food_cost',
-        'cotton_yield',
-        'energy_req',
-        'fertilizer_last_turn',
-        'fertilizer_t1',
-        'fertilizer_t2',
-        'fish_coeff',
-        'food_yield',
-        'initial_population',
-        'market',
-        'maximum_effort',
-        'propane_fuel',
-        'season',
-        'try_for_child',
-        'wood_coeff',
-        'wood_fuel',
-        'year', )
-
     variables = []
 
     for variable in all_variables:
-        variables = process_variable(
-            variable, variables, turns, excluded_variables)
+        variables = process_variable(variable, variables, turns)
 
     return dict(game=game,
                 params=params,
