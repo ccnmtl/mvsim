@@ -146,6 +146,23 @@ def convert(svg_data):
     return name
 
 
+class BoundVariable(object):
+    def __init__(self, name, getter=None, descriptive_name=None, turns=None):
+        self.name = name
+        self.descriptive_name = (descriptive_name
+                                 or name.replace("_", " ").title())
+        self.values = []
+        if turns is None:
+            turns = []
+        for turn in turns:
+            if getter is None:
+                self.values.append(
+                    turn.variables[name])
+            else:
+                self.values.append(
+                    getter(turn, name))
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -208,19 +225,6 @@ def graph(request, game_id):
         'wood_fuel',
         'year', )
 
-    class BoundVariable(object):
-        def __init__(self, name, getter=None, descriptive_name=None):
-            self.name = name
-            self.descriptive_name = (descriptive_name
-                                     or name.replace("_", " ").title())
-            self.values = []
-            for turn in turns:
-                if getter is None:
-                    self.values.append(
-                        turn.variables[name])
-                else:
-                    self.values.append(
-                        getter(turn, name))
     variables = []
 
     def add_divided_farming():
@@ -239,10 +243,10 @@ def graph(request, game_id):
 
         variables.append(BoundVariable(
             "effort_farming_maize", getter,
-            "Effort Farming Maize (person-hours/day)"))
+            "Effort Farming Maize (person-hours/day)", turns))
         variables.append(BoundVariable(
             "effort_farming_cotton", getter,
-            "Effort Farming Cotton (person-hours/day)"))
+            "Effort Farming Cotton (person-hours/day)", turns))
 
     def add_divided_health():
         # since health is a compound variable, we want to split it apart
@@ -270,7 +274,7 @@ def graph(request, game_id):
         for name, var_name in all_names.items():
             variables.append(BoundVariable(
                 var_name, getter,
-                "Health %s " % name + "(%)"))
+                "Health %s " % name + "(%)", turns))
 
     def add_average_health():
         # since health is a compound variable, we want to split it apart
@@ -283,7 +287,7 @@ def graph(request, game_id):
             return sum(health) / len(names)
         variables.append(BoundVariable(
             "health_average", getter,
-            "Average Family Health (%)"))
+            "Average Family Health (%)", turns))
 
     def add_divided_sickness():
         # since sick is a compound variable, we want to split it apart
@@ -309,7 +313,7 @@ def graph(request, game_id):
         for name, var_name in all_names.items():
             variables.append(BoundVariable(
                 var_name, getter,
-                "%s Sick" % name))
+                "%s Sick" % name, turns))
 
     def add_percent_sickness():
         def getter(turn, name):
@@ -324,7 +328,7 @@ def graph(request, game_id):
             return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
         variables.append(BoundVariable(
             "sick_percent", getter,
-            "Family Sick (% of family)"))
+            "Family Sick (% of family)", turns))
     for variable in all_variables:
         if variable.name in excluded_variables:
             continue
@@ -342,13 +346,13 @@ def graph(request, game_id):
                 return int(value)
             variables.append(BoundVariable(
                 variable.name, getter,
-                variable.description))
+                variable.description, turns))
             continue
         if not variable.graphable():
             continue
         variables.append(BoundVariable(
             variable.name,
-            descriptive_name=variable.description))
+            descriptive_name=variable.description, turns=turns))
         if variable.name == "effort_farming":
             add_divided_farming()
 
