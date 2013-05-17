@@ -163,6 +163,15 @@ class BoundVariable(object):
                     getter(turn, name))
 
 
+def percent_sickness_getter(turn, name):
+    sick = turn.variables.sick
+    names = turn.variables.names
+    if len(names) == 0:
+        return 0
+
+    return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -316,15 +325,8 @@ def graph(request, game_id):
                 "%s Sick" % name, turns))
 
     def add_percent_sickness():
-        def getter(turn, name):
-            sick = turn.variables.sick
-            names = turn.variables.names
-            if len(names) == 0:
-                return 0
-
-            return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
         variables.append(BoundVariable(
-            "sick_percent", getter,
+            "sick_percent", percent_sickness_getter,
             "Family Sick (% of family)", turns))
     for variable in all_variables:
         if variable.name in excluded_variables:
