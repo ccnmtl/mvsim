@@ -2,11 +2,13 @@ import datetime
 from django.conf import settings
 from django.http import (HttpResponse,
                          HttpResponseForbidden as forbidden)
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from djangohelpers.lib import allow_http, rendered_with
 from mvsim.main.models import Game
 import os
+import os.path
 import tempfile
 import simplejson
 import subprocess
@@ -14,17 +16,19 @@ import subprocess
 
 @allow_http("GET")
 def graph_download(request, game_id):
-    key = request.GET['filename']
+    key = request.GET.get('filename', None)
 
     # rudimentary sanitization - keys are timestamps, so they should
     # be int'able
     try:
         int(key)
     except:
-        raise TypeError("bad filename %s" % key)
+        raise Http404
 
     graph_dir = settings.MVSIM_GRAPH_OUTPUT_DIRECTORY
     path = os.path.join(graph_dir, "%s.png" % key)
+    if not os.path.exists(path):
+        raise Http404
     fp = open(path)
     try:
         data = fp.read()
