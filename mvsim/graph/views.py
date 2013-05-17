@@ -312,6 +312,12 @@ def process_variable(variable, variables, turns, excluded_variables):
     return variables
 
 
+def extract_primary_layers(kw, key, primary_layers):
+    for val in kw.getlist(key):
+        primary_layers.append(val)
+    return primary_layers
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -333,6 +339,7 @@ def graph(request, game_id):
         if key == "primary_xaxis":
             primary_xaxis = kw['primary_xaxis']
             continue
+
         if key == "secondary_xaxis":
             secondary_xaxis = kw['secondary_xaxis']
             continue
@@ -344,8 +351,7 @@ def graph(request, game_id):
             continue
 
         if key == "primary":
-            for val in kw.getlist(key):
-                primary_layers.append(val)
+            primary_layers = extract_primary_layers(kw, key, primary_layers)
             continue
 
         for val in kw.getlist(key):
