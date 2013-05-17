@@ -215,6 +215,25 @@ def add_divided_health_getter(turn, name):
     return health[index]
 
 
+def add_divided_health(variables, turns):
+    # since health is a compound variable, we want to split it apart
+    # into individual variables for each family member
+
+    # we need to figure out all the people who were ever part of
+    # the family
+
+    all_names = {}
+    for turn in turns:
+        names = turn.variables.names
+        for name in names:
+            all_names[name] = "health_" + name.lower()
+    for name, var_name in all_names.items():
+        variables.append(BoundVariable(
+            var_name, add_divided_health_getter,
+            "Health %s " % name + "(%)", turns))
+    return variables
+
+
 def add_divided_farming_getter(turn, name):
     total_effort = turn.variables.effort_farming
     plots = turn.variables.crops
@@ -304,23 +323,6 @@ def graph(request, game_id):
 
     variables = []
 
-    def add_divided_health():
-        # since health is a compound variable, we want to split it apart
-        # into individual variables for each family member
-
-        # we need to figure out all the people who were ever part of
-        # the family
-
-        all_names = {}
-        for turn in turns:
-            names = turn.variables.names
-            for name in names:
-                all_names[name] = "health_" + name.lower()
-        for name, var_name in all_names.items():
-            variables.append(BoundVariable(
-                var_name, add_divided_health_getter,
-                "Health %s " % name + "(%)", turns))
-
     def add_average_health():
         # since health is a compound variable, we want to split it apart
         # into individual variables for each family member
@@ -345,7 +347,7 @@ def graph(request, game_id):
         if variable.name in excluded_variables:
             continue
         if variable.name == "health":
-            add_divided_health()
+            variables = add_divided_health(variables, turns)
             add_average_health()
             continue
         if variable.name == "sick":
