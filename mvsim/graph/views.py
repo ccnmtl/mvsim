@@ -195,6 +195,19 @@ def add_average_health_getter(turn, name):
     return sum(health) / len(names)
 
 
+def add_divided_health_getter(turn, name):
+    health = turn.variables.health
+    # name will be like health_kodjo
+    person_name = name[len("health_"):].title()
+    names = turn.variables.names
+    try:
+        index = names.index(person_name)
+    except ValueError:
+        # this person was not yet born, or was dead, at this turn
+        return 0
+    return health[index]
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -283,17 +296,6 @@ def graph(request, game_id):
     def add_divided_health():
         # since health is a compound variable, we want to split it apart
         # into individual variables for each family member
-        def getter(turn, name):
-            health = turn.variables.health
-            # name will be like health_kodjo
-            person_name = name[len("health_"):].title()
-            names = turn.variables.names
-            try:
-                index = names.index(person_name)
-            except ValueError:
-                # this person was not yet born, or was dead, at this turn
-                return 0
-            return health[index]
 
         # we need to figure out all the people who were ever part of
         # the family
@@ -305,7 +307,7 @@ def graph(request, game_id):
                 all_names[name] = "health_" + name.lower()
         for name, var_name in all_names.items():
             variables.append(BoundVariable(
-                var_name, getter,
+                var_name, add_divided_health_getter,
                 "Health %s " % name + "(%)", turns))
 
     def add_average_health():
