@@ -187,6 +187,14 @@ def add_divided_sickness_getter(turn, name):
     return int(bool(str(sick[index]).strip()))
 
 
+def add_average_health_getter(turn, name):
+    health = turn.variables.health
+    names = turn.variables.names
+    if len(names) == 0:
+        return 0
+    return sum(health) / len(names)
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -303,14 +311,8 @@ def graph(request, game_id):
     def add_average_health():
         # since health is a compound variable, we want to split it apart
         # into individual variables for each family member
-        def getter(turn, name):
-            health = turn.variables.health
-            names = turn.variables.names
-            if len(names) == 0:
-                return 0
-            return sum(health) / len(names)
         variables.append(BoundVariable(
-            "health_average", getter,
+            "health_average", add_average_health_getter,
             "Average Family Health (%)", turns))
 
     def add_divided_sickness():
