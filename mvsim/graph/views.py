@@ -202,6 +202,15 @@ def add_average_health_getter(turn, name):
     return sum(health) / len(names)
 
 
+def add_average_health(variables, turns):
+    # since health is a compound variable, we want to split it apart
+    # into individual variables for each family member
+    variables.append(BoundVariable(
+        "health_average", add_average_health_getter,
+        "Average Family Health (%)", turns))
+    return variables
+
+
 def add_divided_health_getter(turn, name):
     health = turn.variables.health
     # name will be like health_kodjo
@@ -323,13 +332,6 @@ def graph(request, game_id):
 
     variables = []
 
-    def add_average_health():
-        # since health is a compound variable, we want to split it apart
-        # into individual variables for each family member
-        variables.append(BoundVariable(
-            "health_average", add_average_health_getter,
-            "Average Family Health (%)", turns))
-
     def add_divided_sickness():
         # we need to figure out all the people who were ever part of
         # the family
@@ -348,7 +350,7 @@ def graph(request, game_id):
             continue
         if variable.name == "health":
             variables = add_divided_health(variables, turns)
-            add_average_health()
+            variables = add_average_health(variables, turns)
             continue
         if variable.name == "sick":
             add_divided_sickness()
