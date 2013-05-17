@@ -226,6 +226,20 @@ def add_divided_farming_getter(turn, name):
     return total_effort * amount
 
 
+def add_divided_farming(variables, turns):
+    # in addition to effort_farming, we also want to calculate
+    # separate variables for each turn's effort farming spent
+    # on each of maize and cotton
+
+    variables.append(BoundVariable(
+        "effort_farming_maize", add_divided_farming_getter,
+        "Effort Farming Maize (person-hours/day)", turns))
+    variables.append(BoundVariable(
+        "effort_farming_cotton", add_divided_farming_getter,
+        "Effort Farming Cotton (person-hours/day)", turns))
+    return variables
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -290,18 +304,6 @@ def graph(request, game_id):
 
     variables = []
 
-    def add_divided_farming():
-        # in addition to effort_farming, we also want to calculate
-        # separate variables for each turn's effort farming spent
-        # on each of maize and cotton
-
-        variables.append(BoundVariable(
-            "effort_farming_maize", add_divided_farming_getter,
-            "Effort Farming Maize (person-hours/day)", turns))
-        variables.append(BoundVariable(
-            "effort_farming_cotton", add_divided_farming_getter,
-            "Effort Farming Cotton (person-hours/day)", turns))
-
     def add_divided_health():
         # since health is a compound variable, we want to split it apart
         # into individual variables for each family member
@@ -364,7 +366,7 @@ def graph(request, game_id):
             variable.name,
             descriptive_name=variable.description, turns=turns))
         if variable.name == "effort_farming":
-            add_divided_farming()
+            variables = add_divided_farming(variables, turns)
 
     return dict(game=game,
                 params=params,
