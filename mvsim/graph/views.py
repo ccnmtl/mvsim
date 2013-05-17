@@ -318,6 +318,12 @@ def extract_primary_layers(kw, key, primary_layers):
     return primary_layers
 
 
+def extract_params(kw, key, params):
+    for val in kw.getlist(key):
+        params.setdefault(key, []).append(val)
+    return params
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -354,8 +360,7 @@ def graph(request, game_id):
             primary_layers = extract_primary_layers(kw, key, primary_layers)
             continue
 
-        for val in kw.getlist(key):
-            params.setdefault(key, []).append(val)
+        params = extract_params(kw, key, params)
 
     params = params or {"layer_1": []}
     primary_layers = sorted(primary_layers) or []
