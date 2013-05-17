@@ -322,9 +322,6 @@ def graph(request, game_id):
             if len(names) == 0:
                 return 0
 
-            def force_number(n):
-                if isinstance(n, str):
-                    return
             return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
         variables.append(BoundVariable(
             "sick_percent", getter,
