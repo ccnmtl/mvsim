@@ -155,7 +155,7 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.run_pyflakes',
 )
 
-PROJECT_APPS = ['mvsim.main', 'engine', ]
+PROJECT_APPS = ['mvsim.main', 'engine', 'mvsim.graph', ]
 
 THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[mvsim] "
