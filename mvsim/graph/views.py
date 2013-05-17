@@ -283,6 +283,35 @@ def add_divided_farming(variables, turns):
     return variables
 
 
+def process_variable(variable, variables, turns, excluded_variables):
+    if variable.name in excluded_variables:
+        return variables
+    if variable.name == "health":
+        variables = add_divided_health(variables, turns)
+        variables = add_average_health(variables, turns)
+        return variables
+    if variable.name == "sick":
+        variables = add_divided_sickness(variables, turns)
+        variables = add_percent_sickness(variables, turns)
+        return variables
+    if variable.type == "bool":
+        def getter(turn, name):
+            value = turn.variables[name]
+            return int(value)
+        variables.append(BoundVariable(
+            variable.name, getter,
+            variable.description, turns))
+        return variables
+    if not variable.graphable():
+        return variables
+    variables.append(BoundVariable(
+        variable.name,
+        descriptive_name=variable.description, turns=turns))
+    if variable.name == "effort_farming":
+        variables = add_divided_farming(variables, turns)
+    return variables
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -348,31 +377,8 @@ def graph(request, game_id):
     variables = []
 
     for variable in all_variables:
-        if variable.name in excluded_variables:
-            continue
-        if variable.name == "health":
-            variables = add_divided_health(variables, turns)
-            variables = add_average_health(variables, turns)
-            continue
-        if variable.name == "sick":
-            variables = add_divided_sickness(variables, turns)
-            variables = add_percent_sickness(variables, turns)
-            continue
-        if variable.type == "bool":
-            def getter(turn, name):
-                value = turn.variables[name]
-                return int(value)
-            variables.append(BoundVariable(
-                variable.name, getter,
-                variable.description, turns))
-            continue
-        if not variable.graphable():
-            continue
-        variables.append(BoundVariable(
-            variable.name,
-            descriptive_name=variable.description, turns=turns))
-        if variable.name == "effort_farming":
-            variables = add_divided_farming(variables, turns)
+        variables = process_variable(
+            variable, variables, turns, excluded_variables)
 
     return dict(game=game,
                 params=params,
