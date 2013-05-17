@@ -172,6 +172,13 @@ def percent_sickness_getter(turn, name):
     return 1.0 * sum(bool(str(i).strip()) for i in sick) / len(names)
 
 
+def add_percent_sickness(variables, turns):
+    variables.append(BoundVariable(
+        "sick_percent", percent_sickness_getter,
+        "Family Sick (% of family)", turns))
+    return variables
+
+
 # since sick is a compound variable, we want to split it apart
 # into individual variables for each family member
 def add_divided_sickness_getter(turn, name):
@@ -332,10 +339,6 @@ def graph(request, game_id):
                 var_name, add_divided_sickness_getter,
                 "%s Sick" % name, turns))
 
-    def add_percent_sickness():
-        variables.append(BoundVariable(
-            "sick_percent", percent_sickness_getter,
-            "Family Sick (% of family)", turns))
     for variable in all_variables:
         if variable.name in excluded_variables:
             continue
@@ -345,7 +348,7 @@ def graph(request, game_id):
             continue
         if variable.name == "sick":
             add_divided_sickness()
-            add_percent_sickness()
+            variables = add_percent_sickness(variables, turns)
             continue
         if variable.type == "bool":
             def getter(turn, name):
