@@ -208,6 +208,17 @@ def add_divided_health_getter(turn, name):
     return health[index]
 
 
+def add_divided_farming_getter(turn, name):
+    total_effort = turn.variables.effort_farming
+    plots = turn.variables.crops
+    if name == "effort_farming_maize":
+        amount = sum(1 for i in plots if i == "Maize")
+    elif name == "effort_farming_cotton":
+        amount = sum(1 for i in plots if i == "Cotton")
+    amount = 1.0 * amount / len(plots)
+    return total_effort * amount
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -276,21 +287,12 @@ def graph(request, game_id):
         # in addition to effort_farming, we also want to calculate
         # separate variables for each turn's effort farming spent
         # on each of maize and cotton
-        def getter(turn, name):
-            total_effort = turn.variables.effort_farming
-            plots = turn.variables.crops
-            if name == "effort_farming_maize":
-                amount = sum(1 for i in plots if i == "Maize")
-            elif name == "effort_farming_cotton":
-                amount = sum(1 for i in plots if i == "Cotton")
-            amount = 1.0 * amount / len(plots)
-            return total_effort * amount
 
         variables.append(BoundVariable(
-            "effort_farming_maize", getter,
+            "effort_farming_maize", add_divided_farming_getter,
             "Effort Farming Maize (person-hours/day)", turns))
         variables.append(BoundVariable(
-            "effort_farming_cotton", getter,
+            "effort_farming_cotton", add_divided_farming_getter,
             "Effort Farming Cotton (person-hours/day)", turns))
 
     def add_divided_health():
