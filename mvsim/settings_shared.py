@@ -81,7 +81,6 @@ INSTALLED_APPS = (
     'staticmedia',
     'sorl.thumbnail',
     'django.contrib.admin',
-    'tagging',
     'smartif',
     'template_utils',
     'typogrify',
