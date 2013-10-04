@@ -1,0 +1,519 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" ></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js" type="text/javascript"></script>
+
+{% with graphite_base="http://nanny.cul.columbia.edu/render/?" width=900 height=200 %}
+{% with common_opts="graphOnly=false&hideGrid=true&hideLegend=true" %}
+{% with windlogin_success="target=ccnmtl.app.counters.mvsim.djangowind.windlogin.success" %}
+{% with local_attempts="target=ccnmtl.app.counters.mvsim.djangowind.login.called" %}
+{% with local_success="target=ccnmtl.app.counters.mvsim.djangowind.login_succeeded" %}
+{% with local_failure="target=ccnmtl.app.counters.mvsim.djangowind.login.invalid_form" %}
+{% with logouts="target=ccnmtl.app.counters.mvsim.djangowind.logout" %}
+
+{% with windlogin_auth_failure="target=ccnmtl.app.counters.mvsim.djangowind.windlogin.auth_failure" %}
+{% with windlogin_no_ticketid="target=ccnmtl.app.counters.mvsim.djangowind.windlogin.no_ticketid" %}
+
+{% with create_user="target=ccnmtl.app.counters.mvsim.djangowind.windauthbackend.create_user" %}
+{% with ldap_lookup="target=ccnmtl.app.counters.mvsim.djangowind.ldap_lookup" %}
+
+<div id="tabs">
+<ul>
+  <li><a href="#day">Last 24 Hours</a></li> 
+  <li><a href="#week">Week</a></li>
+  <li><a href="#month">Month</a></li>
+  <li><a href="#year">Year</a></li>
+</ul>
+
+
+<div id="day" class="tab-pane active">
+
+{% with from="-24hours" %}
+
+<h2>Successful WIND Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Attempts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_attempts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Successful Local Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Logouts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{logouts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND Auth Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_auth_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND No Ticketid</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Users Created</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>LDAP Lookups</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+{% endwith %}
+</div>
+
+
+
+<div id="week" class="tab-pane">
+{% with from="-7days" %}
+
+<h2>Successful WIND Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Attempts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_attempts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Successful Local Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Logouts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{logouts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND Auth Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_auth_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND No Ticketid</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Users Created</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>LDAP Lookups</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+{% endwith %}
+</div>
+
+
+<div id="month" class="tab-pane">
+{% with from="-1months" %}
+
+<h2>Successful WIND Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_success}}
+&{{common_opts}}
+&from={{from}}
+p{% endspaceless %}">
+
+<h2>Local Login Attempts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_attempts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Successful Local Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Logouts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{logouts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND Auth Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_auth_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND No Ticketid</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Users Created</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>LDAP Lookups</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+{% endwith %}
+</div>
+
+
+<div id="year" class="tab-pane">
+{% with from="-1years" %}
+
+<h2>Successful WIND Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Attempts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_attempts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Successful Local Logins</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_success}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Local Login Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{local_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Logouts</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{logouts}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND Auth Failures</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_auth_failure}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>WIND No Ticketid</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>Users Created</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+<h2>LDAP Lookups</h2>
+
+<img width="{{width}}" height="{{height}}" src="{% spaceless %}
+{{graphite_base}}
+width={{width}}
+&height={{height}}
+&_salt=1337976132.743
+&{{windlogin_no_ticketid}}
+&{{ldap_lookup}}
+&{{common_opts}}
+&from={{from}}
+{% endspaceless %}">
+
+{% endwith %}
+</div>
+</div>
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+
+<script>
+$(function() {
+  $( "#tabs" ).tabs();
+});
+</script>
+
+{% endblock %}
