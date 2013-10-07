@@ -42,7 +42,7 @@
 
     <div class="mvsim-admin-section">
         <h3>Properties</h3>
-        <form method="POST" action="{% url edit_state state.id %}">
+        <form method="POST" action="{% url 'edit_state' state.id %}">
             <fieldset class="module aligned">            
                 <div class="form-row field-name">
                     <div>
@@ -88,7 +88,7 @@
     
     <div class="clone-state">
         <h3>Clone State</h3>
-        <form method="POST" action="{% url clone_state state.id %}">
+        <form method="POST" action="{% url 'clone_state' state.id %}">
             <fieldset class="module aligned">
                 <div class="form-row field-name">
                     <div>

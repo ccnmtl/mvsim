@@ -83,7 +83,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'smartif',
     'template_utils',
-    'typogrify',
     'raven.contrib.django',
     'munin',
     'djangowind',
@@ -209,3 +208,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+}

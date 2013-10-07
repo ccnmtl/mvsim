@@ -12,7 +12,7 @@
     {% include "game/game_history.html" %}        
     {% endwith %}
 
-	<form name="start-new-game" action="{% url new_game section.id %}" method="post">
+	<form name="start-new-game" action="{% url 'new_game' section.id %}" method="post">
 	  {% csrf_token %}
 	  <p>You may 
 	    <input type="button" value="begin a new game"

@@ -96,7 +96,7 @@ Take a look at Professor Sachs' book <a target="_blank"
 <table>
 	{% for section in sections %}
 <tr>
-	<td><form name="start-new-game" action="{% url new_game section.id %}" method="post">
+	<td><form name="start-new-game" action="{% url 'new_game' section.id %}" method="post">
 			{% csrf_token %}
      <p>You may 
            <input type="button" value="begin a new game"

@@ -23,7 +23,7 @@
       {% with forloop.counter as turn_number %}
       <tr class="{% cycle 'odd' 'even' %}">
 	<td>
-	  <a href="{% url game_turn_history game.id turn_number %}" 
+	  <a href="{% url 'game_turn_history' game.id turn_number %}" 
 	     title="{{turn.created}}">
 	    Year {{turn_number|reverse_engineer_year}},
 	    Season {{turn_number|reverse_engineer_season}}
@@ -38,7 +38,7 @@
     </table>
     
     <h2>Graphing tool</h2>
-    <a href="{% url game_graph game.id %}">
+    <a href="{% url 'game_graph' game.id %}">
       Click here to explore the history of this game
       with the interactive graphing tool
     </a>

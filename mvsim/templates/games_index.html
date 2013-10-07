@@ -50,7 +50,7 @@
 	<a name="start"></a>
     <div id="newgameopt">
         <h3 class="mygames">Start New Game</h3>
-        <form name="start-new-game" action="{% url new_game section.id %}" method="post" onsubmit="return verify_state(this)">
+        <form name="start-new-game" action="{% url 'new_game' section.id %}" method="post" onsubmit="return verify_state(this)">
         	<fieldset>
 	            {% csrf_token %}	            
 	            <div class="form-row field-name">

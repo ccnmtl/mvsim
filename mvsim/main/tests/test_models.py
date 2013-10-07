@@ -90,7 +90,7 @@ class GameTest(TestCase):
             "/games/%d/graph/" % self.game.id)
 
     def test_course_section(self):
-        s = self.game.course_section(self.u)
+        self.game.course_section(self.u)
 
 
 class StateTest(TestCase):
