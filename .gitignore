@@ -12,4 +12,5 @@ selenium.db
 .project
 .pydevproject
 .settings/
+node_modules/
 mvsim/local_settings.py
