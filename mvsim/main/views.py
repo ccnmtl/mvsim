@@ -201,7 +201,10 @@ def make_sure_user_is_in_at_least_one_course(user):
         return
     (g, _created) = Group.objects.get_or_create(name="NON_CU")
     (c, _created) = Course.objects.get_or_create(group=g, title="NON_CU")
-    section = CourseSection.objects.filter(name="Default Section", course=c)[0]
+    (section, created) = CourseSection.objects.get_or_create(
+        name="Default Section", course=c)
+    if created:
+        section.ensure_default_starting_state()
     section.users.add(user)
     section.save()
 
