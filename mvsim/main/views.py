@@ -5,10 +5,12 @@ from django.http import HttpResponseRedirect as redirect, HttpResponse, \
 from django.shortcuts import get_object_or_404
 from django_statsd.clients import statsd
 from djangohelpers.lib import allow_http, rendered_with
+from django.contrib.auth.models import Group
 from engine import display_logic, logic
 from engine.logic import get_notifications
 from mvsim.main.models import Game, State, CourseSection, Configuration, \
     UserInput, high_scores
+from courseaffils.models import Course
 from pkg_resources import resource_filename
 from urlparse import parse_qsl
 import deform
@@ -193,8 +195,20 @@ def associate_state(request, section_id):
     return redirect("/course_sections/%d/" % section.id)
 
 
+def make_sure_user_is_in_at_least_one_course(user):
+    if CourseSection.objects.filter(users=user).count() > 0:
+        # nothing to see here. move along.
+        return
+    (g, _created) = Group.objects.get_or_create(name="NON_CU")
+    (c, _created) = Course.objects.get_or_create(group=g, title="NON_CU")
+    section = CourseSection.objects.filter(name="Default Section", course=c)[0]
+    section.users.add(user)
+    section.save()
+
+
 @rendered_with("home.html")
 def home(request):
+    make_sure_user_is_in_at_least_one_course(request.user)
     return dict(
         starting_state_id=None,
         sections=CourseSection.objects.filter(users=request.user))

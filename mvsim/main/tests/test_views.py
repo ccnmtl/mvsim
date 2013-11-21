@@ -33,6 +33,15 @@ class LoggedInTest(TestCase):
         response = self.c.get("/")
         self.assertEquals(response.status_code, 200)
 
+    def test_course_auto_creation(self):
+        # first one should auto-create a course
+        response = self.c.get("/")
+        self.assertTrue("Default Section" in response.content)
+        # second one it should already be created
+        response = self.c.get("/")
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue("Default Section" in response.content)
+
 
 class PlayGameTest(TestCase):
     """ the goal here is to get very basic coverage
