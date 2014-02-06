@@ -58,7 +58,7 @@ django-registration==0.8
 django-nose==1.2
 South==0.8.1
 django-statsd-mozilla==0.3.8.7
-raven==0.7.0
+raven==4.0.3
 django-smoketest==0.1.3
 django-debug-toolbar==0.9.4
 django-impersonate==0.6.0
