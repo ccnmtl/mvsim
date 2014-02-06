@@ -54,7 +54,7 @@ django-paging==0.2.2
 django-munin==0.1.1
 djangohelpers==0.2
 django-courseaffils==0.4.7
-django-registration==0.8
+django-registration==1.0
 django-nose==1.2
 South==0.8.1
 django-statsd-mozilla==0.3.8.7
