@@ -4,6 +4,7 @@ from engine.logic import Person, Village, Coeffs, State, setup_people, Turn
 from engine.logic import rand_n, marshall_people, new_child
 from engine.schooling import SchoolingFSM
 from engine.display_logic import add_extra_seasonreport_context
+from engine.simple_controller import force_integers
 
 
 class StubTC:
@@ -1238,3 +1239,21 @@ class TestDisplayLogic(unittest.TestCase):
         }
         r = add_extra_seasonreport_context(context)
         self.assertEquals(r['new_baby'], "bart")
+
+
+class TestForceIntegers(unittest.TestCase):
+    def test_normal(self):
+        kwargs = dict(cotton='3')
+        self.assertEqual(force_integers(kwargs)['cotton'], '3')
+
+    def test_empty(self):
+        kwargs = dict(cotton='')
+        self.assertEqual(force_integers(kwargs)['cotton'], '0')
+
+    def test_whitespace(self):
+        self.assertEqual(
+            force_integers(dict(fishing_limit=' '))['fishing_limit'], '0')
+        self.assertEqual(
+            force_integers(dict(fishing_limit='\t'))['fishing_limit'], '0')
+        self.assertEqual(
+            force_integers(dict(fishing_limit='\n'))['fishing_limit'], '0')

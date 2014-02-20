@@ -24,7 +24,7 @@ def force_integers(kwargs):
             try:
                 kwargs[field] = "%d" % (int(float(kwargs[field] or '0')),)
             except:
-                pass
+                kwargs[field] = '0'
     return kwargs
 
 
