@@ -1257,3 +1257,7 @@ class TestForceIntegers(unittest.TestCase):
             force_integers(dict(fishing_limit='\t'))['fishing_limit'], '0')
         self.assertEqual(
             force_integers(dict(fishing_limit='\n'))['fishing_limit'], '0')
+
+    def test_percent(self):
+        self.assertEqual(
+            force_integers(dict(tax_rate='100%'))['tax_rate'], '100')

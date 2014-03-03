@@ -19,6 +19,8 @@ def force_integers(kwargs):
                       'wood_limit']
     for field in integer_fields:
         if field in kwargs:
+            if '%' in kwargs[field]:
+                kwargs[field] = kwargs[field].replace('%', '')
             if kwargs[field] == u"NaN":
                 kwargs[field] = 0
             try:
