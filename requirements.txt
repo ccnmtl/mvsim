@@ -1,4 +1,4 @@
-Django==1.5.4
+Django==1.5.6
 httplib2==0.7.7
 feedparser==4.1
 Markdown==2.3.1
@@ -41,7 +41,12 @@ ipython==0.13.2
 ipdb==0.7
 lxml==3.2.3
 selenium==2.31.0
-lettuce==0.2.14
+extras==0.0.3
+python-mimeparse==0.1.4
+testtools==0.9.35
+testscenarios==0.4
+python-subunit==0.0.18
+lettuce==0.2.19ccnmtl
 
 django-smartif==0.1
 djangowind==0.11.0
