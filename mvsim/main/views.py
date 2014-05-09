@@ -101,20 +101,12 @@ def view_state(request, state_id):
     # and, if it's set, removes Deform's javascript and injects some JS
     # to disable all the form fields on page load.  The result is prettier.
     if request.method == "GET":
-        course = None
-        if state.game:
-            course = state.game.course
-        return {'form': form.render(state.loads()),
-                'readonly': readonly,
-                'state': state,
-                'course': course,
-                'available_sections': available_sections,
-                'saved': request.GET.get('msg', None)}
+        return view_form(request, state, form, readonly,
+                         available_sections)
 
     if readonly:
         return forbidden()
 
-    #else if request.method == "POST"
     controls = parse_qsl(request.raw_post_data, keep_blank_values=True)
 
     try:
@@ -136,6 +128,18 @@ def view_state(request, state_id):
     state.save()
     url = "%s?msg=saved" % state.view_state_url()
     return redirect(url)
+
+
+def view_form(request, state, form, readonly, available_sections):
+    course = None
+    if state.game:
+        course = state.game.course
+    return {'form': form.render(state.loads()),
+            'readonly': readonly,
+            'state': state,
+            'course': course,
+            'available_sections': available_sections,
+            'saved': request.GET.get('msg', None)}
 
 
 @rendered_with("admin/course_sections.html")
