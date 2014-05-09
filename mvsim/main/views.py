@@ -69,6 +69,15 @@ def edit_state(request, state_id):
     return redirect(state.view_state_url())
 
 
+def get_available_sections(state):
+    available_sections = []
+    if state.game:
+        for section in state.game.course.coursesection_set.all():
+            if section not in state.coursesection_set.all():
+                available_sections.append(section)
+    return available_sections
+
+
 @rendered_with("admin/view_state.html")
 def view_state(request, state_id):
     if not request.user.is_superuser:
@@ -86,12 +95,7 @@ def view_state(request, state_id):
     readonly = False
     if state.game:
         readonly = True
-
-    available_sections = []
-    if state.game:
-        for section in state.game.course.coursesection_set.all():
-            if section not in state.coursesection_set.all():
-                available_sections.append(section)
+    available_sections = get_available_sections(state)
 
     # Deform's form.render API allows you to pass a readonly=True flag
     # to have deform render a readonly representation of the data;
