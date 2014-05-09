@@ -1,10 +1,9 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView
 import os.path
 admin.autodiscover()
-import staticmedia
 
 site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 doc_root = os.path.join(os.path.dirname(__file__), "../docs", "_build", "html")
@@ -81,7 +80,6 @@ urlpatterns = patterns(
         'mvsim.main.views.associate_state', name="associate_state"),
 
     (r'^admin/', include(admin.site.urls)),
-    (r'^munin/', include('munin.urls')),
     (r'^smoketest/', include('smoketest.urls')),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
     (r'^stats/auth/$', TemplateView.as_view(template_name="auth_stats.html")),
@@ -97,4 +95,4 @@ urlpatterns = patterns(
     (r'^docs/(?P<path>.*)$',
      'django.views.static.serve',
      {'document_root': doc_root}),
-) + staticmedia.serve()
+)
