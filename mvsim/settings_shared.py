@@ -95,7 +95,8 @@ INSTALLED_APPS = [
     'django_jenkins',
     'engine',
     'waffle',
-    'lettuce.django'
+    'lettuce.django',
+    'django_markwhat',
 ]
 
 INTERNAL_IPS = ('127.0.0.1', )
