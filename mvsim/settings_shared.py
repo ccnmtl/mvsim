@@ -78,16 +78,13 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.staticfiles',
-    'sorl.thumbnail',
     'django.contrib.admin',
     'smartif',
     'template_utils',
-    'raven.contrib.django',
     'djangowind',
     'courseaffils',
     'registration',
     'mvsim.main',
-    'south',
     'django_statsd',
     'smoketest',
     'debug_toolbar',
@@ -117,9 +114,6 @@ STATSD_PORT = 8125
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-SOUTH_TESTS_MIGRATE = False
-SOUTH_AUTO_FREEZE_APP = True
-
 if 'test' in sys.argv or 'jenkins' in sys.argv:
     DATABASES = {
         'default': {
@@ -148,7 +142,12 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.run_pyflakes',
 )
 
-PROJECT_APPS = ['mvsim.main', 'engine', 'mvsim.graph', ]
+PROJECT_APPS = [
+    'mvsim.main',
+    'engine',
+    # for some reason, this one is breaking with django 1.7
+    #    'mvsim.graph',
+]
 
 THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[mvsim] "
