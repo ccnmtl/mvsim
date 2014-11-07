@@ -1,4 +1,4 @@
-Django==1.7
+Django==1.7.1
 httplib2==0.7.7
 feedparser==4.1
 Markdown==2.3.1
