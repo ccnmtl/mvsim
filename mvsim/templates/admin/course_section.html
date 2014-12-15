@@ -32,7 +32,7 @@
 		          				/>
 		          			<a href="/state/{{state.id}}">{{state.name}}</a>
 		          			{% if not state.visible %}
-		          				<img src="/site_media/images/lock.png" title="Superusers only" alt="Superusers only" style="vertical-align: middle"/>
+		          				<img src="{{STATIC_URL}}images/lock.png" title="Superusers only" alt="Superusers only" style="vertical-align: middle"/>
 		          			{% endif %}
 		          		</div>
 					{% endfor %}
