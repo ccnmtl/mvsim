@@ -3,24 +3,24 @@
 {% block title %}Game Graph{% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="/site_media/javascript/MochiKit/MochiKit.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}javascript/MochiKit/MochiKit.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery.noConflict();
 </script>
-<script type="text/javascript" src="/site_media/graphtool/js/tabber.js"></script>
-<script type="text/javascript" src="/site_media/graphtool/js/getlink.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}graphtool/js/tabber.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}graphtool/js/getlink.js"></script>
 
-<script type="text/javascript" src="/site_media/js/raphael/raphael.js"></script>
-<script type="text/javascript" src="/site_media/js/raphael/g.raphael.js"></script>
-<script type="text/javascript" src="/site_media/js/raphael/g.line.js"></script>
-<script type="text/javascript" src="/site_media/js/raphael/g.dot.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/raphael/raphael.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/raphael/g.raphael.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/raphael/g.line.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/raphael/g.dot.js"></script>
 
 <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
-<script type="text/javascript" src="/site_media/js/raphael/raphael.serialize.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/raphael/raphael.serialize.js"></script>
 
 <style type="text/css">
 div.bluff-tooltip {
@@ -32,12 +32,12 @@ div.bluff-tooltip {
 }
 </style>
 <style type="text/css">
-  @import "/site_media/graphtool/css/graphingtool.css";
+  @import "{{STATIC_URL}}graphtool/css/graphingtool.css";
 </style>
 
-<script type="text/javascript" src="/site_media/graphtool/js/graph.js"></script>
-<script type="text/javascript" src="/site_media/graphtool/js/graph_model.js"></script>
-<script type="text/javascript" src="/site_media/graphtool/js/graph_application.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}graphtool/js/graph.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}graphtool/js/graph_model.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}graphtool/js/graph_application.js"></script>
 
 <script type="text/javascript">
 var initial_layer = "{{layers.keys.0}}";
@@ -121,7 +121,7 @@ startApp(initial_layer, url_builder, null, set_bookmark);
 	   width="600" height="300" border="0">
 	<img 
 	   alt="The graph will be drawn here"
-	   src="/site_media/images/placegraph.gif" />
+	   src="{{STATIC_URL}}images/placegraph.gif" />
       </div>
       <div class="x_axis">
 	<form> 

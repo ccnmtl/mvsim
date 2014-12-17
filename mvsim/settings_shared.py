@@ -43,6 +43,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
     'djangowind.context.context_processor',
     'stagingcontext.staging_processor',
 )
@@ -95,6 +96,8 @@ INSTALLED_APPS = [
     'waffle',
     'lettuce.django',
     'django_markwhat',
+    'storages',
+    'compressor',
 ]
 
 INTERNAL_IPS = ('127.0.0.1', )
@@ -160,6 +163,18 @@ DEFAULT_FROM_EMAIL = 'mvsim@mvsim.ccnmtl.columbia.edu'
 STATICMEDIA_MOUNTS = (
     ('/static', 'sitemedia'),
 )
+
+STATIC_ROOT = "/tmp/mvsim/static"
+STATICFILES_DIRS = ("media/",)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_URL = "/media/"
+COMPRESS_ROOT = "media/"
 
 # WIND settings
 

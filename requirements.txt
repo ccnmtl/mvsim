@@ -47,6 +47,8 @@ testscenarios==0.4
 python-subunit==0.0.18
 lettuce==0.2.19ccnmtl
 sqlparse==0.1.11
+boto==2.34.0
+six==1.8.0
 
 django-smartif==0.1
 djangowind==0.13.2
@@ -67,3 +69,6 @@ django-jenkins==0.16.3
 django-stagingcontext==0.1.0
 django-waffle==0.9.0
 django-markwhat==1.0
+django-storages==1.1.8
+django-appconf==0.6
+django-compressor==1.4

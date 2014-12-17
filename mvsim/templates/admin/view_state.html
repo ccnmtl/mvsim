@@ -4,17 +4,17 @@
 
 {% block scripts %}
   	<!-- CSS -->
-  	<link rel="stylesheet" href="/site_media/css/form.css" type="text/css" />
-  	<link rel="stylesheet" href="/site_media/css/state.css" media="screen" />
+  	<link rel="stylesheet" href="{{STATIC_URL}}css/form.css" type="text/css" />
+  	<link rel="stylesheet" href="{{STATIC_URL}}css/state.css" media="screen" />
   
   	<!-- JavaScript -->
-  	<script type="text/javascript" src="/site_media/scripts/jquery-1.4.2.min.js"></script>
-  	<script type="text/javascript" src="/site_media/scripts/jquery.tablesorter.min.js"></script>
-  	<script type="text/javascript" src="/site_media/scripts/json2.js"></script>
-  	<script type="text/javascript" src="/site_media/js/util.js"></script>
+  	<script type="text/javascript" src="{{STATIC_URL}}scripts/jquery-1.4.2.min.js"></script>
+  	<script type="text/javascript" src="{{STATIC_URL}}scripts/jquery.tablesorter.min.js"></script>
+  	<script type="text/javascript" src="{{STATIC_URL}}scripts/json2.js"></script>
+  	<script type="text/javascript" src="{{STATIC_URL}}js/util.js"></script>
   	
 	{% if not readonly %}
-	  <script type="text/javascript" src="/site_media/scripts/deform.js"></script>
+	  <script type="text/javascript" src="{{STATIC_URL}}scripts/deform.js"></script>
 	{% endif %}
 {% endblock %}
 
@@ -79,7 +79,7 @@
     	{% if saved %}
     		<div class="success">
     			Your changes were saved.
-    			<img src="/site_media/images/alert_close.png" class="alert_close" />
+    			<img src="{{STATIC_URL}}images/alert_close.png" class="alert_close" />
     		</div>
     	{% endif %}
     

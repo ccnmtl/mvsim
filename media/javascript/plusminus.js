@@ -31,7 +31,7 @@ function add_plus_minus_buttons(element) {
    element.style.border = "1px solid black";
    var parent = element.parentNode;
 
-   var plus = IMG({"src" : "/site_media/images/btn_plus.gif",
+   var plus = IMG({"src" : "../images/btn_plus.gif",
          "border": '0',"alt" : "+",
          "width" : "12",
          "height" : "14",
@@ -39,7 +39,7 @@ function add_plus_minus_buttons(element) {
       "class" : "plus-button"
    });
 
-   var minus = IMG({"src" : "/site_media/images/btn_minus.gif",
+   var minus = IMG({"src" : "../images/btn_minus.gif",
          "border": '0',"alt" : "+",
          "width" : "12",
          "height" : "14",

@@ -50,7 +50,7 @@ th.navOut
 .navOut
 {
 	border-left: 1px solid #999;
-	background: #F1F1F1 url(/site_media/images/midcorners.jpg) left bottom repeat-x;
+	background: #F1F1F1 url(../images/midcorners.jpg) left bottom repeat-x;
 }
 
 th.navOut:hover
@@ -67,9 +67,9 @@ thead .arrow
 	overflow: hidden;
 }
 
-th.TableSortSelected { background: #F1F1F1 url(/site_media/images/midcorners_brown.jpg) left bottom repeat-x; color: #000 !important; }
+th.TableSortSelected { background: #F1F1F1 url(../images/midcorners_brown.jpg) left bottom repeat-x; color: #000 !important; }
 
-th.TableSortUnselected { background: #F1F1F1 url(/site_media/images/midcorners.jpg) left bottom repeat-x; }
+th.TableSortUnselected { background: #F1F1F1 url(../images/midcorners.jpg) left bottom repeat-x; }
 
 
 

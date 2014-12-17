@@ -50,7 +50,7 @@ html.busy, html.busy * {
 	border-left: 1px solid #999;
 	border-right: 1px solid #999;
 	border-bottom: 2px solid #363;
-	background: #d2dab3 url(/site_media/images/sim_title.gif) 5px center no-repeat;
+	background: #d2dab3 url(../images/sim_title.gif) 5px center no-repeat;
 }
 
 #header #mv_home
@@ -136,20 +136,20 @@ html.busy, html.busy * {
 {
 	width: 407px;
 	height: 24px;
-	background: #efefef url(/site_media/images/bg_top_loginbox.jpg) top left no-repeat;
+	background: #efefef url(../images/bg_top_loginbox.jpg) top left no-repeat;
 }
 
 #loginbox #middle
 {
 	width: 407px;
-	background: #efefef url(/site_media/images/bg_mid_loginbox.jpg) top left repeat-y;
+	background: #efefef url(../images/bg_mid_loginbox.jpg) top left repeat-y;
 }
 
 #loginbox #bottom
 {
 	width: 407px;
 	height: 24px;
-	background: #efefef url(/site_media/images/bg_bottom_loginbox.jpg) top left no-repeat;
+	background: #efefef url(../images/bg_bottom_loginbox.jpg) top left no-repeat;
 }
 
 #loginbox h1
@@ -360,7 +360,7 @@ h2.mygames
 	left: 8px;
 	width: 900px;
 	height: 600px;
-	background: url(/site_media/images/shadow_right_corner.gif) top right no-repeat;
+	background: url(../images/shadow_right_corner.gif) top right no-repeat;
 	z-index: 400;
 	opacity: 0.7;
 	-moz-opacity: 0.7;
@@ -371,7 +371,7 @@ h2.mygames
 {
 	width: 900px;
 	height: 30px;
-	background: url(/site_media/images/shadow_right_corner.gif) top right no-repeat;
+	background: url(../images/shadow_right_corner.gif) top right no-repeat;
 	border: 0;
 }
 
@@ -402,13 +402,13 @@ h2.mygames
 #report #dossier #d_header
 {
 	width: 900px;
-	background: url(/site_media/images/report_left.gif) center left no-repeat;
+	background: url(../images/report_left.gif) center left no-repeat;
 	height: 30px;
 }
 
 #report #dossier #d_header #d_header_inner
 {
-	background: url(/site_media/images/report_right.gif) center right no-repeat;
+	background: url(../images/report_right.gif) center right no-repeat;
 	height: 30px;
 }
 
@@ -422,7 +422,7 @@ h2.mygames
 	border: 0;
 	margin: 7px 10px 0 0;
 	padding: 0 22px 0 0;
-	background: url(/site_media/images/hide_report.gif) right center no-repeat;
+	background: url(../images/hide_report.gif) right center no-repeat;
 	color: #fff;
 	text-decoration: none;
 	font-size: 0.9em;
@@ -436,7 +436,7 @@ h2.mygames
 	width: 700px;
 	font-size: 1.1em;
 	border: 0;
-	background: url(/site_media/images/report_mid.gif) center right repeat-x;
+	background: url(../images/report_mid.gif) center right repeat-x;
 	color: #fff;
 	line-height: 32px;
 	height: 30px;
@@ -448,7 +448,7 @@ h2.mygames
 	height: 540px;
 	display: block;
 	z-index: 500;
-	background: #fff url(/site_media/images/bg_report.gif) top left repeat-y;	
+	background: #fff url(../images/bg_report.gif) top left repeat-y;	
 	margin: 0;
 	padding: 0;
 	border: 1px solid #000;
@@ -476,7 +476,7 @@ h2.mygames
 	margin: 5px 5px;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/leftcorners.jpg) top left no-repeat;	
+	background: url(../images/leftcorners.jpg) top left no-repeat;	
 	line-height: 26px;
 	color: #000;
 	font-size: 1em;
@@ -489,7 +489,7 @@ h2.mygames
 	margin: 0;
 	padding: 0 5px;
 	border: 0;
-	background: url(/site_media/images/rightcorners.jpg) top right no-repeat;	
+	background: url(../images/rightcorners.jpg) top right no-repeat;	
 }
 
 #report #beta,
@@ -510,7 +510,7 @@ h2.mygames
 	margin: 5px 5px;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/leftcorners.jpg) top left no-repeat;	
+	background: url(../images/leftcorners.jpg) top left no-repeat;	
 	line-height: 26px;
 	color: #000;
 	font-size: 1em;
@@ -523,7 +523,7 @@ h2.mygames
 	margin: 0;
 	padding: 0 5px;
 	border: 0;
-	background: url(/site_media/images/rightcorners.jpg) top right no-repeat;	
+	background: url(../images/rightcorners.jpg) top right no-repeat;	
 }
 
 #report #beta h2 div div#inner_h2,
@@ -533,7 +533,7 @@ h2.mygames
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/midcorners.jpg) top left repeat-x;	
+	background: url(../images/midcorners.jpg) top left repeat-x;	
 }
 
 #report #beta_one
@@ -584,7 +584,7 @@ h2.mygames
 	padding: 2px 8px 2px 8px;
 	border: 1px solid #d6ebd6;
 	border-bottom: 1px solid #b3dcb3;
-	background: url(/site_media/images/bg_report_goodnews.gif) top left repeat;	
+	background: url(../images/bg_report_goodnews.gif) top left repeat;	
 }
 
 #report .sectionbox .badnews,
@@ -594,7 +594,7 @@ h2.mygames
 	padding: 2px 8px 2px 8px;
 	border: 1px solid #f7d9d9;
 	border-bottom: 1px solid #f5bcbc;
-	background: url(/site_media/images/bg_report_badnews.gif) top left repeat;	
+	background: url(../images/bg_report_badnews.gif) top left repeat;	
 }
 
 .announcement_orange 
@@ -636,7 +636,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_greencheck.gif) left top no-repeat;
+	background: url(../images/icon_report_greencheck.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li#subs_not_met
@@ -646,7 +646,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_red.gif) left top no-repeat;
+	background: url(../images/icon_report_red.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.cotton_report
@@ -656,7 +656,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_cotton.gif) left top no-repeat;
+	background: url(../images/icon_report_cotton.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.maize_report
@@ -666,7 +666,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_maize.gif) left top no-repeat;
+	background: url(../images/icon_report_maize.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.baby_birth
@@ -676,7 +676,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_baby.gif) left top no-repeat;
+	background: url(../images/icon_report_baby.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.death_announce
@@ -686,7 +686,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_black.gif) left top no-repeat;
+	background: url(../images/icon_report_black.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.sick_announce
@@ -696,12 +696,12 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_illness.gif) left top no-repeat;
+	background: url(../images/icon_report_illness.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.sick_announce.malaria_announce
 {
-	background: url(/site_media/images/icon_report_malaria.gif) left top no-repeat;
+	background: url(../images/icon_report_malaria.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.health_announce
@@ -711,12 +711,12 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_red.gif) left top no-repeat;
+	background: url(../images/icon_report_red.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.subsidy_report
 {
-	background: url(/site_media/images/icon_report_green.gif) left top no-repeat;
+	background: url(../images/icon_report_green.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.subsidy_report li
@@ -735,7 +735,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_water.gif) left top no-repeat;
+	background: url(../images/icon_report_water.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.drought_report
@@ -745,7 +745,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_drought.gif) left top no-repeat;
+	background: url(../images/icon_report_drought.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.fish_report
@@ -755,7 +755,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_fish.gif) left top no-repeat;
+	background: url(../images/icon_report_fish.gif) left top no-repeat;
 }
 
 #report .sectionbox ul.announcements li.wood_report
@@ -765,7 +765,7 @@ h2.mygames
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_wood.gif) left top no-repeat;
+	background: url(../images/icon_report_wood.gif) left top no-repeat;
 }
 
 #report .sectionbox table
@@ -812,7 +812,7 @@ h2.mygames
 	margin: 5px 5px;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/leftcorners.jpg) top left no-repeat;	
+	background: url(../images/leftcorners.jpg) top left no-repeat;	
 	line-height: 26px;
 	color: #000;
 	font-size: 1em;
@@ -824,7 +824,7 @@ h2.mygames
 	margin: 0;
 	padding: 0 5px;
 	border: 0;
-	background: url(/site_media/images/rightcorners.jpg) top right no-repeat;	
+	background: url(../images/rightcorners.jpg) top right no-repeat;	
 }
 
 #report #family-report
@@ -950,7 +950,7 @@ h2.mygames
 	margin:0;
 	padding: 0 0 0 5px;
 	border: 0;
-	background: url(/site_media/images/right_round.gif) right center no-repeat;
+	background: url(../images/right_round.gif) right center no-repeat;
 	font-size: 1em;
 	line-height: 26px;
 	height: 26px;
@@ -959,7 +959,7 @@ h2.mygames
 #choices div.h2
 {
 	margin: 0.8em 0.3em 0 0.3em;
-	background: url(/site_media/images/left_round.gif) left center no-repeat;
+	background: url(../images/left_round.gif) left center no-repeat;
 }
 
 #choices .tabberactive a
@@ -1083,14 +1083,14 @@ span.code {
 a.hs-control-hide
 {
 	padding-left: 15px;
-	background: url(/site_media/images/arrow_right.png) no-repeat 0px 8px;
+	background: url(../images/arrow_right.png) no-repeat 0px 8px;
 	color: #000;
 }
 
 a.hs-control-show
 {
 	padding-left: 15px;
-	background: url(/site_media/images/arrow_down.png) no-repeat 0px 8px;
+	background: url(../images/arrow_down.png) no-repeat 0px 8px;
 	color: #000;
 }
 
@@ -1105,7 +1105,7 @@ a.hs-control-show
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/pv-arrow-collapsed.gif) no-repeat 0px 0px;
+	background: url(../images/pv-arrow-collapsed.gif) no-repeat 0px 0px;
 }
 
 #pv-arrow a.hs-control-show
@@ -1119,7 +1119,7 @@ a.hs-control-show
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/pv-arrow-expanded.gif) no-repeat 0px 0px;
+	background: url(../images/pv-arrow-expanded.gif) no-repeat 0px 0px;
 }
 
 #pv-toggle a
@@ -1130,14 +1130,14 @@ a.hs-control-show
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/pv-toggle-collapsed.gif) no-repeat 0px 0px;
+	background: url(../images/pv-toggle-collapsed.gif) no-repeat 0px 0px;
 	display:block;
 	float: right;
 }
 
 #pv-toggle a.expanded
 {
-	background: url(/site_media/images/pv-toggle-expanded.gif) no-repeat 0px 0px;
+	background: url(../images/pv-toggle-expanded.gif) no-repeat 0px 0px;
 }
 
 .hs-show { display: block; }
@@ -1162,12 +1162,12 @@ a.hs-control-show
 }
 
 .family-graphic {
-    background-image: url('/site_media/images/basic_map.jpg');
+    background-image: url('../images/basic_map.jpg');
     
 }
 
 .village-graphic {
-    background-image: url('/site_media/images/village_map.jpg');
+    background-image: url('../images/village_map.jpg');
 }
 
 .map-signs {
@@ -1207,43 +1207,43 @@ a.hs-control-show
 }
 
 .foreststock#completely_full{
-    background-image: URL('/site_media/images/resources/forest_completely_full.jpg');
+    background-image: URL('../images/resources/forest_completely_full.jpg');
 }
 
 .foreststock#partially_full{
-    background-image: URL('/site_media/images/resources/forest_partially_full.jpg');
+    background-image: URL('../images/resources/forest_partially_full.jpg');
 }
 
 .foreststock#partially_empty{
-    background-image: URL('/site_media/images/resources/forest_partially_empty.jpg');
+    background-image: URL('../images/resources/forest_partially_empty.jpg');
 }
 
 .foreststock#mostly_empty{
-    background-image: URL('/site_media/images/resources/forest_mostly_empty.jpg');
+    background-image: URL('../images/resources/forest_mostly_empty.jpg');
 }
 .foreststock#completely_empty{
     background-image: none;
 }
 
 .fishstock#completely_full{
-    background-image: URL('/site_media/images/resources/fish_completely_full.png');
+    background-image: URL('../images/resources/fish_completely_full.png');
 }
 
 .fishstock#partially_full{
-    background-image: URL('/site_media/images/resources/fish_partially_full.png');
+    background-image: URL('../images/resources/fish_partially_full.png');
 }
 .fishstock#partially_empty{
-    background-image: URL('/site_media/images/resources/fish_partially_empty.png');
+    background-image: URL('../images/resources/fish_partially_empty.png');
 }
 .fishstock#mostly_empty{
-    background-image: URL('/site_media/images/resources/fish_mostly_empty.png');
+    background-image: URL('../images/resources/fish_mostly_empty.png');
 }
 .fishstock#completely_empty{
     background-image: none;
 }
 
 #map-sign-stats {
-    background-image: URL('/site_media/images/sign-stats.png');
+    background-image: URL('../images/sign-stats.png');
 }
 
 #population {
@@ -1282,15 +1282,15 @@ a.hs-control-show
 }
 
 #map-signs-no-clinic {
-    background-image: URL('/site_media/images/icons/signs-no-clinic.png');
+    background-image: URL('../images/icons/signs-no-clinic.png');
 }
 
 #map-signs-clinic {
-    background-image: URL('/site_media/images/icons/signs-clinic.png');
+    background-image: URL('../images/icons/signs-clinic.png');
 }
 
 #map-clinic {
-   background-image: URL('/site_media/images/icons/clinic_map.png');
+   background-image: URL('../images/icons/clinic_map.png');
    width: 58px;
    height: 65px;
    position: absolute;
@@ -1305,7 +1305,7 @@ a.hs-control-show
    text-align: center;
    top: 20px;
    left: 390px;
-   background-image: URL('/site_media/images/labelbg_vil_tax.png');
+   background-image: URL('../images/labelbg_vil_tax.png');
    background-repeat: no-repeat;
    padding: 40px 5px 0 0;
 }
@@ -1317,7 +1317,7 @@ a.hs-control-show
    position: absolute;
    top: 178px;
    left: 420px;
-      background-image: URL('/site_media/images/labelbg_vil_fish.png');
+      background-image: URL('../images/labelbg_vil_fish.png');
          padding: 50px 5px 0 0;
       background-repeat: no-repeat;
    
@@ -1331,7 +1331,7 @@ a.hs-control-show
    top: 0px;
    left: 500px;
    background-repeat: no-repeat;
-      background-image: URL('/site_media/images/labelbg_vil_fuel.png');
+      background-image: URL('../images/labelbg_vil_fuel.png');
          padding: 50px 5px 0 0;
 }
 
@@ -1375,7 +1375,7 @@ a.hs-control-show
 	line-height: 16px;
 	list-style: none;
 	white-space: nowrap;
-	background: url(/site_media/images/icon_goldcoin.gif) 2px 5px no-repeat;
+	background: url(../images/icon_goldcoin.gif) 2px 5px no-repeat;
 }
 
 #time
@@ -1532,30 +1532,30 @@ ul.tabbernav li.tabberactive a:hover
    height: 42px;
    width: 46px;
    position: absolute;
-   background-image: url('/site_media/images/icons/fertilizer_map.png') left center no-repeat;
+   background-image: url('../images/icons/fertilizer_map.png') left center no-repeat;
 }
 .seeds {
-   background-image: url('/site_media/images/icons/seeds_map.png') left center no-repeat;
+   background-image: url('../images/icons/seeds_map.png') left center no-repeat;
 }
 
 
 .crop-Maize {
-	background-image: url('/site_media/images/icons/maize_map.png');
+	background-image: url('../images/icons/maize_map.png');
 }
 
 .crop-Cotton {
-	background-image: url('/site_media/images/icons/cotton_map.png');
+	background-image: url('../images/icons/cotton_map.png');
 }
 
 #graphic .effort {
-	/* background: URL('/site_media/images/icons/clock_icon.png') left center no-repeat;*/
+	/* background: URL('../images/icons/clock_icon.png') left center no-repeat;*/
 	/* height: 15px;*/
 	 padding: 33px 0 0 27px;
 	 font-size: 11px;
 }
 
 #graphic .health {
-	 background: URL('/site_media/images/icons/health_icon.png') left center no-repeat;
+	 background: URL('../images/icons/health_icon.png') left center no-repeat;
 	 height: 15px;
 	 padding-left: 15px;
 }
@@ -1568,7 +1568,7 @@ ul.tabbernav li.tabberactive a:hover
 	height: 66px;
 	width: 61px;
 	display: block;
-	background: URL('/site_media/images/labelbg_fam_farm.png') left top no-repeat;
+	background: URL('../images/labelbg_fam_farm.png') left top no-repeat;
 }
 
 #effort-fishing-graphic { 
@@ -1578,7 +1578,7 @@ ul.tabbernav li.tabberactive a:hover
 	height: 66px;
 	width: 61px;
 	display: block;
-	background: URL('/site_media/images/labelbg_fam_fish.png') left top no-repeat;
+	background: URL('../images/labelbg_fam_fish.png') left top no-repeat;
 }
 
 #effort-fuel-wood-graphic { 
@@ -1588,7 +1588,7 @@ ul.tabbernav li.tabberactive a:hover
 	height: 66px;
 	width: 61px;
 	display: block;
-	background: URL('/site_media/images/labelbg_fam_fuel.png') left top no-repeat;
+	background: URL('../images/labelbg_fam_fuel.png') left top no-repeat;
 	
 }
 
@@ -1599,7 +1599,7 @@ ul.tabbernav li.tabberactive a:hover
 	height: 66px;
 	width: 61px;
 	display: block;
-	background: URL('/site_media/images/labelbg_fam_water.png') left top no-repeat;
+	background: URL('../images/labelbg_fam_water.png') left top no-repeat;
 }
 
 #effort-small-business-graphic { 
@@ -1609,12 +1609,12 @@ ul.tabbernav li.tabberactive a:hover
 	height: 66px;
 	width: 61px;
 	display: block;
-	background: URL('/site_media/images/labelbg_fam_biz.png') left top no-repeat;
+	background: URL('../images/labelbg_fam_biz.png') left top no-repeat;
 
 }
 
 #bednet-map {
-  background: URL('/site_media/images/icons/bednet_map.png') left center no-repeat;
+  background: URL('../images/icons/bednet_map.png') left center no-repeat;
   width: 56px;
   height: 56px;
   position: absolute;
@@ -1625,7 +1625,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #stove-map {
-  background: URL('/site_media/images/icons/stove_map.png') left center no-repeat;
+  background: URL('../images/icons/stove_map.png') left center no-repeat;
   width: 56px;
   height: 56px;
   position: absolute;
@@ -1634,7 +1634,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #propane-map {
-  background: URL('/site_media/images/icons/propane_map.png') left center no-repeat;
+  background: URL('../images/icons/propane_map.png') left center no-repeat;
   width: 56px;
   height: 56px;
   position: absolute;
@@ -1646,7 +1646,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improved-stove-map {
-  background: URL('/site_media/images/icons/improved_stove_map.png') left center no-repeat;
+  background: URL('../images/icons/improved_stove_map.png') left center no-repeat;
   width: 56px;
   height: 56px;
   position: absolute;
@@ -1655,7 +1655,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-road {
-  background: URL('/site_media/images/icons/road_map.png') left center no-repeat;
+  background: URL('../images/icons/road_map.png') left center no-repeat;
   width: 600px;
   height: 30px;
   position: absolute;
@@ -1664,7 +1664,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-generator {
-  background: URL('/site_media/images/icons/generator_map.png') left center no-repeat;
+  background: URL('../images/icons/generator_map.png') left center no-repeat;
   width: 600px;
   height: 70px;
   position: absolute;
@@ -1674,7 +1674,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-irrigation {
-  background: URL('/site_media/images/icons/irrigation_map.png') left center no-repeat;
+  background: URL('../images/icons/irrigation_map.png') left center no-repeat;
   width: 600px;
   height: 515px;
   position: absolute;
@@ -1684,7 +1684,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-irrigation-family {
-  background: URL('/site_media/images/icons/irrigation_map_family.png') left center no-repeat;
+  background: URL('../images/icons/irrigation_map_family.png') left center no-repeat;
   width: 192px;
   height: 151px;
   position: absolute;
@@ -1694,7 +1694,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-boat {
-  background: URL('/site_media/images/icons/boat_map.png') left center no-repeat;
+  background: URL('../images/icons/boat_map.png') left center no-repeat;
   width: 56px;
   height: 51px;
   position: absolute;
@@ -1703,7 +1703,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-dragnet {
-  background: URL('/site_media/images/icons/dragnet_map.png') left center no-repeat;
+  background: URL('../images/icons/dragnet_map.png') left center no-repeat;
   width: 29px;
   height: 41px;
   position: absolute;
@@ -1712,7 +1712,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-meals {
-  background: URL('/site_media/images/icons/meals_map.png') left center no-repeat;
+  background: URL('../images/icons/meals_map.png') left center no-repeat;
   width: 70px;
   height: 59px;
   position: absolute;
@@ -1721,7 +1721,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-sanitation {
-  background: URL('/site_media/images/icons/sanitation_map.png') left center no-repeat;
+  background: URL('../images/icons/sanitation_map.png') left center no-repeat;
   width: 52px;
   height: 55px;
   position: absolute;
@@ -1730,7 +1730,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #improvement-water-pump {
-  background: URL('/site_media/images/icons/water_pump_map.png') left center no-repeat;
+  background: URL('../images/icons/water_pump_map.png') left center no-repeat;
   width: 61px;
   height: 46px;
   position: absolute;
@@ -1771,193 +1771,193 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 .male-info {
-    background-image: url('/site_media/images/icons/mapinfo_male.png');
+    background-image: url('../images/icons/mapinfo_male.png');
 }
 .female-info {
-    background-image: url('/site_media/images/icons/mapinfo_female.png');
+    background-image: url('../images/icons/mapinfo_female.png');
 }
 
 .child-male-amadou {
-    background-image: url('/site_media/images/icons/child_male_amadou.png');
+    background-image: url('../images/icons/child_male_amadou.png');
     background-repeat: no-repeat;
 }
 .child-male-jean {
-    background-image: url('/site_media/images/icons/child_male_jean.png');
+    background-image: url('../images/icons/child_male_jean.png');
     background-repeat: no-repeat;
 }
 .child-male-kuoakou {
-    background-image: url('/site_media/images/icons/child_male_kuoakou.png');
+    background-image: url('../images/icons/child_male_kuoakou.png');
     background-repeat: no-repeat;
 }
 .child-male-mamadou {
-    background-image: url('/site_media/images/icons/child_male_mamadou.png');
+    background-image: url('../images/icons/child_male_mamadou.png');
     background-repeat: no-repeat;
 }
 .child-male-samuel {
-    background-image: url('/site_media/images/icons/child_male_samuel.png');
+    background-image: url('../images/icons/child_male_samuel.png');
     background-repeat: no-repeat;
 }
 .child-male-yao {
-    background-image: url('/site_media/images/icons/child_male_yao.png');
+    background-image: url('../images/icons/child_male_yao.png');
     background-repeat: no-repeat;
 }
 
 .baby-male {
-    background-image: url('/site_media/images/icons/baby_male.png');
+    background-image: url('../images/icons/baby_male.png');
     background-repeat: no-repeat;
 }
 
 .teen-male-kodjo {
-    background-image: url('/site_media/images/icons/teen_male_kodjo.png');
+    background-image: url('../images/icons/teen_male_kodjo.png');
     background-repeat: no-repeat;
 }
 .teen-male-amadou {
-    background-image: url('/site_media/images/icons/teen_male_amadou.png');
+    background-image: url('../images/icons/teen_male_amadou.png');
     background-repeat: no-repeat;
 }
 .teen-male-jean {
-    background-image: url('/site_media/images/icons/teen_male_jean.png');
+    background-image: url('../images/icons/teen_male_jean.png');
     background-repeat: no-repeat;
 }
 .teen-male-kuoakou {
-    background-image: url('/site_media/images/icons/teen_male_kuoakou.png');
+    background-image: url('../images/icons/teen_male_kuoakou.png');
     background-repeat: no-repeat;
 }
 .teen-male-mamadou {
-    background-image: url('/site_media/images/icons/teen_male_mamadou.png');
+    background-image: url('../images/icons/teen_male_mamadou.png');
     background-repeat: no-repeat;
 }
 .teen-male-samuel {
-    background-image: url('/site_media/images/icons/teen_male_samuel.png');
+    background-image: url('../images/icons/teen_male_samuel.png');
     background-repeat: no-repeat;
 }
 .teen-male-yao {
-    background-image: url('/site_media/images/icons/teen_male_yao.png');
+    background-image: url('../images/icons/teen_male_yao.png');
     background-repeat: no-repeat;
 }
 
 
 
 .adult-male-kodjo {
-    background-image: url('/site_media/images/icons/adult_male_kodjo.png');
+    background-image: url('../images/icons/adult_male_kodjo.png');
     background-repeat: no-repeat;
 }
 .adult-male-amadou {
-    background-image: url('/site_media/images/icons/adult_male_amadou.png');
+    background-image: url('../images/icons/adult_male_amadou.png');
     background-repeat: no-repeat;
 }
 .adult-male-jean {
-    background-image: url('/site_media/images/icons/adult_male_jean.png');
+    background-image: url('../images/icons/adult_male_jean.png');
     background-repeat: no-repeat;
 }
 .adult-male-kuoakou {
-    background-image: url('/site_media/images/icons/adult_male_kuoakou.png');
+    background-image: url('../images/icons/adult_male_kuoakou.png');
     background-repeat: no-repeat;
 }
 .adult-male-mamadou {
-    background-image: url('/site_media/images/icons/adult_male_mamadou.png');
+    background-image: url('../images/icons/adult_male_mamadou.png');
     background-repeat: no-repeat;
 }
 .adult-male-samuel {
-    background-image: url('/site_media/images/icons/adult_male_samuel.png');
+    background-image: url('../images/icons/adult_male_samuel.png');
     background-repeat: no-repeat;
 }
 .adult-male-yao {
-    background-image: url('/site_media/images/icons/adult_male_yao.png');
+    background-image: url('../images/icons/adult_male_yao.png');
     background-repeat: no-repeat;
 }
 
 
 .adult-female-fatou {
-    background-image: url('/site_media/images/icons/adult_female_fatou.png');
+    background-image: url('../images/icons/adult_female_fatou.png');
     background-repeat: no-repeat;
 }
 .adult-female-aminata {
-    background-image: url('/site_media/images/icons/adult_female_aminata.png');
+    background-image: url('../images/icons/adult_female_aminata.png');
     background-repeat: no-repeat;
 }
 .adult-female-awa {
-    background-image: url('/site_media/images/icons/adult_female_awa.png');
+    background-image: url('../images/icons/adult_female_awa.png');
     background-repeat: no-repeat;
 }
 .adult-female-damba {
-    background-image: url('/site_media/images/icons/adult_female_damba.png');
+    background-image: url('../images/icons/adult_female_damba.png');
     background-repeat: no-repeat;
 }
 .adult-female-jeanne {
-    background-image: url('/site_media/images/icons/adult_female_jeanne.png');
+    background-image: url('../images/icons/adult_female_jeanne.png');
     background-repeat: no-repeat;
 }
 .adult-female-kady {
-    background-image: url('/site_media/images/icons/adult_female_kady.png');
+    background-image: url('../images/icons/adult_female_kady.png');
     background-repeat: no-repeat;
 }
 .adult-female-mariam {
-    background-image: url('/site_media/images/icons/adult_female_mariam.png');
+    background-image: url('../images/icons/adult_female_mariam.png');
     background-repeat: no-repeat;
 }
 
 .teen-female-fatou {
-    background-image: url('/site_media/images/icons/teen_female_fatou.png');
+    background-image: url('../images/icons/teen_female_fatou.png');
     background-repeat: no-repeat;
 }
 .teen-female-aminata {
-    background-image: url('/site_media/images/icons/teen_female_aminata.png');
+    background-image: url('../images/icons/teen_female_aminata.png');
     background-repeat: no-repeat;
 }
 .teen-female-awa {
-    background-image: url('/site_media/images/icons/teen_female_awa.png');
+    background-image: url('../images/icons/teen_female_awa.png');
     background-repeat: no-repeat;
 }
 .teen-female-damba {
-    background-image: url('/site_media/images/icons/teen_female_damba.png');
+    background-image: url('../images/icons/teen_female_damba.png');
     background-repeat: no-repeat;
 }
 .teen-female-jeanne {
-    background-image: url('/site_media/images/icons/teen_female_jeanne.png');
+    background-image: url('../images/icons/teen_female_jeanne.png');
     background-repeat: no-repeat;
 }
 .teen-female-kady {
-    background-image: url('/site_media/images/icons/teen_female_kady.png');
+    background-image: url('../images/icons/teen_female_kady.png');
     background-repeat: no-repeat;
 }
 .teen-female-mariam {
-    background-image: url('/site_media/images/icons/teen_female_mariam.png');
+    background-image: url('../images/icons/teen_female_mariam.png');
     background-repeat: no-repeat;
 }
 
 
 .child-female-fatou {
-    background-image: url('/site_media/images/icons/child_female_fatou.png');
+    background-image: url('../images/icons/child_female_fatou.png');
     background-repeat: no-repeat;
 }
 .child-female-aminata {
-    background-image: url('/site_media/images/icons/child_female_aminata.png');
+    background-image: url('../images/icons/child_female_aminata.png');
     background-repeat: no-repeat;
 }
 .child-female-awa {
-    background-image: url('/site_media/images/icons/child_female_awa.png');
+    background-image: url('../images/icons/child_female_awa.png');
     background-repeat: no-repeat;
 }
 .child-female-damba {
-    background-image: url('/site_media/images/icons/child_female_damba.png');
+    background-image: url('../images/icons/child_female_damba.png');
     background-repeat: no-repeat;
 }
 .child-female-jeanne {
-    background-image: url('/site_media/images/icons/child_female_jeanne.png');
+    background-image: url('../images/icons/child_female_jeanne.png');
     background-repeat: no-repeat;
 }
 .child-female-kady {
-    background-image: url('/site_media/images/icons/child_female_kady.png');
+    background-image: url('../images/icons/child_female_kady.png');
     background-repeat: no-repeat;
 }
 .child-female-mariam {
-    background-image: url('/site_media/images/icons/child_female_mariam.png');
+    background-image: url('../images/icons/child_female_mariam.png');
     background-repeat: no-repeat;
 }
 
 .baby-female {
-    background-image: url('/site_media/images/icons/baby_female.png');
+    background-image: url('../images/icons/baby_female.png');
     background-repeat: no-repeat;
 }
 
@@ -2043,7 +2043,7 @@ div.hscale-inner {
 	border: 0;
 	padding: 0;
 	text-align: right;
-	background: #666 url(/site_media/images/bg_actionbutton.gif) top left no-repeat;
+	background: #666 url(../images/bg_actionbutton.gif) top left no-repeat;
 }
 
 #actionbuttons
@@ -2218,7 +2218,7 @@ div.hscale-inner {
 	padding: 0;
 	margin: 0;
 	border: 0;
-	background: url('/site_media/images/outertab.gif') top left no-repeat;
+	background: url('../images/outertab.gif') top left no-repeat;
 	text-align: center;
 	text-decoration: none;
 	height: 22px;
@@ -2231,7 +2231,7 @@ div.hscale-inner {
 #outer-tabber ul.tabbernav li a:hover
 {
 	color: #666;
-	background: url('/site_media/images/outertab_hover.gif') top left no-repeat;
+	background: url('../images/outertab_hover.gif') top left no-repeat;
 	border-color: none;
 }
 
@@ -2240,13 +2240,13 @@ div.hscale-inner {
 	background-color: transparent;
 	border-bottom: none;
 	color: #fff;
-	background: url('/site_media/images/outertab_active.gif') top left no-repeat;
+	background: url('../images/outertab_active.gif') top left no-repeat;
 }
 
 #outer-tabber ul.tabbernav li.tabberactive a:hover
 {
 	color: #000;
-	background: url('/site_media/images/outertab_active.gif') top left no-repeat;
+	background: url('../images/outertab_active.gif') top left no-repeat;
 	border-bottom: none;
 }
 /*
@@ -2286,7 +2286,7 @@ div.hscale-inner {
 	padding: 0;
 	margin: 0;
 	border: 0;
-	background: url('/site_media/images/choicetab.gif') top left no-repeat;
+	background: url('../images/choicetab.gif') top left no-repeat;
 	text-align: center;
 	text-decoration: none;
 	height: 22px;
@@ -2299,7 +2299,7 @@ div.hscale-inner {
 #choices ul.tabbernav li a:hover
 {
 	color: #666;
-	background: url('/site_media/images/choicetab_hover.gif') top left no-repeat;
+	background: url('../images/choicetab_hover.gif') top left no-repeat;
 	border-color: none;
 	border-bottom: 1px solid #999;
 }
@@ -2309,13 +2309,13 @@ div.hscale-inner {
 	background-color: transparent;
 	border-bottom: 1px solid #ccc;
 	color: #000;
-	background: url('/site_media/images/choicetab_active.gif') top left no-repeat;
+	background: url('../images/choicetab_active.gif') top left no-repeat;
 }
 
 #choices ul.tabbernav li.tabberactive a:hover
 {
 	color: #000;
-	background: url('/site_media/images/choicetab_active.gif') top left no-repeat;
+	background: url('../images/choicetab_active.gif') top left no-repeat;
 	border-bottom: 1px solid #ccc !important;
 }
 
@@ -2352,7 +2352,7 @@ div.hscale-inner {
 	z-index: 6;
 	width: 603px;
 	height: 200px;
-	background: #777 url(/site_media/images/bg_panel_view.gif) repeat-y 0px 0px;
+	background: #777 url(../images/bg_panel_view.gif) repeat-y 0px 0px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -2400,7 +2400,7 @@ p#sbs_alert,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_red.gif) center left no-repeat;
+	background: url(../images/icon_alert_red.gif) center left no-repeat;
 	min-height: 23px;
 }
 
@@ -2410,7 +2410,7 @@ p#sbs_goodnews,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_greencheck.gif) center left no-repeat;
+	background: url(../images/icon_alert_greencheck.gif) center left no-repeat;
 	min-height: 23px;
 }
 
@@ -2421,7 +2421,7 @@ p#sbs_goodnews,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_malaria.gif) center left no-repeat;
+	background: url(../images/icon_alert_malaria.gif) center left no-repeat;
 }
 
 .pregnant_f_alert
@@ -2431,7 +2431,7 @@ p#sbs_goodnews,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_baby.gif) center left no-repeat;
+	background: url(../images/icon_alert_baby.gif) center left no-repeat;
 	min-height: 23px;
 }
 
@@ -2476,7 +2476,7 @@ p#sbs_goodnews,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_malaria.gif) center left no-repeat;
+	background: url(../images/icon_alert_malaria.gif) center left no-repeat;
 	min-height: 23px;
 }
 
@@ -2485,7 +2485,7 @@ p#sbs_goodnews,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_drought.gif) center left no-repeat;
+	background: url(../images/icon_alert_drought.gif) center left no-repeat;
 	min-height: 23px;
 }
 
@@ -2494,7 +2494,7 @@ p#sbs_goodnews,
 	margin: 0;
 	padding: 0 0 0 24px;
 	border: 0;
-	background: url(/site_media/images/icon_alert_green.gif) center left no-repeat;
+	background: url(../images/icon_alert_green.gif) center left no-repeat;
 	min-height: 23px;
 }
 
@@ -2584,7 +2584,7 @@ div.game_history {
 	font-size: 14px;
 	color: #fff;
 	text-align: left;
-	background: #666 url(/site_media/images/bg_actionbutton.gif) top left no-repeat;
+	background: #666 url(../images/bg_actionbutton.gif) top left no-repeat;
 }
 
 #historybox p,
@@ -2636,7 +2636,7 @@ div.game_history {
 	margin: 5px 5px;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/leftcorners.jpg) top left no-repeat;	
+	background: url(../images/leftcorners.jpg) top left no-repeat;	
 	line-height: 26px;
 	color: #000;
 	font-size: 1.15em;
@@ -2648,7 +2648,7 @@ div.game_history {
 	margin: 0;
 	padding: 0 5px;
 	border: 0;
-	background: url(/site_media/images/rightcorners.jpg) top right no-repeat;	
+	background: url(../images/rightcorners.jpg) top right no-repeat;	
 }
 
 #gameover_report h1 div div#inner_h1
@@ -2657,7 +2657,7 @@ div.game_history {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/midcorners.jpg) top left repeat-x;	
+	background: url(../images/midcorners.jpg) top left repeat-x;	
 }
 
 #gameover_report #d_content
@@ -2666,7 +2666,7 @@ div.game_history {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: #fff url(/site_media/images/bg_go_report.gif) top left repeat-y;	
+	background: #fff url(../images/bg_go_report.gif) top left repeat-y;	
 }
 
 #gameover_report #alpha
@@ -2687,7 +2687,7 @@ div.game_history {
 	margin: 5px 5px;
 	padding: 0;
 	border: 0;
-	background: url(/site_media/images/leftcorners.jpg) top left no-repeat;	
+	background: url(../images/leftcorners.jpg) top left no-repeat;	
 	line-height: 26px;
 	color: #000;
 	font-size: 1em;
@@ -2699,7 +2699,7 @@ div.game_history {
     margin: 0;
     padding: 0;
     border: 0;
-    background: url(/site_media/images/midcorners.jpg) top left repeat-x;
+    background: url(../images/midcorners.jpg) top left repeat-x;
 }
 
 #gameover_report #alpha h2 div,
@@ -2709,7 +2709,7 @@ div.game_history {
 	margin: 0;
 	padding: 0 5px;
 	border: 0;
-	background: url(/site_media/images/rightcorners.jpg) top right no-repeat;	
+	background: url(../images/rightcorners.jpg) top right no-repeat;	
 }
 
 #gameover_report #beta
@@ -2750,7 +2750,7 @@ div.game_history {
 	border: 0;
 	border-left: 1px solid #999;
 	border-right: 1px solid #999;
-	background: url(/site_media/images/midcorners_red.jpg) top left repeat-x;
+	background: url(../images/midcorners_red.jpg) top left repeat-x;
 	font-weight: bold;
 	font-size: 14px;
 	line-height: 26px;
@@ -2782,7 +2782,7 @@ div.game_history {
 	padding: 2px 8px 2px 8px;
 	border: 1px solid #f7d9d9;
 	border-bottom: 1px solid #f5bcbc;
-	background: url(/site_media/images/bg_report_badnews.gif) top left repeat;	
+	background: url(../images/bg_report_badnews.gif) top left repeat;	
 }
 
 #gameover_report .sectionbox .neutral
@@ -2808,7 +2808,7 @@ div.game_history {
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_red.gif) left top no-repeat;
+	background: url(../images/icon_report_red.gif) left top no-repeat;
 }
 
 #gameover_report .sectionbox ul.announcements li.maize_report
@@ -2818,7 +2818,7 @@ div.game_history {
 	border: 0;
 	list-style: none;
 	min-height: 22px;
-	background: url(/site_media/images/icon_report_maize.gif) left top no-repeat;
+	background: url(../images/icon_report_maize.gif) left top no-repeat;
 }
 
 #gameover_report .sectionbox table

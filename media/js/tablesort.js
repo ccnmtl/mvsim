@@ -58,13 +58,13 @@ if (ie5 || dom)
 
 function initSortTable() {
 			imgup = this.document.createElement("img");
-			imgup.src = "/site_media/img/ascending.gif";
+			imgup.src = "../img/ascending.gif";
 	arrowUp = document.createElement("span");
 	arrowUp.appendChild(imgup);
 	arrowUp.className = "arrow";
 
 			imgdwn = this.document.createElement("img");
-			imgdwn.src = "/site_media/img/descending.gif";
+			imgdwn.src = "../img/descending.gif";
 	arrowDown = document.createElement("span");
 	arrowDown.appendChild(imgdwn);
 	arrowDown.className = "arrow";
