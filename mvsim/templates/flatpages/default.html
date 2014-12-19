@@ -1,6 +1,4 @@
 {% extends "base.html" %}
-{% load markup %}
-{% load thumbnail %}
 
 {% block title %}{{ flatpage.title }}{% endblock %}
 
@@ -72,5 +70,5 @@
 {% endblock %}
 
 {% block content %}
-{{ flatpage.content}}<!-- temporary removal of |markdown -->
+{{ flatpage.content}}
 {% endblock %}
