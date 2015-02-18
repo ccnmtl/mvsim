@@ -49,6 +49,7 @@ lettuce==0.2.19ccnmtl
 sqlparse==0.1.11
 boto==2.34.0
 six==1.8.0
+python-dateutil==2.4.0
 
 django-smartif==0.1
 djangowind==0.13.2
