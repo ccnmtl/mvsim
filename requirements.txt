@@ -5,7 +5,7 @@ Markdown==2.3.1
 simplejson==2.0.9
 smartypants==1.6.0.2
 uuid==1.30
-psycopg2==2.5.1
+psycopg2==2.5.4
 
 Tempita==0.5dev
 chainedrandom==0.1.0
