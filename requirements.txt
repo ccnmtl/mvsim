@@ -63,7 +63,7 @@ django-registration==1.1
 django-nose==1.2
 django-statsd-mozilla==0.3.11
 raven==4.0.3
-django-smoketest==0.2.2
+django-smoketest==0.3.0
 django-debug-toolbar==1.1
 django-impersonate==0.8.0
 django-jenkins==0.16.3
