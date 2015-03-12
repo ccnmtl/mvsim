@@ -70,7 +70,7 @@ django-impersonate==0.9
 django-jenkins==0.16.3
 django-stagingcontext==0.1.0
 django-waffle==0.10.1
-django-markwhat==1.0
+django-markwhat==2014.9.20
 django-storages==1.1.8
 django-appconf==0.6
 django-compressor==1.4
