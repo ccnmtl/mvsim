@@ -62,7 +62,7 @@ djangohelpers==0.2
 django-courseaffils==0.4.7
 django-registration==1.1
 django-nose==1.2
-django-statsd-mozilla==0.3.11
+django-statsd-mozilla==0.3.14
 django-smoketest==0.3.0
 raven==5.1.1
 django-debug-toolbar==1.1
