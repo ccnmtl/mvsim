@@ -9,6 +9,6 @@ class CourseSectionForm(forms.ModelForm):
 
     def __init__(self, *args, **kw):
         forms.ModelForm.__init__(self, *args, **kw)
-        ## https://github.com/ccnmtl/mvsim/issues/1
+        # https://github.com/ccnmtl/mvsim/issues/1
         self.fields['starting_states'].queryset = State.objects.filter(
             game__isnull=True)

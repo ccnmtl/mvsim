@@ -20,7 +20,7 @@ class Command(BaseCommand):
         fh = open(options.get('csv'), 'r')
         table = csv.reader(fh)
 
-        #NAME,CATEGORY,TYPE,VALUE,CHOICES,DESCRIPTION
+        # NAME,CATEGORY,TYPE,VALUE,CHOICES,DESCRIPTION
         header = table.next()
 
         for i in range(len(header)):
