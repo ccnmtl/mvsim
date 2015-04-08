@@ -52,6 +52,7 @@ sqlparse==0.1.14
 boto==2.36.0
 six==1.9.0
 python-dateutil==2.4.0
+gunicorn==19.3.0
 
 django-smartif==0.1
 djangowind==0.13.2
