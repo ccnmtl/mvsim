@@ -27,12 +27,13 @@ DATABASES = {
         }
 }
 
+AWS_S3_CUSTOM_DOMAIN = 'd1dxl1g40sjqc0.cloudfront.net'
 AWS_STORAGE_BUCKET_NAME = "ccnmtl-mvsim-static-prod"
 AWS_PRELOAD_METADATA = True
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = 'cacheds3storage.MediaRootS3BotoStorage'
-S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+S3_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
+STATIC_URL = 'https://%s/media/' % AWS_S3_CUSTOM_DOMAIN
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 COMPRESS_ROOT = STATIC_ROOT
