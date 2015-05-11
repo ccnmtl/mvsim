@@ -94,7 +94,6 @@ INSTALLED_APPS = [
     'django_jenkins',
     'engine',
     'waffle',
-    'lettuce.django',
     'django_markwhat',
     'storages',
     'compressor',
