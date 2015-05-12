@@ -36,7 +36,6 @@ pyparsing==2.0.3
 tornado==3.1.1
 BeautifulSoup==3.2.1
 cssselect==0.8
-fuzzywuzzy==0.4.0
 sure==1.2.9
 ipython==3.0.0
 ipdb==0.8
@@ -47,7 +46,6 @@ python-mimeparse==0.1.4
 testtools==0.9.35
 testscenarios==0.4
 python-subunit==0.0.18
-lettuce==0.2.19ccnmtl
 sqlparse==0.1.14
 boto==2.36.0
 six==1.9.0
