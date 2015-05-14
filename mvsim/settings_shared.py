@@ -130,13 +130,7 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
     }
     STATSD_HOST = '127.0.0.1'
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=mvsim.main,mvsim.graph,engine,courseaffils',
-]
-
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 JENKINS_TASKS = (
     'django_jenkins.tasks.run_pep8',
