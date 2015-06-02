@@ -52,7 +52,7 @@ python-dateutil==2.4.0
 gunicorn==19.3.0
 
 django-smartif==0.1
-djangowind==0.13.2
+djangowind==0.13.3
 template_utils==0.4p2
 django-indexer==0.2.1
 django-templatetag-sugar==0.1
