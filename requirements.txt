@@ -56,7 +56,7 @@ djangowind==0.13.3
 template_utils==0.4p2
 django-indexer==0.2.1
 django-templatetag-sugar==0.1
-django-paging==0.2.2
+django-paging==0.2.5
 djangohelpers==0.2
 django-courseaffils==1.0.0
 django-registration==1.1
