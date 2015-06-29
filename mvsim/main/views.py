@@ -111,7 +111,7 @@ def view_state(request, state_id):
     if readonly:
         return forbidden()
 
-    controls = parse_qsl(request.raw_post_data, keep_blank_values=True)
+    controls = parse_qsl(request.body, keep_blank_values=True)
 
     try:
         appstruct = form.validate(controls)
