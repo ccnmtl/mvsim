@@ -120,7 +120,7 @@ X-axis: %s
     output = output.replace("__GRAPH_HEIGHT__", str(y))
     name = convert(output)
 
-    return HttpResponse(name, mimetype="text/plain")
+    return HttpResponse(name, content_type="text/plain")
 
 
 def convert(svg_data):
