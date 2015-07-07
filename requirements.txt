@@ -50,7 +50,6 @@ python-dateutil==2.4.0
 gunicorn==19.3.0
 
 djangowind==0.13.3
-template_utils==0.4p2
 django-indexer==0.3.0
 django-paging==0.2.5
 djangohelpers==0.18.1
