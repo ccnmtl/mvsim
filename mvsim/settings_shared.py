@@ -81,7 +81,6 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'template_utils',
     'djangowind',
     'courseaffils',
     'registration',
