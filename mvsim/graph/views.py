@@ -10,7 +10,7 @@ from mvsim.main.models import Game
 import os
 import os.path
 import tempfile
-import simplejson
+from json import loads
 import subprocess
 
 
@@ -44,7 +44,7 @@ def graph_download(request, game_id):
 @allow_http("POST")
 def graph_svg(request, game_id):
     json = request.POST['json']
-    json = simplejson.loads(json)
+    json = loads(json)
     output = ["""<svg xmlns="http://www.w3.org/2000/svg" """,
               """xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" """,
               """width="%s" height="%s" """ % ('640', '__GRAPH_HEIGHT__'),
@@ -100,7 +100,7 @@ X-axis: %s
                 'swidth': item.get('stroke-width', 0), })
 
     vars = request.POST['vars']
-    vars = simplejson.loads(vars)
+    vars = loads(vars)
     y = 370
     x = 320
     for item in vars:
