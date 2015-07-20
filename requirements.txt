@@ -42,7 +42,7 @@ extras==0.0.3
 python-mimeparse==0.1.4
 testtools==0.9.35
 testscenarios==0.5.0
-python-subunit==0.0.18
+python-subunit==1.1.0
 sqlparse==0.1.14
 boto==2.38.0
 six==1.9.0
