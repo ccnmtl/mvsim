@@ -37,7 +37,7 @@ sure==1.2.12
 ipython==3.0.0
 ipdb==0.8
 lxml==3.4.4
-selenium==2.45.0
+selenium==2.46.1
 extras==0.0.3
 python-mimeparse==0.1.4
 testtools==0.9.35
