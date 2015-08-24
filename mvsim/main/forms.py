@@ -6,6 +6,7 @@ from mvsim.main.models import (CourseSection,
 class CourseSectionForm(forms.ModelForm):
     class Meta:
         model = CourseSection
+        exclude = []
 
     def __init__(self, *args, **kw):
         forms.ModelForm.__init__(self, *args, **kw)

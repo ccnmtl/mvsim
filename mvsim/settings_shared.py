@@ -19,6 +19,7 @@ DATABASES = {
         'PORT': 5432,
         'USER': '',
         'PASSWORD': '',
+        'ATOMIC_REQUESTS': True,
     }
 }
 
@@ -40,10 +41,9 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.request',
-    'django.core.context_processors.request',
-    'django.core.context_processors.static',
+    'django.template.context_processors.debug',
+    'django.template.context_processors.request',
+    'django.template.context_processors.static',
     'djangowind.context.context_processor',
     'stagingcontext.staging_processor',
 )
@@ -56,7 +56,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
     'waffle.middleware.WaffleMiddleware',
     'impersonate.middleware.ImpersonateMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -124,6 +123,7 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
             'PORT': '',
             'USER': '',
             'PASSWORD': '',
+            'ATOMIC_REQUESTS': True,
         }
     }
     STATSD_HOST = '127.0.0.1'
