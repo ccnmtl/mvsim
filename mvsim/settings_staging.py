@@ -1,53 +1,19 @@
 # flake8: noqa
 from settings_shared import *
+from ccnmtlsettings.staging import common
 import os
 
-TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), "templates"),
-)
+project = 'mvsim'
+base = os.path.dirname(__file__)
 
-MEDIA_ROOT = '/var/www/mvsim/uploads/'
-# put any static media here to override app served static media
-STATICMEDIA_MOUNTS = (
-    ('/sitemedia', '/var/www/mvsim/mvsim/sitemedia'),
-)
-
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-STAGING_ENV = True
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mvsim',
-        'HOST': '',
-        'PORT': 6432,
-        'USER': '',
-        'PASSWORD': '',
-        }
-}
-STATSD_PREFIX = 'mvsim-staging'
-
-AWS_S3_CUSTOM_DOMAIN = 'd3opx5c84brxu8.cloudfront.net'
-AWS_STORAGE_BUCKET_NAME = "ccnmtl-mvsim-static-stage"
-AWS_PRELOAD_METADATA = True
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = 'cacheds3storage.CompressorS3BotoStorage'
-S3_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
-STATIC_URL = 'https://%s/media/' % AWS_S3_CUSTOM_DOMAIN
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
-COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_URL = STATIC_URL
-DEFAULT_FILE_STORAGE = 'cacheds3storage.MediaRootS3BotoStorage'
-MEDIA_URL = S3_URL + '/media/'
-COMPRESS_STORAGE = 'cacheds3storage.CompressorS3BotoStorage'
-AWS_QUERYSTRING_AUTH = False
-
-
-if 'migrate' not in sys.argv:
-    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
+locals().update(
+    common(
+        project=project,
+        base=base,
+        STATIC_ROOT=STATIC_ROOT,
+        INSTALLED_APPS=INSTALLED_APPS,
+        cloudfront='d3opx5c84brxu8',
+    ))
 
 try:
     from local_settings import *
