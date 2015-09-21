@@ -1,6 +1,7 @@
 # Django settings for mvsim project.
 import os.path
 from ccnmtlsettings.shared import common
+from courseaffils.columbia import CourseStringMapper
 
 project = 'mvsim'
 base = os.path.dirname(__file__)
@@ -46,7 +47,6 @@ ANONYMOUS_PATHS = (
     '/smoketest/',
 )
 
-from courseaffils.columbia import CourseStringMapper
 COURSEAFFILS_COURSESTRING_MAPPER = CourseStringMapper
 
 MVSIM_EVENTS_CSV = os.path.join(os.path.dirname(__file__), "../events.csv")

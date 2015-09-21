@@ -1,7 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
 import locale
-
+import math
 from engine.simple_controller import money_report as _money_report
 
 register = template.Library()
@@ -85,7 +85,6 @@ def get_item_or_0(a, b,):
 # reverse engineering the year and season this way is ugly, but saves us
 # from having to instantiate the state and variable objects for every turn
 # of the game
-import math
 
 
 def reverse_engineer_year(turn_number):
