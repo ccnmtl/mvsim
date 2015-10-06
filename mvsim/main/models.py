@@ -121,9 +121,8 @@ class Variable(models.Model):
         type = schema_node_factories[self.type]
         kw = dict()
 
-        info = (self.extra_type_information
-                and json.loads(self.extra_type_information)
-                or {})
+        info = (self.extra_type_information and
+                json.loads(self.extra_type_information) or {})
         if 'choices' in info:
             choices = list(info['choices'])
             kw['validator'] = colander.OneOf(choices)
@@ -335,8 +334,8 @@ class Game(models.Model):
     def init(self, state):
         if self.state_set.count() > 0:
             raise RuntimeError(
-                "Game.initialize_from_state requires "
-                + "a new game with no states attached.")
+                "Game.initialize_from_state requires " +
+                "a new game with no states attached.")
 
         # Validate the state against this game's configuration interface;
         # let any validation errors bubble up and interrupt the call.

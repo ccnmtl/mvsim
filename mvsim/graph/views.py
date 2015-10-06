@@ -149,8 +149,8 @@ def convert(svg_data):
 class BoundVariable(object):
     def __init__(self, name, getter=None, descriptive_name=None, turns=None):
         self.name = name
-        self.descriptive_name = (descriptive_name
-                                 or name.replace("_", " ").title())
+        self.descriptive_name = (descriptive_name or
+                                 name.replace("_", " ").title())
         self.values = []
         if turns is None:
             turns = []
