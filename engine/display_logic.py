@@ -52,7 +52,6 @@ def add_extra_gameshow_context(context):
     coeffs = context['coeffs']
     state = context['state']
     people = context['people']
-    #turn = context['turn']
 
     items_to_sell = False
     for item, price in zip(coeffs.market_items, coeffs.market_sell_prices):
@@ -70,8 +69,8 @@ def add_extra_gameshow_context(context):
     # malaria rate for village
     percent_infected = 0
     if state.village_population != 0:
-        percent_infected = (state.village_infected_pop
-                            / float(state.village_population) * 100)
+        percent_infected = (state.village_infected_pop /
+                            float(state.village_population) * 100)
     extra_display_vars['percent_infected'] = percent_infected
 
     # open this panel automatically on the first turn
@@ -254,8 +253,8 @@ def village_goodnews_block(state):
 
 def percent_infected(state):
     if state.village_population != 0:
-        return (state.village_infected_pop
-                / float(state.village_population) * 100)
+        return (state.village_infected_pop /
+                float(state.village_population) * 100)
     else:
         return 0
 

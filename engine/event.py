@@ -1,3 +1,7 @@
+import csv
+import tempita
+import engine.simple_controller as simple_controller
+
 _colors = 'green red yellow orange'.split()
 _ops = {
     "==": lambda x, y: x == y,
@@ -7,9 +11,6 @@ _ops = {
     "<": lambda x, y: x < y,
     "<=": lambda x, y: x <= y,
     "hasnot": lambda x, y: y not in x, }
-
-import tempita
-import engine.simple_controller as simple_controller
 
 
 class Condition(object):
@@ -23,10 +24,10 @@ class Condition(object):
         # That's up to the caller to handle.
         lhs = state[self.lhs]
 
-        ## FIXME: we could use to_python
+        # FIXME: we could use to_python
         rhs = self.rhs.substitute(state=state, coeffs=coeffs, before=before)
 
-        ## FIXME: we could use to_python
+        # FIXME: we could use to_python
         rhs = eval(rhs)
 
         return self.op(lhs, rhs)
@@ -74,8 +75,6 @@ class Event(object):
         self.message = self._message.substitute(
             before=before, after=after, coeffs=coeffs)
         return True
-
-import csv
 
 
 def get_events(events_csv=None):

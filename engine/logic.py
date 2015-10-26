@@ -299,8 +299,8 @@ class Turn:
 
     def free_bednets(self):
         if not self.coeffs.enable_free_bednets or \
-            self.state.year != (self.coeffs.starting_year
-                                + self.coeffs.free_bednet_year):
+            self.state.year != (self.coeffs.starting_year +
+                                self.coeffs.free_bednet_year):
             # this only happens in a specific year
             return
 
@@ -313,15 +313,17 @@ class Turn:
             self.state.owned_items.extend(['bednet'] * needed_bednets)
             self.state.bednet_ages.extend([0] * needed_bednets)
 
-    def sell_items(self):
-        # front end gives us a list of "|" seperated item,quantity pairs
-        # NOTE: no validation to make sure they have the items to sell
+    def clean_list(self):
         try:
             # just take this opportunity to keep the list clean
             self.state.owned_items.remove('')
         except:
             pass
 
+    def sell_items(self):
+        # front end gives us a list of "|" seperated item,quantity pairs
+        # NOTE: no validation to make sure they have the items to sell
+        self.clean_list()
         real_sold_items = []
         for i in self.state.sell_items:
             if i == "":
@@ -407,8 +409,8 @@ class Turn:
     def buy_food(self):
         cost = self.state.food_to_buy * self.food_cost()
         self.state.cash -= cost
-        self.state.amount_calories = (self.state.amount_calories
-                                      + (self.state.food_to_buy * 10 * 180.0))
+        self.state.amount_calories = (self.state.amount_calories +
+                                      (self.state.food_to_buy * 10 * 180.0))
 
     def check_purchase_price(self, item):
         prices = dict()
@@ -460,8 +462,8 @@ class Turn:
     def calc_family_avg_health(self):
         if len(self.state.people) == 0:
             return 0
-        return (float(sum([p.health for p in self.state.people]))
-                / float(len(self.state.people)))
+        return (float(sum([p.health for p in self.state.people])) /
+                float(len(self.state.people)))
 
     def calc_school_effort(self):
         """ number of hours family members spent in school """
@@ -580,8 +582,8 @@ class Turn:
         self.village.collect_taxes(taxes)
 
     def income_plus_interest(self, income):
-        return max(float((float(income)
-                          * float(1.0 + self.coeffs.savings_rate))), 0.0)
+        return max(float((float(income) *
+                          float(1.0 + self.coeffs.savings_rate))), 0.0)
 
     def determine_cash(self, income, cash, taxes):
         if income < 0:
@@ -602,14 +604,17 @@ class Turn:
             for p in self.state.people:
                 p.age += 1
 
-    def age_bednets(self):
-        if 'bednet' not in self.state.owned_items:
-            self.state.bednet_ages = []
-            return
+    def clean_bednet_list(self):
         try:
             self.state.bednet_ages.remove('')
         except:
             pass
+
+    def age_bednets(self):
+        if 'bednet' not in self.state.owned_items:
+            self.state.bednet_ages = []
+            return
+        self.clean_bednet_list()
         # age them
         self.state.bednet_ages = [age + 1 for age in self.state.bednet_ages]
         # if any are more than 5 years (10 turns)
@@ -713,14 +718,13 @@ class Turn:
                 self.state.fertilizer_t2:
             self.state.soil_health = 1.0
         else:
-            #self.message("Soil health is depleted.")
             self.state.soil_health = self.coeffs.soil_depletion
 
         if self.state.season:
             # once a year, rotate fertilizer history
             self.state.fertilizer_t2 = self.state.fertilizer_t1
-            self.state.fertilizer_t1 = (self.state.fertilizer
-                                        or self.state.fertilizer_last_turn)
+            self.state.fertilizer_t1 = (self.state.fertilizer or
+                                        self.state.fertilizer_last_turn)
         else:
             # it gets a little weird since we only care about the fertilizer
             # history per year, but it's a user option on each turn
@@ -801,31 +805,28 @@ class Turn:
         assert self.t_high_yield_seeds() >= 0
         assert self.percent_maize() >= 0 and self.percent_maize() <= 1.0
         return max(
-            (
-                (
-                    (self.coeffs.productivity_effort_coeff
-                     * self.state.effort_farming)
-                    ** self.coeffs.maize_productivity_exponent)
-                * self.coeffs.avg_maize_yield
-                * ((95.0 + self.rand_n(10)) / 100.0)
-                * self.state.avg_productivity
-                * self.t_drought() * self.t_irr()
-                * self.state.soil_health * self.t_fert()
-                * self.t_high_yield_seeds()
-                * self.percent_maize()),
+            (((self.coeffs.productivity_effort_coeff *
+               self.state.effort_farming) **
+              self.coeffs.maize_productivity_exponent) *
+             self.coeffs.avg_maize_yield *
+             ((95.0 + self.rand_n(10)) / 100.0) *
+             self.state.avg_productivity *
+             self.t_drought() * self.t_irr() *
+             self.state.soil_health * self.t_fert() *
+             self.t_high_yield_seeds() *
+             self.percent_maize()),
             0.0)
 
     def calc_amount_cotton(self):
-        return max(((self.coeffs.productivity_effort_coeff
-                     * self.state.effort_farming)
-                    ** self.coeffs.cotton_productivity_exponent)
-                   * self.coeffs.avg_cotton_yield
-                   * ((95.0 + self.rand_n(10)) / 100.0)
-                   * self.state.avg_productivity
-                   * self.state.soil_health * self.t_fert_cotton()
-                   * self.t_drought() * self.t_irr()
-                   * self.percent_cotton(),
-                   0.0)
+        return max(((self.coeffs.productivity_effort_coeff *
+                     self.state.effort_farming) **
+                    self.coeffs.cotton_productivity_exponent) *
+                   self.coeffs.avg_cotton_yield *
+                   ((95.0 + self.rand_n(10)) / 100.0) *
+                   self.state.avg_productivity *
+                   self.state.soil_health * self.t_fert_cotton() *
+                   self.t_drought() * self.t_irr() *
+                   self.percent_cotton(), 0.0)
 
     def update_amount_cotton(self):
         self.state.amount_cotton = self.calc_amount_cotton()
@@ -868,9 +869,9 @@ class Turn:
         assert self.state.amount_water >= 0
 
     def calc_small_business_capital(self):
-        return ((1 - self.coeffs.small_business_depreciation_rate)
-                * self.state.small_business_capital
-                + self.state.small_business_investment)
+        return ((1 - self.coeffs.small_business_depreciation_rate) *
+                self.state.small_business_capital +
+                self.state.small_business_investment)
 
     def calc_small_business_income(self):
         # update capital, accounting for depreciation
@@ -880,21 +881,21 @@ class Turn:
         assert self.state.effort_small_business >= 0
         assert self.state.small_business_capital >= 0
 
-        return (self.coeffs.small_business_productivity_effect
-                * (((self.state.avg_productivity
-                     * self.state.effort_small_business)
-                    ** self.coeffs.small_business_diminishing_return)
-                   * (self.state.small_business_capital
-                      ** (1 - self.coeffs.small_business_diminishing_return)))
-                * (1 + (self.coeffs.small_business_road_effect
-                        * self.state.road))
-                * (1 + (self.coeffs.small_business_electricity_effect
-                        * self.state.electricity))
-                * (self.coeffs.small_business_drought_effect
-                   * ((self.state.precipitation
-                       / self.coeffs.avg_precipitation) ** 0.4))
-                * (self.coeffs.small_business_epidemic_effect
-                   * (1 - self.state.epidemic)))
+        return (self.coeffs.small_business_productivity_effect *
+                (((self.state.avg_productivity *
+                   self.state.effort_small_business) **
+                  self.coeffs.small_business_diminishing_return) *
+                 (self.state.small_business_capital **
+                  (1 - self.coeffs.small_business_diminishing_return))) *
+                (1 + (self.coeffs.small_business_road_effect *
+                      self.state.road)) *
+                (1 + (self.coeffs.small_business_electricity_effect *
+                      self.state.electricity)) *
+                (self.coeffs.small_business_drought_effect *
+                 ((self.state.precipitation /
+                   self.coeffs.avg_precipitation) ** 0.4)) *
+                (self.coeffs.small_business_epidemic_effect *
+                 (1 - self.state.epidemic)))
 
     def update_small_business_income(self):
         self.state.small_business_income = self.calc_small_business_income()
@@ -936,12 +937,12 @@ class Turn:
         return
 
     def calc_microfinance_balance(self):
-        interest = (self.state.microfinance_balance
-                    * self.state.microfinance_interest_rate / 100)
+        interest = (self.state.microfinance_balance *
+                    self.state.microfinance_interest_rate / 100)
 
         self.state.microfinance_balance += interest
-        payment_amount = (self.state.microfinance_borrow
-                          / self.coeffs.microfinance_repay_period)
+        payment_amount = (self.state.microfinance_borrow /
+                          self.coeffs.microfinance_repay_period)
 
         # add any amount carried over from the previous turn
         if self.state.microfinance_balance > payment_amount:
@@ -955,13 +956,13 @@ class Turn:
         return self.state.microfinance_balance
 
     def calc_microfinance_interest(self):
-        return (self.coeffs.microfinance_base_interest
-                * ((100.0 + self.rand_n(10)) / 100.0)
-                + (self.coeffs.microfinance_drought_effect
-                   * (self.state.precipitation
-                      / self.coeffs.avg_precipitation))
-                + (self.coeffs.microfinance_epidemic_effect
-                   * self.state.epidemic))
+        return (self.coeffs.microfinance_base_interest *
+                ((100.0 + self.rand_n(10)) / 100.0) +
+                (self.coeffs.microfinance_drought_effect *
+                 (self.state.precipitation /
+                  self.coeffs.avg_precipitation)) +
+                (self.coeffs.microfinance_epidemic_effect *
+                 self.state.epidemic))
 
     def update_microfinance_interest(self):
         self.state.microfinance_current_interest_rate = \
@@ -973,8 +974,8 @@ class Turn:
             self.state.microfinance_amount_due = 0
             if self.state.microfinance_borrow > 0:
                 # new loan
-                if (self.state.microfinance_borrow
-                        > self.state.microfinance_max_borrow):
+                if (self.state.microfinance_borrow >
+                        self.state.microfinance_max_borrow):
                     self.state.microfinance_borrow = \
                         self.state.microfinance_max_borrow
                 self.state.microfinance_balance = \
@@ -999,10 +1000,10 @@ class Turn:
         assert self.state.amount_fish >= 0
         assert self.coeffs.maize_cal_coeff >= 0
         assert self.coeffs.fish_cal_coeff >= 0
-        self.state.maize_cals = (self.state.amount_maize
-                                 * self.coeffs.maize_cal_coeff)
-        self.state.fish_cals = (self.state.amount_fish
-                                * self.coeffs.fish_cal_coeff)
+        self.state.maize_cals = (self.state.amount_maize *
+                                 self.coeffs.maize_cal_coeff)
+        self.state.fish_cals = (self.state.amount_fish *
+                                self.coeffs.fish_cal_coeff)
         assert self.state.maize_cals >= 0
         assert self.state.fish_cals >= 0
 
@@ -1087,13 +1088,13 @@ class Turn:
         self.state.food_to_sell = self.cooker.raw_leftovers
 
         propane_remaining = self.cooker.stock('propane')
-        self.state.report_propane_used = (self.state.amount_propane
-                                          - propane_remaining)
+        self.state.report_propane_used = (self.state.amount_propane -
+                                          propane_remaining)
         self.state.amount_propane = propane_remaining
 
-        self.state.wood_income = (self.coeffs.wood_price
-                                  * self.cooker.stock('wood')
-                                  * fuel.Wood.coefficient(self.coeffs))
+        self.state.wood_income = (self.coeffs.wood_price *
+                                  self.cooker.stock('wood') *
+                                  fuel.Wood.coefficient(self.coeffs))
 
         if not self.state.water_pump:
             if not self.is_water_subsistence_met():
@@ -1154,9 +1155,8 @@ class Turn:
         self.state.income += cotton_income
         self.state.income += self.state.small_business_income
         self.state.tons_to_market = tons_cotton
-        if (self.cost_of_wagon()) > 0 and (self.cost_of_wagon()
-                                           > (self.state.income
-                                              + self.state.cash)):
+        if self.cost_of_wagon() > 0 and (
+                self.cost_of_wagon() > (self.state.income + self.state.cash)):
             # selling cotton would put them into debt because of
             # transport costs
             self.state.income -= cotton_income
@@ -1175,8 +1175,8 @@ class Turn:
             return self.coeffs.transport_cost_no_road
 
     def cost_of_wagon(self):
-        return (self.state.tons_to_market * self.transport_cost_per_ton()
-                * 100.0)
+        return (self.state.tons_to_market *
+                self.transport_cost_per_ton() * 100.0)
 
     def hire_wagon(self):
         cost_to_market = self.cost_of_wagon()
@@ -1184,8 +1184,8 @@ class Turn:
         return self.state.expenditure + cost_to_market
 
     def sell_food(self):
-        totalToSell = (self.state.food_to_sell
-                       * (self.coeffs.maize_export_units / 100.0))
+        totalToSell = (self.state.food_to_sell *
+                       (self.coeffs.maize_export_units / 100.0))
         income = (totalToSell * self.coeffs.maize_price) / 1000.0
         if self.state.meals:
             # school meals raise prices by 20%
@@ -1194,8 +1194,8 @@ class Turn:
         return (income, tons_to_market)
 
     def sell_cotton(self):
-        total_to_sell = (self.state.amount_cotton
-                         * (self.coeffs.cotton_export_units / 100.0))
+        total_to_sell = (self.state.amount_cotton *
+                         (self.coeffs.cotton_export_units / 100.0))
         price = ((total_to_sell * self.coeffs.cotton_price) / 1000.0)
         tons_to_market = total_to_sell / 1000.0
         return (price, tons_to_market)
