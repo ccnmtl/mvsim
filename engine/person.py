@@ -109,16 +109,16 @@ class Person:
         # cals - number of calories consumed this turn
         # clinic - whether there is a clinic
         # electricity - whether there is a power grid
-        return in_range(0, 100,
-                        (self.health
-                         + (self.coeffs.health_nutrition_coeff
-                            * (cals - self.coeffs.subsistence))
-                         + (self.coeffs.health_clinic_coeff
-                            * clinic * (100.0 - self.health))
-                         + (self.coeffs.health_power_coeff
-                            * clinic * electricity * (100.0 - self.health))
-                         - (self.coeffs.health_sickness_coeff
-                            * bool(self.sick))))
+        return in_range(
+            0, 100,
+            (self.health +
+             (self.coeffs.health_nutrition_coeff *
+              (cals - self.coeffs.subsistence)) +
+             (self.coeffs.health_clinic_coeff * clinic *
+              (100.0 - self.health)) +
+             (self.coeffs.health_power_coeff * clinic * electricity *
+              (100.0 - self.health)) -
+             (self.coeffs.health_sickness_coeff * bool(self.sick))))
 
     def visit_doctor(self):
         self.sick = ""
@@ -129,16 +129,16 @@ class Person:
         self.increment_health(delta_health)
 
     def starve(self, allocation):
-        t_starve = 100.0 * ((self.coeffs.subsistence - allocation)
-                            / float(self.coeffs.subsistence))
+        t_starve = 100.0 * ((self.coeffs.subsistence - allocation) /
+                            float(self.coeffs.subsistence))
         self.decrement_health(t_starve)
 
     def dehydrate(self, family_water_needs, amount_water, population):
         if population == 0:
             return
         water_subsistence = family_water_needs / float(population)
-        t_dehydrate = (100.0 * ((family_water_needs - amount_water)
-                                / population) / water_subsistence)
+        t_dehydrate = (100.0 * ((family_water_needs - amount_water) /
+                                population) / water_subsistence)
         self.decrement_health(t_dehydrate)
 
     def maximum_effort(self):
@@ -188,8 +188,8 @@ class Person:
 
         if infections:
             self.sick = infections
-        elif ((rand_n(self.tc, 100) / 100.0)
-              > (1.0 - self.coeffs.chance_of_getting_the_flu)):
+        elif ((rand_n(self.tc, 100) / 100.0) >
+              (1.0 - self.coeffs.chance_of_getting_the_flu)):
             # we can also get random unspecified diseases like flu
             # but only if we don't have anything bigger!
             # this is independent of your recent health -- on 5%

@@ -38,7 +38,7 @@ class RespiratoryIllness(Disease):
             # this is a propane stove
             smog_factor = person.coeffs.disease_respiratory_propane_factor
         elif state.improved_stove:
-             # this is an improved wood stove
+            # this is an improved wood stove
             smog_factor = person.coeffs.disease_respiratory_stove_factor
         else:
             # there is no stove improvement at all,
@@ -104,12 +104,12 @@ class Malaria(Disease):
         num_family_members = state.population
         # each bednet covers two people
         family_bednet_coverage = 2 * num_bednets / num_family_members
-        bednet_factor = (person.coeffs.disease_malaria_bednet_factor
-                         * family_bednet_coverage)
+        bednet_factor = (person.coeffs.disease_malaria_bednet_factor *
+                         family_bednet_coverage)
 
         # village_infection_proportion === I_t / V_t
-        village_infection_proportion = (state.village_infected_pop
-                                        / float(state.village_population))
+        village_infection_proportion = (state.village_infected_pop /
+                                        float(state.village_population))
 
         infection_rate_i0 = person.coeffs.base_infection_rate
 
@@ -125,15 +125,13 @@ class Malaria(Disease):
             person.coeffs.disease_malaria_bednet_factor,
             person.coeffs.bednet_infection_modifier)
         village_bednet_infection_component = (
-            person.coeffs.bednet_infection_modifier
-            * num_village_bednets
-            * 2.0 / state.village_population)
+            person.coeffs.bednet_infection_modifier * num_village_bednets *
+            2.0 / state.village_population)
         infection_rate += village_bednet_infection_component
 
         # note that this one is bad when high
-        infection_factor = (person.coeffs.disease_malaria_sir_factor
-                            * village_infection_proportion
-                            * infection_rate)
+        infection_factor = (person.coeffs.disease_malaria_sir_factor *
+                            village_infection_proportion * infection_rate)
 
         score = t_sick + bednet_factor - infection_factor
 
