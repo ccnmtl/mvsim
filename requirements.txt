@@ -44,7 +44,7 @@ pexpect==4.0.1
 pickleshare==0.5
 simplegeneric==0.8.1
 path.py==8.1.2
-ipython==4.0.1
+ipython==4.1.1
 ipdb==0.8.1
 lxml==3.5.0
 selenium==2.48.0
