@@ -283,6 +283,11 @@ def add_divided_farming(variables, turns):
     return variables
 
 
+def getter(turn, name):
+    value = turn.variables[name]
+    return int(value)
+
+
 def process_variable(variable, variables, turns):
     excluded_variables = (
         'calculated_food_cost',
@@ -314,9 +319,6 @@ def process_variable(variable, variables, turns):
         variables = add_percent_sickness(variables, turns)
         return variables
     if variable.type == "bool":
-        def getter(turn, name):
-            value = turn.variables[name]
-            return int(value)
         variables.append(BoundVariable(
             variable.name, getter,
             variable.description, turns))
