@@ -345,6 +345,14 @@ def extract_params(kw, key, params):
     return params
 
 
+def process_variables(all_variables, turns):
+    variables = []
+
+    for variable in all_variables:
+        variables = process_variable(variable, variables, turns)
+    return variables
+
+
 @rendered_with("graphing/graph.html")
 def graph(request, game_id):
     game = get_object_or_404(Game, id=game_id)
@@ -387,10 +395,7 @@ def graph(request, game_id):
     primary_layers = sorted(primary_layers) or []
 
     all_variables = game.configuration.variables.all()
-    variables = []
-
-    for variable in all_variables:
-        variables = process_variable(variable, variables, turns)
+    variables = process_variables(all_variables, turns)
 
     return dict(game=game,
                 params=params,
