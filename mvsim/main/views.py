@@ -78,6 +78,12 @@ def get_available_sections(state):
     return available_sections
 
 
+def get_readonly_from_state(state):
+    if state.game:
+        return True
+    return False
+
+
 @rendered_with("admin/view_state.html")
 def view_state(request, state_id):
     if not request.user.is_superuser:
@@ -92,9 +98,7 @@ def view_state(request, state_id):
     renderer = deform.ZPTRendererFactory(search_path)
     form = deform.Form(schema, buttons=('submit',), renderer=renderer)
 
-    readonly = False
-    if state.game:
-        readonly = True
+    readonly = get_readonly_from_state(state)
     available_sections = get_available_sections(state)
 
     # Deform's form.render API allows you to pass a readonly=True flag
