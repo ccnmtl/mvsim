@@ -29,6 +29,14 @@ def self_registered_user(sender, **kwargs):
 post_save.connect(self_registered_user, sender=User)
 
 
+def deserialize_callback(subnode, subval):
+    return subnode.deserialize(subval)
+
+
+def serialize_callback(subnode, subappstruct):
+    return subnode.serialize(subappstruct)
+
+
 class NamedTuple(colander.Tuple):
     def __init__(self, *args, **kw):
         self.tuplename = kw.pop('tuplename', "NamedTuple")
@@ -38,16 +46,12 @@ class NamedTuple(colander.Tuple):
         if appstruct is colander.null:
             return colander.null
 
-        def callback(subnode, subappstruct):
-            return subnode.serialize(subappstruct)
-        return self._impl(node, appstruct, callback)
+        return self._impl(node, appstruct, serialize_callback)
 
     def deserialize(self, node, cstruct):
         if cstruct is colander.null:
             return colander.null
 
-        def callback(subnode, subval):
-            return subnode.deserialize(subval)
         value = self._validate(node, cstruct)
         error = None
         result = []
@@ -55,7 +59,7 @@ class NamedTuple(colander.Tuple):
         for num, subnode in enumerate(node.children):
             subval = value[num]
             try:
-                result.append(callback(subnode, subval))
+                result.append(deserialize_callback(subnode, subval))
                 names.append(subnode.name)
             except colander.Invalid, e:
                 if error is None:

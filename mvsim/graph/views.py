@@ -283,6 +283,11 @@ def add_divided_farming(variables, turns):
     return variables
 
 
+def getter(turn, name):
+    value = turn.variables[name]
+    return int(value)
+
+
 def process_variable(variable, variables, turns):
     excluded_variables = (
         'calculated_food_cost',
@@ -314,9 +319,6 @@ def process_variable(variable, variables, turns):
         variables = add_percent_sickness(variables, turns)
         return variables
     if variable.type == "bool":
-        def getter(turn, name):
-            value = turn.variables[name]
-            return int(value)
         variables.append(BoundVariable(
             variable.name, getter,
             variable.description, turns))
@@ -341,6 +343,14 @@ def extract_params(kw, key, params):
     for val in kw.getlist(key):
         params.setdefault(key, []).append(val)
     return params
+
+
+def process_variables(all_variables, turns):
+    variables = []
+
+    for variable in all_variables:
+        variables = process_variable(variable, variables, turns)
+    return variables
 
 
 @rendered_with("graphing/graph.html")
@@ -385,10 +395,7 @@ def graph(request, game_id):
     primary_layers = sorted(primary_layers) or []
 
     all_variables = game.configuration.variables.all()
-    variables = []
-
-    for variable in all_variables:
-        variables = process_variable(variable, variables, turns)
+    variables = process_variables(all_variables, turns)
 
     return dict(game=game,
                 params=params,
