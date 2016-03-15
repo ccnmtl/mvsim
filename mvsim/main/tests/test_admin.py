@@ -1,6 +1,7 @@
 from courseaffils.models import Course
 from django.test import TestCase
 from django.test.client import Client
+from django.contrib.auth.models import User
 from mvsim.main.models import CourseSection, State
 
 
@@ -26,6 +27,9 @@ class AdminCourseTest(TestCase):
 
     def test_edit_state_access(self):
         client = Client()
+        u = User.objects.get(username='test_instructor')
+        u.set_password('test')
+        u.save()
 
         self.assertTrue(
             client.login(username='test_instructor', password='test'))
@@ -36,6 +40,10 @@ class AdminCourseTest(TestCase):
         self.assertEquals(response.status_code, 403)
         response = client.post("/state/1/clone/")
         self.assertEquals(response.status_code, 403)
+
+        u = User.objects.get(username='test_student_one')
+        u.set_password('test')
+        u.save()
 
         self.assertTrue(
             client.login(username='test_student_one', password='test'))
@@ -48,7 +56,9 @@ class AdminCourseTest(TestCase):
 
     def test_edit_state_visibility(self):
         client = Client()
-
+        u = User.objects.get(username='admin')
+        u.set_password('admin')
+        u.save()
         self.assertTrue(
             client.login(username='admin', password='admin'))
 
@@ -82,6 +92,9 @@ class AdminCourseTest(TestCase):
 
     def test_edit_state_sections(self):
         client = Client()
+        u = User.objects.get(username='admin')
+        u.set_password('admin')
+        u.save()
 
         self.assertTrue(
             client.login(username='admin', password='admin'))
@@ -123,6 +136,9 @@ class AdminCourseTest(TestCase):
         self.assertEquals(len(starting_states), 1)
 
         client = Client()
+        u = User.objects.get(username='admin')
+        u.set_password('admin')
+        u.save()
 
         self.assertTrue(
             client.login(username='admin', password='admin'))
@@ -158,6 +174,9 @@ class AdminCourseTest(TestCase):
 
     def test_edit_section_states(self):
         client = Client()
+        u = User.objects.get(username='admin')
+        u.set_password('admin')
+        u.save()
 
         self.assertTrue(
             client.login(username='admin', password='admin'))

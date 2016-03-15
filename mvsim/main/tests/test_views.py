@@ -58,6 +58,9 @@ class PlayGameTest(TestCase):
 
     def setUp(self):
         self.c = Client()
+        u = User.objects.get(username='admin')
+        u.set_password('admin')
+        u.save()
         self.c.login(username='admin', password='admin')
 
     def test_play(self):
