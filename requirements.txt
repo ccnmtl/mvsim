@@ -56,7 +56,7 @@ python-subunit==1.2.0
 sqlparse==0.1.19
 boto==2.38.0
 six==1.10.0
-python-dateutil==2.4.2
+python-dateutil==2.5.1
 gunicorn==19.3.0
 pyasn1==0.1.9
 pyOpenSSL==0.15.1
