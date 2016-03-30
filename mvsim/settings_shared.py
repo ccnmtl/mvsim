@@ -12,6 +12,7 @@ INSTALLED_APPS += [  # noqa
     'courseaffils',
     'mvsim.main',
     'engine',
+    'registration',
 ]
 
 MIDDLEWARE_CLASSES += [  # noqa

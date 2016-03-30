@@ -75,8 +75,8 @@ class PlayGameTest(TestCase):
         self.assertEqual(len(response.redirect_chain), 1)
 
         game_url = response.redirect_chain[0][0]
-        assert game_url.startswith("http://testserver/games/")
-        game_id = game_url.split("/")[4]
+        assert game_url.startswith("/games/")
+        game_id = game_url.split("/")[2]
         g = Game.objects.get(id=game_id)
 
         # submit a turn, not setting any variables
@@ -135,8 +135,8 @@ class PlayGameTest(TestCase):
         self.assertEqual(len(response.redirect_chain), 1)
 
         game_url = response.redirect_chain[0][0]
-        assert game_url.startswith("http://testserver/games/")
-        game_id = game_url.split("/")[4]
+        assert game_url.startswith("/games/")
+        game_id = game_url.split("/")[2]
         g = Game.objects.get(id=game_id)
 
         # submit a turn, not setting any variables
@@ -168,8 +168,8 @@ class PlayGameTest(TestCase):
         self.assertEqual(len(response.redirect_chain), 1)
 
         game_url = response.redirect_chain[0][0]
-        assert game_url.startswith("http://testserver/games/")
-        game_id = game_url.split("/")[4]
+        assert game_url.startswith("/games/")
+        game_id = game_url.split("/")[2]
         g = Game.objects.get(id=game_id)
 
         # submit a turn, not setting any variables
