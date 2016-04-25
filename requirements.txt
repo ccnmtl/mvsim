@@ -9,7 +9,7 @@ psycopg2==2.6.1
 Tempita==0.5dev
 chainedrandom==0.1.0
 
-iso8601==0.1.4
+iso8601==0.1.11
 translationstring==0.3
 colander==0.9.3
 
