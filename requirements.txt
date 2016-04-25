@@ -16,7 +16,7 @@ colander==0.9.3
 peppercorn==0.3
 ordereddict==1.1
 distribute==0.7.3
-Chameleon==2.2
+Chameleon==2.24
 deform==0.9.2
 statsd==3.2.1
 
