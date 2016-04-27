@@ -11,7 +11,7 @@ chainedrandom==0.1.0
 
 iso8601==0.1.4
 translationstring==0.3
-colander==0.9.3
+colander==1.2
 
 peppercorn==0.5
 ordereddict==1.1
