@@ -53,7 +53,7 @@ testtools==1.8.0
 testscenarios==0.5.0
 python-subunit==1.2.0
 sqlparse==0.1.19
-boto==2.38.0
+boto==2.40.0
 six==1.10.0
 python-dateutil==2.5.3
 gunicorn==19.3.0
