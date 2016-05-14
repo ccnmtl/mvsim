@@ -57,7 +57,7 @@ sqlparse==0.1.19
 boto==2.40.0
 six==1.10.0
 python-dateutil==2.5.3
-gunicorn==19.4.5
+gunicorn==19.5.0
 pyasn1==0.1.9
 pyOpenSSL==16.0.0
 ndg-httpsclient==0.4.0
