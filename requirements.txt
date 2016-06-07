@@ -32,7 +32,7 @@ logilab-astng==0.24.3
 lazy-object-proxy==1.2.2
 wrapt==1.10.8
 astroid==1.4.5
-pylint==1.5.5
+pylint==1.5.6
 pyparsing==2.1.4
 tornado==4.3
 BeautifulSoup==3.2.1
