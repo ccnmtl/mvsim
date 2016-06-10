@@ -61,7 +61,7 @@ python-dateutil==2.5.3
 gunicorn==19.6.0
 pyasn1==0.1.9
 pyOpenSSL==16.0.0
-ndg-httpsclient==0.4.0
+ndg-httpsclient==0.4.1
 contextlib2==0.5.3
 
 djangowind==0.15.0
