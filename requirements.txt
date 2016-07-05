@@ -39,7 +39,7 @@ tornado==4.3
 BeautifulSoup==3.2.1
 cssselect==0.9.2
 sure==1.4.0
-traitlets==4.2.1
+traitlets==4.2.2
 ipython_genutils==0.1.0
 decorator==4.0.10
 pexpect==4.1.0
