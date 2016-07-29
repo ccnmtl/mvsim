@@ -21,7 +21,7 @@ zope.deprecation==4.1.2
 deform==0.9.9
 statsd==3.2.1
 
-coverage==4.1
+coverage==4.2
 
 pyflakes==1.2.3
 pep8==1.7.0
