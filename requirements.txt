@@ -18,7 +18,7 @@ ordereddict==1.1
 distribute==0.7.3
 Chameleon==2.25
 zope.deprecation==4.1.2
-deform==2.0.1
+deform==2.0.2
 statsd==3.2.1
 
 coverage==4.2
