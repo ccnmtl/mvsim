@@ -19,7 +19,7 @@ distribute==0.7.3
 Chameleon==3.0
 
 zope.deprecation==4.2.0
-deform==2.0.3
+deform==2.0.4
 
 statsd==3.2.1
 
