@@ -64,7 +64,7 @@ boto==2.45.0
 six==1.10.0
 python-dateutil==2.6.0
 gunicorn==19.6.0
-pyasn1==0.2.1
+pyasn1==0.2.2
 pyOpenSSL==16.2.0
 ndg-httpsclient==0.4.2
 contextlib2==0.5.4
