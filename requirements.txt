@@ -52,7 +52,7 @@ simplegeneric==0.8.1
 path.py==10.1
 ipython==5.2.2
 ipdb==0.10.2
-lxml==3.7.2
+lxml==3.7.3
 extras==1.0.0
 python-mimeparse==1.6.0
 fixtures==3.0.0
