@@ -4,7 +4,7 @@ httplib2==0.10.2
 feedparser==5.2.1
 Markdown==2.6.8
 uuid==1.30
-psycopg2==2.6.2
+psycopg2==2.7
 
 Tempita==0.5.2
 chainedrandom==0.1.0
