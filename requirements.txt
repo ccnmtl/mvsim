@@ -76,7 +76,7 @@ django-registration==2.2
 django-statsd-mozilla==0.3.16
 django-smoketest==1.0.0
 raven==6.0.0
-django-debug-toolbar==1.6
+django-debug-toolbar==1.7
 django-impersonate==1.1
 django-jenkins==0.110.0
 django-stagingcontext==0.1.0
