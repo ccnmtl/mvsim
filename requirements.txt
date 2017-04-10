@@ -69,7 +69,7 @@ pyOpenSSL==16.2.0
 ndg-httpsclient==0.4.2
 contextlib2==0.5.4
 
-djangowind==0.16.1
+djangowind==1.0.0
 djangohelpers==0.18.2
 django-courseaffils==2.1.1
 django-registration==2.2
