@@ -1,10 +1,11 @@
 --index-url https://pypi.ccnmtl.columbia.edu/
-Django==1.10.7
+Django==1.11
 httplib2==0.10.2
 feedparser==5.2.1
 Markdown==2.6.8
 uuid==1.30
 psycopg2==2.7.1
+pytz==2017.2
 
 Tempita==0.5.2
 chainedrandom==0.1.0
