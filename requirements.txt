@@ -53,7 +53,7 @@ decorator==4.0.11
 pexpect==4.2.1
 pickleshare==0.7.4
 simplegeneric==0.8.1
-path.py==10.1
+path.py==10.3
 ipython==5.3.0
 ipdb==0.10.2
 lxml==3.7.3
