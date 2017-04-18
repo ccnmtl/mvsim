@@ -38,7 +38,7 @@ logilab-astng==0.24.3
 lazy-object-proxy==1.2.2
 wrapt==1.10.10
 
-astroid==1.5.1
+astroid==1.5.2
 
 pylint==1.7.0
 
