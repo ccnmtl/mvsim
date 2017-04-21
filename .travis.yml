@@ -5,6 +5,6 @@ python:
 install:
   - ./bootstrap.py
 script:
-  - make
+  - make jenkins
 notifications:
   slack: ccnmtl:GizSNscLWJLldjQrffB8mwgm
