@@ -75,7 +75,7 @@ contextlib2==0.5.5
 
 djangowind==1.0.0
 djangohelpers==0.18.2
-django-courseaffils==2.1.1
+django-courseaffils==2.1.13
 django-registration==2.2
 django-statsd-mozilla==0.3.16
 django-smoketest==1.0.0
