@@ -1,3 +1,5 @@
+/* global unescape: true, escape: true */
+
 function getCookie(name) {
     var dc = document.cookie;
     var prefix = name + '=';
