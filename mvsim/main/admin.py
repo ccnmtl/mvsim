@@ -18,6 +18,7 @@ class StateAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     list_display = ('__unicode__', 'visible')
 
+
 site.register(CourseSection, CourseSectionAdmin)
 site.register(Variable, VariableAdmin)
 site.register(Configuration)

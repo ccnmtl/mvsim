@@ -83,6 +83,7 @@ class Mapping(colander.Mapping):
     def _impl(self, node, value, callback):
         return AttrDict(colander.Mapping._impl(self, node, value, callback))
 
+
 variable_types = (
     ('int', "Integer"),
     ('float', "Decimal"),
@@ -439,4 +440,6 @@ def ensure_section_exists(sender, instance, created, **kwargs):
     section.save()
     section.ensure_default_starting_state()
     section.save()
+
+
 models.signals.post_save.connect(ensure_section_exists, sender=Course)
