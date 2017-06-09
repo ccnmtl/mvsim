@@ -94,6 +94,7 @@ def reverse_engineer_year(turn_number):
 def reverse_engineer_season(turn_number):
     return "%s / 2" % str(((turn_number - 1) % 2) + 1)
 
+
 register.filter("neq", neq)
 register.filter("format_float", format_float)
 register.filter("money_report", money_report)
