@@ -1,4 +1,5 @@
 /* global unescape: true, escape: true */
+/* exported getCookie, setCookie */
 
 function getCookie(name) {
     var dc = document.cookie;
