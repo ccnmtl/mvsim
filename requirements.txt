@@ -75,7 +75,7 @@ djangowind==1.0.0
 
 djangohelpers==0.19
 
-django-courseaffils==2.1.14
+django-courseaffils==2.1.15
 
 django-registration==2.2
 django-statsd-mozilla==0.4.0
