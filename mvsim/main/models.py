@@ -18,11 +18,8 @@ def self_registered_user(sender, **kwargs):
             return
         if len(u.groups.all()) == 0:
             (g, created) = Group.objects.get_or_create(name="NON_CU")
-            if created:
-                # TODO also create the right course
-                pass
             u.groups.add(g)
-    except:
+    except KeyError:
         pass
 
 

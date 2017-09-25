@@ -9,7 +9,7 @@ register = template.Library()
 
 def money_report(num):
     num = _money_report(num)
-    return mark_safe(num)
+    return mark_safe(num)  # nosec
 
 
 def format_float(number, decimals=1):
