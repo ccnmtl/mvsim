@@ -11,7 +11,7 @@ import os
 import os.path
 import tempfile
 from json import loads
-import subprocess
+import subprocess  # nosec
 
 
 @allow_http("GET")
@@ -139,7 +139,7 @@ def convert(svg_data):
     path = os.path.join(graph_dir, "%s.png" % name)
 
     try:
-        subprocess.call(['convert', tmpname, path])
+        subprocess.call(['convert', tmpname, path])  # nosec
     finally:
         os.unlink(tmpname)
 
