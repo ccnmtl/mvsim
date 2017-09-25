@@ -94,3 +94,9 @@ urlpatterns = [
     url(r'^docs/(?P<path>.*)$', django.views.static.serve,
         {'document_root': doc_root}),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
