@@ -61,7 +61,7 @@ fixtures==3.0.0
 testtools==2.3.0
 testscenarios==0.5.0
 python-subunit==1.2.0
-sqlparse==0.2.3
+sqlparse==0.2.4
 boto==2.48.0
 six==1.11.0
 python-dateutil==2.6.1
