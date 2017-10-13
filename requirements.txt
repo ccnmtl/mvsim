@@ -54,7 +54,7 @@ simplegeneric==0.8.1
 path.py==10.4
 ipython==5.5.0 # pyup: <6.0.0
 ipdb==0.10.2 # pyup: <0.10.3 # somehow, this is breaking
-lxml==4.0.0
+lxml==4.1.0
 extras==1.0.0
 python-mimeparse==1.6.0
 fixtures==3.0.0
