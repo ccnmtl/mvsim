@@ -38,7 +38,7 @@ wrapt==1.10.11
 
 astroid==1.5.3
 
-pylint==1.7.3
+pylint==1.7.4
 
 pyparsing==2.2.0
 tornado==4.5.2
