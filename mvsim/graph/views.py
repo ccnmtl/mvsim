@@ -22,7 +22,7 @@ def graph_download(request, game_id):
     # be int'able
     try:
         int(key)
-    except:
+    except ValueError:
         raise Http404
 
     graph_dir = settings.MVSIM_GRAPH_OUTPUT_DIRECTORY
