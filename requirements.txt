@@ -67,7 +67,7 @@ six==1.11.0
 python-dateutil==2.6.1
 gunicorn==19.7.1
 pyasn1==0.4.2
-pyOpenSSL==17.4.0
+pyOpenSSL==17.5.0
 ndg-httpsclient==0.4.3
 contextlib2==0.5.5
 
