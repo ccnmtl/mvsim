@@ -71,7 +71,7 @@ pyOpenSSL==17.5.0
 ndg-httpsclient==0.4.3
 contextlib2==0.5.5
 
-djangowind==1.0.1
+djangowind==1.1.0
 
 djangohelpers==0.19
 
