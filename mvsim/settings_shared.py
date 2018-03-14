@@ -15,7 +15,7 @@ INSTALLED_APPS += [  # noqa
     'registration',
 ]
 
-MIDDLEWARE += [  # noqa
+MIDDLEWARE_CLASSES += [  # noqa
     'djangohelpers.middleware.AuthRequirementMiddleware',
 ]
 
