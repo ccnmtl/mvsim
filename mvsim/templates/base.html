@@ -21,6 +21,18 @@
 {% endcompress %}
     <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
     <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
+
+    {% if GA_CODE %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{GA_TAG}}"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+gtag('config', '{{GA_TAG}}', { 'anonymize_ip': true });
+    </script>
+    {% endif %}
   </head>
   
   <body{% block body_attributes %}{% endblock %}>
