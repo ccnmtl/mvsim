@@ -77,7 +77,7 @@ djangohelpers==0.19
 
 django-courseaffils==2.1.15
 
-django-registration==2.4.1
+django-registration==2.5.2 # pyup: <3.0
 django-statsd-mozilla==0.4.0
 django-smoketest==1.1.0
 raven==6.9.0
