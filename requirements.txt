@@ -4,7 +4,7 @@ feedparser==5.2.1
 Markdown==2.6.11
 uuid==1.30
 psycopg2==2.7.5
-pytz==2018.5
+pytz==2018.7
 
 Tempita==0.5.2
 requirements/src/chainedrandom-0.1.0.tar.gz
