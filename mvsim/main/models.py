@@ -162,7 +162,7 @@ class Variable(models.Model):
 
         if self.type == "tuple":
             attributes = info['attributes']
-            for attr_name, variable_name in attributes.items():
+            for attr_name, variable_name in list(attributes.items()):
                 variable = Variable.objects.get(name=variable_name)
                 variable_schema = variable.schema(required)
                 schema.add(variable_schema)

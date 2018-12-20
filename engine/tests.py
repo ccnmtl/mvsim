@@ -35,13 +35,13 @@ class StubTC:
 
 class StubCoeffs:
     def __init__(self, **kwargs):
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
 
 class StubState:
     def __init__(self, **kwargs):
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
 
@@ -1185,7 +1185,7 @@ class TestDisplayLogic(unittest.TestCase):
             'coeffs': self.coeffs,
         }
         r = add_extra_seasonreport_context(context)
-        self.assertEquals(r['new_baby'], "bart")
+        self.assertEqual(r['new_baby'], "bart")
 
 
 class TestForceIntegers(unittest.TestCase):

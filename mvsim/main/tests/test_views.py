@@ -11,7 +11,7 @@ class SimpleTest(TestCase):
 
     def test_root(self):
         response = self.c.get("/")
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
 
     def test_smoke(self):
         self.c.get("/smoketest/")
@@ -30,7 +30,7 @@ class LoggedInTest(TestCase):
 
     def test_root(self):
         response = self.c.get("/")
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test_course_auto_creation(self):
         # first one should auto-create a course
@@ -38,7 +38,7 @@ class LoggedInTest(TestCase):
         self.assertContains(response, "Default Section")
         # second one it should already be created
         response = self.c.get("/")
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Default Section")
 
 
@@ -195,7 +195,7 @@ class PlayGameTest(TestCase):
 
         # make sure we are denied access to everything
         response = self.c.get("/games/%d/" % g.id)
-        self.assertEquals(response.status_code, 403)
+        self.assertEqual(response.status_code, 403)
 
         response = self.c.post(
             "/games/%d/turn/" % g.id,

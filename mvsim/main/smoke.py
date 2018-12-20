@@ -1,5 +1,5 @@
 from smoketest import SmokeTest
-from models import Variable
+from .models import Variable
 
 
 class DBConnectivity(SmokeTest):

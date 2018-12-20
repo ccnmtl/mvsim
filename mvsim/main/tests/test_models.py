@@ -23,15 +23,15 @@ class CourseSectionTest(TestCase):
         self.fg.delete()
 
     def test_unicode(self):
-        self.assertEquals(str(self.cs), "test course")
+        self.assertEqual(str(self.cs), "test course")
 
     def test_available_states(self):
         self.cs.ensure_default_starting_state()
-        self.assertEquals(self.cs.available_states().count(), 0)
+        self.assertEqual(self.cs.available_states().count(), 0)
 
     def test_stats(self):
         r = list(self.cs.stats())
-        self.assertEquals(len(r), 0)
+        self.assertEqual(len(r), 0)
 
 
 class GameTest(TestCase):
@@ -65,27 +65,27 @@ class GameTest(TestCase):
         self.conf.delete()
 
     def test_unicode(self):
-        self.assertEquals(
+        self.assertEqual(
             str(self.game),
             "testuser - in course test course [1]")
         self.game.name = "testgame"
         self.game.save()
-        self.assertEquals(
+        self.assertEqual(
             str(self.game),
             "testgame")
 
     def test_delete_url(self):
-        self.assertEquals(
+        self.assertEqual(
             self.game.delete_url(),
             "/games/%d/delete/" % self.game.id)
 
     def test_game_over_url(self):
-        self.assertEquals(
+        self.assertEqual(
             self.game.game_over_url(),
             "/games/%d/game_over/" % self.game.id)
 
     def test_graph_url(self):
-        self.assertEquals(
+        self.assertEqual(
             self.game.graph_url(),
             "/games/%d/graph/" % self.game.id)
 
@@ -136,12 +136,12 @@ class StateTest(TestCase):
         self.conf.delete()
 
     def test_unicode(self):
-        self.assertEquals(
+        self.assertEqual(
             str(self.state),
             "teststate")
         self.state.name = ""
         self.state.save()
-        self.assertEquals(
+        self.assertEqual(
             str(self.state),
             "testuser - in course test course [1]: turn 1"
         )

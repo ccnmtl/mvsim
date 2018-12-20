@@ -34,7 +34,7 @@ class Command(BaseCommand):
         table = csv.reader(fh)
 
         # NAME,CATEGORY,TYPE,VALUE,CHOICES,DESCRIPTION
-        header = table.next()
+        header = next(table)
 
         for i in range(len(header)):
             if header[i] == 'NAME':

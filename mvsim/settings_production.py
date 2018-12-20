@@ -1,5 +1,5 @@
 # flake8: noqa
-from settings_shared import *
+from .settings_shared import *
 from ccnmtlsettings.production import common
 import os
 
