@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 import json
 from django.db.models.signals import post_save
+from django.utils.encoding import python_2_unicode_compatible
 from deform.widget import MappingWidget
 from courseaffils.models import Course
 from collections import namedtuple
@@ -58,7 +59,7 @@ class NamedTuple(colander.Tuple):
             try:
                 result.append(deserialize_callback(subnode, subval))
                 names.append(subnode.name)
-            except colander.Invalid, e:
+            except colander.Invalid as e:
                 if error is None:
                     error = colander.Invalid(node)
                 error.add(e, num)
@@ -98,13 +99,15 @@ schema_node_factories = {
     'list': colander.Sequence, }
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Variable(models.Model):
     name = models.TextField(unique=True)
     symbol = models.TextField(unique=True)
@@ -113,7 +116,7 @@ class Variable(models.Model):
     extra_type_information = models.TextField(blank=True)
     category = models.ForeignKey(Category, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def graphable(self):
@@ -246,6 +249,7 @@ def user_scores(user):
     return data
 
 
+@python_2_unicode_compatible
 class Game(models.Model):
     user = models.ForeignKey('auth.User')
     configuration = models.ForeignKey(Configuration)
@@ -255,7 +259,7 @@ class Game(models.Model):
     score = models.IntegerField(default=0)
     name = models.CharField(max_length=256, default="", blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.name:
             return self.name
         else:
@@ -370,13 +374,14 @@ class Game(models.Model):
             return CourseSection.objects.filter(course=self.course)[0]
 
 
+@python_2_unicode_compatible
 class State(models.Model):
     name = models.TextField(blank=True)
     game = models.ForeignKey(Game, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     visible = models.BooleanField(default=True)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.name:
             return self.name
 
@@ -401,13 +406,14 @@ class State(models.Model):
         return json.loads(self.state)
 
 
+@python_2_unicode_compatible
 class CourseSection(models.Model):
     name = models.TextField()
     users = models.ManyToManyField('auth.User')
     starting_states = models.ManyToManyField(State)
     course = models.ForeignKey('courseaffils.Course')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def ensure_default_starting_state(self):

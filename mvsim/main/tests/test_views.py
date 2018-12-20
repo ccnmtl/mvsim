@@ -35,11 +35,11 @@ class LoggedInTest(TestCase):
     def test_course_auto_creation(self):
         # first one should auto-create a course
         response = self.c.get("/")
-        self.assertTrue("Default Section" in response.content)
+        self.assertContains(response, "Default Section")
         # second one it should already be created
         response = self.c.get("/")
         self.assertEquals(response.status_code, 200)
-        self.assertTrue("Default Section" in response.content)
+        self.assertContains(response, "Default Section")
 
 
 class PlayGameTest(TestCase):

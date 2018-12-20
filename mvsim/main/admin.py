@@ -16,7 +16,7 @@ class VariableAdmin(admin.ModelAdmin):
 
 class StateAdmin(admin.ModelAdmin):
     search_fields = ("name",)
-    list_display = ('__unicode__', 'visible')
+    list_display = ('__str__', 'visible')
 
 
 site.register(CourseSection, CourseSectionAdmin)

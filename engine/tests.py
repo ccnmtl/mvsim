@@ -347,7 +347,7 @@ class TestVillage(unittest.TestCase):
 
     def test_update_population(self):
         self.village.update_population()
-        print self.village.state.village_population
+        print(self.village.state.village_population)
         assert self.village.state.village_population == VILLAGE_POPULATION
 
     def test_check_epidemic(self):
@@ -373,7 +373,7 @@ class TestVillage(unittest.TestCase):
         assert self.village.bednet_modifier() == 0
 
     def test_mortality(self):
-        print self.village.mortality()
+        print(self.village.mortality())
         assert self.village.mortality() == 2.0
 
     def test_recovery_rate(self):
@@ -425,7 +425,7 @@ class TestVillage(unittest.TestCase):
         self.village.coeffs.subsidy_price_reduction = .05
         self.village.state.fund = 150
         self.village.buy_improvements()
-        print self.village.state.fund
+        print(self.village.state.fund)
         assert self.village.state.fund == 140
 
     def test_update_subsidy_offers(self):
@@ -948,14 +948,14 @@ class TestTurn(unittest.TestCase):
         self.turn.update_wood_coeff()
 
     def test_calc_fish_coeff(self):
-        print self.turn.calc_fish_coeff()
-        print self.turn.state.fish_stock
-        print self.turn.coeffs.fish_k
+        print(self.turn.calc_fish_coeff())
+        print(self.turn.state.fish_stock)
+        print(self.turn.coeffs.fish_k)
         assert self.turn.calc_fish_coeff() == 1
         self.turn.state.fish_stock = -10
         assert self.turn.calc_fish_coeff() == 0
         self.turn.state.fish_stock = 200.0
-        print self.turn.calc_fish_coeff()
+        print(self.turn.calc_fish_coeff())
         assert self.turn.calc_fish_coeff() == 200.0 / 2500.0
 
     def test_update_fish_coeff(self):
@@ -1092,9 +1092,9 @@ class TestTurn(unittest.TestCase):
     def test_sell_cotton(self):
         self.turn.state.amount_cotton = 100
         (price, tons_to_market) = self.turn.sell_cotton()
-        print price
-        print tons_to_market
-        print self.turn.coeffs.cotton_price
+        print(price)
+        print(tons_to_market)
+        print(self.turn.coeffs.cotton_price)
         assert price == 10
         assert tons_to_market == 0.1
         self.turn.coeffs.cotton_price = 200

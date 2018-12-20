@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 
-modified = re.compile('^(?:M|A)(\s+)(?P<name>.*)')
+modified = re.compile(r'^(?:M|A)(\s+)(?P<name>.*)')
 
 CHECKS = [
     {
@@ -83,9 +83,9 @@ def check_files(files, check):
                         prefix = '\t'
                     output_lines = ['%s%s' % (prefix, line)
                                     for line in out.splitlines()]
-                    print '\n'.join(output_lines)
+                    print('\n'.join(output_lines))
                     if err:
-                        print err
+                        print(err)
                     result = 1
     return result
 
@@ -109,16 +109,16 @@ def main(all_files):
                 files.append(match.group('name'))
 
     result = 0
-    print 'Running Django Code Validator...'
+    print('Running Django Code Validator...')
     return_code = subprocess.call('./manage.py validate', shell=True)
     result = return_code or result
 
     for check in CHECKS:
-        print check['output']
+        print(check['output'])
         result = check_files(files, check) or result
 
     if result == 0:
-        print 'Running Unit Tests...'
+        print('Running Unit Tests...')
         return_code = subprocess.call(
             './manage.py test',
             shell=True)
