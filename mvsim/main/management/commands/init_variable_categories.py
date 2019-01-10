@@ -21,20 +21,20 @@ class Command(BaseCommand):
             variable.description = row[description_idx]
             variable.save()
         except Variable.DoesNotExist:
-            print "%s not found. Skipping" % name
+            print("%s not found. Skipping" % name)
 
     def handle(self, *app_labels, **options):
         args = 'Usage: ./manage.py init_variable_categories --csv csv file'
 
         if not options.get('csv'):
-            print args
+            print(args)
             return
 
         fh = open(options.get('csv'), 'r')
         table = csv.reader(fh)
 
         # NAME,CATEGORY,TYPE,VALUE,CHOICES,DESCRIPTION
-        header = table.next()
+        header = next(table)
 
         for i in range(len(header)):
             if header[i] == 'NAME':

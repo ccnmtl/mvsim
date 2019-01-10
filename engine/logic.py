@@ -332,7 +332,7 @@ class Turn:
             quantity = int(quantity)
 
             num_sold = 0
-            for x in xrange(quantity):
+            for x in range(quantity):
                 try:
                     self.state.owned_items.remove(item)
                     num_sold += 1
@@ -359,7 +359,7 @@ class Turn:
         self.state.sell_items = real_sold_items
 
     def purchase_quantity_of_item(self, item, quantity, price):
-        for x in xrange(int(quantity)):
+        for x in range(int(quantity)):
             # some items only affect state, are not stored
             if item == "fertilizer":
                 self.state.fertilizer = True

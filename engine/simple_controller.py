@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import locale
 
 
@@ -21,7 +23,7 @@ def force_integers(kwargs):
         if field in kwargs:
             if '%' in kwargs[field]:
                 kwargs[field] = kwargs[field].replace('%', '')
-            if kwargs[field] == u"NaN":
+            if kwargs[field] == "NaN":
                 kwargs[field] = 0
             try:
                 kwargs[field] = "%d" % (int(float(kwargs[field] or '0')),)
@@ -41,7 +43,7 @@ def extract_item_quantity(k, kwargs):
 
 
 def extract_purchase_items(kwargs):
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('purchase-'):
             iqstring = extract_item_quantity(k, kwargs)
             if iqstring:
@@ -49,7 +51,7 @@ def extract_purchase_items(kwargs):
 
 
 def extract_sell_items(kwargs):
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('sell-'):
             iqstring = extract_item_quantity(k, kwargs)
             if iqstring:
@@ -57,7 +59,7 @@ def extract_sell_items(kwargs):
 
 
 def extract_improvements(kwargs):
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('improvement-'):
             (p, item) = k.split('-')
             yield item
@@ -65,7 +67,7 @@ def extract_improvements(kwargs):
 
 def enrollments(kwargs, name_positions, names):
     enroll = [False] * len(names)
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('enroll-'):
             (e, name) = k.split('-')
             if kwargs[k] == '' or name not in name_positions:
@@ -76,7 +78,7 @@ def enrollments(kwargs, name_positions, names):
 
 def doctor_visits(kwargs, name_positions, names):
     doctor = [False] * len(names)
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('doctor-'):
             (e, name) = k.split('-')
             if kwargs[k] == '' or name not in name_positions:
@@ -87,7 +89,7 @@ def doctor_visits(kwargs, name_positions, names):
 
 def effort_list(kwargs, name_positions, names):
     efforts = [12] * len(names)
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('effort-'):
             (e, name) = k.split('-')
             if kwargs[k] == '' or name not in name_positions:
@@ -98,7 +100,7 @@ def effort_list(kwargs, name_positions, names):
 
 def calories_list(kwargs, name_positions, names):
     calories = [0] * len(names)
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if k.startswith('calories-'):
             (c, name) = k.split('-')
             if kwargs[k] == '' or name not in name_positions:
@@ -134,7 +136,7 @@ def adjust_submission(kwargs, names):
         name_positions[n] = i
         i += 1
 
-    keys = kwargs.keys()
+    keys = list(kwargs.keys())
 
     purchase_items = list(extract_purchase_items(kwargs))
     sell_items = list(extract_sell_items(kwargs))

@@ -156,4 +156,4 @@ if __name__ == '__main__':
     coeffs = attrdict(fish_k=2000, fish_stock_warn_threshold=0.3)
     for event in _events:
         if event.test(before, after, coeffs):
-            print event.message
+            print(event.message)

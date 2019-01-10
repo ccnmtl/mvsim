@@ -6,13 +6,19 @@ from django.shortcuts import get_object_or_404
 from django_statsd.clients import statsd
 from djangohelpers.lib import allow_http, rendered_with
 from django.contrib.auth.models import Group
+from django.utils.encoding import smart_text
 from engine import display_logic, logic
 from engine.logic import get_notifications
 from mvsim.main.models import Game, State, CourseSection, Configuration, \
     UserInput, high_scores
 from courseaffils.models import Course
 from pkg_resources import resource_filename
-from urlparse import parse_qsl
+
+try:
+    from urllib.parse import parse_qsl
+except ImportError:
+    from urlparse import parse_qsl
+
 import deform
 import json
 
@@ -119,7 +125,7 @@ def view_state(request, state_id):
 
     try:
         appstruct = form.validate(controls)
-    except deform.ValidationFailure, e:
+    except deform.ValidationFailure as e:
         course = None
         if state.game:
             course = state.game.course
@@ -347,7 +353,7 @@ def edit_game(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     if not game.viewable(request.user):
         return forbidden()
-    game.name = request.GET.get('name', unicode(game))
+    game.name = request.GET.get('name', smart_text(game))
     game.save()
     return HttpResponse("ok")
 

@@ -202,7 +202,7 @@ def add_divided_sickness(variables, turns):
         names = turn.variables.names
         for name in names:
             all_names[name] = "sick_" + name.lower()
-    for name, var_name in all_names.items():
+    for name, var_name in list(all_names.items()):
         variables.append(BoundVariable(
             var_name, add_divided_sickness_getter,
             "%s Sick" % name, turns))
@@ -251,7 +251,7 @@ def add_divided_health(variables, turns):
         names = turn.variables.names
         for name in names:
             all_names[name] = "health_" + name.lower()
-    for name, var_name in all_names.items():
+    for name, var_name in list(all_names.items()):
         variables.append(BoundVariable(
             var_name, add_divided_health_getter,
             "Health %s " % name + "(%)", turns))

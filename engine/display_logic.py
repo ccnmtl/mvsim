@@ -1,5 +1,5 @@
-import fuel
-import simple_controller
+from engine import fuel
+from engine import simple_controller
 
 
 def generate_disease_report(people):
