@@ -1,8 +1,6 @@
 language: python
-dist: trusty
-sudo: false
+dist: xenial
 python:
-  - "2.7.6"
   - "3.6"
 install:
   - pip install -U pip wheel
