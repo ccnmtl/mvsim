@@ -33,7 +33,7 @@ flake8==3.7.7
 logilab-common==1.4.2
 logilab-astng==0.24.3
 lazy-object-proxy==1.4.1
-wrapt==1.11.1
+wrapt==1.11.2
 
 astroid==1.6.6 # pyup: <2.0.0
 
