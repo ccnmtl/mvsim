@@ -16,7 +16,7 @@ locals().update(
     ))
 
 try:
-    from local_settings import *
+    from mvsim.local_settings import *
 except ImportError:
     pass
 
