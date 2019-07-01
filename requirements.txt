@@ -1,4 +1,4 @@
-Django==1.11.21 # pyup: <2.0
+Django==1.11.22 # pyup: <2.0
 httplib2==0.13.0
 feedparser==5.2.1
 Markdown==2.6.11 # pyup: < 3
@@ -66,7 +66,7 @@ urllib3==1.25.3
 s3transfer==0.2.1
 jmespath==0.9.4
 botocore==1.12.180
-boto3==1.9.179
+boto3==1.9.180
 
 six==1.12.0
 python-dateutil==2.8.0
