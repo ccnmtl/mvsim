@@ -65,8 +65,9 @@ sqlparse==0.3.0
 urllib3==1.25.3
 s3transfer==0.2.1
 jmespath==0.9.4
-botocore==1.12.180
+
 boto3==1.9.182
+botocore==1.12.182
 
 six==1.12.0
 python-dateutil==2.8.0
