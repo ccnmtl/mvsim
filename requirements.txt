@@ -27,7 +27,6 @@ pyflakes==2.1.1
 pep8==1.7.1
 mccabe==0.6.1
 pycodestyle==2.5.0
-enum34==1.1.6; python_version < '3.4'
 configparser==3.7.4
 flake8==3.7.7
 logilab-common==1.4.2
@@ -109,4 +108,3 @@ bandit==1.6.2
 
 typing==3.7.4
 entrypoints==0.3
-functools32==3.2.3-2; python_version < '3'
