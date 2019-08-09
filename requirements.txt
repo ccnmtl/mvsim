@@ -40,7 +40,7 @@ pylint==1.9.4 # pyup: <2.0.0
 
 pyparsing==2.4.2
 tornado==4.5.3 # pyup: <5.0
-cssselect==1.0.3
+cssselect==1.1.0
 sure==1.4.11
 traitlets==4.3.2
 ipython_genutils==0.2.0
