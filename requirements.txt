@@ -91,7 +91,7 @@ django-jenkins==0.110.0
 django-stagingcontext==0.1.0
 django-waffle==0.17.0
 django-markwhat==1.6.2
-django-storages==1.7.1
+django-storages==1.7.2
 django-appconf==1.0.3
 django-compressor==2.3
 django-cacheds3storage==0.2.1
