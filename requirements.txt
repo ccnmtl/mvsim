@@ -69,7 +69,7 @@ botocore>=1.13.0,<1.14.0
 boto3>=1.10.0,<1.11.0
 
 six==1.12.0
-python-dateutil==2.8.0
+python-dateutil==2.8.1
 gunicorn==19.9.0
 pyasn1==0.4.7
 pyOpenSSL==19.0.0
