@@ -306,7 +306,7 @@ class Turn:
 
         num_bednets = len([elem for elem in self.state.owned_items
                            if elem == "bednet"])
-        needed_bednets = self.state.population / 2
+        needed_bednets = int(self.state.population / 2)
 
         if num_bednets < needed_bednets:
             self.message('NGO bednets')

@@ -763,6 +763,15 @@ class TestTurn(unittest.TestCase):
     def tearDown(self):
         self.turn = None
 
+    def test_free_bednets(self):
+        self.turn.coeffs.enable_free_bednets = True
+        self.turn.state.year = (self.turn.coeffs.starting_year +
+                                self.turn.coeffs.free_bednet_year)
+        self.turn.free_bednets()
+
+        self.assertTrue('bednet' in self.turn.state.owned_items)
+        self.assertEqual(len(self.turn.state.bednet_ages), 2)
+
     def test_calc_maximum_effort(self):
         assert self.turn.calc_maximum_effort() == 2
 
