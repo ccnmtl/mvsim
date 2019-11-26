@@ -87,7 +87,7 @@ django-statsd-mozilla==0.4.0
 django-smoketest==1.1.0
 raven==6.10.0
 certifi==2019.9.11  # sentry-sdk
-sentry-sdk==0.13.2
+sentry-sdk==0.13.3
 django-debug-toolbar==1.11 # pyup: <2.0
 django-impersonate==1.4.1
 django-jenkins==0.110.0
