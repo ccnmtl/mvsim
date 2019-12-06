@@ -1,6 +1,4 @@
-import django.contrib.auth.views
 import django.views.static
-import djangowind.views
 import os.path
 
 from django.conf.urls import include, url
@@ -23,23 +21,11 @@ admin.autodiscover()
 site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 doc_root = os.path.join(os.path.dirname(__file__), "../docs", "_build", "html")
 
-redirect_after_logout = getattr(settings, 'LOGOUT_REDIRECT_URL', None)
-
 auth_urls = url(r'^accounts/', include('django.contrib.auth.urls'))
-
-logout_page = url(r'^accounts/logout/$',
-                  django.contrib.auth.views.logout,
-                  {'next_page': redirect_after_logout})
-
 if hasattr(settings, 'CAS_BASE'):
     auth_urls = url(r'^accounts/', include('djangowind.urls'))
-    logout_page = url(r'^accounts/logout/$',
-                      djangowind.views.logout,
-                      {'next_page': redirect_after_logout})
-
 
 urlpatterns = [
-    logout_page,
     auth_urls,
     url(r'^registration/', include('registration.urls')),
     url(r'^impersonate/', include('impersonate.urls')),
@@ -70,7 +56,6 @@ urlpatterns = [
     url(r'^state/(?P<state_id>\d+)/clone/$', clone_state, name="clone_state"),
     url(r'^state/(?P<state_id>\d+)/edit/$', edit_state, name="edit_state"),
 
-
     url(r'^course_sections/$', admin_course_sections,
         name="admin_course_sections"),
     url(r'^course_sections/(?P<section_id>\d+)/$', admin_course_section,
@@ -80,7 +65,7 @@ urlpatterns = [
     url(r'^course_sections/(?P<section_id>\d+)/associate_state/$',
         associate_state, name="associate_state"),
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^smoketest/', include('smoketest.urls')),
     url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
     url(r'^stats/auth/$', TemplateView.as_view(

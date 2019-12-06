@@ -3196,15 +3196,6 @@
         }
     },
     {
-        "pk": 22, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_logentry", 
-            "name": "Can add log entry", 
-            "content_type": 8
-        }
-    }, 
-    {
         "pk": 1, 
         "model": "auth.group", 
         "fields": {

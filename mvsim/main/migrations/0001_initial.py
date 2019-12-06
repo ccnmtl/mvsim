@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.TextField()),
-                ('course', models.ForeignKey(to='courseaffils.Course')),
+                ('course', models.ForeignKey(to='courseaffils.Course', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -53,9 +53,9 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(default=b'notstarted', max_length=100)),
                 ('score', models.IntegerField(default=0)),
                 ('name', models.CharField(default=b'', max_length=256, null=True, blank=True)),
-                ('configuration', models.ForeignKey(to='main.Configuration')),
-                ('course', models.ForeignKey(to='courseaffils.Course')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('configuration', models.ForeignKey(to='main.Configuration', on_delete=models.CASCADE)),
+                ('course', models.ForeignKey(to='courseaffils.Course', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('visible', models.BooleanField(default=True)),
                 ('state', models.TextField()),
-                ('game', models.ForeignKey(blank=True, to='main.Game', null=True)),
+                ('game', models.ForeignKey(blank=True, to='main.Game', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['created'],
@@ -94,7 +94,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True)),
                 ('type', models.TextField(choices=[(b'int', b'Integer'), (b'float', b'Decimal'), (b'str', b'String'), (b'bool', b'Boolean'), (b'tuple', b'Data Collection'), (b'list', b'Sequence')])),
                 ('extra_type_information', models.TextField(blank=True)),
-                ('category', models.ForeignKey(blank=True, to='main.Category', null=True)),
+                ('category', models.ForeignKey(blank=True, to='main.Category', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='game',
             name='user_input',
-            field=models.ForeignKey(to='main.UserInput'),
+            field=models.ForeignKey(to='main.UserInput', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -127,13 +127,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='configuration',
             name='coefficients',
-            field=models.ManyToManyField(related_name=b'configurations_as_coefficient', to='main.Variable'),
+            field=models.ManyToManyField(related_name='configurations_as_coefficient', to='main.Variable'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='configuration',
             name='variables',
-            field=models.ManyToManyField(related_name=b'configurations_as_variable', to='main.Variable'),
+            field=models.ManyToManyField(related_name='configurations_as_variable', to='main.Variable'),
             preserve_default=True,
         ),
     ]
