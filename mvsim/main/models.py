@@ -1,12 +1,14 @@
-import colander
-from django.db import models
-from django.contrib.auth.models import User, Group
-import json
-from django.db.models.signals import post_save
-from django.utils.encoding import python_2_unicode_compatible
-from deform.widget import MappingWidget
-from courseaffils.models import Course
 from collections import namedtuple
+import json
+
+import colander
+from courseaffils.models import Course
+from deform.widget import MappingWidget
+from django.contrib.auth.models import User, Group
+from django.db import models
+from django.db.models.signals import post_save
+from django.urls.base import reverse
+from django.utils.encoding import python_2_unicode_compatible
 
 
 def self_registered_user(sender, **kwargs):
@@ -15,7 +17,7 @@ def self_registered_user(sender, **kwargs):
     Course affiliation """
     try:
         u = kwargs['instance']
-        if u.is_anonymous():
+        if u.is_anonymous:
             return
         if len(u.groups.all()) == 0:
             (g, created) = Group.objects.get_or_create(name="NON_CU")
@@ -114,7 +116,8 @@ class Variable(models.Model):
     description = models.TextField(blank=True)
     type = models.TextField(choices=variable_types)
     extra_type_information = models.TextField(blank=True)
-    category = models.ForeignKey(Category, blank=True, null=True)
+    category = models.ForeignKey(Category, blank=True, null=True,
+                                 on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -251,10 +254,10 @@ def user_scores(user):
 
 @python_2_unicode_compatible
 class Game(models.Model):
-    user = models.ForeignKey('auth.User')
-    configuration = models.ForeignKey(Configuration)
-    user_input = models.ForeignKey(UserInput)
-    course = models.ForeignKey('courseaffils.Course')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    configuration = models.ForeignKey(Configuration, on_delete=models.CASCADE)
+    user_input = models.ForeignKey(UserInput, on_delete=models.CASCADE)
+    course = models.ForeignKey('courseaffils.Course', on_delete=models.CASCADE)
     status = models.CharField(max_length=100, default="notstarted")
     score = models.IntegerField(default=0)
     name = models.CharField(max_length=256, default="", blank=True, null=True)
@@ -285,25 +288,20 @@ class Game(models.Model):
     def turns(self):
         return self.state_set.order_by("created")
 
-    @models.permalink
     def show_game_url(self):
-        return ('game_show', [self.pk], {})
+        return reverse('game_show', args=[self.pk])
 
-    @models.permalink
     def delete_url(self):
-        return ('game_delete', [self.pk], {})
+        return reverse('game_delete', args=[self.pk])
 
-    @models.permalink
     def game_history_url(self):
-        return ('game_history', [self.pk], {})
+        return reverse('game_history', args=[self.pk])
 
-    @models.permalink
     def game_over_url(self):
-        return ('game_over', [self.pk], {})
+        return reverse('game_over', args=[self.pk])
 
-    @models.permalink
     def graph_url(self):
-        return ('game_graph', [self.pk], {})
+        return reverse('game_graph', args=[self.pk])
 
     def current_state(self):
         return self.state_set.latest("created")
@@ -377,7 +375,8 @@ class Game(models.Model):
 @python_2_unicode_compatible
 class State(models.Model):
     name = models.TextField(blank=True)
-    game = models.ForeignKey(Game, blank=True, null=True)
+    game = models.ForeignKey(Game, blank=True, null=True,
+                             on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     visible = models.BooleanField(default=True)
 
@@ -398,9 +397,8 @@ class State(models.Model):
 
     state = models.TextField()
 
-    @models.permalink
     def view_state_url(self):
-        return ('view_state', [self.pk], {})
+        return reverse('view_state', args=[self.pk])
 
     def loads(self):
         return json.loads(self.state)
@@ -411,7 +409,7 @@ class CourseSection(models.Model):
     name = models.TextField()
     users = models.ManyToManyField('auth.User')
     starting_states = models.ManyToManyField(State)
-    course = models.ForeignKey('courseaffils.Course')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
