@@ -1,5 +1,6 @@
 from smoketest import SmokeTest
-from .models import Variable
+
+from mvsim.main.models import Variable
 
 
 class DBConnectivity(SmokeTest):

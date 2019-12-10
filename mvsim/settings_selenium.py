@@ -1,5 +1,5 @@
 # flake8: noqa
-from .settings_shared import *
+from mvsim.settings_shared import *  # noqa
 
 
 # Running tests
