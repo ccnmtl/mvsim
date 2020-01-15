@@ -56,11 +56,11 @@ sqlparse==0.3.0
 
 # boto3 deps
 urllib3==1.25.7  # sentry-sdk
-s3transfer==0.2.1
+s3transfer==0.3.0
 jmespath==0.9.4
 
 botocore>=1.14.0,<1.15.0
-boto3>=1.10.0,<1.11.0
+boto3>=1.11.0,<1.12.0
 
 six==1.13.0
 python-dateutil==2.8.1
