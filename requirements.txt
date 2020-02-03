@@ -89,7 +89,7 @@ django-impersonate==1.4.1
 django-stagingcontext==0.1.0
 django-waffle==0.19.0
 django-markwhat==1.6.2
-django-storages==1.9
+django-storages==1.8 # pyup: <1.9
 django-appconf==1.0.3
 django-compressor==2.4
 django-cacheds3storage==0.2.1
