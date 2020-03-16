@@ -84,7 +84,7 @@ certifi==2019.11.28  # sentry-sdk
 sentry-sdk==0.14.2
 django-debug-toolbar==2.2
 
-django-impersonate==1.4.1
+django-impersonate==1.5
 
 django-stagingcontext==0.1.0
 django-waffle==0.20.0
