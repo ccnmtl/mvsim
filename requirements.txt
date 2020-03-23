@@ -49,7 +49,7 @@ lxml==4.5.0
 extras==1.0.0
 python-mimeparse==1.6.0
 fixtures==3.0.0
-testtools==2.3.0
+testtools==2.4.0
 testscenarios==0.5.0
 python-subunit==1.4.0
 sqlparse==0.3.1
