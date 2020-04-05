@@ -80,7 +80,7 @@ django-registration==2.5.2 # pyup: <3.0
 django-statsd-mozilla==0.4.0
 django-smoketest==1.1.0
 raven==6.10.0
-certifi==2019.11.28  # sentry-sdk
+certifi==2020.4.5  # sentry-sdk
 sentry-sdk==0.14.3
 django-debug-toolbar==2.2
 
