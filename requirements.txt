@@ -2,7 +2,7 @@ Django==2.2.11 # pyup: < 3
 httplib2==0.17.0
 feedparser==5.2.1
 Markdown==3.2.1
-psycopg2==2.8.4
+psycopg2==2.8.5
 pytz==2019.2
 
 Tempita==0.5.2
