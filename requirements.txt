@@ -74,7 +74,7 @@ djangowind==1.2.3
 
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
 
-django-courseaffils==2.2.3
+django-courseaffils==2.2.4
 
 django-registration==2.5.2 # pyup: <3.0
 django-statsd-mozilla==0.4.0
