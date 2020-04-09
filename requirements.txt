@@ -1,8 +1,8 @@
-Django==2.2.11 # pyup: < 3
+Django==2.2.12 # pyup: < 3
 httplib2==0.17.1
 feedparser==5.2.1
 Markdown==3.2.1
-psycopg2==2.8.4
+psycopg2==2.8.5
 pytz==2019.2
 
 Tempita==0.5.2
@@ -74,7 +74,7 @@ djangowind==1.2.3
 
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
 
-django-courseaffils==2.2.3
+django-courseaffils==2.2.4
 
 django-registration==2.5.2 # pyup: <3.0
 django-statsd-mozilla==0.4.0
@@ -90,7 +90,7 @@ django-stagingcontext==0.1.0
 django-waffle==0.20.0
 django-markwhat==1.6.2
 django-storages==1.8 # pyup: <1.9
-django-appconf==1.0.3
+django-appconf==1.0.4
 django-compressor==2.4
 django-cacheds3storage==0.2.1
 django-ga-context==0.1.0
