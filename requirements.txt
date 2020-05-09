@@ -3,7 +3,7 @@ httplib2==0.17.3
 feedparser==5.2.1
 Markdown==3.2.1
 psycopg2==2.8.5
-pytz==2019.2
+pytz==2020.1
 
 Tempita==0.5.2
 requirements/src/chainedrandom-0.1.0.tar.gz
