@@ -29,7 +29,7 @@ mccabe==0.6.1
 pycodestyle==2.5.0
 configparser==5.0.0
 flake8==3.7.9
-logilab-common==1.5.2
+logilab-common==1.6.2
 logilab-astng==0.24.3
 lazy-object-proxy==1.4.3
 wrapt==1.12.1
