@@ -26,7 +26,7 @@ coverage==5.1
 pyflakes==2.2.0
 pep8==1.7.1
 mccabe==0.6.1
-pycodestyle==2.5.0
+pycodestyle==2.6.0
 configparser==5.0.0
 flake8==3.7.9
 logilab-common==1.5.2
