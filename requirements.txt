@@ -85,7 +85,7 @@ certifi==2020.4.5.2  # sentry-sdk
 sentry-sdk==0.14.4
 django-debug-toolbar==2.2
 
-django-impersonate==1.5
+django-impersonate==1.5.1
 
 django-stagingcontext==0.1.0
 django-waffle==0.20.0
