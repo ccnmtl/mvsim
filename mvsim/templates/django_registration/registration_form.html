@@ -1,4 +1,4 @@
-{% extends "registration/registration_base.html" %}
+{% extends "base.html" %}
 {% block title %}Register for an account{% endblock %}
 {% block body_attributes %} class="login"{% endblock %}
 {% block content %}
@@ -8,6 +8,15 @@
 
 <p>Use the following form to create a new account to access the Millennium Village Simulation.</p>
 
+{% if form.errors|length %}
+    <div class="alert alert-danger">
+        <strong>Please correct errors before continuing</strong><br /><br />
+        {% if form.non_field_errors %}
+            <div>{{ form.non_field_errors}}</div>
+        {% endif %}
+    </div>
+{% endif %}
+
 <div class="loginbox" style="float: none;">
 	<div class="content">
 
@@ -15,19 +24,32 @@
 	<div class="fieldwrapper">
 		<label for="id_email">Your email address:</label>
 		{{ form.email }}
+        {% if form.email.errors %}
+            <div>{{ form.email.errors}}</div>
+        {% endif %}
 	</div><!-- fieldwrapper -->
 	<div class="fieldwrapper">
 		<label for="id_username">Create your username:</label>
 		{{ form.username }}
+        {% if form.username.errors %}
+            <div>{{ form.username.errors}}</div>
+        {% endif %}
 	</div><!-- fieldwrapper -->
 	<div class="fieldwrapper">
 		<label for="id_password1">Create a password:</label>
 		{{ form.password1 }}
+        {% if form.password1.errors %}
+            <div>{{form.password1.errors}}</div>
+        {% endif %}
 	</div><!-- fieldwrapper -->
 	<div class="fieldwrapper">
 		<label for="id_password2">Confirm your password:</label>
 		{{ form.password2 }}
+        {% if form.password2.errors %}
+            <div>{{form.password2.errors}}</div>
+        {% endif %}
 	</div><!-- fieldwrapper -->
+    
 	<div class="fieldwrapper">
         <input type="submit" class="regbutton" value="Send activation email" /></td>
 	</div><!-- fieldwrapper -->

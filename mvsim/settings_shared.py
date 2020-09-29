@@ -12,7 +12,7 @@ INSTALLED_APPS += [  # noqa
     'courseaffils',
     'mvsim.main',
     'engine',
-    'registration',
+    'django_registration',
 ]
 
 MIDDLEWARE += [  # noqa

@@ -27,7 +27,9 @@ if hasattr(settings, 'CAS_BASE'):
 
 urlpatterns = [
     auth_urls,
-    url(r'^registration/', include('registration.urls')),
+    url(r'^registration/',
+        include('django_registration.backends.activation.urls')),
+    url(r'^registration/', include('django.contrib.auth.urls')),
     url(r'^impersonate/', include('impersonate.urls')),
     url(r'^$', home, name='home'),
     url(r'^section/(?P<section_id>\d+)/games/$', games_index,
