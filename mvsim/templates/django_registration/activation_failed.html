@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}&mdash; {% if account %}Activation complete{% else %}Activation problem{% endif %}{% endblock %}
+{% block content %}
+<div class="m-2">
+    <h3>Account Activation</h3>
+
+    <div><p>Oops &ndash; it seems that your activation key is invalid.  Please check the url again.</p></div>
+</div>
+{% endblock %}
