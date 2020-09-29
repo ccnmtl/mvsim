@@ -1,7 +1,10 @@
-{% extends "django_registration/registration_base.html" %}
+{% extends "base.html" %}
 {% block title %}Activation complete{% endblock %}
 {% block content %}
-Thanks, activation complete!  You may now <a href='{% url 'auth_login' %}'>login</a> using the username and password you set at registration.
+
+<div class="m-2">
+    <h3>Activation Complete!</h3>
+    You may now <a href='/accounts/login/'>login</a> using the username and password you set at registration.
 {% endblock %}
 
 
