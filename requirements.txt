@@ -91,7 +91,7 @@ django-impersonate==1.7
 django-stagingcontext==0.1.0
 django-waffle==2.0.0
 django-markwhat==1.6.2
-django-storages==1.10.1
+django-storages==1.11.1
 django-appconf==1.0.4
 django-compressor==2.4
 django-cacheds3storage==0.2.2
