@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ccnmtl/mvsim.png)](https://travis-ci.org/ccnmtl/mvsim)
+[![Actions Status](https://github.com/ccnmtl/mvsim/workflows/build-and-test/badge.svg)](https://github.com/ccnmtl/mvsim/actions)
 
 This is the Millennium Village Simulation project, or MVSim, a
 teaching tool to help students appreciate the complexity of meeting
