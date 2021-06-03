@@ -46,7 +46,7 @@ tornado==6.1
 cssselect==1.1.0
 sure==1.4.11
 
-ipdb==0.13.8
+ipdb==0.13.9
 lxml==4.6.3
 
 extras==1.0.0
