@@ -71,7 +71,7 @@ gunicorn==20.1.0
 pyasn1==0.4.8
 pyOpenSSL==20.0.1
 ndg-httpsclient==0.5.1
-contextlib2==0.6.0.post1
+contextlib2==21.6.0
 
 djangowind==1.2.3
 
