@@ -58,7 +58,7 @@ python-subunit==1.4.0
 sqlparse==0.4.2
 
 # boto3 deps
-urllib3==1.26.6  # sentry-sdk
+urllib3==1.26.7  # sentry-sdk
 s3transfer==0.5.0
 jmespath==0.10.0
 
