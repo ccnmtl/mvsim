@@ -34,7 +34,7 @@ zipp==3.6.0  # for flake8
 flake8==4.0.1
 logilab-common==1.8.1
 lazy-object-proxy==1.6.0
-wrapt==1.13.1
+wrapt==1.13.2
 
 astroid==2.8.2
 
