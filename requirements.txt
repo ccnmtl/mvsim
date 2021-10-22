@@ -62,7 +62,7 @@ urllib3==1.26.7  # sentry-sdk
 s3transfer==0.5.0
 jmespath==0.10.0
 
-botocore>=1.15.0,<1.22.0
+botocore>=1.15.0,<1.23.0
 boto3>=1.12.0,<1.20.0
 
 six==1.16.0
@@ -92,7 +92,7 @@ django-impersonate==1.7.3
 django-stagingcontext==0.1.0
 django-waffle==2.2.1
 django-markwhat==1.6.2
-django-storages==1.11.1
+django-storages==1.12.2
 django-appconf==1.0.5
 django-compressor==2.4.1
 django-cacheds3storage==0.2.2
