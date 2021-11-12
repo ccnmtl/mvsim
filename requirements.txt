@@ -21,14 +21,14 @@ deform==2.0.15
 
 statsd==3.3.0
 
-coverage==6.1.1
+coverage==6.1.2
 
 pyflakes==2.4.0
 pep8==1.7.1
 mccabe==0.6.1
 pycodestyle==2.8.0
 configparser==5.1.0
-importlib-metadata==4.8.1  # for flake8
+importlib-metadata==4.8.2  # for flake8
 typing_extensions==3.10.0.2
 zipp==3.6.0  # for flake8
 flake8==4.0.1
@@ -63,7 +63,7 @@ s3transfer==0.5.0
 jmespath==0.10.0
 
 botocore>=1.15.0,<1.24.0
-boto3>=1.12.0,<1.20.0
+boto3>=1.12.0,<1.21.0
 
 six==1.16.0
 python-dateutil==2.8.2
@@ -92,7 +92,7 @@ django-impersonate==1.7.3
 django-stagingcontext==0.1.0
 django-waffle==2.2.1
 django-markwhat==1.6.2
-django-storages==1.12.2
+django-storages==1.12.3
 django-appconf==1.0.5
 django-compressor==2.4.1
 django-cacheds3storage==0.2.2
