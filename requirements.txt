@@ -81,7 +81,7 @@ django-courseaffils==2.2.5
 
 django-registration==3.2
 django-statsd-mozilla==0.4.0
-django-smoketest==1.1.2
+django-smoketest==1.2.0
 raven==6.10.0
 certifi==2021.10.8  # sentry-sdk
 sentry-sdk==1.5.0
