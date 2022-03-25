@@ -3,6 +3,8 @@
 # CHANGES:
 # 1.9.0              - Use coverage tool directly to generate coverage
 #                      reports.
+#                    - wheel and pip updates
+#                    - Use pre-compiled binary wheel for cryptography
 # 1.8.0 - 2019-10-21 - Don't run flake8 on local_settings.py
 # 1.7.0 - 2018-05-31 - Now using python 3 by default
 #                    - Removed virtualenv.py in favor of python 3's
@@ -20,8 +22,8 @@ MANAGE ?= ./manage.py
 REQUIREMENTS ?= requirements.txt
 SYS_PYTHON ?= python3
 PY_SENTINAL ?= $(VE)/sentinal
-WHEEL_VERSION ?= 0.33.6
-PIP_VERSION ?= 19.3.1
+WHEEL_VERSION ?= 0.37.1
+PIP_VERSION ?= 22.0.4
 MAX_COMPLEXITY ?= 10
 INTERFACE ?= localhost
 RUNSERVER_PORT ?= 8000
@@ -47,13 +49,13 @@ $(PY_SENTINAL): $(REQUIREMENTS)
 	rm -rf $(VE)
 	$(SYS_PYTHON) -m venv $(VE)
 	$(PIP) install pip==$(PIP_VERSION)
-	$(PIP) install setuptools==57.5.0
+	$(PIP) install --upgrade setuptools
 	$(PIP) install wheel==$(WHEEL_VERSION)
-	$(PIP) install --no-deps --requirement $(REQUIREMENTS) --no-binary cryptography
+	$(PIP) install --no-deps --requirement $(REQUIREMENTS)
 	touch $@
 
 test: $(PY_SENTINAL)
-	$(COVERAGE) run --source='.' --omit=$(VE)/* $(MANAGE) test $(APP)
+	$(COVERAGE) run --source='.' --omit=$(VE)/* $(MANAGE) test $(PY_DIRS)
 	$(COVERAGE) xml -o reports/coverage.xml
 
 parallel-tests: $(PY_SENTINAL)
