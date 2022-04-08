@@ -8,7 +8,6 @@ from django.contrib.auth.models import User, Group
 from django.db import models
 from django.db.models.signals import post_save
 from django.urls.base import reverse
-from django.utils.encoding import python_2_unicode_compatible
 
 
 def self_registered_user(sender, **kwargs):
@@ -101,7 +100,6 @@ schema_node_factories = {
     'list': colander.Sequence, }
 
 
-@python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
@@ -109,7 +107,6 @@ class Category(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Variable(models.Model):
     name = models.TextField(unique=True)
     symbol = models.TextField(unique=True)
@@ -252,7 +249,6 @@ def user_scores(user):
     return data
 
 
-@python_2_unicode_compatible
 class Game(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     configuration = models.ForeignKey(Configuration, on_delete=models.CASCADE)
@@ -372,7 +368,6 @@ class Game(models.Model):
             return CourseSection.objects.filter(course=self.course)[0]
 
 
-@python_2_unicode_compatible
 class State(models.Model):
     name = models.TextField(blank=True)
     game = models.ForeignKey(Game, blank=True, null=True,
@@ -404,7 +399,6 @@ class State(models.Model):
         return json.loads(self.state)
 
 
-@python_2_unicode_compatible
 class CourseSection(models.Model):
     name = models.TextField()
     users = models.ManyToManyField('auth.User')
