@@ -21,6 +21,7 @@ MIDDLEWARE += [  # noqa
 
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = '/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 DEFORM_TEMPLATE_OVERRIDES = os.path.join(os.path.dirname(__file__),
