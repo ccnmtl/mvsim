@@ -1,4 +1,4 @@
-Django==3.2.12
+Django==3.2.13
 asgiref==3.5.0
 httplib2==0.20.2
 feedparser==6.0.8
