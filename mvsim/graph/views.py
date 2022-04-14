@@ -261,6 +261,10 @@ def add_divided_health(variables, turns):
 def add_divided_farming_getter(turn, name):
     total_effort = turn.variables.effort_farming
     plots = turn.variables.crops
+    if len(plots) < 1:
+        # no plots allocated
+        return 0
+
     if name == "effort_farming_maize":
         amount = sum(1 for i in plots if i == "Maize")
     elif name == "effort_farming_cotton":
