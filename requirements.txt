@@ -80,7 +80,7 @@ requirements/src/djangohelpers-0.23-py2.py3-none-any.whl
 
 django-courseaffils==2.2.6
 
-django-registration==3.2
+django-registration==3.3
 django-statsd-mozilla==0.4.0
 django-smoketest==1.2.0
 raven==6.10.0
