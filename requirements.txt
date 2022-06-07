@@ -91,7 +91,7 @@ django-debug-toolbar==3.4.0
 django-impersonate==1.8.1
 
 django-stagingcontext==0.1.0
-django-waffle==2.4.1
+django-waffle==2.5.0
 django-markwhat==1.6.2
 django-storages==1.12.3
 django-appconf==1.0.5
