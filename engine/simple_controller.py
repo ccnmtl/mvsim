@@ -105,7 +105,9 @@ def calories_list(kwargs, name_positions, names):
             (c, name) = k.split('-')
             if kwargs[k] == '' or name not in name_positions:
                 continue
-            calories[name_positions[name]] = int(float(kwargs[k]))
+            # replace commas with decimal points
+            value = kwargs[k].replace(',', '.')
+            calories[name_positions[name]] = int(float(value))
     return calories
 
 
