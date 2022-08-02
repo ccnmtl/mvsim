@@ -32,7 +32,7 @@ configparser==5.2.0
 importlib-metadata<4.13 # for flake8
 typing_extensions==4.3.0
 zipp==3.8.0  # for flake8
-flake8==4.0.1
+flake8==5.0.3
 logilab-common==1.9.2
 lazy-object-proxy==1.7.1
 wrapt==1.14.0
