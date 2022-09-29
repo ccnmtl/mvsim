@@ -9,7 +9,7 @@ pytz==2022.2
 Tempita==0.5.2
 requirements/src/chainedrandom-0.1.0.tar.gz
 
-iso8601==1.0.2
+iso8601==1.1.0
 colander==1.8.3
 translationstring==1.4
 
