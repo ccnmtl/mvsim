@@ -34,7 +34,7 @@ typing_extensions==4.4.0
 zipp==3.10.0  # for flake8
 flake8==5.0.3
 logilab-common==1.9.2
-lazy-object-proxy==1.7.1
+lazy-object-proxy==1.8.0
 wrapt==1.14.0
 
 astroid==2.12.1
