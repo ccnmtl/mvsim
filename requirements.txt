@@ -20,7 +20,7 @@ Chameleon==3.10.0
 zope.deprecation==4.4.0
 deform==2.0.15
 
-statsd==3.3.0
+statsd==4.0.1
 
 coverage==6.5.0
 
