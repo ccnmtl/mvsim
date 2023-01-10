@@ -21,7 +21,6 @@ dependencies in a virtualenv.  Installation is simple:
     $ git clone git://github.com/ccnmtl/mvsim.git
     $ cd mvsim
 
-Note that Python 2.7 is currently required.
 
 Edit the `settings_shared.py` file to suit your needs (don't forget to
 create a database, or change the settings to use SQLite) and then
