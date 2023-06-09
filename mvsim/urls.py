@@ -5,6 +5,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView
+from django.urls import path
 from mvsim.main.views import (
     home, history, view_turn_history, show_turn, delete_game, edit_game,
     submit_turn, game_over, games_index, view_state, clone_state,
@@ -14,6 +15,7 @@ from mvsim.main.views import (
 from mvsim.graph.views import (
     graph, graph_svg, graph_download,
 )
+from django_cas_ng import views as cas_views
 
 
 admin.autodiscover()
@@ -21,12 +23,12 @@ admin.autodiscover()
 site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 doc_root = os.path.join(os.path.dirname(__file__), "../docs", "_build", "html")
 
-auth_urls = url(r'^accounts/', include('django.contrib.auth.urls'))
-if hasattr(settings, 'CAS_BASE'):
-    auth_urls = url(r'^accounts/', include('djangowind.urls'))
-
 urlpatterns = [
-    auth_urls,
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    path('cas/login', cas_views.LoginView.as_view(),
+         name='cas_ng_login'),
+    path('cas/logout', cas_views.LogoutView.as_view(),
+         name='cas_ng_logout'),
     url(r'^registration/',
         include('django_registration.backends.activation.urls')),
     url(r'^registration/', include('django.contrib.auth.urls')),

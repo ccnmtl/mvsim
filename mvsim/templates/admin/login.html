@@ -17,28 +17,29 @@
 {% endif %}
 
 <div id="content-main">
-    <form method="get" action="{{CAS_BASE}}cas/login">
-        <input type="hidden" name="destination" value="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}/accounts/caslogin/?next=/admin/&this_is_the_login_form=1" />
-        <p>If you have a Columbia UNI, you already have an account and can
-        login through WIND with it</p>
-        <input type="submit" value="Here" />
-    </form>
-    {% if debug %}
-        <p>otherwise: </p>
+  <form method="get" action="/cas/login">
+  {% csrf_token %}
+    <input type="hidden" name="next" value="/admin/" />
+    <p>If you have a Columbia University Network ID (UNI)...</p>
+    <input class="regbutton" type="submit" value="Columbia Log In" />
+  </form>
+  {% if debug %}
+    <p>otherwise: </p>
 
-        <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
-          <div class="form-row">
-            <label for="id_username">{% translate 'Username:' %}</label> <input type="text" name="username" id="id_username" />
-          </div>
-          <div class="form-row">
-            <label for="id_password">{% translate 'Password:' %}</label> <input type="password" name="password" id="id_password" />
-            <input type="hidden" name="this_is_the_login_form" value="1" />
-            <input type="hidden" name="post_data" value="{{ post_data }}" /> {#<span class="help">{% translate 'Have you <a href="/password_reset/">forgotten your password</a>?' %}</span>#}
-          </div>
-          <div class="submit-row">
-            <label>&nbsp;</label><input type="submit" value="{% translate 'Log in' %}" />
-          </div>
-        </form>
+    <form action="{{ app_path }}" method="post" id="login-form">
+      {% csrf_token %}
+      <div class="form-row">
+        <label for="id_username">{% translate 'Username:' %}</label> <input type="text" name="username" id="id_username" />
+      </div>
+      <div class="form-row">
+        <label for="id_password">{% translate 'Password:' %}</label> <input type="password" name="password" id="id_password" />
+        <input type="hidden" name="this_is_the_login_form" value="1" />
+        <input type="hidden" name="post_data" value="{{ post_data }}" /> {#<span class="help">{% translate 'Have you <a href="/password_reset/">forgotten your password</a>?' %}</span>#}
+      </div>
+      <div class="submit-row">
+        <label>&nbsp;</label><input type="submit" value="{% translate 'Log in' %}" />
+      </div>
+    </form>
     {% endif %}
     <script type="text/javascript">
     document.getElementById('id_username').focus()

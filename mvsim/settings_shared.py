@@ -8,15 +8,32 @@ base = os.path.dirname(__file__)
 
 locals().update(common(project=project, base=base))
 
+CAS_SERVER_URL = 'https://cas.columbia.edu/cas/'
+CAS_VERSION = '3'
+CAS_ADMIN_REDIRECT = False
+
+# Translate CUIT's CAS user attributes to the Django user model.
+# https://cuit.columbia.edu/content/cas-3-ticket-validation-response
+CAS_APPLY_ATTRIBUTES_TO_USER = True
+CAS_RENAME_ATTRIBUTES = {
+    'givenName': 'first_name',
+    'lastName': 'last_name',
+    'mail': 'email',
+}
+
+INSTALLED_APPS.remove('djangowind') # noqa
+
 INSTALLED_APPS += [  # noqa
     'courseaffils',
     'mvsim.main',
     'engine',
     'django_registration',
+    'django_cas_ng',
 ]
 
 MIDDLEWARE += [  # noqa
     'djangohelpers.middleware.AuthRequirementMiddleware',
+    'django_cas_ng.middleware.CASMiddleware',
 ]
 
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = '/'
@@ -28,6 +45,11 @@ DEFORM_TEMPLATE_OVERRIDES = os.path.join(os.path.dirname(__file__),
                                          "../deform_templates")
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas_ng.backends.CASBackend'
+]
 
 PROJECT_APPS = [
     'mvsim.main',
