@@ -58,6 +58,9 @@ PROJECT_APPS = [
     #    'mvsim.graph',
 ]
 
+TEMPLATES[0]['OPTIONS']['context_processors'].remove(
+    'djangowind.context.context_processor')
+
 DEFAULT_FROM_EMAIL = 'mvsim@mvsim.ccnmtl.columbia.edu'
 
 ANONYMOUS_PATHS = (
