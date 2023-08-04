@@ -32,7 +32,6 @@ INSTALLED_APPS += [  # noqa
 ]
 
 MIDDLEWARE += [  # noqa
-    'djangohelpers.middleware.AuthRequirementMiddleware',
     'django_cas_ng.middleware.CASMiddleware',
 ]
 
@@ -62,17 +61,6 @@ TEMPLATES[0]['OPTIONS']['context_processors'].remove(
     'djangowind.context.context_processor')
 
 DEFAULT_FROM_EMAIL = 'mvsim@mvsim.ccnmtl.columbia.edu'
-
-ANONYMOUS_PATHS = (
-    '/accounts/',
-    '/static/',
-    '/site_media/',
-    '/docs/',
-    '/admin/',
-    '/registration/',
-    '/favicon.ico',
-    '/smoketest/',
-)
 
 COURSEAFFILS_COURSESTRING_MAPPER = CourseStringMapper
 
