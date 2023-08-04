@@ -72,8 +72,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^smoketest/', include('smoketest.urls')),
     url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
-    url(r'^stats/auth/$', TemplateView.as_view(
-        template_name="auth_stats.html")),
     url(r'^static/(?P<path>.*)$', django.views.static.serve,
         {'document_root': site_media_root}),
     url(r'^site_media/(?P<path>.*)$', django.views.static.serve,
