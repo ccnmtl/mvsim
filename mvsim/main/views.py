@@ -229,10 +229,14 @@ def make_sure_user_is_in_at_least_one_course(user):
 
 @rendered_with("home.html")
 def home(request):
-    make_sure_user_is_in_at_least_one_course(request.user)
+    sections = []
+    if not request.user.is_anonymous:
+        make_sure_user_is_in_at_least_one_course(request.user)
+        sections = CourseSection.objects.filter(users=request.user)
+
     return dict(
         starting_state_id=None,
-        sections=CourseSection.objects.filter(users=request.user))
+        sections=sections)
 
 
 @rendered_with("games_index.html")
