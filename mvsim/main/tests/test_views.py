@@ -10,8 +10,12 @@ class SimpleTest(TestCase):
         self.c = Client()
 
     def test_root(self):
-        response = self.c.get("/")
-        self.assertEqual(response.status_code, 302)
+        response = self.c.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            'You are not in any course sections.')
+        self.assertContains(response, 'Log in')
 
     def test_smoke(self):
         self.c.get("/smoketest/")

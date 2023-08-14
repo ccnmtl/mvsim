@@ -14,7 +14,7 @@ work through before interacting with the application.
 A `COURSEAFFILS_COURSESTRING_MAPPER` Django setting is used to
 determine how logged-in users should be auto-associated with courses.
 By default it is set to a Columbia-specific backend that integrates
-with the WIND login system and Djangowind[2] auth backend. 
+with the WIND login system and django-cas[2] auth backend.
 
 The primary `courseaffils` model is `courseaffils.Course`. Courses
 must be added to the system via the Django Admin UI before users can
@@ -33,7 +33,7 @@ as `request.course` which is set through a session key in the
 which currently lacks any high-level docs.)
 
 [1] https://github.com/ccnmtl/django_courseaffils
-[2] https://github.com/ccnmtl/djangowind
+[2] https://github.com/django-cas-ng/django-cas-ng
 
 Course Sections
 ---------------
