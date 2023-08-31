@@ -1,10 +1,11 @@
-# VERSION=1.8.0
+# VERSION=1.9.0
 
 # CHANGES:
 # 1.9.0              - Use coverage tool directly to generate coverage
 #                      reports.
 #                    - wheel and pip updates
 #                    - Use pre-compiled binary wheel for cryptography
+#                    - Remove Travis references
 # 1.8.0 - 2019-10-21 - Don't run flake8 on local_settings.py
 # 1.7.0 - 2018-05-31 - Now using python 3 by default
 #                    - Removed virtualenv.py in favor of python 3's
@@ -22,28 +23,18 @@ MANAGE ?= ./manage.py
 REQUIREMENTS ?= requirements.txt
 SYS_PYTHON ?= python3
 PY_SENTINAL ?= $(VE)/sentinal
-WHEEL_VERSION ?= 0.37.1
-PIP_VERSION ?= 22.0.4
+WHEEL_VERSION ?= 0.40.0
+PIP_VERSION ?= 23.1.2
 MAX_COMPLEXITY ?= 10
 INTERFACE ?= localhost
 RUNSERVER_PORT ?= 8000
 PY_DIRS ?= $(APP)
+BANDIT ?= $(VE)/bin/bandit
+FLAKE8 ?= $(VE)/bin/flake8
+PIP ?= $(VE)/bin/pip
+COVERAGE ?= $(VE)/bin/coverage
 
-# Travis has issues here. See:
-# https://github.com/travis-ci/travis-ci/issues/9524
-ifeq ($(TRAVIS),true)
-	BANDIT ?= bandit
-	FLAKE8 ?= flake8
-	PIP ?= pip
-	COVERAGE ?= coverage
-else
-	BANDIT ?= $(VE)/bin/bandit
-	FLAKE8 ?= $(VE)/bin/flake8
-	PIP ?= $(VE)/bin/pip
-	COVERAGE ?= $(VE)/bin/coverage
-endif
-
-jenkins: check flake8 test eslint bandit
+jenkins: check flake8 test bandit
 
 $(PY_SENTINAL): $(REQUIREMENTS)
 	rm -rf $(VE)
@@ -88,26 +79,4 @@ clean:
 	rm -rf node_modules
 	find . -name '*.pyc' -exec rm {} \;
 
-pull:
-	git pull
-	make check
-	make test
-	make migrate
-	make flake8
-
-rebase:
-	git pull --rebase
-	make check
-	make test
-	make migrate
-	make flake8
-
-# run this one the very first time you check
-# this out on a new machine to set up dev
-# database, etc. You probably *DON'T* want
-# to run it after that, though.
-install: jenkins
-	createdb $(APP)
-	make migrate
-
-.PHONY: jenkins test flake8 runserver migrate check shell clean pull rebase install
+.PHONY: jenkins test flake8 runserver migrate check shell clean
