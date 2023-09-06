@@ -75,7 +75,7 @@ ndg-httpsclient==0.5.1
 contextlib2==21.6.0
 
 python-cas==1.6.0
-django-cas-ng==4.3.0
+django-cas-ng==5.0.0
 requests==2.31.0
 chardet==5.2.0
 idna==3.4
