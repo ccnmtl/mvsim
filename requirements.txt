@@ -2,7 +2,7 @@ Django>=3.2.14,<4
 asgiref==3.7.1
 httplib2==0.22.0
 feedparser==6.0.8
-Markdown==3.4.1
+Markdown==3.5
 psycopg2==2.9.3
 pytz==2023.3
 
