@@ -1,6 +1,6 @@
 from django.conf import settings
 from mvsim.settings_shared import *  # noqa: F403
-from ccnmtlsettings.production import common
+from ctlsettings.production import common
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -14,6 +14,7 @@ locals().update(
         base=base,
         STATIC_ROOT=STATIC_ROOT,  # noqa: F405
         INSTALLED_APPS=INSTALLED_APPS,  # noqa: F405
+        s3prefix='ccnmtl',
         cloudfront='d3l9lx77lf1ppr',
     ))
 
