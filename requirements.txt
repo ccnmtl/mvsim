@@ -101,7 +101,7 @@ django-appconf==1.0.5
 django-ga-context==0.1.0
 django-smtp-ssl==1.0
 
-ctlsettings==0.3.0
+ctlsettings==0.3.1
 confusable_homoglyphs==3.2.0
 
 pbr==6.0.0
