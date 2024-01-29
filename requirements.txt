@@ -15,7 +15,7 @@ translationstring==1.4
 
 peppercorn==0.6
 ordereddict==1.1
-Chameleon==4.4.0
+Chameleon==4.5.1
 
 zope.deprecation==5.0
 deform==2.0.15
