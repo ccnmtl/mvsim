@@ -1,9 +1,6 @@
-from django.conf import settings
 from mvsim.settings_shared import *  # noqa: F403
 from ctlsettings.production import common
 import os
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 project = 'mvsim'
 base = os.path.dirname(__file__)
@@ -19,14 +16,8 @@ locals().update(
     ))
 
 try:
-    from mvsim.local_settings import *  # noqa: F403
+    from mvsim.local_settings import *  # noqa: F403 F401
 except ImportError:
     pass
 
 MVSIM_GRAPH_OUTPUT_DIRECTORY = "/var/www/mvsim/uploads/graphs"
-
-if hasattr(settings, 'SENTRY_DSN'):
-    sentry_sdk.init(
-        dsn=SENTRY_DSN,  # noqa: F405
-        integrations=[DjangoIntegration()],
-    )
