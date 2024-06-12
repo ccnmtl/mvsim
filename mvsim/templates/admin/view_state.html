@@ -32,11 +32,11 @@
       
     {% if readonly %}
         <div class="alert warning">
-        	{% ifequal state.id 1 %}
+        	{% if state.id == 1 %}
             	This state is the default starting state for the MV Sim application. The variables and coefficients cannot be changed.
             {% else %}
             	This state has associated games. It cannot be changed.
-            {% endifequal %}
+            {% endif %}
         </div>
     {% endif %}
 

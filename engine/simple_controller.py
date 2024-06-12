@@ -173,11 +173,11 @@ def adjust_submission(kwargs, names):
 
 
 def format_float(number, decimals=1):
-    return locale.format('%.' + str(decimals) + 'f', number, True)
+    return locale.format_string('%.' + str(decimals) + 'f', number, True)
 
 
 def format_int(number):
-    return locale.format('%i', round(number), True)
+    return locale.format_string('%i', round(number), True)
 
 
 def money_report(value):
