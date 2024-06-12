@@ -131,7 +131,7 @@ startApp(initial_layer, url_builder, null, set_bookmark);
 	    {% for variable in variables %}
 	    <option 
 	       value="{{variable.name}}"
-	       {% ifequal variable.name primary_xaxis %}{% if variable.name|neq:"morx" %}selected="selected"{% endif %}{% endifequal %}>
+	       {% if variable.name == primary_xaxis %}{% if variable.name|neq:"morx" %}selected="selected"{% endif %}{% endif %}>
 	      {{variable.descriptive_name}}
 	    </option>
 	    {% endfor %}
@@ -228,7 +228,7 @@ startApp(initial_layer, url_builder, null, set_bookmark);
 	      {% for variable in variables %}
 	      <option 
 		 value="{{variable.name}}"
-		 {% ifequal variable.name secondary_xaxis %}{% if variable.name|neq:"morx" %}selected="selected"{% endif %}{% endifequal %}>
+		 {% if variable.name == secondary_xaxis %}{% if variable.name|neq:"morx" %}selected="selected"{% endif %}{% endif %}>
 		{{variable.descriptive_name}}
 	      </option>
 	      {% endfor %}

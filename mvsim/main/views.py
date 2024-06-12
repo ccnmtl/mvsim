@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django_statsd.clients import statsd
 from djangohelpers.lib import allow_http, rendered_with
 from django.contrib.auth.models import Group
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from engine import display_logic, logic
 from engine.logic import get_notifications
 from mvsim.main.models import Game, State, CourseSection, Configuration, \
@@ -357,7 +357,7 @@ def edit_game(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     if not game.viewable(request.user):
         return forbidden()
-    game.name = request.GET.get('name', smart_text(game))
+    game.name = request.GET.get('name', smart_str(game))
     game.save()
     return HttpResponse("ok")
 
