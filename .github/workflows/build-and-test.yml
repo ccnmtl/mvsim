@@ -8,5 +8,7 @@ jobs:
           python-version: [3.8, "3.12"]
     steps:
       - uses: actions/checkout@v4
-      - name: Build with Makefile
+      - name: Check eslint
+        run: make eslint
+      - name: Run django tests
         run: make
