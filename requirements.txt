@@ -23,7 +23,7 @@ deform==2.0.15
 
 statsd==4.0.1
 
-coverage==7.5.0
+coverage==7.6.0
 
 pyflakes==3.2.0
 pep8==1.7.1
