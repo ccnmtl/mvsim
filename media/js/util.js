@@ -1,5 +1,6 @@
 /* exported getCookie, setCookie */
 
+// eslint-disable-next-line no-unused-vars
 function getCookie(name) {
     var dc = document.cookie;
     var prefix = name + '=';
@@ -19,6 +20,7 @@ function getCookie(name) {
     return unescape(dc.substring(begin + prefix.length, end));
 }
 
+// eslint-disable-next-line no-unused-vars
 function setCookie(name, value, expires, path, domain, secure) {
     document.cookie = name + '=' + escape(value) +
         ((expires) ? '; expires=' + expires.toGMTString() : '') +
