@@ -1,5 +1,6 @@
+from django.conf import settings
 from mvsim.settings_shared import *  # noqa: F403
-from ctlsettings.production import common
+from ctlsettings.production import common, init_sentry
 import os
 
 project = 'mvsim'
@@ -21,3 +22,6 @@ except ImportError:
     pass
 
 MVSIM_GRAPH_OUTPUT_DIRECTORY = "/var/www/mvsim/uploads/graphs"
+
+if hasattr(settings, 'SENTRY_DSN'):
+    init_sentry(SENTRY_DSN)  # noqa F405
