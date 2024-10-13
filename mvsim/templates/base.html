@@ -1,10 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
     <title>MV Sim: {% block title %}{% endblock %}</title>
-    
+
+    {% include "ctlsettings/sentry_js.html" %}
+
     {% block scripts %}{% endblock %}
     <style type="text/css">
       #pageLogin {
@@ -31,46 +33,46 @@ gtag('config', '{{GA_CODE}}', { 'anonymize_ip': true });
     </script>
     {% endif %}
   </head>
-  
+
   <body{% block body_attributes %}{% endblock %}>
     <div id="header">
       {% if not user.is_anonymous %}
       <div id="pageLogin">
-	<ul>
-	  <li>
-	    <b>Name:</b>
-	    {{user.username}}
-	  </li>
-	  
-	  
-	  {% if request.user.is_superuser %}
-		<li><a href="/course_sections/">Admin</a></li>
-	  {% endif %}
+    <ul>
+      <li>
+        <b>Name:</b>
+        {{user.username}}
+      </li>
 
-	  <li>
+
+      {% if request.user.is_superuser %}
+        <li><a href="/course_sections/">Admin</a></li>
+      {% endif %}
+
+      <li>
 {% if section %}
       <a href="/section/{{section.id}}/games/">My Games</a>
 {% else %}
-	    <a href="/">My Games</a>
+        <a href="/">My Games</a>
 {% endif %}
-	  </li>
-	  {% if user.is_admin %}
-	  <li><a href="/admin/">Sim admin</a></li>
-	  {% endif %}
-	  <li><a href="http://mvsim.wikispaces.com">Help</a></li>
-	  <li><a href="http://mvsim.wikispaces.com/Credits">Credits</a></li>
-	  <li><a href="mailto:ccnmtl-mvsim@columbia.edu">Feedback</a></li>
-	  <li><a href="/?unset_course">Switch Course</a></li>
-	  <li><a href="/accounts/logout/">Logout</a></li>
-	</ul>
+      </li>
+      {% if user.is_admin %}
+      <li><a href="/admin/">Sim admin</a></li>
+      {% endif %}
+      <li><a href="http://mvsim.wikispaces.com">Help</a></li>
+      <li><a href="http://mvsim.wikispaces.com/Credits">Credits</a></li>
+      <li><a href="mailto:ccnmtl-mvsim@columbia.edu">Feedback</a></li>
+      <li><a href="/?unset_course">Switch Course</a></li>
+      <li><a href="/accounts/logout/">Logout</a></li>
+    </ul>
       </div>
       {% endif %}
     </div>
-    
+
     <div id="main_content">
       {% block content %}{% endblock %}
     </div>
-    
+
     {% block endscripts %}
     {% endblock %}
 {% if request.user.is_impersonate %}
