@@ -7,7 +7,7 @@ Markdown==3.7
 psycopg[binary]==3.2.1
 pytz==2024.2
 
-Tempita==0.5.2
+Tempita==0.6.0
 requirements/src/chainedrandom-0.1.0.tar.gz
 
 iso8601==2.1.0
