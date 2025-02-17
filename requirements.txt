@@ -32,7 +32,7 @@ pycodestyle==2.12.0
 configparser==7.1.0
 importlib-metadata<8.7 # for flake8
 typing_extensions==4.12.2
-zipp==3.20.0  # for flake8
+zipp==3.21.0  # for flake8
 flake8==7.1.0
 logilab-common==2.0.0
 lazy-object-proxy==1.10.0
