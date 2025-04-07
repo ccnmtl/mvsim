@@ -84,7 +84,7 @@ requirements/src/djangohelpers-0.25-py3-none-any.whl
 
 django-courseaffils==2.4.0
 
-django-registration==5.1.0
+django-registration==5.2.1
 django-statsd-mozilla==0.4.0
 django-smoketest==1.2.1
 raven==6.10.0
