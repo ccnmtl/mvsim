@@ -11,7 +11,7 @@ Tempita==0.6.0
 requirements/src/chainedrandom-0.1.0.tar.gz
 
 iso8601==2.1.0
-colander==1.8.3
+colander==2.0
 translationstring==1.4
 
 peppercorn==0.6
