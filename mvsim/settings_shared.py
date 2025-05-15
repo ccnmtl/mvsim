@@ -37,7 +37,7 @@ PROJECT_APPS = [
     #    'mvsim.graph',
 ]
 
-DEFAULT_FROM_EMAIL = 'mvsim@mvsim.ccnmtl.columbia.edu'
+DEFAULT_FROM_EMAIL = 'mvsim@mail.ctl.columbia.edu'
 
 COURSEAFFILS_COURSESTRING_MAPPER = CourseStringMapper
 
