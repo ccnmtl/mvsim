@@ -76,7 +76,7 @@ contextlib2==21.6.0
 
 python-cas==1.6.0
 django-cas-ng==5.0.1
-requests==2.32.1
+requests==2.32.4
 chardet==5.2.0
 idna==3.10
 
