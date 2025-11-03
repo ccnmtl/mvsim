@@ -8,11 +8,16 @@ base = os.path.dirname(__file__)
 
 locals().update(common(project=project, base=base))
 
+MIDDLEWARE += [  # noqa
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
 INSTALLED_APPS += [  # noqa
     'courseaffils',
     'mvsim.main',
     'engine',
     'django_registration',
+    'debug_toolbar',
 ]
 
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = '/'
