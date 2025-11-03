@@ -8,7 +8,7 @@ base = os.path.dirname(__file__)
 
 locals().update(common(project=project, base=base))
 
-MIDDLWARE += [  # noqa
+MIDDLEWARE += [  # noqa
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
