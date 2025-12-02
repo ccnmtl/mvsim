@@ -4,7 +4,7 @@ asgiref==3.11.0
 httplib2==0.31.0
 feedparser==6.0.8
 Markdown==3.10
-psycopg[binary]==3.2.1
+psycopg[binary]==3.3.0
 pytz==2025.2
 
 Tempita==0.6.0
