@@ -80,7 +80,7 @@ idna==3.11
 
 requirements/src/djangohelpers-0.25-py3-none-any.whl
 
-django-courseaffils==2.5.0
+django-courseaffils==2.5.1
 
 django-registration==5.2.1
 django-statsd-mozilla==0.4.0
