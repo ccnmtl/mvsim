@@ -54,7 +54,7 @@ fixtures==4.2.2
 testtools==2.8.0
 testscenarios==0.5.0
 python-subunit==1.4.0
-sqlparse==0.5.0
+sqlparse==0.5.4
 
 # boto3 deps
 urllib3==2.6.3  # sentry-sdk
