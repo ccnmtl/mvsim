@@ -19,7 +19,7 @@ ordereddict==1.1
 Chameleon==4.6.0
 
 zope.deprecation==6.0
-deform==2.0.15
+deform==3.0.1
 
 statsd==4.0.1
 
