@@ -19,7 +19,7 @@
     "url": "https://github.com/ccnmtl/mvsim/issues"
   },
   "devDependencies": {
-    "eslint": "~9.39.0",
+    "eslint": "~10.0.2",
     "globals": "^17.0.0"
   }
 }
