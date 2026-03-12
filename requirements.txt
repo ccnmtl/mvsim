@@ -41,7 +41,7 @@ astroid==4.1.0
 pylint==4.0.0
 
 pyparsing==3.3.1
-tornado==6.5.1
+tornado==6.5.5
 cssselect==1.4.0
 sure==3.0a2
 
