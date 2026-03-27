@@ -75,7 +75,7 @@ contextlib2==21.6.0
 python-cas==1.7.1
 django-cas-ng==5.1.0
 requests==2.33.0
-chardet==7.3.0
+chardet==7.4.0.post1
 idna==3.11
 
 requirements/src/djangohelpers-0.25-py3-none-any.whl
