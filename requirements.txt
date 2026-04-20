@@ -46,7 +46,7 @@ cssselect==1.4.0
 sure==3.0a2
 
 ipdb==0.13.9
-lxml==6.0.0
+lxml==6.1.0
 
 extras==1.0.0
 python-mimeparse==2.0.0
