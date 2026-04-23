@@ -76,7 +76,7 @@ python-cas==1.7.1
 django-cas-ng==5.1.0
 requests==2.33.0
 chardet==7.4.0.post1
-idna==3.12
+idna==3.13
 
 requirements/src/djangohelpers-0.25-py3-none-any.whl
 
