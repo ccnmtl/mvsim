@@ -87,7 +87,7 @@ django-statsd-mozilla==0.4.0
 django-smoketest==1.2.1
 raven==6.10.0
 certifi==2026.5.20  # sentry-sdk
-sentry-sdk[django]==2.62.0
+sentry-sdk[django]==2.63.0
 django-debug-toolbar==6.3.0
 
 django-impersonate==1.9.1
