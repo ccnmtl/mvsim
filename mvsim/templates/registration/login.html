@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Log In{% endblock %}
 {% block body_attributes %} class="login"{% endblock %}
+
+{% block extrahead %}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async
+        defer></script>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function enableSubmit() {
+            document.getElementById("local_login").disabled = false;
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
-
-
 <div id="content">
 	<div class="loginbox">
 		<h2>Choose a login option...</h2>
@@ -35,7 +47,7 @@
 						<label for="id_password">Password:</label>
 						{{ form.password }}
 					</div><!-- fieldwrapper -->
-				<input class="regbutton" type="submit" value="Guest Log In" id="local_login" />
+				<input class="regbutton mb-4" type="submit" value="Guest Log In" id="local_login" disabled />
 				<input type="hidden" name="next" value="{{ next }}" />
 			</form>
 			<p class="smalltxt">
@@ -43,6 +55,7 @@
 				<a href="/registration/register/" title="Create your new project account">Need a new account?</a> 
 			</p>
 		</div>
+		<div class="cf-turnstile" data-sitekey="{{ TURNSTILE_SITE_KEY }}" data-callback="enableSubmit" ></div>
 	</div>
 
 	<h2>Welcome to the Millennium Village Simulation</h2>
