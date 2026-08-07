@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Register for an account{% endblock %}
 {% block body_attributes %} class="login"{% endblock %}
+
+{% block extrahead %}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async
+        defer></script>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function enableSubmit() {
+            document.getElementById("reg-login").disabled = false;
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
 <div id="content">
 
@@ -51,11 +65,12 @@
 	</div><!-- fieldwrapper -->
     
 	<div class="fieldwrapper">
-        <input type="submit" class="regbutton" value="Send activation email" /></td>
+        <input id="reg-login" type="submit" class="regbutton" value="Send activation email" disabled /></td>
 	</div><!-- fieldwrapper -->
-    </form>
+</form>
 
-	</div><!-- content -->
+</div><!-- content -->
+<div class="cf-turnstile" data-sitekey="{{ TURNSTILE_SITE_KEY }}" data-callback="enableSubmit" ></div>
 </div><!-- loginbox -->
 <br />
 </div>
