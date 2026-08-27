@@ -18,6 +18,7 @@ INSTALLED_APPS += [  # noqa
     'engine',
     'django_registration',
     'debug_toolbar',
+    'rest_framework',
 ]
 
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = '/'
